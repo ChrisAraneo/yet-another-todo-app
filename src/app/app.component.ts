@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 
 @Component({
-  selector: 'app-root',
+  selector: 'yata-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'Angular 12 Electron Webpack5 Demo';
-  selected: Date | null = null;
 
   constructor(private es: ElectronService) {}
 
