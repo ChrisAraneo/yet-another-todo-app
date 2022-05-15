@@ -8,6 +8,8 @@ import { ElectronService } from 'ngx-electron';
 })
 export class AppComponent {
   title = 'Angular 12 Electron Webpack5 Demo';
+  selected: Date | null = null;
+
   constructor(private es: ElectronService) {}
 
   ngOnInit() {
