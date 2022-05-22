@@ -9,23 +9,25 @@ import { NgxElectronModule } from 'ngx-electron';
 import { MaterialModule } from 'src/material.module';
 import { AppComponent } from './app.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
-import { TodoCardComponent } from './components/todo-card/todo-card.component';
+import { TaskCardComponent } from './components/task-card/task-card.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    TodoCardComponent,
+    TaskCardComponent,
     DatepickerComponent,
+    TaskStateIconComponent,
   ],
   imports: [
+    MaterialModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
     MatNativeDateModule,
-    MaterialModule,
     ReactiveFormsModule,
     NgxElectronModule,
     FlexLayoutModule,
