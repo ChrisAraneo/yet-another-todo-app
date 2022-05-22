@@ -20,3 +20,6 @@ $theme: mat.define-light-theme(( color: ( primary: $theme-primary, accent: $them
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($theme);
+//
+$theme-success: rgb(75, 181, 67);
+$theme-warn: rgb(204, 51, 0);
