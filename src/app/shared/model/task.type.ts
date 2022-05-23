@@ -1,4 +1,4 @@
-import { TaskState } from './task-state.type';
+import { TaskState } from './task-state.enum';
 
 export type Task = {
   id: string;
