@@ -1,26 +1,44 @@
 {
-  "css.validate": false,
+  "css.validate": true,
   "extensions.ignoreRecommendations": false,
   "files.autoSave": "off",
   "editor.wordWrap": "on",
   "editor.largeFileOptimizations": false,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "json.maxItemsComputed": 100000,
+  "html.format.wrapLineLength": 200,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
     "source.fixAll.eslint": true
   },
-  "editor.formatOnSave": true,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.formatOnSave": true,
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+    "editor.formatOnSave": true
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
   },
-  "prettier.printWidth": 200,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+  },
+  "workbench.colorTheme": "Winter is Coming (Dark Blue)",
   "background.enabled": true,
   "background.loop": false,
   "background.useDefault": false,
