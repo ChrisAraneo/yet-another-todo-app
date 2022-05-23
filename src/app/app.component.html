@@ -1,13 +1,15 @@
 <div class="main mat-typography mat-app-background">
     <yata-toolbar></yata-toolbar>
-    <div fxLayout="row" fxLayoutAlign="center" class="padding-12">
-        <div fxFlex="1280px" class="padding-12">
-            <div fxLayout="row" fxLayoutAlign="center" class="padding-12">
-                <div fxFlex="30%" class="padding-12">
+    <div fxLayout="row" fxLayoutAlign="center" class="p-12">
+        <div fxFlex="1280px" class="p-12">
+            <div fxLayout="row" fxLayoutAlign="center" class="p-12">
+                <div fxFlex="30%" class="p-12">
                     <yata-datepicker></yata-datepicker>
                 </div>
-                <div fxFlex="70%" class="padding-12">
-                    <yata-task-card [tasks]="tasks"></yata-task-card>
+                <div fxFlex="70%" class="p-12">
+                    <div class="mb-12">
+                        <yata-task-card [date]="selectedDate" [tasks]="selectedTasks"></yata-task-card>
+                    </div>
                 </div>
             </div>
         </div>
