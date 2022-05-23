@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TaskState } from 'src/app/shared/model/task-state.type';
+import { TaskState } from 'src/app/shared/model/task-state.enum';
 
 @Component({
   selector: 'yata-task-state-icon',

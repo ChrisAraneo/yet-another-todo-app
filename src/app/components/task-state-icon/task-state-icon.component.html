@@ -1,5 +1,5 @@
-<mat-icon *ngIf="state == states.NotStarted" class="opacity-03">new_releases</mat-icon>
-<mat-icon *ngIf="state == states.InProgress" class="opacity-04">autorenew</mat-icon>
-<mat-icon *ngIf="state == states.Finished" class="success">check_circle</mat-icon>
-<mat-icon *ngIf="state == states.Suspended" class="opacity-04">hourglass_empty</mat-icon>
-<mat-icon *ngIf="state == states.Rejected" class="warn">cancel</mat-icon>
+<mat-icon *ngIf="state === states.NotStarted" class="opacity-015">new_releases</mat-icon>
+<mat-icon *ngIf="state === states.InProgress" class="opacity-04">autorenew</mat-icon>
+<mat-icon *ngIf="state === states.Finished" class="success">check_circle</mat-icon>
+<mat-icon *ngIf="state === states.Suspended" class="opacity-04">hourglass_empty</mat-icon>
+<mat-icon *ngIf="state === states.Rejected" class="warn">cancel</mat-icon>
