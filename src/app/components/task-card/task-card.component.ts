@@ -1,12 +1,7 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { TaskState } from 'src/app/shared/model/task-state.type';
+import { TasksService } from 'src/app/services/tasks.service';
+import { TaskState } from 'src/app/shared/model/task-state.enum';
 import { Task } from 'src/app/shared/model/task.type';
 
 @Component({
@@ -16,23 +11,17 @@ import { Task } from 'src/app/shared/model/task.type';
 })
 export class TaskCardComponent implements OnInit, OnChanges {
   @Input() date: Date | null = null;
-  @Input() tasks?: Task[];
+  @Input() tasks?: Task[] | null;
 
   displayedColumns: string[] = ['title', 'startDate', 'endDate', 'state'];
   dataSource = new MatTableDataSource<Task>([]);
-  states = [
-    TaskState.NotStarted,
-    TaskState.InProgress,
-    TaskState.Finished,
-    TaskState.Suspended,
-    TaskState.Rejected,
-  ];
+  states = [TaskState.NotStarted, TaskState.InProgress, TaskState.Finished, TaskState.Suspended, TaskState.Rejected];
   isSelectingStateForId: string | null = null;
 
-  constructor() {}
+  constructor(private tasksService: TasksService) {}
 
   ngOnInit(): void {
-    this.updateDataSource(this.tasks);
+    this.updateDataSource(this.tasks ? this.tasks : []);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,13 +32,9 @@ export class TaskCardComponent implements OnInit, OnChanges {
     this.isSelectingStateForId = taskId;
   }
 
-  changeState(value: TaskState, element: any): void {
-    console.log(element);
+  changeState(newState: TaskState, element: Task): void {
+    this.tasksService.updateTaskState(element.id, newState);
     this.setIsSelectingState(null);
-  }
-
-  hey(event: any) {
-    console.log('A', event);
   }
 
   private updateDataSource(tasks: Task[] = []) {
