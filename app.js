@@ -10,17 +10,18 @@ function createWindow() {
     height: 600,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, `/dist/angular-electron/index.html`),
+      pathname: path.join(__dirname, `/index.html`),
       protocol: 'file:',
       slashes: true,
     }),
   );
-  // Open the DevTools.
+
   mainWindow.webContents.openDevTools();
 
   mainWindow.on('closed', function () {
