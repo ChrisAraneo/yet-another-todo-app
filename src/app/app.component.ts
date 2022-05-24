@@ -10,7 +10,7 @@ import { Task } from './shared/model/task.type';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = '';
+  title = 'Yet Another Todo App';
   allTasks: Task[] = [];
   selectedDate: Date = new Date();
   selectedTasks: Task[] = [];
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private es: ElectronService, private tasksService: TasksService) {}
 
   ngOnInit() {
-    this.es.isElectronApp ? (this.title = 'Electron Application') : (this.title = 'Standard Angular Web Application');
+    // this.es.isElectronApp ? (this.title = 'Electron Application') : (this.title = 'Standard Angular Web Application');
 
     this.subscription = this.tasksService.getTasksStream().subscribe((newState: Task[]) => {
       this.allTasks = newState;
