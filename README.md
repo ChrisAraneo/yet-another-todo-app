@@ -8,5 +8,11 @@
 
 ## Run the application
 
-`npm run electron`
-`ng serve -o`
+`npm run start`
+`npm run electron-start`
+
+## Building the distributable web app & desktop app
+
+`npm run build`
+
+The distributables will be built into `dist` folder.
