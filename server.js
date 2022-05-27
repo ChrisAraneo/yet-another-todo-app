@@ -1,14 +1,15 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
+const environmentDev = require('./src/environments/environment.json');
 
 const server = express();
-const port = 9339;
+const port = environmentDev.port;
 const storePath = process.argv[2] ? process.argv[2] : path.join(process.cwd(), '/store.json');
 
 server.use(express.json());
 
-server.get('/', (request, response) => {
+server.get('/', (_, response) => {
   response.send(JSON.stringify(readStoreFile(storePath)));
 });
 
@@ -18,7 +19,7 @@ server.post('/', (request, response) => {
   response.send(result);
 });
 
-server.listen(port, function () {
+server.listen(port, () => {
   console.log(`Server running at ${port}`);
 });
 
