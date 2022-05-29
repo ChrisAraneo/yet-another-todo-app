@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
+const cors = require('cors');
 const environmentDev = require('./src/environments/environment.json');
 
 const server = express();
@@ -9,9 +10,13 @@ const storePath = process.argv[2] ? process.argv[2] : path.join(process.cwd(), '
 const responseHeaders = environmentDev.responseHeaders;
 
 server.use(express.json());
+server.use(cors());
 
 server.get('/', (_, response) => {
-  response.set(responseHeaders).send(JSON.stringify(readStoreFile(storePath)));
+  response.set(responseHeaders).send({
+    status: 'success',
+    data: JSON.stringify(readStoreFile(storePath)),
+  });
 });
 
 server.post('/', (request, response) => {
@@ -28,9 +33,17 @@ function writeStoreFile(filePath, fileContent) {
   try {
     fs.writeFileSync(filePath, fileContent, 'utf-8');
   } catch (e) {
-    return 'Failed to save the file!';
+    return JSON.stringify({
+      status: 'error',
+      message: e,
+      data: null,
+    });
   }
-  return 'File saved.';
+
+  return JSON.stringify({
+    status: 'success',
+    data: null,
+  });
 }
 
 function readStoreFile(filePath) {
