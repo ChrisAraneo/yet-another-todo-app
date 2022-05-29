@@ -6,17 +6,18 @@ const environmentDev = require('./src/environments/environment.json');
 const server = express();
 const port = environmentDev.port;
 const storePath = process.argv[2] ? process.argv[2] : path.join(process.cwd(), '/store.json');
+const responseHeaders = environmentDev.responseHeaders;
 
 server.use(express.json());
 
 server.get('/', (_, response) => {
-  response.send(JSON.stringify(readStoreFile(storePath)));
+  response.set(responseHeaders).send(JSON.stringify(readStoreFile(storePath)));
 });
 
 server.post('/', (request, response) => {
   const { body } = request;
   const result = writeStoreFile(storePath, JSON.stringify(body));
-  response.send(result);
+  response.set(responseHeaders).send(result);
 });
 
 server.listen(port, () => {
