@@ -3,6 +3,7 @@
     "host": "localhost",
     "port": 9339,
     "responseHeaders": {
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json"
     }
 }
