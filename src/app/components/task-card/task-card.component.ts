@@ -13,7 +13,7 @@ export class TaskCardComponent implements OnInit, OnChanges {
   @Input() date: Date | null = null;
   @Input() tasks?: Task[] | null;
 
-  displayedColumns: string[] = ['title', 'startDate', 'endDate', 'state'];
+  displayedColumns: string[] = ['title', 'startDate', 'endDate', 'state', 'actions'];
   dataSource = new MatTableDataSource<Task>([]);
   states = [TaskState.NotStarted, TaskState.InProgress, TaskState.Finished, TaskState.Suspended, TaskState.Rejected];
   isSelectingStateForId: string | null = null;
