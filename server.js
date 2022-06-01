@@ -3,30 +3,63 @@ const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
 const environmentDev = require('./src/environments/environment.json');
+const jsonDiff = require('json-diff');
+const log4js = require('log4js');
+
+let data = null;
 
 const server = express();
 const port = environmentDev.port;
 const storePath = process.argv[2] ? process.argv[2] : path.join(process.cwd(), '/store.json');
 const responseHeaders = environmentDev.responseHeaders;
 
+const logger = log4js.getLogger();
+logger.level = 'debug';
+
 server.use(express.json());
 server.use(cors());
 
 server.get('/', (_, response) => {
-  response.set(responseHeaders).send({
-    status: 'success',
-    data: JSON.stringify(readStoreFile(storePath)),
-  });
+  logger.debug('Received GET / request');
+  if (!data) {
+    logger.debug('Cache is empty');
+    logger.debug('Reading store file');
+    data = readStoreFile(storePath);
+  }
+
+  logger.debug('Sending response to GET /');
+  response.set(responseHeaders).send(
+    JSON.stringify({
+      status: 'success',
+      data: data,
+    }),
+  );
 });
 
 server.post('/', (request, response) => {
+  logger.debug('Received POST / request');
+
   const { body } = request;
-  const result = writeStoreFile(storePath, JSON.stringify(body));
-  response.set(responseHeaders).send(result);
+
+  if (jsonDiff.diff(body, data)) {
+    console.log('Request contained different store object than currently stored so it will be updated');
+    data = body;
+
+    logger.debug('Writing store file');
+    const result = writeStoreFile(storePath, JSON.stringify(body));
+    logger.debug('Sending response to POST /');
+    response.set(responseHeaders).send(result);
+  } else {
+    logger.debug('Sending response to POST /');
+    response.set(responseHeaders).send({
+      status: 'success',
+      data: data,
+    });
+  }
 });
 
 server.listen(port, () => {
-  console.log(`Server running at ${port}`);
+  logger.debug(`Server started running at ${port}`);
 });
 
 function writeStoreFile(filePath, fileContent) {
