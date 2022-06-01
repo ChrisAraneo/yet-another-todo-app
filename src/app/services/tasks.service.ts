@@ -3,10 +3,13 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
+import { first } from 'rxjs/operators';
 import { TaskState } from 'src/app/shared/model/task-state.enum';
 import { Task } from 'src/app/shared/model/task.type';
-import { createTask, removeTask, updateTaskState } from 'src/app/store/task.actions';
+import { createTask, removeTask, setTasks, updateTaskState } from 'src/app/store/task.actions';
 import { environment } from 'src/environments/environment';
+import { ApiResponseStatus } from '../shared/model/api-response-status.enum';
+import { ApiResponse } from '../shared/model/api-response.type';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +18,18 @@ export class TasksService implements OnDestroy {
   tasks$: Observable<Task[]>;
 
   private url = `${environment.api.origin}/`;
-  private subscription: Subscription;
+  private subscription: Subscription = new Subscription();
+  private isLoading: boolean = true;
 
   constructor(private store: Store<{ tasks: Task[] }>, private http: HttpClient) {
     this.fetchStoredTasksFromApi(this.url);
     this.tasks$ = store.select('tasks');
-    this.subscription = this.tasks$.subscribe((tasks) => this.postTasksToApi(this.url, tasks));
+
+    this.subscription.add(
+      this.tasks$.subscribe((tasks: Task[]) => {
+        !this.isLoading && this.postTasksToApi(this.url, tasks);
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -43,11 +52,14 @@ export class TasksService implements OnDestroy {
     return this.tasks$;
   }
 
-  private fetchStoredTasksFromApi(url: string) {
-    this.http.get(url).subscribe((response: any) => {
-      if (response && response.status == 'success') {
-        const data: any[] = response.data;
-        data.forEach((item: any) => {
+  private fetchStoredTasksFromApi(url: string): void {
+    this.isLoading = true;
+
+    (this.http.get(url) as Observable<ApiResponse>).pipe(first()).subscribe((response: ApiResponse) => {
+      this.isLoading = false;
+
+      if (response && response.status === ApiResponseStatus.Success) {
+        const tasks: Task[] = response.data.map((item: any) => {
           const id: string = item.id;
           const title: string = item.title;
           const startDate: Date = new Date(Date.parse(item.startDate));
@@ -60,13 +72,24 @@ export class TasksService implements OnDestroy {
             endDate,
             state,
           };
-          this.createTask(task);
+          return task;
         });
+        this.setTasks(tasks);
       }
+      /* TODO Handling errors */
     });
   }
 
+  private setTasks(tasks: Task[]) {
+    this.store.dispatch(setTasks({ tasks }));
+  }
+
   private postTasksToApi(url: string, tasks: Task[]) {
-    this.http.post(url, tasks).subscribe((_) => {});
+    this.http
+      .post(url, tasks)
+      .pipe(first())
+      .subscribe((_) => {
+        /* TODO Handling errors */
+      });
   }
 }
