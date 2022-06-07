@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { Subscription } from 'rxjs';
 import { TasksService } from './services/tasks.service';
+import { TaskState } from './shared/model/task-state.enum';
 import { Task } from './shared/model/task.type';
 
 @Component({
@@ -12,7 +13,7 @@ import { Task } from './shared/model/task.type';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Yet Another Todo App';
   allTasks: Task[] = [];
-  selectedDate: Date = new Date();
+  selectedDate: Date | null = new Date();
   selectedTasks: Task[] = [];
   subscription: Subscription = new Subscription();
 
@@ -31,20 +32,32 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  private filterTasksStartedOnDate(tasks: Task[], date: Date): Task[] {
-    return tasks.filter(({ startDate, endDate }) => {
-      const todayMidnight: number = this.getLastUTCMidnightDate(date);
-      const tommorowMidnight: number = this.getNextUTCMidnightDate(date);
+  changeSelectedDate(date: Date | null): void {
+    this.selectedDate = date;
+    this.selectedTasks = this.filterTasksStartedOnDate(this.allTasks, this.selectedDate);
+  }
 
-      return startDate.getTime() > todayMidnight && (endDate === undefined || endDate.getTime() < tommorowMidnight);
+  private filterTasksStartedOnDate(tasks: Task[], selectedDate: Date | null): Task[] {
+    if (selectedDate === null) {
+      return [];
+    }
+
+    const selectedDateString = selectedDate.toDateString();
+
+    return tasks.filter(({ state, startDate, endDate }) => {
+      const startDateString = startDate.toDateString();
+      const endDateString = endDate ? endDate.toDateString() : '';
+      const hasStartedToday = startDateString === selectedDateString;
+      const hasStartedInThePast = startDate.valueOf() <= selectedDate.valueOf();
+      const hasEndedToday = endDateString === selectedDateString;
+      const hasEndedLater = endDate ? endDate.valueOf() > selectedDate.valueOf() : false;
+      if (state === TaskState.NotStarted || state === TaskState.InProgress || state === TaskState.Suspended) {
+        return hasStartedToday || hasStartedInThePast;
+      } else if (state === TaskState.Finished) {
+        return (hasStartedToday || hasStartedInThePast) && (hasEndedToday || hasEndedLater);
+      } else {
+        return false;
+      }
     });
-  }
-
-  private getLastUTCMidnightDate(date: Date): number {
-    return new Date(new Date(new Date(date.setUTCHours(0)).setUTCMinutes(0)).setUTCSeconds(0)).setUTCMilliseconds(0);
-  }
-
-  private getNextUTCMidnightDate(date: Date): number {
-    return new Date(new Date(this.getLastUTCMidnightDate(date)).getDate() + 1).getTime();
   }
 }

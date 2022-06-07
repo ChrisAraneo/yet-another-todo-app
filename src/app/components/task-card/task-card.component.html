@@ -1,7 +1,7 @@
 <mat-card>
     <h1 class="mat-title">{{ date | date }}</h1>
     <mat-card-content class="flex">
-        <table #yoma mat-table [dataSource]="dataSource" class="flex-grow-1 flex-shrink-1 flex-basis-0">
+        <table mat-table [dataSource]="dataSource" class="flex-grow-1 flex-shrink-1 flex-basis-0">
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef>Title</th>
                 <td mat-cell *matCellDef="let element">{{ element.title }}</td>
