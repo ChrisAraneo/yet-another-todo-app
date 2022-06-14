@@ -1,17 +1,17 @@
 @import "../../../theme.scss";
 
 .opacity-015 {
-    opacity: 0.15;
+    opacity: 0.15 !important;
 }
 
 .opacity-04 {
-    opacity: 0.4;
+    opacity: 0.4 !important;
 }
 
 .success {
-    color: $theme-success;
+    color: $theme-success  !important;
 }
 
 .warn {
-    color: $theme-warn;
+    color: $theme-warn  !important;
 }

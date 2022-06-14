@@ -1,6 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TaskState } from 'src/app/shared/model/task-state.enum';
 
+type TaskStateIconData = {
+  icon: string;
+  class: string;
+  description: string;
+};
+
 @Component({
   selector: 'yata-task-state-icon',
   templateUrl: './task-state-icon.component.html',
@@ -9,15 +15,19 @@ import { TaskState } from 'src/app/shared/model/task-state.enum';
 export class TaskStateIconComponent implements OnInit {
   @Input() state: TaskState | null = null;
 
-  states = {
-    NotStarted: TaskState.NotStarted,
-    InProgress: TaskState.InProgress,
-    Finished: TaskState.Finished,
-    Suspended: TaskState.Suspended,
-    Rejected: TaskState.Rejected,
-  };
+  taskStates: Record<TaskState, TaskStateIconData>;
+  keys: TaskState[];
 
-  constructor() {}
+  constructor() {
+    this.taskStates = {
+      [TaskState.NotStarted]: { icon: 'new_releases', class: 'opacity-015', description: 'TODO' },
+      [TaskState.InProgress]: { icon: 'autorenew', class: 'opacity-04', description: 'TODO' },
+      [TaskState.Finished]: { icon: 'check_circle', class: 'success', description: 'TODO' },
+      [TaskState.Suspended]: { icon: 'hourglass_empty', class: 'opacity-04', description: 'TODO' },
+      [TaskState.Rejected]: { icon: 'cancel', class: 'warn', description: 'TODO' },
+    };
+    this.keys = Object.getOwnPropertyNames(this.taskStates) as TaskState[];
+  }
 
   ngOnInit(): void {}
 }
