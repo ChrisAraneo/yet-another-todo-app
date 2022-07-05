@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnDestroy {
       const hasEndedLater = endDate ? endDate.valueOf() > selectedDate.valueOf() : false;
       if (state === TaskState.NotStarted || state === TaskState.InProgress || state === TaskState.Suspended) {
         return hasStartedToday || hasStartedInThePast;
-      } else if (state === TaskState.Finished) {
+      } else if (state === TaskState.Finished || state === TaskState.Rejected) {
         return (hasStartedToday || hasStartedInThePast) && (hasEndedToday || hasEndedLater);
       } else {
         return false;
