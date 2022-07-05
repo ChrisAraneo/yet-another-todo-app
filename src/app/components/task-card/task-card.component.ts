@@ -28,16 +28,11 @@ export class TaskCardComponent implements OnInit, OnChanges {
     changes.tasks && this.updateDataSource(changes.tasks.currentValue);
   }
 
-  setIsSelectingState(taskId: string | null): void {
-    this.isSelectingStateForId = taskId;
+  changeState(newState: TaskState, taskId: string): void {
+    this.tasksService.updateTaskState(taskId, newState);
   }
 
-  changeState(newState: TaskState, element: Task): void {
-    this.tasksService.updateTaskState(element.id, newState);
-    this.setIsSelectingState(null);
-  }
-
-  private updateDataSource(tasks: Task[] = []) {
+  private updateDataSource(tasks: Task[] = []): void {
     this.dataSource.data = tasks;
   }
 }

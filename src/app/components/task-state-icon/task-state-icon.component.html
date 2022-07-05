@@ -3,7 +3,7 @@
         <mat-icon [ngClass]="taskStates[state].class">{{ taskStates[state].icon }}</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let key of keys">
+        <button mat-menu-item *ngFor="let key of keys" (click)="onSelect(key)">
             <mat-icon [ngClass]="taskStates[key].class">{{ taskStates[key].icon }}</mat-icon>
             <span>{{ taskStates[key].description }}</span>
         </button>

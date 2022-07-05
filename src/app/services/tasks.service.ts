@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { first } from 'rxjs/operators';
 import { TaskState } from 'src/app/shared/model/task-state.enum';
 import { Task } from 'src/app/shared/model/task.type';
-import { createTask, removeTask, setTasks, updateTaskState } from 'src/app/store/task.actions';
+import { createTask, removeTask, setTasks, updateTaskEndDate, updateTaskState } from 'src/app/store/task.actions';
 import { environment } from 'src/environments/environment';
 import { ApiResponseStatus } from '../shared/model/api-response-status.enum';
 import { ApiResponse } from '../shared/model/api-response.type';
@@ -46,6 +46,16 @@ export class TasksService implements OnDestroy {
 
   updateTaskState(taskId: string, newState: TaskState) {
     this.store.dispatch(updateTaskState({ taskId, newState }));
+
+    if (newState === TaskState.Finished || newState === TaskState.Rejected) {
+      this.updateTaskEndDate(taskId, new Date());
+    } else {
+      this.updateTaskEndDate(taskId);
+    }
+  }
+
+  updateTaskEndDate(taskId: string, endDate?: Date) {
+    this.store.dispatch(updateTaskEndDate({ taskId, endDate }));
   }
 
   getTasksStream(): Observable<Task[]> {

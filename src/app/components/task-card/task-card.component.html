@@ -32,10 +32,7 @@
             <ng-container matColumnDef="state">
                 <th mat-header-cell *matHeaderCellDef>State</th>
                 <td mat-cell *matCellDef="let element">
-                    <yata-task-state-icon *ngIf="isSelectingStateForId != element.id" [state]="element.state" (click)="setIsSelectingState(element.id)"></yata-task-state-icon>
-                    <div *ngIf="isSelectingStateForId == element.id">
-                        <yata-task-state-icon *ngFor="let state of states" [state]="state" (click)="changeState(state, element)"></yata-task-state-icon>
-                    </div>
+                    <yata-task-state-icon [state]="element.state" (selectedState)="changeState($event, element.id)"></yata-task-state-icon>
                 </td>
             </ng-container>
             <ng-container matColumnDef="actions">

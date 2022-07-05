@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TaskState } from 'src/app/shared/model/task-state.enum';
 
 type TaskStateIconData = {
@@ -14,9 +14,10 @@ type TaskStateIconData = {
 })
 export class TaskStateIconComponent implements OnInit {
   @Input() state: TaskState | null = null;
+  @Output() selectedState: EventEmitter<TaskState>;
 
-  taskStates: Record<TaskState, TaskStateIconData>;
-  keys: TaskState[];
+  readonly taskStates: Record<TaskState, TaskStateIconData>;
+  readonly keys: TaskState[];
 
   constructor() {
     this.taskStates = {
@@ -27,7 +28,12 @@ export class TaskStateIconComponent implements OnInit {
       [TaskState.Rejected]: { icon: 'cancel', class: 'warn', description: 'TODO' },
     };
     this.keys = Object.getOwnPropertyNames(this.taskStates) as TaskState[];
+    this.selectedState = new EventEmitter<TaskState>();
   }
 
   ngOnInit(): void {}
+
+  onSelect(state: TaskState) {
+    this.selectedState.emit(state);
+  }
 }
