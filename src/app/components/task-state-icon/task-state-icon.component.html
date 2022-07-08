@@ -5,7 +5,7 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let key of keys" (click)="onSelect(key)">
             <mat-icon [ngClass]="taskStates[key].class">{{ taskStates[key].icon }}</mat-icon>
-            <span>{{ taskStates[key].description }}</span>
+            <span>{{ taskStates[key].description | translate }}</span>
         </button>
     </mat-menu>
 </ng-container>

@@ -21,11 +21,15 @@ export class TaskStateIconComponent implements OnInit {
 
   constructor() {
     this.taskStates = {
-      [TaskState.NotStarted]: { icon: 'new_releases', class: 'opacity-015', description: 'TODO' },
-      [TaskState.InProgress]: { icon: 'autorenew', class: 'opacity-04', description: 'TODO' },
-      [TaskState.Finished]: { icon: 'check_circle', class: 'success', description: 'TODO' },
-      [TaskState.Suspended]: { icon: 'hourglass_empty', class: 'opacity-04', description: 'TODO' },
-      [TaskState.Rejected]: { icon: 'cancel', class: 'warn', description: 'TODO' },
+      [TaskState.NotStarted]: {
+        icon: 'new_releases',
+        class: 'opacity-015',
+        description: 'task-state-icon.NOT_STARTED',
+      },
+      [TaskState.InProgress]: { icon: 'autorenew', class: 'opacity-04', description: 'task-state-icon.IN_PROGRESS' },
+      [TaskState.Finished]: { icon: 'check_circle', class: 'success', description: 'task-state-icon.FINISHED' },
+      [TaskState.Suspended]: { icon: 'hourglass_empty', class: 'opacity-04', description: 'task-state-icon.SUSPENDED' },
+      [TaskState.Rejected]: { icon: 'cancel', class: 'warn', description: 'task-state-icon.REJECTED' },
     };
     this.keys = Object.getOwnPropertyNames(this.taskStates) as TaskState[];
     this.selectedState = new EventEmitter<TaskState>();
