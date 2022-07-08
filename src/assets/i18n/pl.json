@@ -1,0 +1,15 @@
+{
+    "task-state-icon": {
+        "NOT_STARTED": "Nierozpoczęte",
+        "IN_PROGRESS": "W trakcie",
+        "FINISHED": "Zakończone",
+        "SUSPENDED": "Przerwane",
+        "REJECTED": "Odrzucone"
+    },
+    "task-card": {
+        "TITLE": "Tytuł",
+        "START": "Początek",
+        "END": "Koniec",
+        "STATE": "Status"
+    }
+}
