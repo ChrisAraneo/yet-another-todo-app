@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ElectronService } from 'ngx-electron';
 import { Subscription } from 'rxjs';
 import { TasksService } from './services/tasks.service';
@@ -17,7 +18,13 @@ export class AppComponent implements OnInit, OnDestroy {
   selectedTasks: Task[] = [];
   subscription: Subscription = new Subscription();
 
-  constructor(private es: ElectronService, private tasksService: TasksService) {}
+  constructor(private es: ElectronService, private tasksService: TasksService, translate: TranslateService) {
+    translate.addLangs(['en']);
+    translate.setDefaultLang('en');
+
+    const browserLang = translate.getBrowserLang() || '';
+    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+  }
 
   ngOnInit() {
     // this.es.isElectronApp ? (this.title = 'Electron Application') : (this.title = 'Standard Angular Web Application');
