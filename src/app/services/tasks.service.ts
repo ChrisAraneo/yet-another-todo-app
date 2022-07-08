@@ -72,12 +72,14 @@ export class TasksService implements OnDestroy {
         const tasks: Task[] = response.data.map((item: any) => {
           const id: string = item.id;
           const title: string = item.title;
-          const startDate: Date = new Date(Date.parse(item.startDate));
+          const creationDate: Date = new Date(Date.parse(item.creationDate));
+          const startDate: Date | undefined = item.startDate && new Date(Date.parse(item.startDate));
           const endDate: Date | undefined = item.endDate && new Date(Date.parse(item.endDate));
           const state: TaskState = item.state;
           const task: Task = {
             id,
             title,
+            creationDate,
             startDate,
             endDate,
             state,

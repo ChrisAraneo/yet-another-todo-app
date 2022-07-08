@@ -3,11 +3,11 @@
     <mat-card-content class="flex">
         <table mat-table [dataSource]="dataSource" class="w-100">
             <ng-container matColumnDef="title">
-                <th mat-header-cell *matHeaderCellDef>Title</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'task-card.TITLE' | translate }}</th>
                 <td mat-cell *matCellDef="let element">{{ element.title }}</td>
             </ng-container>
             <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef>Start</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'task-card.START' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <div>
                         {{ element.startDate | date: "dd/MM" }}
@@ -15,10 +15,11 @@
                     <div>
                         {{ element.startDate | date: "HH:mm" }}
                     </div>
+                    <span *ngIf="!element.startDate">-</span>
                 </td>
             </ng-container>
             <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef>End</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'task-card.END' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <div>
                         {{ element.endDate | date: "dd/MM" }}
@@ -30,7 +31,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="state">
-                <th mat-header-cell *matHeaderCellDef>State</th>
+                <th mat-header-cell *matHeaderCellDef>{{ 'task-card.STATE' | translate }}</th>
                 <td mat-cell *matCellDef="let element">
                     <yata-task-state-icon [state]="element.state" (selectedState)="changeState($event, element.id)"></yata-task-state-icon>
                 </td>
