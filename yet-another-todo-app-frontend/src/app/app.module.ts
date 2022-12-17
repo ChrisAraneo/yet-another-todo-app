@@ -6,11 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent],
+  declarations: [AppComponent, ToolbarComponent, SideNavigationComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
