@@ -1,0 +1,15 @@
+:host {
+  box-sizing: border-box;
+  width: 192px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-family: "Spectral", serif;
+    font-weight: 200;
+    font-size: 20px;
+  }
+}

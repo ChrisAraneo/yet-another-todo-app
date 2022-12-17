@@ -9,9 +9,17 @@ import { AppComponent } from './app.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
+import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineHeaderComponent } from './timeline/timeline-header/timeline-header.component';
 
 @NgModule({
-  declarations: [AppComponent, ToolbarComponent, SideNavigationComponent],
+  declarations: [
+    AppComponent,
+    ToolbarComponent,
+    SideNavigationComponent,
+    TimelineComponent,
+    TimelineHeaderComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
