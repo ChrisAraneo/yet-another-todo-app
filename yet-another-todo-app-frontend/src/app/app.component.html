@@ -1,4 +1,5 @@
 <yata-toolbar [title]="title" (menuClick)="onMenuClick()"></yata-toolbar>
-<yata-side-navigation [isOpened]="isMenuOpened">
+<mat-drawer-container autosize>
+  <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
   <h1>{{title}}</h1>
-</yata-side-navigation>
+</mat-drawer-container>
