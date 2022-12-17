@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title: string = 'YATA';
+  isMenuOpened: boolean = true;
+
+  onMenuClick() {
+    this.isMenuOpened = !this.isMenuOpened;
+  }
 }
