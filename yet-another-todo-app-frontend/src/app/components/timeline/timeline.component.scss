@@ -1,3 +1,9 @@
 .timeline-headers-row {
   display: flex;
 }
+
+yata-timeline-header {
+  min-width: 192px;
+  height: 64px;
+  border-bottom: 1px solid black;
+}
