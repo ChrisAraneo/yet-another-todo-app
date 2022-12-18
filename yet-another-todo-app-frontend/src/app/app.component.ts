@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateUtilsService } from './services/date-utils.service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,13 @@ export class AppComponent implements OnInit {
   isMenuOpened: boolean = true;
   timelineHeaders: string[] = [];
 
+  constructor(private dateUtils: DateUtilsService) {}
+
   ngOnInit(): void {
-    this.timelineHeaders = [
-      '17.12.2022',
-      '18.12.2022',
-      '19.12.2022',
-      '20.12.2022',
-    ];
+    const today = new Date();
+    this.timelineHeaders = this.dateUtils
+      .getAllDaysInMonth(today)
+      .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
   }
 
   onMenuClick() {

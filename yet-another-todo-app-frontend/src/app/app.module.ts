@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
+import { DateUtilsService } from './services/date-utils.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.compon
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [DateUtilsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
