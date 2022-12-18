@@ -1,0 +1,24 @@
+:host {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 32px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background-image: url("../../../assets/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.border {
+  box-sizing: border-box;
+  border: 1px solid black;
+  width: 100%;
+  height: calc(100vh - 64px);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}

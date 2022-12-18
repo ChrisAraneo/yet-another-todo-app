@@ -1,5 +1,7 @@
-<yata-toolbar [title]="title" (menuClick)="onMenuClick()"></yata-toolbar>
-<mat-drawer-container autosize>
-  <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
-  <yata-timeline [headers]="timelineHeaders"></yata-timeline>
-</mat-drawer-container>
+<yata-app-wrapper>
+  <yata-toolbar [title]="title" (menuClick)="onMenuClick()"></yata-toolbar>
+  <mat-drawer-container autosize>
+    <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
+    <yata-timeline [headers]="timelineHeaders"></yata-timeline>
+  </mat-drawer-container>
+</yata-app-wrapper>

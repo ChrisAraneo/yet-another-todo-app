@@ -11,6 +11,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
+import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TimelineHeaderComponent } from './components/timeline/timeline-header/t
     SideNavigationComponent,
     TimelineComponent,
     TimelineHeaderComponent,
+    AppWrapperComponent,
   ],
   imports: [
     AppRoutingModule,
