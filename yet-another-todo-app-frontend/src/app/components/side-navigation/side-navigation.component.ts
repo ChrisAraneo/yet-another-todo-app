@@ -5,7 +5,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'yata-side-navigation',

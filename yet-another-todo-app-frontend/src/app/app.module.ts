@@ -6,12 +6,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
+import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
-import { TimelineComponent } from './components/timeline/timeline.component';
-import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
-import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { DateUtilsService } from './services/date-utils.service';
 
 @NgModule({
