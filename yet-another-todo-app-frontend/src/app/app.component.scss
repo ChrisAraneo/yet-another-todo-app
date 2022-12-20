@@ -1,5 +1,17 @@
-mat-drawer-container {
+main {
   width: 100%;
   background-color: white;
   height: calc(100vh - 128px);
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+}
+
+yata-side-navigation {
+  height: 100%;
+}
+
+.timeline-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
 }

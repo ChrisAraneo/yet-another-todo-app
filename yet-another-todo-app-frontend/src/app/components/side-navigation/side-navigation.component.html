@@ -1,3 +1,5 @@
-<mat-drawer mode="side" [opened]="isOpened">
+<div class="side-navigation-animated-wrapper" [@openClose]="isOpened? 'open' : 'closed'">
+  <div class="side-navigation-content">
     <ng-content></ng-content>
-</mat-drawer>
+  </div>
+</div>
