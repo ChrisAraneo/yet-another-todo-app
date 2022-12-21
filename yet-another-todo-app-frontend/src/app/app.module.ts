@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
+import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -22,6 +23,7 @@ import { DateUtilsService } from './services/date-utils.service';
     TimelineComponent,
     TimelineHeaderComponent,
     AppWrapperComponent,
+    TaskCardComponent,
   ],
   imports: [
     AppRoutingModule,
