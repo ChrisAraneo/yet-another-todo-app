@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: row;
+}
+
+yata-task-card {
+  position: relative;
+  width: calc(192px - 16px);
+  margin: 8px;
+}
+
+.column {
+  box-sizing: border-box;
+  position: relative;
+  min-width: 192px;
+  width: 192px;
+  min-height: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+}

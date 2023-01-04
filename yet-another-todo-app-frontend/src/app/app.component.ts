@@ -1,24 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { DateUtilsService } from './services/date-utils.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title: string = 'ヤタ YATA - Yet Another Todo App';
   isMenuOpened: boolean = true;
-  timelineHeaders: string[] = [];
+  timelineStartDate: Date = new Date(2022, 12, 1);
+  timelineEndDate: Date = new Date(2022, 12, 31);
 
-  constructor(private dateUtils: DateUtilsService) {}
-
-  ngOnInit(): void {
-    const today = new Date();
-    this.timelineHeaders = this.dateUtils
-      .getAllDaysInMonth(today)
-      .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
-  }
+  constructor() {}
 
   onMenuClick() {
     this.isMenuOpened = !this.isMenuOpened;

@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
 .timeline-headers-row {
   display: flex;
 }
@@ -6,4 +13,8 @@ yata-timeline-header {
   min-width: 192px;
   height: 64px;
   border-bottom: 1px solid black;
+}
+
+yata-timeline-content {
+  min-height: calc(100% - 64px);
 }

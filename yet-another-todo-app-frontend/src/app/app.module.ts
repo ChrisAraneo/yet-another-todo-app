@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
+import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -24,6 +25,7 @@ import { DateUtilsService } from './services/date-utils.service';
     TimelineHeaderComponent,
     AppWrapperComponent,
     TaskCardComponent,
+    TimelineContentComponent,
   ],
   imports: [
     AppRoutingModule,
