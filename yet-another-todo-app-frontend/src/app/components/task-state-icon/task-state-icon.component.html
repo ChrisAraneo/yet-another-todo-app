@@ -1,3 +1,5 @@
-<mat-icon *ngIf="!!iconName" aria-hidden="false" aria-label="Example home icon"
-  [ngStyle]="{'width': size + 'px', 'height': size + 'px', 'font-size': size + 'px'}">{{ iconName
+<mat-icon *ngIf="!!iconName && !!style && !!label" aria-hidden="false" [attr.aria-label]="label" [ngStyle]="style"
+  [matTooltip]="label" [matTooltipPosition]="'above'" [matTooltipShowDelay]="650">
+  {{
+  iconName
   }}</mat-icon>
