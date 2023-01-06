@@ -21,6 +21,10 @@ export class TaskStateIconComponent implements OnChanges {
   private mapStateToIconName(state: TaskState): string {
     const mapping: Record<TaskState, string> = {
       [TaskState.NotStarted]: 'auto_awesome',
+      [TaskState.InProgress]: 'autorenew',
+      [TaskState.Completed]: 'task_alt',
+      [TaskState.Rejected]: 'not_interested',
+      [TaskState.Suspended]: 'hourglass_empty',
     };
 
     return mapping[state];
