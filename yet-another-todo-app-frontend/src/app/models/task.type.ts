@@ -1,4 +1,4 @@
-import { TaskState } from './task-state.enum';
+import { TaskState } from './task-state.model';
 
 export type Task = {
   title: string;

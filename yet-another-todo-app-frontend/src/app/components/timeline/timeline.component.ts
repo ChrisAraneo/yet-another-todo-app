@@ -1,5 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TaskState } from 'src/app/models/task-state.enum';
+import {
+  TaskCompleted,
+  TaskInProgress,
+  TaskNotStarted,
+  TaskRejected,
+  TaskSuspended,
+} from 'src/app/models/task-state.model';
 import { DateUtilsService } from 'src/app/services/date-utils.service';
 import { Task } from '../../models/task.type';
 
@@ -20,63 +26,63 @@ export class TimelineComponent implements OnInit {
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 7),
       endDate: null,
-      state: TaskState.NotStarted,
+      state: new TaskNotStarted(),
     },
     {
       title: 'Lorem ipsum',
       description: 'Lorem ipsum componentum',
       startDate: new Date(2023, 0, 3),
       endDate: null,
-      state: TaskState.NotStarted,
+      state: new TaskNotStarted(),
     },
     {
       title: 'Test',
       description: 'Lorem ipsum componentum',
       startDate: new Date(2023, 0, 3),
       endDate: null,
-      state: TaskState.NotStarted,
+      state: new TaskNotStarted(),
     },
     {
       title: 'Test abcdef',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 5),
       endDate: null,
-      state: TaskState.NotStarted,
+      state: new TaskNotStarted(),
     },
     {
       title: 'One',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 5),
       endDate: null,
-      state: TaskState.InProgress,
+      state: new TaskInProgress(),
     },
     {
       title: 'Two',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 5),
       endDate: null,
-      state: TaskState.Completed,
+      state: new TaskCompleted(),
     },
     {
       title: 'Three',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 5),
       endDate: null,
-      state: TaskState.Rejected,
+      state: new TaskRejected(),
     },
     {
       title: 'Quatro',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 5),
       endDate: null,
-      state: TaskState.Suspended,
+      state: new TaskSuspended(),
     },
     {
       title: '111 111 111',
       description: 'Lorem ipsum dolor',
       startDate: new Date(2023, 0, 8),
       endDate: null,
-      state: TaskState.NotStarted,
+      state: new TaskNotStarted(),
     },
   ];
 

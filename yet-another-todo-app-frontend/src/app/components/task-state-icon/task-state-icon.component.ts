@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { TaskState } from 'src/app/models/task-state.enum';
+import { TaskState } from 'src/app/models/task-state.model';
 
 @Component({
   selector: 'yata-task-state-icon',
@@ -40,12 +40,12 @@ export class TaskStateIconComponent implements OnChanges {
   }
 
   private updateIconName(state: TaskState): void {
-    this.iconName = this.mapStateToIconName(state);
+    this.iconName = state.getRelatedIconName();
   }
 
   private updateStyle(state: TaskState, size: number, opacity: number): void {
     const sizeInPx = size + 'px';
-    const color = this.mapStateToColor(state);
+    const color = state.getRelatedColor();
 
     this.style = {
       width: sizeInPx,
@@ -59,36 +59,6 @@ export class TaskStateIconComponent implements OnChanges {
   }
 
   private updateLabel(state: TaskState): void {
-    this.label = this.mapStateToLabel(state);
-  }
-
-  private mapStateToIconName(state: TaskState): string {
-    return ((): Record<TaskState, string> => ({
-      [TaskState.NotStarted]: 'auto_awesome',
-      [TaskState.InProgress]: 'autorenew',
-      [TaskState.Completed]: 'task_alt',
-      [TaskState.Rejected]: 'not_interested',
-      [TaskState.Suspended]: 'hourglass_empty',
-    }))()[state];
-  }
-
-  private mapStateToColor(state: TaskState): string {
-    return ((): Record<TaskState, string> => ({
-      [TaskState.NotStarted]: 'darkgray',
-      [TaskState.InProgress]: 'orange',
-      [TaskState.Completed]: 'green',
-      [TaskState.Rejected]: 'red',
-      [TaskState.Suspended]: 'black',
-    }))()[state];
-  }
-
-  private mapStateToLabel(state: TaskState): string {
-    return ((): Record<TaskState, string> => ({
-      [TaskState.NotStarted]: 'Task not started',
-      [TaskState.InProgress]: 'Task is in progress',
-      [TaskState.Completed]: 'Task is completed',
-      [TaskState.Rejected]: 'Task rejected',
-      [TaskState.Suspended]: 'Task suspended',
-    }))()[state];
+    this.label = state.getRelatedTooltipText();
   }
 }
