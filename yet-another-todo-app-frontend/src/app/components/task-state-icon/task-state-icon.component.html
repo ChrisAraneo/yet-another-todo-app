@@ -1,1 +1,3 @@
-<p>task-state-icon works!</p>
+<mat-icon *ngIf="!!iconName" aria-hidden="false" aria-label="Example home icon"
+  [ngStyle]="{'width': size + 'px', 'height': size + 'px', 'font-size': size + 'px'}">{{ iconName
+  }}</mat-icon>
