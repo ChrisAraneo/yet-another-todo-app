@@ -34,4 +34,11 @@ import { Component, Input } from '@angular/core';
 })
 export class SideNavigationComponent {
   @Input() isOpened: boolean = true;
+
+  items = [
+    {
+      icon: 'add',
+      label: 'Add task',
+    },
+  ];
 }

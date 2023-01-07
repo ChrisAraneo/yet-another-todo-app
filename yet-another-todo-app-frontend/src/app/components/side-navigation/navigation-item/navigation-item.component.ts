@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'yata-navigation-item',
   templateUrl: './navigation-item.component.html',
   styleUrls: ['./navigation-item.component.scss'],
 })
-export class NavigationItemComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class NavigationItemComponent {
+  @Input() label: string = '';
+  @Input() icon: string = '';
 }
