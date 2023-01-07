@@ -1,9 +1,7 @@
 <yata-app-wrapper>
   <yata-toolbar [title]="title" (menuClick)="onMenuClick()"></yata-toolbar>
   <main>
-    <yata-side-navigation [isOpened]="isMenuOpened">
-      <h1>Side navigation works!</h1>
-    </yata-side-navigation>
+    <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
     <div class="timeline-wrapper">
       <yata-timeline [startDate]="timelineStartDate" [endDate]="timelineEndDate"></yata-timeline>
     </div>
