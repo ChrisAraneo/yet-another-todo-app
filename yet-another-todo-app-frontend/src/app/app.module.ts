@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { NavigationItemComponent } from './components/side-navigation/navigation-item/navigation-item.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
@@ -30,6 +31,7 @@ import { DateUtilsService } from './services/date-utils.service';
     TimelineContentComponent,
     TaskStateIconComponent,
     NavigationItemComponent,
+    AddTaskModalComponent,
   ],
   imports: [
     AppRoutingModule,
