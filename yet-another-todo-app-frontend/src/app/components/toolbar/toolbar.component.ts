@@ -15,4 +15,11 @@ export class ToolbarComponent {
   onMenuClick() {
     this.menuClick.emit();
   }
+
+  onGitClick() {
+    window.open(
+      'https://github.com/ChrisAraneo/yet-another-todo-app',
+      '_blank'
+    );
+  }
 }

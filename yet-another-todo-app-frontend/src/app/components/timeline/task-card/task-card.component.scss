@@ -35,11 +35,6 @@ mat-card {
 
 .mat-card-header {
   justify-content: center;
-
-  .mat-card-title {
-    font-family: "Spectral", serif;
-    margin: 0;
-  }
 }
 
 .mat-icon-button {
@@ -50,4 +45,9 @@ mat-card {
   flex-shrink: 0;
   line-height: 22px;
   border-radius: 50%;
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0px !important;
+  display: none;
 }

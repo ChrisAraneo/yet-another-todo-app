@@ -15,6 +15,7 @@ import { TaskCardComponent } from './components/timeline/task-card/task-card.com
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
@@ -33,6 +34,7 @@ import { DialogService } from './services/dialog/dialog.service';
     TaskStateIconComponent,
     NavigationItemComponent,
     AddTaskModalComponent,
+    TitleComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -2,6 +2,8 @@
   <button mat-icon-button aria-label="Menu icon" (click)="onMenuClick()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="toolbar-title">{{title}}</span>
-  <span class="spacer"></span>
+  <yata-title>{{ title }}</yata-title>
+  <button mat-icon-button aria-label="Github icon" (click)="onGitClick()">
+    <img src="assets/github-mark.svg" style="width: 24px; height: 24px" />
+  </button>
 </mat-toolbar>
