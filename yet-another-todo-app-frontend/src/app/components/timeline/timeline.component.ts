@@ -6,7 +6,7 @@ import {
   TaskRejected,
   TaskSuspended,
 } from 'src/app/models/task-state.model';
-import { DateUtilsService } from 'src/app/services/date-utils.service';
+import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { Task } from '../../models/task.type';
 
 @Component({

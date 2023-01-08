@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddTaskModalComponent } from '../components/add-task-modal/add-task-modal.component';
+import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
 
 @Injectable({
   providedIn: 'root',
