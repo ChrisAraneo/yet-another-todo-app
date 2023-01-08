@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input } from '@angular/core';
+import { DialogService } from 'src/app/services/dialog.service';
 
 @Component({
   selector: 'yata-side-navigation',
@@ -35,10 +36,15 @@ import { Component, Input } from '@angular/core';
 export class SideNavigationComponent {
   @Input() isOpened: boolean = true;
 
+  constructor(private dialogService: DialogService) {}
+
   items = [
     {
       icon: 'add',
       label: 'Add task',
+      click: () => {
+        this.dialogService.openAddTaskModal();
+      },
     },
   ];
 }

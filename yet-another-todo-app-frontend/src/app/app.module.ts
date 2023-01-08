@@ -18,6 +18,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 import { DateUtilsService } from './services/date-utils.service';
+import { DialogService } from './services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { DateUtilsService } from './services/date-utils.service';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [DateUtilsService],
+  providers: [DateUtilsService, DialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
