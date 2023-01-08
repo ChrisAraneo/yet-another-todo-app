@@ -6,11 +6,16 @@ import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-
   providedIn: 'root',
 })
 export class DialogService {
+  readonly DIALOG_WIDTH = '800px';
+  readonly DIALOG_HEIGHT = '600px';
+
   constructor(public dialog: MatDialog) {}
 
   openAddTaskModal(): void {
     this.dialog.open(AddTaskModalComponent, {
-      width: '250px',
+      width: this.DIALOG_WIDTH,
+      height: this.DIALOG_HEIGHT,
+      panelClass: AddTaskModalComponent.PANEL_CLASS,
     });
   }
 }
