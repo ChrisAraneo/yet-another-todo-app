@@ -17,9 +17,6 @@ export class ToolbarComponent {
   }
 
   onGitClick() {
-    window.open(
-      'https://github.com/ChrisAraneo/yet-another-todo-app',
-      '_blank'
-    );
+    window.open('https://github.com/ChrisAraneo/yet-another-todo-app', '_blank');
   }
 }

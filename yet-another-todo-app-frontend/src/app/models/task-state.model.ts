@@ -12,12 +12,7 @@ export abstract class TaskState {
   private color: string;
   private tooltipText: string;
 
-  constructor(
-    value: TaskStateValue,
-    iconName: string,
-    color: string,
-    tooltipText: string
-  ) {
+  constructor(value: TaskStateValue, iconName: string, color: string, tooltipText: string) {
     this.value = value;
     this.iconName = iconName;
     this.color = color;
@@ -43,12 +38,7 @@ export abstract class TaskState {
 
 export class TaskNotStarted extends TaskState {
   constructor() {
-    super(
-      TaskStateValue.NotStarted,
-      'auto_awesome',
-      'darkgrey',
-      'Task not started'
-    );
+    super(TaskStateValue.NotStarted, 'auto_awesome', 'darkgrey', 'Task not started');
   }
 }
 
@@ -72,11 +62,6 @@ export class TaskRejected extends TaskState {
 
 export class TaskSuspended extends TaskState {
   constructor() {
-    super(
-      TaskStateValue.Suspended,
-      'hourglass_empty',
-      'black',
-      'Task is suspended'
-    );
+    super(TaskStateValue.Suspended, 'hourglass_empty', 'black', 'Task is suspended');
   }
 }

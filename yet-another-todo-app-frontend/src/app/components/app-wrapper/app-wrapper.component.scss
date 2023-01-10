@@ -7,7 +7,7 @@
   display: flex;
   justify-items: center;
   align-items: center;
-  background-image: url("../../../assets/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg");
+  background-image: url('../../../assets/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -17,9 +17,7 @@
   box-sizing: border-box;
   border: 1px solid black;
   width: 100%;
-  height: calc(
-    100vh - 62px
-  ); // TODO Fix border to be correctly displayed at -64px
+  height: calc(100vh - 62px); // TODO Fix border to be correctly displayed at -64px
   background-color: white;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,9 @@
-<div class="side-navigation-animated-wrapper" [@openClose]="isOpened? 'open' : 'closed'">
+<div class="side-navigation-animated-wrapper" [@openClose]="isOpened ? 'open' : 'closed'">
   <div class="side-navigation-content">
-    <yata-navigation-item *ngFor="let item of items" [label]="item.label" [icon]="item.icon"
+    <yata-navigation-item
+      *ngFor="let item of items"
+      [label]="item.label"
+      [icon]="item.icon"
       [click]="item.click"></yata-navigation-item>
   </div>
 </div>

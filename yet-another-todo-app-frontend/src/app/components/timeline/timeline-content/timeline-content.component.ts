@@ -27,20 +27,14 @@ export class TimelineContentComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const { startDate, tasks } = changes;
 
-    this.columns = this.mapTasksToColumns(
-      tasks.currentValue,
-      startDate.currentValue
-    );
+    this.columns = this.mapTasksToColumns(tasks.currentValue, startDate.currentValue);
   }
 
   private mapTasksToColumns(tasks: Task[], timelineStartDate: Date): Column[] {
     const map: Map<string, Task[]> = new Map();
 
     tasks.forEach((task) => {
-      const startDate: string = this.dateUtils.formatDate(
-        task.startDate,
-        'dd-MM-yyyy'
-      );
+      const startDate: string = this.dateUtils.formatDate(task.startDate, 'dd-MM-yyyy');
 
       if (map.has(startDate)) {
         map.set(startDate, [...(map.get(startDate) || []), task]);
@@ -55,9 +49,7 @@ export class TimelineContentComponent implements OnChanges {
 
     return array.map((tasks: Task[], index: number) => {
       const left =
-        (differenceInDays(tasks[0].startDate, timelineStartDate) - index) *
-          TASK_CARD_WIDTH +
-        'px';
+        (differenceInDays(tasks[0].startDate, timelineStartDate) - index) * TASK_CARD_WIDTH + 'px';
 
       return {
         tasks,

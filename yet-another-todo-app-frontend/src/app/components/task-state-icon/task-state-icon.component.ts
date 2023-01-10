@@ -20,10 +20,8 @@ export class TaskStateIconComponent implements OnChanges {
     const previousState = changes['state'] && changes['state'].previousValue;
     const currentSize = changes['size'] && changes['size'].currentValue;
     const previousSize = changes['size'] && changes['size'].previousValue;
-    const currentOpacity =
-      changes['opacity'] && changes['opacity'].currentValue;
-    const previousOpacity =
-      changes['opacity'] && changes['opacity'].previousValue;
+    const currentOpacity = changes['opacity'] && changes['opacity'].currentValue;
+    const previousOpacity = changes['opacity'] && changes['opacity'].previousValue;
 
     if (currentState !== previousState) {
       this.updateIconName(currentState);
