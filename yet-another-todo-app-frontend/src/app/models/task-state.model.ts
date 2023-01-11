@@ -1,3 +1,11 @@
+import {
+  COLOR_ACCENT,
+  COLOR_DANGER,
+  COLOR_DISABLED,
+  COLOR_TEXT,
+  COLOR_WARN,
+} from '../shared/theme';
+
 enum TaskStateValue {
   NotStarted = 'NOT_STARTED',
   InProgress = 'IN_PROGRESS',
@@ -38,30 +46,30 @@ export abstract class TaskState {
 
 export class TaskNotStarted extends TaskState {
   constructor() {
-    super(TaskStateValue.NotStarted, 'auto_awesome', 'darkgrey', 'Task not started');
+    super(TaskStateValue.NotStarted, 'auto_awesome', COLOR_DISABLED, 'Task not started');
   }
 }
 
 export class TaskInProgress extends TaskState {
   constructor() {
-    super(TaskStateValue.InProgress, 'autorenew', 'orange', 'Task in progress');
+    super(TaskStateValue.InProgress, 'autorenew', COLOR_DANGER, 'Task in progress');
   }
 }
 
 export class TaskCompleted extends TaskState {
   constructor() {
-    super(TaskStateValue.Completed, 'task_alt', 'green', 'Task is completed');
+    super(TaskStateValue.Completed, 'task_alt', COLOR_ACCENT, 'Task is completed');
   }
 }
 
 export class TaskRejected extends TaskState {
   constructor() {
-    super(TaskStateValue.Rejected, 'not_interested', 'red', 'Task rejected');
+    super(TaskStateValue.Rejected, 'not_interested', COLOR_WARN, 'Task rejected');
   }
 }
 
 export class TaskSuspended extends TaskState {
   constructor() {
-    super(TaskStateValue.Suspended, 'hourglass_empty', 'black', 'Task is suspended');
+    super(TaskStateValue.Suspended, 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
   }
 }
