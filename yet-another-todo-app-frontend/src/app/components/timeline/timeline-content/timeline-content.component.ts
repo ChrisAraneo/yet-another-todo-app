@@ -1,14 +1,13 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
+import { COLUMN_WIDTH } from 'src/app/shared/theme';
 import { Task } from '../../../models/task.type';
 
 type Column = {
   tasks: Task[];
   left: string;
 };
-
-const TASK_CARD_WIDTH = 192;
 
 @Component({
   selector: 'yata-timeline-content',
@@ -21,6 +20,8 @@ export class TimelineContentComponent implements OnChanges {
   @Input() tasks: Task[] = [];
 
   columns: Column[] = [];
+
+  private readonly columnWidth = COLUMN_WIDTH;
 
   constructor(private dateUtils: DateUtilsService) {}
 
@@ -49,7 +50,7 @@ export class TimelineContentComponent implements OnChanges {
 
     return array.map((tasks: Task[], index: number) => {
       const left =
-        (differenceInDays(tasks[0].startDate, timelineStartDate) - index) * TASK_CARD_WIDTH + 'px';
+        (differenceInDays(tasks[0].startDate, timelineStartDate) - index) * this.columnWidth + 'px';
 
       return {
         tasks,
