@@ -1,20 +1,23 @@
+@import '../../../shared/variables.scss';
+
 :host {
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
 }
 
 yata-task-card {
   position: relative;
-  width: calc(192px - 16px);
-  margin: 8px;
+  width: calc($unit * 3 - $unit * 0.25);
+  margin: $unit * 0.125;
 }
 
 .column {
   box-sizing: border-box;
   position: relative;
-  min-width: 192px;
-  width: 192px;
+  min-width: $unit * 3;
+  width: $unit * 3;
   min-height: 100%;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: $unit * 0.125;
+  padding-right: $unit * 0.125;
 }

@@ -1,13 +1,15 @@
+@import '../../../shared/variables.scss';
+
 :host {
   box-sizing: border-box;
   width: 100%;
-  height: 64px;
+  height: $unit;
 
   .mat-button {
     padding: 0 24px;
     margin: 0;
     width: 100%;
-    height: 64px;
+    height: $unit;
     border-radius: 0;
     text-align: left;
   }
@@ -19,7 +21,7 @@
     .navigation-item-icon {
       display: block;
       line-height: 40px;
-      margin-right: 16px;
+      margin-right: $unit * 0.25;
     }
 
     yata-title {

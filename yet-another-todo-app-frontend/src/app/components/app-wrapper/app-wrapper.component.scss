@@ -1,7 +1,9 @@
+@import '../../shared/variables.scss';
+
 :host {
   box-sizing: border-box;
   margin: 0;
-  padding: 32px;
+  padding: $unit * 0.5;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -15,10 +17,10 @@
 
 .border {
   box-sizing: border-box;
-  border: 1px solid black;
-  width: 100%;
-  height: calc(100vh - 62px); // TODO Fix border to be correctly displayed at -64px
-  background-color: white;
   display: flex;
   flex-direction: column;
+  border: $border;
+  width: 100%;
+  height: calc(100vh - $unit + 2px);
+  background-color: $theme-background-color;
 }

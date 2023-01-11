@@ -1,7 +1,9 @@
+@import '../../../shared/variables.scss';
+
 :host {
   box-sizing: border-box;
-  width: 192px;
-  height: 64px;
+  width: $unit * 3;
+  height: $unit;
   display: flex;
   flex-direction: column;
   justify-content: center;

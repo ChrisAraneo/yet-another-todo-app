@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { BORDER, UNIT } from 'src/app/shared/theme';
 
 @Component({
   selector: 'yata-side-navigation',
@@ -11,8 +12,8 @@ import { DialogService } from 'src/app/services/dialog/dialog.service';
       state(
         'open',
         style({
-          width: '256px',
-          borderRight: '1px solid black',
+          width: `${UNIT * 4}px`,
+          borderRight: BORDER,
         }),
       ),
       state(

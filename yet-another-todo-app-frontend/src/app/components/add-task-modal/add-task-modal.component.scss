@@ -1,4 +1,6 @@
+@import '../../shared/variables.scss';
+
 .add-task-modal .mat-dialog-container {
-  border: 1px solid black;
+  border: $border;
   border-radius: 0px;
 }

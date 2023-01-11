@@ -1,3 +1,5 @@
+@import '../../shared/variables.scss';
+
 :host {
   display: flex;
   flex-direction: column;
@@ -10,11 +12,11 @@
 }
 
 yata-timeline-header {
-  min-width: 192px;
-  height: 64px;
-  border-bottom: 1px solid black;
+  min-width: $unit * 3;
+  height: $unit;
+  border-bottom: $border;
 }
 
 yata-timeline-content {
-  min-height: calc(100% - 64px);
+  min-height: calc(100% - $unit);
 }
