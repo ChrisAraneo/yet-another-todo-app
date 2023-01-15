@@ -1,0 +1,9 @@
+{
+  "name": "yet-another-todo-app-backend",
+  "version": "0.0.0",
+  "scripts": {
+    "mock": "node mock"
+  },
+  "author": "Krzysztof Pająk",
+  "license": "MIT"
+}
