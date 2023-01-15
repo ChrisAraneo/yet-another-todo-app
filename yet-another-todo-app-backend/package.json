@@ -5,5 +5,11 @@
     "mock": "node mock"
   },
   "author": "Krzysztof Pająk",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "json-diff": "^1.0.0",
+    "log4js": "^6.7.1"
+  }
 }
