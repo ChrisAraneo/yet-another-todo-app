@@ -20,6 +20,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
+import { TasksService } from './services/tasks/tasks.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { DialogService } from './services/dialog/dialog.service';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [DateUtilsService, DialogService],
+  providers: [DateUtilsService, DialogService, TasksService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
