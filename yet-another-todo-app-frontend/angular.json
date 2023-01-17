@@ -105,6 +105,5 @@
         }
       }
     }
-  },
-  "defaultProject": "yet-another-todo-app-frontend"
+  }
 }
