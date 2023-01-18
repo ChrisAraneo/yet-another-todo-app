@@ -44,32 +44,32 @@ export abstract class TaskState {
   }
 }
 
-export class TaskNotStarted extends TaskState {
+export class NotStartedTaskState extends TaskState {
   constructor() {
     super(TaskStateValue.NotStarted, 'auto_awesome', COLOR_DISABLED, 'Task not started');
   }
 }
 
-export class TaskInProgress extends TaskState {
+export class InProgressTaskState extends TaskState {
   constructor() {
     super(TaskStateValue.InProgress, 'autorenew', COLOR_DANGER, 'Task in progress');
   }
 }
 
-export class TaskCompleted extends TaskState {
+export class SuspendedTaskState extends TaskState {
+  constructor() {
+    super(TaskStateValue.Suspended, 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
+  }
+}
+
+export class CompletedTaskState extends TaskState {
   constructor() {
     super(TaskStateValue.Completed, 'task_alt', COLOR_ACCENT, 'Task is completed');
   }
 }
 
-export class TaskRejected extends TaskState {
+export class RejectedTaskState extends TaskState {
   constructor() {
     super(TaskStateValue.Rejected, 'not_interested', COLOR_WARN, 'Task rejected');
-  }
-}
-
-export class TaskSuspended extends TaskState {
-  constructor() {
-    super(TaskStateValue.Suspended, 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
   }
 }

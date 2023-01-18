@@ -1,16 +1,19 @@
 <mat-card>
   <mat-card-actions class="top-actions">
-    <yata-task-state-icon [state]="task.state" [size]="24" [opacity]="0.4"></yata-task-state-icon>
+    <yata-task-state-icon
+      [state]="task.getState()"
+      [size]="24"
+      [opacity]="0.4"></yata-task-state-icon>
     <button mat-icon-button aria-label="Edit icon">
       <mat-icon>edit</mat-icon>
     </button>
   </mat-card-actions>
   <mat-card-header>
-    <yata-title>{{ task.title }}</yata-title>
+    <yata-title>{{ task.getTitle() }}</yata-title>
   </mat-card-header>
   <mat-card-content>
     <p>
-      {{ task.description }}
+      {{ task.getDescription() }}
     </p>
   </mat-card-content>
   <mat-card-actions class="bottom-actions">

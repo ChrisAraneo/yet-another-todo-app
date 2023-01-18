@@ -2,10 +2,10 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { COLUMN_WIDTH } from 'src/app/shared/theme';
-import { Task } from '../../../models/task.type';
+import { StartedTask } from '../../../models/task.model';
 
 type Column = {
-  tasks: Task[];
+  tasks: StartedTask[];
   left: string;
 };
 
@@ -17,7 +17,7 @@ type Column = {
 export class TimelineContentComponent implements OnChanges {
   @Input() startDate!: Date;
   @Input() endDate!: Date;
-  @Input() tasks: Task[] = [];
+  @Input() tasks: StartedTask[] = [];
 
   columns: Column[] = [];
 
@@ -31,11 +31,11 @@ export class TimelineContentComponent implements OnChanges {
     this.columns = this.mapTasksToColumns(tasks.currentValue, startDate.currentValue);
   }
 
-  private mapTasksToColumns(tasks: Task[], timelineStartDate: Date): Column[] {
-    const map: Map<string, Task[]> = new Map();
+  private mapTasksToColumns(tasks: StartedTask[], timelineStartDate: Date): Column[] {
+    const map: Map<string, StartedTask[]> = new Map();
 
     tasks.forEach((task) => {
-      const startDate: string = this.dateUtils.formatDate(task.startDate, 'dd-MM-yyyy');
+      const startDate: string = this.dateUtils.formatDate(task.getStartDate(), 'dd-MM-yyyy');
 
       if (map.has(startDate)) {
         map.set(startDate, [...(map.get(startDate) || []), task]);
@@ -45,12 +45,13 @@ export class TimelineContentComponent implements OnChanges {
     });
 
     const array = Array.from(map.values()).sort((a, b) => {
-      return a[0].startDate.valueOf() - b[0].startDate.valueOf();
+      return a[0].getStartDate().valueOf() - b[0].getStartDate().valueOf();
     });
 
-    return array.map((tasks: Task[], index: number) => {
+    return array.map((tasks: StartedTask[], index: number) => {
       const left =
-        (differenceInDays(tasks[0].startDate, timelineStartDate) - index) * this.columnWidth + 'px';
+        (differenceInDays(tasks[0].getStartDate(), timelineStartDate) - index) * this.columnWidth +
+        'px';
 
       return {
         tasks,

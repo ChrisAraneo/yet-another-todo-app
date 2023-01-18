@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../../models/task.type';
+import { Task } from '../../../models/task.model';
 
 @Component({
   selector: 'yata-task-card',
