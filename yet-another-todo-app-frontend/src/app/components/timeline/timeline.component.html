@@ -5,5 +5,5 @@
   *ngIf="startDate && endDate"
   [startDate]="startDate"
   [endDate]="endDate"
-  [tasks]="tasks">
+  [tasks]="(tasks | async) || []">
 </yata-timeline-content>

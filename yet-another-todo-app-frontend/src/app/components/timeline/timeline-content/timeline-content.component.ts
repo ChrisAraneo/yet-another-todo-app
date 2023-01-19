@@ -26,9 +26,9 @@ export class TimelineContentComponent implements OnChanges {
   constructor(private dateUtils: DateUtilsService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { startDate, tasks } = changes;
-
-    this.columns = this.mapTasksToColumns(tasks.currentValue, startDate.currentValue);
+    if (this.tasks && this.startDate) {
+      this.columns = this.mapTasksToColumns(this.tasks, this.startDate);
+    }
   }
 
   private mapTasksToColumns(tasks: StartedTask[], timelineStartDate: Date): Column[] {
