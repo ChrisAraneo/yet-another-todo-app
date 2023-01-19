@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
@@ -21,6 +24,7 @@ import { MaterialModule } from './material.module';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
+import { tasksReducer } from './store/reducers/task.reducer';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,11 @@ import { TasksService } from './services/tasks/tasks.service';
     TitleComponent,
   ],
   imports: [
+    StoreModule.forRoot({ tasks: tasksReducer }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
