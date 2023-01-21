@@ -1,1 +1,28 @@
-<p>add-task-modal works!</p>
+<yata-title>{{ title }}</yata-title>
+<form [formGroup]="taskForm">
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input [formControlName]="'title'" matInput />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea [formControlName]="'description'" matInput></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>State</mat-label>
+    <mat-select [formControlName]="'state'">
+      <mat-option *ngFor="let state of states" [value]="state">
+        {{ state.getRelatedTooltipText() }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="showStartDateControl">
+    <mat-label>Start date</mat-label>
+    <input [formControlName]="'startDate'" type="date" matInput />
+  </mat-form-field>
+  <mat-form-field *ngIf="showEndDateControl">
+    <mat-label>End date</mat-label>
+    <input [formControlName]="'endDate'" type="date" matInput />
+  </mat-form-field>
+</form>
+<button mat-button (click)="submit()" [disabled]="taskForm.invalid">Submit</button>

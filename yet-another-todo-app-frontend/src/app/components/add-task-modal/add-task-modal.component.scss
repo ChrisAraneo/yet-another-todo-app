@@ -4,3 +4,8 @@
   border: $border;
   border-radius: 0px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
