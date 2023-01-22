@@ -33,9 +33,8 @@ export class AddTaskModalComponent implements OnDestroy {
   ];
 
   taskForm!: FormGroup<TaskForm>;
-
-  showStartDateControl: Observable<boolean> | undefined;
-  showEndDateControl: Observable<boolean> | undefined;
+  showStartDateControl!: Observable<boolean>;
+  showEndDateControl!: Observable<boolean>;
 
   private subscription: Subscription = new Subscription();
 
@@ -59,6 +58,8 @@ export class AddTaskModalComponent implements OnDestroy {
 
     const task: Task = TaskCreator.create(this.taskForm.value);
     this.tasksService.addTask(task);
+
+    this.dialogRef.close();
   }
 
   private initializeForm(): void {
