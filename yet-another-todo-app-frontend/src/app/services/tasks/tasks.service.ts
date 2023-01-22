@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { first, Observable } from 'rxjs';
+import { first, Observable, Subscription } from 'rxjs';
 import {
   CompletedTaskState,
   InProgressTaskState,
   RejectedTaskState,
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
-import { setTasks } from 'src/app/store/actions/task.actions';
+import { createTask, setTasks } from 'src/app/store/actions/task.actions';
 import { environment } from 'src/environments/environment';
 import { EndedTask, PendingTask, StartedTask, Task } from '../../models/task.model';
 
@@ -39,13 +39,26 @@ type ApiResponse = {
 })
 export class TasksService {
   private url = `${environment.api.origin}/`;
+  private subscription = new Subscription();
 
   constructor(private store: Store<{ tasks: Task[] }>, private http: HttpClient) {
     this.fetchStoredTasksFromApi(this.url);
+
+    this.subscription.add(
+      this.getTasks().subscribe((tasks: Task[]) => this.postTasksToApi(this.url, tasks)),
+    );
   }
 
   getTasks(): Observable<Task[]> {
     return this.store.select('tasks');
+  }
+
+  addTask(task: Task): void {
+    this.store.dispatch(createTask({ task }));
+  }
+
+  unsubscribe() {
+    this.subscription && this.subscription.unsubscribe();
   }
 
   // TODO Refactoring
