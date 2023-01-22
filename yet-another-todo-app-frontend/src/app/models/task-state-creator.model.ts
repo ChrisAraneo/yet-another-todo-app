@@ -5,7 +5,6 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-  TaskStateValue,
 } from './task-state.model';
 
 export class TaskStateCreator {
@@ -13,15 +12,15 @@ export class TaskStateCreator {
     const value = data['value'];
 
     switch (value) {
-      case TaskStateValue.NotStarted:
+      case new NotStartedTaskState().toString():
         return new NotStartedTaskState();
-      case TaskStateValue.InProgress:
+      case new InProgressTaskState().toString():
         return new InProgressTaskState();
-      case TaskStateValue.Suspended:
+      case new SuspendedTaskState().toString():
         return new SuspendedTaskState();
-      case TaskStateValue.Completed:
+      case new CompletedTaskState().toString():
         return new CompletedTaskState();
-      case TaskStateValue.Rejected:
+      case new RejectedTaskState().toString():
         return new RejectedTaskState();
       default:
         throw Error(`Task state cannot be created from object: ${JSON.stringify(data)}`);

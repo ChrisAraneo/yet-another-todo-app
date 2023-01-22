@@ -6,28 +6,20 @@ import {
   COLOR_WARN,
 } from '../shared/theme';
 
-export enum TaskStateValue {
-  NotStarted = 'NOT_STARTED',
-  InProgress = 'IN_PROGRESS',
-  Completed = 'COMPLETED',
-  Rejected = 'REJECTED',
-  Suspended = 'SUSPENDED',
-}
-
 export abstract class TaskState {
-  private value: TaskStateValue;
+  private value: string;
   private iconName: string;
   private color: string;
   private tooltipText: string;
 
-  constructor(value: TaskStateValue, iconName: string, color: string, tooltipText: string) {
+  constructor(value: string, iconName: string, color: string, tooltipText: string) {
     this.value = value;
     this.iconName = iconName;
     this.color = color;
     this.tooltipText = tooltipText;
   }
 
-  toString(): TaskStateValue {
+  toString(): string {
     return this.value;
   }
 
@@ -46,30 +38,30 @@ export abstract class TaskState {
 
 export class NotStartedTaskState extends TaskState {
   constructor() {
-    super(TaskStateValue.NotStarted, 'auto_awesome', COLOR_DISABLED, 'Task not started');
+    super('NOT_STARTED', 'auto_awesome', COLOR_DISABLED, 'Task not started');
   }
 }
 
 export class InProgressTaskState extends TaskState {
   constructor() {
-    super(TaskStateValue.InProgress, 'autorenew', COLOR_DANGER, 'Task in progress');
+    super('IN_PROGRESS', 'autorenew', COLOR_DANGER, 'Task in progress');
   }
 }
 
 export class SuspendedTaskState extends TaskState {
   constructor() {
-    super(TaskStateValue.Suspended, 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
+    super('SUSPENDED', 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
   }
 }
 
 export class CompletedTaskState extends TaskState {
   constructor() {
-    super(TaskStateValue.Completed, 'task_alt', COLOR_ACCENT, 'Task is completed');
+    super('COMPLETED', 'task_alt', COLOR_ACCENT, 'Task is completed');
   }
 }
 
 export class RejectedTaskState extends TaskState {
   constructor() {
-    super(TaskStateValue.Rejected, 'not_interested', COLOR_WARN, 'Task rejected');
+    super('REJECTED', 'not_interested', COLOR_WARN, 'Task rejected');
   }
 }
