@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { TasksService } from './services/tasks/tasks.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title: string = 'ヤタ YATA - Yet Another Todo App';
   isMenuOpened: boolean = true;
   timelineStartDate: Date = new Date(2022, 12, 1);
   timelineEndDate: Date = new Date(2022, 12, 31);
 
-  constructor() {}
+  constructor(private taskService: TasksService) {}
 
-  onMenuClick() {
+  ngOnDestroy(): void {
+    this.taskService.unsubscribe();
+  }
+
+  onMenuClick(): void {
     this.isMenuOpened = !this.isMenuOpened;
   }
 }
