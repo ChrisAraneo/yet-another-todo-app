@@ -6,7 +6,7 @@ import {
   COLOR_WARN,
 } from '../shared/theme';
 
-enum TaskStateValue {
+export enum TaskStateValue {
   NotStarted = 'NOT_STARTED',
   InProgress = 'IN_PROGRESS',
   Completed = 'COMPLETED',
