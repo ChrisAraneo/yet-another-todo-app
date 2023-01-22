@@ -16,11 +16,11 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="showStartDateControl">
+  <mat-form-field *ngIf="!!showStartDateControl && (showStartDateControl | async)">
     <mat-label>Start date</mat-label>
     <input [formControlName]="'startDate'" type="date" matInput />
   </mat-form-field>
-  <mat-form-field *ngIf="showEndDateControl">
+  <mat-form-field *ngIf="!!showEndDateControl && (showEndDateControl | async)">
     <mat-label>End date</mat-label>
     <input [formControlName]="'endDate'" type="date" matInput />
   </mat-form-field>

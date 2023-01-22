@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import { Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
+import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -10,6 +11,8 @@ import {
   SuspendedTaskState,
   TaskState,
 } from 'src/app/models/task-state.model';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { Task } from '../../models/task.model';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({
@@ -31,17 +34,18 @@ export class AddTaskModalComponent implements OnDestroy {
 
   taskForm!: FormGroup<TaskForm>;
 
-  showStartDateControl: boolean = false;
-  showEndDateControl: boolean = false;
+  showStartDateControl: Observable<boolean> | undefined;
+  showEndDateControl: Observable<boolean> | undefined;
 
   private subscription: Subscription = new Subscription();
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskModalComponent>,
     private formBuilder: FormBuilder,
+    private tasksService: TasksService,
   ) {
     this.initializeForm();
-    this.subscribeToStateValueChange();
+    this.initializeObservables();
   }
 
   ngOnDestroy(): void {
@@ -49,7 +53,12 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   submit(): void {
-    alert('Not implemented yet');
+    if (this.taskForm.invalid) {
+      return;
+    }
+
+    const task: Task = TaskCreator.create(this.taskForm.value);
+    this.tasksService.addTask(task);
   }
 
   private initializeForm(): void {
@@ -62,26 +71,22 @@ export class AddTaskModalComponent implements OnDestroy {
     });
   }
 
-  private subscribeToStateValueChange(): void {
-    this.subscription.add(
-      this.taskForm.controls.state.valueChanges.subscribe((state: TaskState) =>
-        this.updateDateInputsVisibility(state),
-      ),
+  private initializeObservables(): void {
+    this.showStartDateControl = this.taskForm.controls.state.valueChanges.pipe(
+      map((state: TaskState) => {
+        return (
+          state instanceof InProgressTaskState ||
+          state instanceof SuspendedTaskState ||
+          state instanceof CompletedTaskState ||
+          state instanceof RejectedTaskState
+        );
+      }),
     );
-  }
 
-  private updateDateInputsVisibility(state: TaskState): void {
-    if (state instanceof NotStartedTaskState) {
-      this.showStartDateControl = false;
-      this.showEndDateControl = false;
-    } else if (state instanceof InProgressTaskState || state instanceof SuspendedTaskState) {
-      this.showStartDateControl = true;
-      this.showEndDateControl = false;
-    } else if (state instanceof CompletedTaskState || state instanceof RejectedTaskState) {
-      this.showStartDateControl = true;
-      this.showEndDateControl = true;
-    } else {
-      throw Error(`Invalid selected task state: ${state}`);
-    }
+    this.showEndDateControl = this.taskForm.controls.state.valueChanges.pipe(
+      map((state: TaskState) => {
+        return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
+      }),
+    );
   }
 }
