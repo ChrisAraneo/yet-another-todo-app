@@ -1,1 +1,6 @@
-<p>text-input works!</p>
+<input
+  type="text"
+  [value]="value"
+  (input)="onChange($event)"
+  (blur)="onBlur()"
+  [disabled]="isDisabled" />
