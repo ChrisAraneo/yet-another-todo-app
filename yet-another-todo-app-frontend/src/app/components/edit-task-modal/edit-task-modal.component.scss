@@ -1,0 +1,11 @@
+@import '../../shared/variables.scss';
+
+.edit-task-modal .mat-dialog-container {
+  border: $border;
+  border-radius: 0px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
