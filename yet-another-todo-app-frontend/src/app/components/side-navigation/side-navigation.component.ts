@@ -31,8 +31,6 @@ import { BORDER, UNIT } from 'src/app/shared/theme';
 export class SideNavigationComponent {
   @Input() isOpened: boolean = true;
 
-  constructor(private dialogService: DialogService) {}
-
   items = [
     {
       icon: 'add',
@@ -41,5 +39,14 @@ export class SideNavigationComponent {
         this.dialogService.openAddTaskModal();
       },
     },
+    {
+      icon: 'edit',
+      label: 'Edit task',
+      click: () => {
+        this.dialogService.openEditTaskModal();
+      },
+    },
   ];
+
+  constructor(private dialogService: DialogService) {}
 }
