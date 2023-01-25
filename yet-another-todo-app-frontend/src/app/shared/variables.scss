@@ -12,8 +12,7 @@
 
 $unit: 64px;
 $column-width: $unit * 3;
-$border: 1px solid black;
-$border-radius: 0;
+
 $theme-background-color: white;
 
 $theme-primary: mat.define-palette(mat.$indigo-palette);
@@ -30,5 +29,14 @@ $theme: mat.define-light-theme(
     typography: mat.define-legacy-typography-config(),
   )
 );
+
+$border: 1px solid black;
+$border-radius: 0;
+
+$form-input-border-color: #c0c0c0;
+$form-input-border: 1px solid $form-input-border-color;
+$form-input-border-radius: 4px;
+$form-input-focus-border: 1px solid mat.get-color-from-palette($theme-primary, 500) !important;
+$form-input-background: #fcfcfc !important;
 
 @include mat.all-legacy-component-themes($theme);
