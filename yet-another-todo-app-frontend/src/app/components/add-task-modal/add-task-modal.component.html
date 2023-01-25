@@ -1,9 +1,6 @@
 <yata-title>{{ title }}</yata-title>
 <form [formGroup]="taskForm">
-  <mat-form-field>
-    <mat-label>Title</mat-label>
-    <input [formControlName]="'title'" matInput />
-  </mat-form-field>
+  <yata-text-input [formControlName]="'Title'" [label]="'Title'"></yata-text-input>
   <mat-form-field>
     <mat-label>Description</mat-label>
     <textarea [formControlName]="'description'" matInput></textarea>
