@@ -3,9 +3,19 @@
 .add-task-modal .mat-dialog-container {
   border: $border;
   border-radius: 0px;
+  padding: 0;
+  margin: 0;
+
+  yata-title {
+    h1 {
+      padding: $unit / 4 $unit / 2;
+      border-bottom: $border;
+    }
+  }
 }
 
 form {
   display: flex;
   flex-direction: column;
+  padding: $unit / 2;
 }
