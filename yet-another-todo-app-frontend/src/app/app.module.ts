@@ -13,6 +13,7 @@ import { AddTaskModalComponent } from './components/add-task-modal/add-task-moda
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { TextInputComponent } from './components/form/text-input/text-input.component';
+import { TextareaComponent } from './components/form/textarea/textarea.component';
 import { NavigationItemComponent } from './components/side-navigation/navigation-item/navigation-item.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
@@ -44,6 +45,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     TitleComponent,
     EditTaskModalComponent,
     TextInputComponent,
+    TextareaComponent,
   ],
   imports: [
     StoreModule.forRoot({ tasks: tasksReducer }),
