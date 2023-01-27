@@ -1,10 +1,11 @@
 <yata-title>{{ title }}</yata-title>
 <form [formGroup]="taskForm">
-  <yata-text-input [formControlName]="'Title'" [label]="'Title'"></yata-text-input>
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea [formControlName]="'description'" matInput></textarea>
-  </mat-form-field>
+  <yata-text-input [formControlName]="'title'" [label]="'Title'"></yata-text-input>
+  <yata-textarea
+    [formControlName]="'description'"
+    [label]="'Description'"
+    [rows]="4"
+    [maxLength]="200"></yata-textarea>
   <mat-form-field appearance="fill">
     <mat-label>State</mat-label>
     <mat-select [formControlName]="'state'">

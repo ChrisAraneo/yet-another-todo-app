@@ -12,6 +12,11 @@
       border-bottom: $border;
     }
   }
+
+  yata-text-input,
+  yata-textarea {
+    margin-bottom: $unit / 4;
+  }
 }
 
 form {
