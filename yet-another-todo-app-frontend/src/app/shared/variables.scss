@@ -30,13 +30,18 @@ $theme: mat.define-light-theme(
   )
 );
 
-$border: 1px solid black;
+$border-color: black;
+$border: 1px solid $border-color;
 $border-radius: 0;
 
-$form-input-border-color: #c0c0c0;
+$form-input-border-color: lighten($border-color, 37.5%);
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-border-radius: 4px;
-$form-input-focus-border: 1px solid mat.get-color-from-palette($theme-primary, 500) !important;
-$form-input-background: #fcfcfc !important;
+$form-input-focus-border: 1px solid mat.get-color-from-palette($theme-primary, 600) !important;
+$form-input-background: darken($theme-background-color, 2%) !important;
+$form-input-focus-background: lighten(
+  mat.get-color-from-palette($theme-primary, 600),
+  53%
+) !important;
 
 @include mat.all-legacy-component-themes($theme);
