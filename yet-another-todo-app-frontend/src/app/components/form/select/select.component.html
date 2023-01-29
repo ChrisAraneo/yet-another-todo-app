@@ -1,1 +1,11 @@
-<p>select works!</p>
+<div>
+  <label [for]="label">{{ label }}</label>
+  <select
+    [name]="label"
+    [value]="value.label"
+    [disabled]="isDisabled"
+    (input)="onChange($event)"
+    (blur)="onBlur()">
+    <option *ngFor="let option of options; let i = index" [value]="i">{{ option.label }}</option>
+  </select>
+</div>
