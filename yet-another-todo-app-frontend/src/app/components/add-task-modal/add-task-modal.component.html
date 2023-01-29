@@ -6,14 +6,7 @@
     [label]="'Description'"
     [rows]="4"
     [maxLength]="200"></yata-textarea>
-  <mat-form-field appearance="fill">
-    <mat-label>State</mat-label>
-    <mat-select [formControlName]="'state'">
-      <mat-option *ngFor="let state of states" [value]="state">
-        {{ state.getRelatedTooltipText() }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <yata-select [formControlName]="'state'" [label]="'State'" [options]="states"></yata-select>
   <mat-form-field *ngIf="!!showStartDateControl && (showStartDateControl | async)">
     <mat-label>Start date</mat-label>
     <input [formControlName]="'startDate'" type="date" matInput />

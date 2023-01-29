@@ -24,13 +24,16 @@ export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';
 
   readonly title = 'Add new task';
-  readonly states: TaskState[] = [
+  readonly states = [
     new NotStartedTaskState(),
     new InProgressTaskState(),
     new SuspendedTaskState(),
     new CompletedTaskState(),
     new RejectedTaskState(),
-  ];
+  ].map((state) => ({
+    label: state.getRelatedTooltipText(),
+    value: state,
+  }));
 
   taskForm!: FormGroup<TaskForm>;
   showStartDateControl!: Observable<boolean>;
