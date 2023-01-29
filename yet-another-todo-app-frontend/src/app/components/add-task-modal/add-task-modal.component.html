@@ -4,16 +4,18 @@
   <yata-textarea
     [formControlName]="'description'"
     [label]="'Description'"
-    [rows]="4"
+    [rows]="2"
     [maxLength]="200"></yata-textarea>
   <yata-select [formControlName]="'state'" [label]="'State'" [options]="states"></yata-select>
-  <mat-form-field *ngIf="!!showStartDateControl && (showStartDateControl | async)">
-    <mat-label>Start date</mat-label>
-    <input [formControlName]="'startDate'" type="date" matInput />
-  </mat-form-field>
-  <mat-form-field *ngIf="!!showEndDateControl && (showEndDateControl | async)">
-    <mat-label>End date</mat-label>
-    <input [formControlName]="'endDate'" type="date" matInput />
-  </mat-form-field>
+  <yata-date-picker
+    *ngIf="!!showStartDateControl && (showStartDateControl | async)"
+    [formControlName]="'startDate'"
+    [label]="'Start date'"></yata-date-picker>
+  <yata-date-picker
+    *ngIf="!!showEndDateControl && (showEndDateControl | async)"
+    [formControlName]="'endDate'"
+    [label]="'End date'"></yata-date-picker>
+  <button mat-flat-button color="primary" (click)="submit()" [disabled]="taskForm.invalid">
+    Submit
+  </button>
 </form>
-<button mat-button (click)="submit()" [disabled]="taskForm.invalid">Submit</button>
