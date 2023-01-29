@@ -1,0 +1,37 @@
+@import '../../../shared/variables.scss';
+
+input,
+input:focus {
+  box-sizing: border-box;
+  width: 100%;
+  padding: $unit / 6 $unit / 6;
+  font-size: 16px;
+  border-radius: $form-input-border-radius;
+  outline: none;
+  margin: 0;
+  margin-top: 6px;
+}
+
+input:not(:focus) {
+  border: $form-input-border;
+  background-color: $form-input-background;
+}
+
+input:focus {
+  border: $form-input-focus-border;
+  background-color: $form-input-focus-background;
+}
+
+label {
+  display: block;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  padding: 0 2px;
+  margin: 0;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+  color: black;
+  text-transform: uppercase;
+  opacity: 0.8;
+}

@@ -1,1 +1,9 @@
-<p>date-picker works!</p>
+<div>
+  <label [for]="label">{{ label }}</label>
+  <input
+    type="date"
+    [name]="label"
+    (input)="onChange($event)"
+    (blur)="onBlur()"
+    [disabled]="isDisabled" />
+</div>
