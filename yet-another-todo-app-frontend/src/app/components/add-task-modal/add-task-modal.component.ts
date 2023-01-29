@@ -59,7 +59,7 @@ export class AddTaskModalComponent implements OnDestroy {
       return;
     }
 
-    const task: Task = TaskCreator.create(this.taskForm.value);
+    const task: Task = TaskCreator.create({ ...this.taskForm.value, creationDate: new Date() });
     this.tasksService.addTask(task);
 
     this.dialogRef.close();
