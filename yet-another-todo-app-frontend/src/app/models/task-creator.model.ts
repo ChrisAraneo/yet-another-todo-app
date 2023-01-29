@@ -48,13 +48,11 @@ export class TaskCreator {
       new Error(`Incorrect pending task creation date: ${creationDate}`),
     );
 
-    this.throwErrorWhenInvalidString(id, new Error(`Incorrect pending task id: ${id}`));
-
     return new PendingTask(
       title as string,
       description as string,
       !!creationDate ? new Date(creationDate as string | number) : undefined,
-      !!id ? (id as string) : undefined,
+      !!id && typeof id === 'string' ? id : undefined,
     );
   }
 
@@ -86,15 +84,13 @@ export class TaskCreator {
         new Error(`Incorrect started task creation date: ${creationDate}`),
       );
 
-    !!id && this.throwErrorWhenInvalidString(id, new Error(`Incorrect started task id: ${id}`));
-
     return new StartedTask(
       title as string,
       description as string,
       state as TaskState,
       new Date(startDate as string | number),
       !!creationDate ? new Date(creationDate as string | number) : undefined,
-      !!id ? (id as string) : undefined,
+      !!id && typeof id === 'string' ? id : undefined,
     );
   }
 
@@ -132,8 +128,6 @@ export class TaskCreator {
         new Error(`Incorrect started task creation date: ${creationDate}`),
       );
 
-    !!id && this.throwErrorWhenInvalidString(id, new Error(`Incorrect started task id: ${id}`));
-
     return new EndedTask(
       title as string,
       description as string,
@@ -141,7 +135,7 @@ export class TaskCreator {
       new Date(startDate as string | number),
       new Date(endDate as string | number),
       !!creationDate ? new Date(creationDate as string | number) : undefined,
-      !!id ? (id as string) : undefined,
+      !!id && typeof id === 'string' ? id : undefined,
     );
   }
 
