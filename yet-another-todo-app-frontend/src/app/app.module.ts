@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
+import { DatePickerComponent } from './components/form/date-picker/date-picker.component';
 import { SelectComponent } from './components/form/select/select.component';
 import { TextInputComponent } from './components/form/text-input/text-input.component';
 import { TextareaComponent } from './components/form/textarea/textarea.component';
@@ -48,6 +49,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     TextInputComponent,
     TextareaComponent,
     SelectComponent,
+    DatePickerComponent,
   ],
   imports: [
     StoreModule.forRoot({ tasks: tasksReducer }),
