@@ -1,1 +1,27 @@
-<p>edit-task-modal works!</p>
+<yata-title>{{ title }}</yata-title>
+<form [formGroup]="taskForm" ng-let="">
+  <yata-select
+    [formControlName]="'task'"
+    [label]="'Task to edit'"
+    [options]="(tasks | async) || []"></yata-select>
+  <ng-container *ngIf="taskForm.value.task">
+    <yata-text-input [formControlName]="'title'" [label]="'Title'"></yata-text-input>
+    <yata-textarea
+      [formControlName]="'description'"
+      [label]="'Description'"
+      [rows]="2"
+      [maxLength]="200"></yata-textarea>
+    <yata-select [formControlName]="'state'" [label]="'State'" [options]="states"></yata-select>
+    <yata-date-picker
+      *ngIf="!!showStartDateControl && (showStartDateControl | async)"
+      [formControlName]="'startDate'"
+      [label]="'Start date'"></yata-date-picker>
+    <yata-date-picker
+      *ngIf="!!showEndDateControl && (showEndDateControl | async)"
+      [formControlName]="'endDate'"
+      [label]="'End date'"></yata-date-picker>
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="taskForm.invalid">
+      Save changes
+    </button>
+  </ng-container>
+</form>
