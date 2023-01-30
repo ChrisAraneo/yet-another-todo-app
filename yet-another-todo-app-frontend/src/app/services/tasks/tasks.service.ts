@@ -8,7 +8,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
-import { createTask, setTasks } from 'src/app/store/actions/task.actions';
+import { createTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { environment } from 'src/environments/environment';
 import { EndedTask, PendingTask, StartedTask, Task } from '../../models/task.model';
 
@@ -55,6 +55,10 @@ export class TasksService {
 
   addTask(task: Task): void {
     this.store.dispatch(createTask({ task }));
+  }
+
+  updateTask(task: Task): void {
+    this.store.dispatch(updateTask({ task }));
   }
 
   unsubscribe() {
