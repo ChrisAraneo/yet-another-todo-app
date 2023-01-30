@@ -22,7 +22,7 @@ export class SelectComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() options: Option[] = [];
 
-  value: any;
+  value: Option | undefined;
   isDisabled: boolean;
 
   changed?: (value: any) => void;
