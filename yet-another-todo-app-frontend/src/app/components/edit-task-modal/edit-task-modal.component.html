@@ -1,5 +1,5 @@
-<yata-title>{{ title }}</yata-title>
-<form [formGroup]="taskForm" *ngIf="!!taskForm">
+<yata-title class="modal-title">{{ title }}</yata-title>
+<form [formGroup]="taskForm" *ngIf="!!taskForm; else empty">
   <yata-select
     [formControlName]="'task'"
     [label]="'Task to edit'"
@@ -25,3 +25,9 @@
     </button>
   </ng-container>
 </form>
+
+<ng-template #empty
+  ><yata-empty-info-box
+    caption="There are no defined tasks to edit"
+    hint="Create tasks first so you can edit them later"></yata-empty-info-box
+></ng-template>
