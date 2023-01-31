@@ -51,7 +51,7 @@ export class EditTaskModalComponent implements OnDestroy {
 
     this.subscription.add(
       this.tasks.pipe(first()).subscribe((tasks) => {
-        const initialTask = tasks && tasks[0].value;
+        const initialTask = !!tasks && !!tasks.length && tasks[0].value;
 
         if (initialTask) {
           this.initializeForm(initialTask);
