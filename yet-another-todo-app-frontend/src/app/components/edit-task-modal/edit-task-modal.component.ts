@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import { map, Observable, Subscription } from 'rxjs';
+import { first, map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
@@ -35,10 +35,10 @@ export class EditTaskModalComponent implements OnDestroy {
     value: state,
   }));
 
-  taskForm!: FormGroup<TaskForm>;
   tasks!: Observable<TaskOption[]>;
   showStartDateControl!: Observable<boolean>;
   showEndDateControl!: Observable<boolean>;
+  taskForm?: FormGroup<TaskForm>;
 
   private subscription: Subscription = new Subscription();
 
@@ -47,8 +47,24 @@ export class EditTaskModalComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
   ) {
-    this.initializeForm();
-    this.initializeObservables();
+    this.initializeTasksObservable();
+
+    this.subscription.add(
+      this.tasks.pipe(first()).subscribe((tasks) => {
+        const initialTask = tasks && tasks[0].value;
+
+        if (initialTask) {
+          this.initializeForm(initialTask);
+        }
+
+        if (this.taskForm) {
+          this.initializeShowStartDateControlObservable(this.taskForm);
+          this.initializeShowEndDateControlObservable(this.taskForm);
+
+          this.subscribeToSelectedTaskChanges(this.taskForm);
+        }
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -56,7 +72,7 @@ export class EditTaskModalComponent implements OnDestroy {
   }
 
   submit(): void {
-    if (this.taskForm.invalid) {
+    if (!this.taskForm || this.taskForm.invalid) {
       return;
     }
 
@@ -67,19 +83,31 @@ export class EditTaskModalComponent implements OnDestroy {
     this.dialogRef.close();
   }
 
-  private initializeForm(): void {
+  private initializeTasksObservable(): void {
+    this.tasks = this.tasksService
+      .getTasks()
+      .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
+  }
+
+  private initializeForm(initialTask: Task): void {
+    if (!initialTask) {
+      throw new Error("Can't initialize Edit task modal form, initial task is undefined");
+    }
+
     this.taskForm = this.formBuilder.group<TaskForm>({
-      task: new FormControl(null),
-      title: new FormControl('', { nonNullable: true }),
-      description: new FormControl('', { nonNullable: true }),
-      state: new FormControl(new NotStartedTaskState(), { nonNullable: true }),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null),
+      task: new FormControl(initialTask),
+      title: new FormControl(initialTask.getTitle(), { nonNullable: true }),
+      description: new FormControl(initialTask.getDescription(), { nonNullable: true }),
+      state: new FormControl(initialTask.getState(), { nonNullable: true }),
+      startDate: new FormControl(
+        initialTask instanceof StartedTask ? initialTask.getStartDate() : null,
+      ),
+      endDate: new FormControl(initialTask instanceof EndedTask ? initialTask.getEndDate() : null),
     });
   }
 
-  private initializeObservables(): void {
-    this.showStartDateControl = this.taskForm.controls.state.valueChanges.pipe(
+  private initializeShowStartDateControlObservable(form: FormGroup<TaskForm>): void {
+    this.showStartDateControl = form.controls.state.valueChanges.pipe(
       map((state: TaskState) => {
         return (
           state instanceof InProgressTaskState ||
@@ -89,29 +117,31 @@ export class EditTaskModalComponent implements OnDestroy {
         );
       }),
     );
+  }
 
-    this.showEndDateControl = this.taskForm.controls.state.valueChanges.pipe(
+  private initializeShowEndDateControlObservable(form: FormGroup<TaskForm>): void {
+    this.showEndDateControl = form.controls.state.valueChanges.pipe(
       map((state: TaskState) => {
         return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
     );
+  }
 
-    this.tasks = this.tasksService
-      .getTasks()
-      .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
+  private subscribeToSelectedTaskChanges(form: FormGroup<TaskForm>): void {
+    this.subscription.add(
+      form.controls.task.valueChanges.subscribe((task) => {
+        form.controls.title.setValue(task?.getTitle() || '');
+        form.controls.description.setValue(task?.getDescription() || '');
+        form.controls.state.setValue(task?.getState() || new NotStartedTaskState());
 
-    this.taskForm.controls.task.valueChanges.subscribe((task) => {
-      this.taskForm.controls.title.setValue(task?.getTitle() || '');
-      this.taskForm.controls.description.setValue(task?.getDescription() || '');
-      this.taskForm.controls.state.setValue(task?.getState() || new NotStartedTaskState());
+        if (task instanceof StartedTask || task instanceof EndedTask) {
+          form.controls.startDate.setValue(task.getStartDate());
+        }
 
-      if (task instanceof StartedTask || task instanceof EndedTask) {
-        this.taskForm.controls.startDate.setValue(task.getStartDate());
-      }
-
-      if (task instanceof EndedTask) {
-        this.taskForm.controls.endDate.setValue(task.getEndDate());
-      }
-    });
+        if (task instanceof EndedTask) {
+          form.controls.endDate.setValue(task.getEndDate());
+        }
+      }),
+    );
   }
 }

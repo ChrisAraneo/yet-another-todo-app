@@ -1,5 +1,5 @@
 <yata-title>{{ title }}</yata-title>
-<form [formGroup]="taskForm" ng-let="">
+<form [formGroup]="taskForm" *ngIf="!!taskForm">
   <yata-select
     [formControlName]="'task'"
     [label]="'Task to edit'"
