@@ -1,0 +1,15 @@
+@import '../../shared/variables.scss';
+
+:host {
+  box-sizing: border-box;
+  border-top: $border;
+  padding: $unit / 12 $unit / 8;
+  margin: 0;
+
+  span,
+  a {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    color: #333333;
+  }
+}
