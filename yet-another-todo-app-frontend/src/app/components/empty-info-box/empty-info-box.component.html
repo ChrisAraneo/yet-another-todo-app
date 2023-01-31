@@ -1,1 +1,5 @@
-<p>empty-info-box works!</p>
+<div class="empty-image"></div>
+<div *ngIf="caption || hint">
+  <yata-title>{{ caption }}</yata-title>
+  <p class="hint" *ngIf="hint">{{ hint }}</p>
+</div>

@@ -1,0 +1,30 @@
+@import '../../shared/variables.scss';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 100%;
+  margin: $unit;
+  padding: $unit / 8;
+
+  .empty-image {
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: $unit / 4;
+    padding: 0;
+    width: 247px;
+    height: 195px;
+    background-image: url('../../../assets/empty.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .hint {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    text-align: center;
+  }
+}
