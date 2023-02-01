@@ -6,9 +6,13 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+/* TODO(mdc-migration): Remove all-legacy-component-typographies once all legacy components are migrated*/
 @include mat.all-legacy-component-typographies();
+@include mat.all-component-typographies();
+/* TODO(mdc-migration): Remove legacy-core once all legacy components are migrated*/
 @include mat.legacy-core();
+@include mat.core();
 
 $unit: 64px;
 $column-width: $unit * 3;
@@ -26,7 +30,7 @@ $theme: mat.define-light-theme(
       accent: $theme-accent,
       warn: $theme-warn,
     ),
-    typography: mat.define-legacy-typography-config(),
+    typography: mat.define-typography-config(),
   )
 );
 
@@ -44,4 +48,7 @@ $form-input-focus-background: lighten(
   53%
 ) !important;
 
+/* TODO(mdc-migration): Remove all-legacy-component-themes once all legacy components are migrated*/
 @include mat.all-legacy-component-themes($theme);
+
+@include mat.all-component-themes($theme);

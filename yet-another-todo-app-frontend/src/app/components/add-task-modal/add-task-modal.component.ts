@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {

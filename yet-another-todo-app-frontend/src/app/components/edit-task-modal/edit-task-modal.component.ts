@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first, map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
@@ -43,6 +43,7 @@ export class EditTaskModalComponent implements OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<EditTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
@@ -51,7 +52,7 @@ export class EditTaskModalComponent implements OnDestroy {
 
     this.subscription.add(
       this.tasks.pipe(first()).subscribe((tasks) => {
-        const initialTask = !!tasks && !!tasks.length && tasks[0].value;
+        const initialTask = this.getInitialTask(tasks, this.data);
 
         if (initialTask) {
           this.initializeForm(initialTask);
@@ -81,6 +82,18 @@ export class EditTaskModalComponent implements OnDestroy {
     this.tasksService.updateTask(task);
 
     this.dialogRef.close();
+  }
+
+  private getInitialTask(tasks: TaskOption[], data: any): Task | undefined {
+    if (!tasks || !tasks.length) {
+      return;
+    }
+
+    const id = data && data['initialTaskId'];
+
+    return id
+      ? tasks.find((item) => item.value.getId() === id)?.value || tasks[0].value
+      : tasks[0].value;
   }
 
   private initializeTasksObservable(): void {
