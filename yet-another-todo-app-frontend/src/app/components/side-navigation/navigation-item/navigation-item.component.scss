@@ -5,7 +5,10 @@
   width: 100%;
   height: $unit;
 
-  .mat-button {
+  .mdc-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     padding: 0 24px;
     margin: 0;
     width: 100%;
@@ -14,18 +17,18 @@
     text-align: left;
   }
 
-  ::ng-deep .mat-button-wrapper {
+  .navigation-item-icon {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    margin-right: $unit * 0.25;
+    font-size: 24px;
+    height: 24px;
+    width: auto;
+  }
 
-    .navigation-item-icon {
-      display: block;
-      line-height: 40px;
-      margin-right: $unit * 0.25;
-    }
-
-    yata-title {
-      display: block;
-    }
+  yata-title {
+    display: block;
   }
 }
