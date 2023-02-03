@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { AppFooterComponent } from './app-footer/app-footer.component';
+import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
