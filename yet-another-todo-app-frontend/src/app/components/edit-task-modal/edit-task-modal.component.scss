@@ -1,12 +1,18 @@
 @import '../../shared/variables.scss';
 
-.edit-task-modal .mat-dialog-container {
-  display: flex;
-  flex-direction: column;
-  border: $border;
-  border-radius: 0;
-  padding: 0;
-  margin: 0;
+.edit-task-modal .mat-mdc-dialog-container {
+  > div {
+    display: flex;
+    flex-direction: column;
+    border: $border;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mat-mdc-dialog-surface {
+    border-radius: 0;
+  }
 
   form {
     display: flex;
@@ -15,7 +21,7 @@
     padding: $unit / 2;
   }
 
-  .modal-title {
+  yata-title {
     h1 {
       padding: $unit / 4 $unit / 2;
       border-bottom: $border;
