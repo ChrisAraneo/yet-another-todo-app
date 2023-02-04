@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import diff from 'microdiff';
 
 type Option = {
   label: string;
@@ -18,11 +19,13 @@ type Option = {
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, AfterViewInit {
+  @ViewChild('select') selectElementRef!: ElementRef;
+
   @Input() label: string = '';
   @Input() options: Option[] = [];
 
-  value: Option | undefined;
+  value: any;
   isDisabled: boolean;
 
   changed?: (value: any) => void;
@@ -30,6 +33,14 @@ export class SelectComponent implements ControlValueAccessor {
 
   constructor() {
     this.isDisabled = false;
+  }
+
+  ngAfterViewInit(): void {
+    const index: number = this.options
+      .map((option) => option.value)
+      .findIndex((value) => !diff(value, this.value).length);
+
+    this.selectElementRef.nativeElement.value = index >= 0 ? index : 0;
   }
 
   onChange(event: Event): void {

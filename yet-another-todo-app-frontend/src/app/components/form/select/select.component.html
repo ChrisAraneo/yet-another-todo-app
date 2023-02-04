@@ -1,6 +1,7 @@
 <div>
   <label [for]="label">{{ label }}</label>
   <select
+    #select
     [name]="label"
     [value]="value && value.label"
     [disabled]="isDisabled"
