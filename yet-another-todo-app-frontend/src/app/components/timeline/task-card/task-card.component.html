@@ -4,7 +4,7 @@
       [state]="task.getState()"
       [size]="24"
       [opacity]="0.4"></yata-task-state-icon>
-    <button mat-icon-button aria-label="Edit icon">
+    <button mat-icon-button aria-label="Edit icon" (click)="openEditTaskModal(task.getId())">
       <mat-icon>edit</mat-icon>
     </button>
   </mat-card-actions>

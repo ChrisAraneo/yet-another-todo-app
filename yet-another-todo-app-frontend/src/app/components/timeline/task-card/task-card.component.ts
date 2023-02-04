@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { Task } from '../../../models/task.model';
 
 @Component({
@@ -9,5 +10,9 @@ import { Task } from '../../../models/task.model';
 export class TaskCardComponent {
   @Input() task!: Task;
 
-  constructor() {}
+  constructor(private dialogService: DialogService) {}
+
+  openEditTaskModal(taskId: string): void {
+    this.dialogService.openEditTaskModal(taskId);
+  }
 }
