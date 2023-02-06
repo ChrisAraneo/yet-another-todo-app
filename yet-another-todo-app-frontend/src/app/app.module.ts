@@ -7,10 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
-import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
+import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
@@ -28,6 +28,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from './material.module';
+import { ApiClientService } from './services/api-client/api-client.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
@@ -70,7 +71,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [DateUtilsService, DialogService, TasksService],
+  providers: [DateUtilsService, DialogService, ApiClientService, TasksService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
