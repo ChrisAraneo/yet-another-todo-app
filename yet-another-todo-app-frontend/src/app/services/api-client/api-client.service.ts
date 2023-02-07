@@ -18,7 +18,7 @@ export class ApiClientService {
     return this.http.get<ApiResponse>(this.url).pipe(
       first(),
       map((response: ApiResponse) => {
-        if (response.status === ApiResponseStatus.Success) {
+        if (response && response.status === ApiResponseStatus.Success) {
           return this.mapTasks(response);
         }
 
@@ -34,7 +34,7 @@ export class ApiClientService {
       .post<ApiResponse>(this.url, tasks)
       .pipe(first())
       .subscribe((response: ApiResponse) => {
-        if (response.status !== ApiResponseStatus.Success) {
+        if (!response || response.status !== ApiResponseStatus.Success) {
           this.printError(response);
         }
 
