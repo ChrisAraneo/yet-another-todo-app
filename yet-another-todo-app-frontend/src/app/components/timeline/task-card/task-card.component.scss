@@ -5,7 +5,6 @@ mat-card {
   border: $border;
   background-color: theme-background-color;
   width: 100%;
-  padding: $unit * 0.125;
   margin: 0;
 }
 
@@ -25,21 +24,24 @@ mat-card {
   align-items: center;
   margin: 24px 0 0 0;
   padding: 0;
+  margin-bottom: -9px;
 
-  .mat-button {
+  .mat-mdc-button {
     line-height: $unit * 0.5;
   }
 }
 
-.mat-card-content {
+.mat-mdc-card-content {
+  justify-content: center;
   text-align: center;
 }
 
-.mat-card-header {
+.mat-mdc-card-header {
   justify-content: center;
+  text-align: center;
 }
 
-.mat-icon-button {
+.mat-mdc-icon-button {
   padding: 0;
   min-width: 0;
   width: $unit * 0.5;
@@ -49,7 +51,11 @@ mat-card {
   border-radius: 50%;
 }
 
-::ng-deep .mat-card-header-text {
+::ng-deep .mat-mdc-card-header-text {
   margin: 0px !important;
   display: none;
+}
+
+yata-task-state-icon {
+  padding: 10px 12px;
 }
