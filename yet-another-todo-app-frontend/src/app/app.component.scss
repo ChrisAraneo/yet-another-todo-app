@@ -3,7 +3,7 @@
 main {
   width: 100%;
   background-color: $theme-background-color;
-  height: calc(100vh - $unit * 2);
+  height: calc(100vh - $unit * 2 - 30px);
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
