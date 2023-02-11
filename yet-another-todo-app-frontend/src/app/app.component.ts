@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { AppMode } from './app.types';
 import { TasksService } from './services/tasks/tasks.service';
 
 @Component({
@@ -11,6 +12,7 @@ export class AppComponent implements OnDestroy {
   isMenuOpened: boolean = true;
   timelineStartDate: Date = new Date(2022, 12, 1);
   timelineEndDate: Date = new Date(2022, 12, 31);
+  appMode: AppMode = AppMode.Timeline;
 
   constructor(private taskService: TasksService) {}
 
@@ -20,5 +22,9 @@ export class AppComponent implements OnDestroy {
 
   onMenuClick(): void {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  onChangeAppMode(mode: AppMode): void {
+    this.appMode = mode;
   }
 }
