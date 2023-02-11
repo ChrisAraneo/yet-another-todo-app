@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
+import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
-import { Task } from '../../models/task.model';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 
 @Injectable({
@@ -35,6 +36,21 @@ export class TasksService {
 
   updateTask(task: Task): void {
     this.store.dispatch(updateTask({ task }));
+  }
+
+  completeTask(task: Task): void {
+    const now = new Date();
+    const updatedTask = new EndedTask(
+      task.getTitle(),
+      task.getDescription(),
+      new CompletedTaskState(),
+      task instanceof StartedTask ? task.getStartDate() : now,
+      now,
+      task.getCreationDate(),
+      task.getId(),
+    );
+
+    this.store.dispatch(updateTask({ task: updatedTask }));
   }
 
   unsubscribe() {
