@@ -20,6 +20,7 @@ import { TextInputComponent } from './components/form/text-input/text-input.comp
 import { TextareaComponent } from './components/form/textarea/textarea.component';
 import { NavigationItemComponent } from './components/side-navigation/navigation-item/navigation-item.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
+import { TableComponent } from './components/table/table.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
@@ -55,6 +56,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     DatePickerComponent,
     AppFooterComponent,
     EmptyInfoBoxComponent,
+    TableComponent,
   ],
   imports: [
     StoreModule.forRoot({ tasks: tasksReducer }),
