@@ -5,8 +5,11 @@
       [isOpened]="isMenuOpened"
       [mode]="appMode"
       (modeChange)="onChangeAppMode($event)"></yata-side-navigation>
-    <div class="timeline-wrapper">
+    <div class="timeline-wrapper" *ngIf="appMode === timelineMode">
       <yata-timeline [startDate]="timelineStartDate" [endDate]="timelineEndDate"></yata-timeline>
+    </div>
+    <div class="table-wrapper" *ngIf="appMode === tableMode">
+      <yata-table></yata-table>
     </div>
   </main>
   <yata-app-footer></yata-app-footer>

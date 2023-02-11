@@ -8,6 +8,9 @@ import { TasksService } from './services/tasks/tasks.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
+  readonly timelineMode = AppMode.Timeline;
+  readonly tableMode = AppMode.Table;
+
   title: string = 'ヤタ YATA - Yet Another Todo App';
   isMenuOpened: boolean = true;
   timelineStartDate: Date = new Date(2022, 12, 1);
