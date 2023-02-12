@@ -20,3 +20,13 @@
   box-sizing: border-box;
   border-top: $border;
 }
+
+th.cdk-header-cell {
+  box-sizing: border-box;
+  height: $unit;
+  border-bottom: $border;
+}
+
+.mat-mdc-table .mdc-data-table__row {
+  height: $unit;
+}
