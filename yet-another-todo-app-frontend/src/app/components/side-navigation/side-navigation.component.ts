@@ -82,10 +82,18 @@ export class SideNavigationComponent implements OnChanges {
       },
     };
 
+    const deleteTask = {
+      icon: 'delete',
+      label: 'Delete task',
+      click: () => {
+        this.dialogService.openDeleteTaskModal();
+      },
+    };
+
     if (mode === AppMode.Timeline) {
-      this.items = [showTable, addTask, editTask];
+      this.items = [showTable, addTask, editTask, deleteTask];
     } else if (mode === AppMode.Table) {
-      this.items = [showTimeline, addTask, editTask];
+      this.items = [showTimeline, addTask, editTask, deleteTask];
     } else {
       throw Error(`Cannot set side navigation items, the app mode is invalid: ${mode}`);
     }

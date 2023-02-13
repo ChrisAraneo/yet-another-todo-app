@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription } from 'rxjs';
+import { TaskCreator } from 'src/app/models/task-creator.model';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -29,13 +30,13 @@ export class TasksService {
   getTasks(): Observable<Task[]> {
     return this.store
       .select('tasks')
-      .pipe(map((tasks: Task[]) => tasks.filter((task) => !task.getIsHidden())));
+      .pipe(map((tasks) => (tasks || []).filter((task) => !task.getIsHidden())));
   }
 
   getHiddenTasks(): Observable<Task[]> {
     return this.store
       .select('tasks')
-      .pipe(map((tasks: Task[]) => tasks.filter((task) => task.getIsHidden())));
+      .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
   addTask(task: Task): void {
@@ -58,7 +59,14 @@ export class TasksService {
       task.getId(),
     );
 
-    this.store.dispatch(updateTask({ task: updatedTask }));
+    this.updateTask(updatedTask);
+  }
+
+  hideTask(task: Task): void {
+    const taskCopy = JSON.parse(JSON.stringify(task));
+    const updatedTask = TaskCreator.create({ ...taskCopy, isHidden: true });
+
+    this.updateTask(updatedTask);
   }
 
   unsubscribe() {
