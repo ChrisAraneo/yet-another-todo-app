@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
+import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { DatePickerComponent } from './components/form/date-picker/date-picker.component';
@@ -57,6 +58,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     AppFooterComponent,
     EmptyInfoBoxComponent,
     TableComponent,
+    DeleteTaskModalComponent,
   ],
   imports: [
     StoreModule.forRoot({ tasks: tasksReducer }),
