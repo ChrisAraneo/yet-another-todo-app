@@ -14,6 +14,7 @@ export abstract class Task {
   private description: string;
   private state: TaskState;
   private creationDate: Date;
+  private isHidden: boolean;
 
   constructor(
     title: string,
@@ -27,6 +28,7 @@ export abstract class Task {
     this.state = state;
     this.creationDate = creationDate || new Date();
     this.id = id || uuidv4();
+    this.isHidden = false;
   }
 
   getId(): string {
@@ -55,6 +57,14 @@ export abstract class Task {
 
   getCreationDate(): Date {
     return this.creationDate;
+  }
+
+  getIsHidden(): boolean {
+    return this.isHidden;
+  }
+
+  setIsHidden(isHidden: boolean): void {
+    this.isHidden = isHidden;
   }
 
   protected setState(state: TaskState): void {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -27,7 +27,15 @@ export class TasksService {
   }
 
   getTasks(): Observable<Task[]> {
-    return this.store.select('tasks');
+    return this.store
+      .select('tasks')
+      .pipe(map((tasks: Task[]) => tasks.filter((task) => !task.getIsHidden())));
+  }
+
+  getHiddenTasks(): Observable<Task[]> {
+    return this.store
+      .select('tasks')
+      .pipe(map((tasks: Task[]) => tasks.filter((task) => task.getIsHidden())));
   }
 
   addTask(task: Task): void {

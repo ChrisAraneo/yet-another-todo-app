@@ -18,13 +18,31 @@ export class TaskCreator {
     const startDate = data['startDate'];
     const endDate = data['endDate'];
     const id = data['id'];
+    const isHidden = !!data['isHidden'];
 
     if (state instanceof NotStartedTaskState) {
-      return this.createPendingTask(title, description, creationDate, id);
+      return this.createPendingTask(title, description, creationDate, id, isHidden);
     } else if (state instanceof InProgressTaskState || state instanceof SuspendedTaskState) {
-      return this.createStartedTask(title, description, state, startDate, creationDate, id);
+      return this.createStartedTask(
+        title,
+        description,
+        state,
+        startDate,
+        creationDate,
+        id,
+        isHidden,
+      );
     } else if (state instanceof CompletedTaskState || state instanceof RejectedTaskState) {
-      return this.createEndedTask(title, description, state, startDate, endDate, creationDate, id);
+      return this.createEndedTask(
+        title,
+        description,
+        state,
+        startDate,
+        endDate,
+        creationDate,
+        id,
+        isHidden,
+      );
     } else {
       throw Error(`Task cannot be created from object: ${JSON.stringify(data)}`);
     }
@@ -35,6 +53,7 @@ export class TaskCreator {
     description: unknown,
     creationDate?: unknown,
     id?: unknown,
+    isHidden?: unknown,
   ): PendingTask {
     this.throwErrorWhenInvalidString(title, new Error(`Incorrect pending task title: ${title}`));
 
@@ -48,12 +67,16 @@ export class TaskCreator {
       new Error(`Incorrect pending task creation date: ${creationDate}`),
     );
 
-    return new PendingTask(
+    const task = new PendingTask(
       title as string,
       description as string,
       !!creationDate ? new Date(creationDate as string | number) : undefined,
       !!id && typeof id === 'string' ? id : undefined,
     );
+
+    task.setIsHidden(!!isHidden);
+
+    return task;
   }
 
   private static createStartedTask(
@@ -63,6 +86,7 @@ export class TaskCreator {
     startDate: unknown,
     creationDate?: unknown,
     id?: unknown,
+    isHidden?: unknown,
   ): PendingTask {
     this.throwErrorWhenInvalidString(title, new Error(`Incorrect started task title: ${title}`));
 
@@ -84,7 +108,7 @@ export class TaskCreator {
         new Error(`Incorrect started task creation date: ${creationDate}`),
       );
 
-    return new StartedTask(
+    const task = new StartedTask(
       title as string,
       description as string,
       state as TaskState,
@@ -92,6 +116,10 @@ export class TaskCreator {
       !!creationDate ? new Date(creationDate as string | number) : undefined,
       !!id && typeof id === 'string' ? id : undefined,
     );
+
+    task.setIsHidden(!!isHidden);
+
+    return task;
   }
 
   private static createEndedTask(
@@ -102,6 +130,7 @@ export class TaskCreator {
     endDate: unknown,
     creationDate?: unknown,
     id?: unknown,
+    isHidden?: unknown,
   ): PendingTask {
     this.throwErrorWhenInvalidString(title, new Error(`Incorrect ended task title: ${title}`));
 
@@ -128,7 +157,7 @@ export class TaskCreator {
         new Error(`Incorrect started task creation date: ${creationDate}`),
       );
 
-    return new EndedTask(
+    const task = new EndedTask(
       title as string,
       description as string,
       state as TaskState,
@@ -137,6 +166,10 @@ export class TaskCreator {
       !!creationDate ? new Date(creationDate as string | number) : undefined,
       !!id && typeof id === 'string' ? id : undefined,
     );
+
+    task.setIsHidden(!!isHidden);
+
+    return task;
   }
 
   private static throwErrorWhenInvalidString(value: unknown, error: Error): void {
