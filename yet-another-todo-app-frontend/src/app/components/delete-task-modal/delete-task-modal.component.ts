@@ -52,7 +52,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
     const task = this.taskForm.controls.task.value;
 
     if (task) {
-      this.tasksService.hideTask(task);
+      this.tasksService.hideTask(task.getId());
       this.dialogRef.close();
     }
   }

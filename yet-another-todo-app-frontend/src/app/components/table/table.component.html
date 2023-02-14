@@ -4,19 +4,19 @@
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>ID</yata-title>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.getShortId() }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.shortId }}</td>
     </ng-container>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>Title</yata-title>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.getTitle() }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
     </ng-container>
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>Description</yata-title>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.getDescription() }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef>
@@ -24,7 +24,7 @@
       </th>
       <td mat-cell *matCellDef="let element">
         <yata-task-state-icon
-          [state]="element.getState()"
+          [state]="element.state"
           [size]="24"
           [opacity]="0.8"></yata-task-state-icon>
       </td>
@@ -33,14 +33,14 @@
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>Creation date</yata-title>
       </th>
-      <td mat-cell *matCellDef="let element">{{ formatDate(element.getCreationDate()) }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.creationDate }}</td>
     </ng-container>
     <ng-container matColumnDef="startDate">
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>Start date</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">
-        {{ element['getStartDate'] ? formatDate(element.getStartDate()) : '-' }}
+        {{ element.startDate }}
       </td>
     </ng-container>
     <ng-container matColumnDef="endDate">
@@ -48,16 +48,16 @@
         <yata-title>End date</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">
-        {{ element['getEndDate'] ? formatDate(element.getEndDate()) : '-' }}
+        {{ element.endDate }}
       </td>
     </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button aria-label="Edit icon" (click)="openEditTaskModal(element.getId())">
+        <button mat-icon-button aria-label="Edit icon" (click)="openEditTaskModal(element.id)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button aria-label="Delete icon" (click)="deleteTask(element)">
+        <button mat-icon-button aria-label="Delete icon" (click)="deleteTask(element.id)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

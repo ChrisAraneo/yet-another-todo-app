@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
-import { createTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
+import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 
@@ -62,11 +61,8 @@ export class TasksService {
     this.updateTask(updatedTask);
   }
 
-  hideTask(task: Task): void {
-    const taskCopy = JSON.parse(JSON.stringify(task));
-    const updatedTask = TaskCreator.create({ ...taskCopy, isHidden: true });
-
-    this.updateTask(updatedTask);
+  hideTask(taskId: string): void {
+    this.store.dispatch(hideTask({ id: taskId }));
   }
 
   unsubscribe() {
