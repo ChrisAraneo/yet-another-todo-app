@@ -57,6 +57,9 @@
         <button mat-icon-button aria-label="Edit icon" (click)="openEditTaskModal(element.getId())">
           <mat-icon>edit</mat-icon>
         </button>
+        <button mat-icon-button aria-label="Delete icon" (click)="deleteTask(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

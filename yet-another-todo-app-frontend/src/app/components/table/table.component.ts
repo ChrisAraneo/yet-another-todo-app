@@ -54,6 +54,10 @@ export class TableComponent implements OnInit {
     this.dialogService.openEditTaskModal(taskId);
   }
 
+  deleteTask(task: Task): void {
+    this.tasksService.hideTask(task);
+  }
+
   formatDate(date: Date): string {
     return this.dateUtilsService.formatDate(date, 'dd-MM-yyyy');
   }
