@@ -14,6 +14,8 @@ describe('TaskCardComponent', () => {
       declarations: [TaskCardComponent],
       imports: [
         MatDialogModule,
+        NoopAnimationsModule,
+        HttpClientTestingModule,
         StoreModule.forRoot({}),
       ],
       providers: [
