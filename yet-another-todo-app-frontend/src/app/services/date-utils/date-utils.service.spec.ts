@@ -37,4 +37,29 @@ describe('DateUtilsService', () => {
     const result = service.formatDate(new Date(2020, 3, 15), 'yyyy-MM');
     expect(result).toBe('2020-04');
   });
+
+  it('#getFirstDayOfTheMonth should return 2023-02-01', () => {
+    const result = service.getFirstDayOfTheMonth(new Date(2023, 1, 15, 0, 0, 0, 0));
+    expect(+result).toBe(+new Date(2023, 1, 1, 0, 0, 0, 0));
+  });
+
+  it('#getLastDayOfTheMonth should return 2023-03-31', () => {
+    const result = service.getLastDayOfTheMonth(new Date(2023, 2, 7, 0, 0, 0, 0));
+    expect(+result).toBe(+new Date(2023, 2, 31, 0, 0, 0, 0));
+  });
+
+  it('#getLastDayOfTheMonth should return 2023-04-30', () => {
+    const result = service.getLastDayOfTheMonth(new Date(2023, 3, 11, 0, 0, 0, 0));
+    expect(+result).toBe(+new Date(2023, 3, 30, 0, 0, 0, 0));
+  });
+
+  it('#getLastDayOfTheMonth should return 2023-02-28', () => {
+    const result = service.getLastDayOfTheMonth(new Date(2023, 1, 4, 0, 0, 0, 0));
+    expect(+result).toBe(+new Date(2023, 1, 28, 0, 0, 0, 0));
+  });
+
+  it('#getLastDayOfTheMonth should return 2020-02-29', () => {
+    const result = service.getLastDayOfTheMonth(new Date(2020, 1, 20, 0, 0, 0, 0));
+    expect(+result).toBe(+new Date(2020, 1, 29, 0, 0, 0, 0));
+  });
 });
