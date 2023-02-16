@@ -51,6 +51,16 @@ describe('DateUtilsService', () => {
     expect(+result).toBe(+new Date(2023, 1, 1, 0, 0, 0, 0));
   });
 
+  it('#getFirstDayOfThePreviousMonth should return 2023-04-01', () => {
+    const result = service.getFirstDayOfThePreviousMonth(new Date(2023, 4, 22, 4, 5, 6, 7));
+    expect(+result).toBe(+new Date(2023, 3, 1, 0, 0, 0, 0));
+  });
+
+  it('#getFirstDayOfTheNextMonth should return 2023-05-01', () => {
+    const result = service.getFirstDayOfTheNextMonth(new Date(2023, 4, 22, 4, 5, 6, 7));
+    expect(+result).toBe(+new Date(2023, 5, 1, 0, 0, 0, 0));
+  });
+
   it('#getLastDayOfTheMonth should return 2023-03-31', () => {
     const result = service.getLastDayOfTheMonth(new Date(2023, 2, 7, 0, 0, 0, 0));
     expect(+result).toBe(+new Date(2023, 2, 31, 0, 0, 0, 0));
