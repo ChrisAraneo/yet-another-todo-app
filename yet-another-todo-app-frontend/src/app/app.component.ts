@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AppMode } from './app.types';
+import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { TasksService } from './services/tasks/tasks.service';
 
 @Component({
@@ -13,11 +14,14 @@ export class AppComponent implements OnDestroy {
 
   title: string = 'ヤタ YATA - Yet Another Todo App';
   isMenuOpened: boolean = true;
-  timelineStartDate: Date = new Date(2022, 12, 1);
-  timelineEndDate: Date = new Date(2022, 12, 31);
+  timelineStartDate!: Date;
+  timelineEndDate!: Date;
   appMode: AppMode = AppMode.Timeline;
 
-  constructor(private taskService: TasksService) {}
+  constructor(private taskService: TasksService, private dateUtilsService: DateUtilsService) {
+    this.initializeTimelineStartDate();
+    this.initializeTimelineEndDate();
+  }
 
   ngOnDestroy(): void {
     this.taskService.unsubscribe();
@@ -27,7 +31,24 @@ export class AppComponent implements OnDestroy {
     this.isMenuOpened = !this.isMenuOpened;
   }
 
-  onChangeAppMode(mode: AppMode): void {
+  changeAppMode(mode: AppMode): void {
     this.appMode = mode;
+  }
+
+  changeStartAndEndDate(startDate: Date): void {
+    this.timelineStartDate = startDate;
+    this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(startDate);
+  }
+
+  private initializeTimelineStartDate() {
+    const today = new Date();
+
+    this.timelineStartDate = this.dateUtilsService.getFirstDayOfTheMonth(today);
+  }
+
+  private initializeTimelineEndDate() {
+    const today = new Date();
+
+    this.timelineEndDate = this.dateUtilsService.getFirstDayOfTheMonth(today);
   }
 }

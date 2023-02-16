@@ -1,5 +1,15 @@
 <div class="timeline-headers-row">
-  <yata-timeline-header *ngFor="let label of headers" [label]="label"></yata-timeline-header>
+  <yata-timeline-header>
+    <button mat-icon-button aria-label="Previous month" (click)="changeStartDateToPreviousMonth()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </yata-timeline-header>
+  <yata-timeline-header *ngFor="let label of headers">{{ label }}</yata-timeline-header>
+  <yata-timeline-header>
+    <button mat-icon-button aria-label="Next month" (click)="changeStartDateToNextMonth()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </yata-timeline-header>
 </div>
 <yata-timeline-content
   *ngIf="startDate && endDate"

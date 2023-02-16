@@ -18,5 +18,6 @@ yata-timeline-header {
 }
 
 yata-timeline-content {
+  margin-left: 3 * $unit;
   min-height: calc(100% - $unit);
 }
