@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDays, format, getDaysInMonth } from 'date-fns';
+import { format, getDaysInMonth } from 'date-fns';
 
 @Injectable({
   providedIn: 'root',
@@ -10,16 +10,11 @@ export class DateUtilsService {
   getAllDaysInMonth(today: Date): Date[] {
     const currentYear = today.getFullYear();
     const currentMonth = today.getMonth();
+    const numberOfDaysInMonth = getDaysInMonth(today);
 
-    let date = new Date(currentYear, currentMonth, 1, 0, 0, 0, 0);
-    const dates = [];
-
-    while (date.getMonth() === currentMonth) {
-      dates.push(date);
-      date = addDays(date, 1);
-    }
-
-    return dates;
+    return [...Array(numberOfDaysInMonth).keys()].map((n: number) => {
+      return new Date(currentYear, currentMonth, n + 1, 0, 0, 0, 0);
+    });
   }
 
   getFirstDayOfTheMonth(today: Date): Date {

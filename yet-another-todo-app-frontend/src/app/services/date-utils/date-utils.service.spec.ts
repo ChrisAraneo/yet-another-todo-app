@@ -33,6 +33,14 @@ describe('DateUtilsService', () => {
     expect(result.length).toBe(29);
   });
 
+  it('#getAllDaysInMonth should return 31 correct dates for month 2022-12', () => {
+    const result = service.getAllDaysInMonth(new Date(2022, 11, 18));
+
+    [...Array(31).keys()].forEach((i) => {
+      expect(+result[i]).toBe(+new Date(2022, 11, i + 1, 0, 0, 0, 0));
+    });
+  });
+
   it('#formatDate should return yyyy-MM string', () => {
     const result = service.formatDate(new Date(2020, 3, 15), 'yyyy-MM');
     expect(result).toBe('2020-04');
