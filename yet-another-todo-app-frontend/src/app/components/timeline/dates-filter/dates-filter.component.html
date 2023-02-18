@@ -1,0 +1,4 @@
+<form [formGroup]="form" *ngIf="!!form">
+  <yata-date-picker [formControlName]="'startDate'" [label]="'Start date'"></yata-date-picker>
+  <yata-date-picker [formControlName]="'endDate'" [label]="'End date'"></yata-date-picker>
+</form>

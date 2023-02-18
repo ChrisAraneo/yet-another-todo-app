@@ -1,4 +1,9 @@
 <div class="timeline-headers-row">
+  <yata-dates-filter
+    [startDate]="startDate"
+    [endDate]="endDate"
+    (changeStartDate)="changeStartDate.next($event)"
+    (changeEndDate)="changeEndDate.next($event)"></yata-dates-filter>
   <yata-timeline-header>
     <button mat-icon-button aria-label="Previous month" (click)="changeStartDateToPreviousMonth()">
       <mat-icon>arrow_back</mat-icon>

@@ -11,6 +11,10 @@
   display: flex;
 }
 
+yata-dates-filter {
+  border-right: $border;
+}
+
 yata-timeline-header {
   min-width: $unit * 3;
   height: $unit;

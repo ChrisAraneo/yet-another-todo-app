@@ -9,7 +9,8 @@
       <yata-timeline
         [startDate]="timelineStartDate"
         [endDate]="timelineEndDate"
-        (changeStartDate)="changeStartAndEndDate($event)"></yata-timeline>
+        (changeStartDate)="changeStartDate($event)"
+        (changeEndDate)="changeEndDate($event)"></yata-timeline>
     </div>
     <div class="table-wrapper" *ngIf="appMode === tableMode">
       <yata-table></yata-table>

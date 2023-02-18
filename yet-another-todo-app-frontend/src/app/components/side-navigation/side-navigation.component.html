@@ -1,6 +1,5 @@
 <div class="side-navigation-animated-wrapper" [@openClose]="isOpened ? 'open' : 'closed'">
   <div class="side-navigation-content">
-    <yata-dates-filter></yata-dates-filter>
     <yata-navigation-item
       *ngFor="let item of items"
       [label]="item.label"

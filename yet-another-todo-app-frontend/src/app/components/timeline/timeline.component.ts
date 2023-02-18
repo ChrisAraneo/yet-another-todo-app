@@ -22,6 +22,7 @@ export class TimelineComponent implements OnInit, OnChanges {
   @Input() endDate?: Date;
 
   @Output() changeStartDate = new EventEmitter<Date>();
+  @Output() changeEndDate = new EventEmitter<Date>();
 
   tasks!: Observable<StartedTask[]>;
   headers: string[] = [];
@@ -35,7 +36,7 @@ export class TimelineComponent implements OnInit, OnChanges {
     const previousEndDate = changes['endDate'] && changes['endDate'].previousValue;
 
     if (+currentStartDate !== +previousStartDate || +currentEndDate !== +previousEndDate) {
-      this.updateHeaders(currentStartDate);
+      this.updateTimelineHeaders(currentStartDate, currentEndDate);
     }
   }
 
@@ -46,17 +47,24 @@ export class TimelineComponent implements OnInit, OnChanges {
   }
 
   changeStartDateToPreviousMonth() {
-    this.changeStartDate.next(this.dateUtils.getFirstDayOfThePreviousMonth(this.startDate as Date));
+    const firstDayOfPreviousMonth = this.dateUtils.getFirstDayOfThePreviousMonth(
+      this.startDate as Date,
+    );
+
+    this.changeStartDate.next(firstDayOfPreviousMonth);
+    this.changeEndDate.next(this.dateUtils.getLastDayOfTheMonth(firstDayOfPreviousMonth));
   }
 
   changeStartDateToNextMonth() {
-    this.changeStartDate.next(this.dateUtils.getFirstDayOfTheNextMonth(this.startDate as Date));
+    const firstDayOfNextMonth = this.dateUtils.getFirstDayOfTheNextMonth(this.startDate as Date);
+
+    this.changeStartDate.next(firstDayOfNextMonth);
+    this.changeEndDate.next(this.dateUtils.getLastDayOfTheMonth(firstDayOfNextMonth));
   }
 
-  // TODO Support for custom start-end periods, not only one month
-  private updateHeaders(startDate?: Date): void {
+  private updateTimelineHeaders(startDate?: Date, endDate?: Date): void {
     this.headers = this.dateUtils
-      .getAllDaysInMonth(startDate ? startDate : new Date())
+      .getAllDaysInPeriodOfTime(startDate ? startDate : new Date(), endDate ? endDate : new Date())
       .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
   }
 }

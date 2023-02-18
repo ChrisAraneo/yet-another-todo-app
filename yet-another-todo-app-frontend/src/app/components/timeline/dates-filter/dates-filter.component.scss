@@ -1,0 +1,32 @@
+@import '../../../shared/variables.scss';
+
+:host {
+  form {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: $border;
+    height: $unit;
+    width: 5 * $unit;
+    padding: $unit / 8;
+  }
+
+  yata-date-picker:first-of-type {
+    margin-right: 8px;
+  }
+}
+
+::ng-deep yata-date-picker {
+  input {
+    padding: $unit / 16 !important;
+    margin-top: $unit / 16 - 1 !important;
+    width: (5 * $unit - (3 * $unit / 8)) / 2 !important;
+  }
+
+  label {
+    margin-top: 0 !important;
+    font-size: 12px !important;
+  }
+}

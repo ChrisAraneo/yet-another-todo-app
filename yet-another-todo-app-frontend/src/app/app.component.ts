@@ -35,9 +35,20 @@ export class AppComponent implements OnDestroy {
     this.appMode = mode;
   }
 
-  changeStartAndEndDate(startDate: Date): void {
+  changeStartDate(startDate: Date): void {
     this.timelineStartDate = startDate;
-    this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(startDate);
+
+    if (+this.timelineEndDate < +this.timelineStartDate) {
+      this.timelineEndDate = new Date(this.timelineStartDate);
+    }
+  }
+
+  changeEndDate(endDate: Date): void {
+    this.timelineEndDate = endDate;
+
+    if (+this.timelineEndDate < +this.timelineStartDate) {
+      this.timelineStartDate = new Date(this.timelineEndDate);
+    }
   }
 
   private initializeTimelineStartDate() {
@@ -49,6 +60,6 @@ export class AppComponent implements OnDestroy {
   private initializeTimelineEndDate() {
     const today = new Date();
 
-    this.timelineEndDate = this.dateUtilsService.getFirstDayOfTheMonth(today);
+    this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(today);
   }
 }
