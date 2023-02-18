@@ -18,7 +18,7 @@
   }
 }
 
-::ng-deep yata-date-picker {
+::ng-deep yata-date-picker.custom-date-picker {
   input {
     padding: $unit / 16 !important;
     margin-top: $unit / 16 - 1 !important;

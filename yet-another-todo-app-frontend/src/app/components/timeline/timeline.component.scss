@@ -12,6 +12,7 @@
 }
 
 yata-dates-filter {
+  box-sizing: border-box;
   border-right: $border;
 }
 
@@ -22,6 +23,6 @@ yata-timeline-header {
 }
 
 yata-timeline-content {
-  margin-left: 3 * $unit;
+  margin-left: 5 * $unit + 3 * $unit;
   min-height: calc(100% - $unit);
 }
