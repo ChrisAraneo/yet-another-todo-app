@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { add, format, getDaysInMonth, sub } from 'date-fns';
+import differenceInDays from 'date-fns/differenceInDays';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +8,23 @@ import { add, format, getDaysInMonth, sub } from 'date-fns';
 export class DateUtilsService {
   constructor() {}
 
-  getAllDaysInMonth(today: Date): Date[] {
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
-    const numberOfDaysInMonth = getDaysInMonth(today);
+  getAllDaysInPeriodOfTime(startDate: Date, endDate: Date): Date[] {
+    const year = startDate.getFullYear();
+    const month = startDate.getMonth();
+    const date = startDate.getDate();
 
-    return [...Array(numberOfDaysInMonth).keys()].map((n: number) => {
-      return new Date(currentYear, currentMonth, n + 1, 0, 0, 0, 0);
+    const difference = Math.abs(differenceInDays(endDate, startDate)) + 1;
+
+    return [...Array(difference).keys()].map((n: number) => {
+      return add(new Date(year, month, date, 0, 0, 0, 0), { days: n });
     });
+  }
+
+  getAllDaysInMonth(today: Date): Date[] {
+    return this.getAllDaysInPeriodOfTime(
+      this.getFirstDayOfTheMonth(today),
+      this.getLastDayOfTheMonth(today),
+    );
   }
 
   getFirstDayOfTheMonth(today: Date): Date {

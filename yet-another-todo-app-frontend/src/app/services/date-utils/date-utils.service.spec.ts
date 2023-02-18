@@ -13,6 +13,24 @@ describe('DateUtilsService', () => {
     expect(service).toBeTruthy();
   });
 
+  it('#getAllDaysInPeriodOfTime should return 15 dates for period from 2022-11-01 to 2022-11-15', () => {
+    const result = service.getAllDaysInPeriodOfTime(new Date(2022, 10, 1), new Date(2022, 10, 15));
+    expect(result.length).toBe(15);
+  });
+
+  it('#getAllDaysInPeriodOfTime should return 33 dates for period from 2023-02-01 to 2023-03-05', () => {
+    const result = service.getAllDaysInPeriodOfTime(new Date(2023, 1, 1), new Date(2023, 2, 5));
+    expect(result.length).toBe(33);
+  });
+
+  it('#getAllDaysInPeriodOfTime should return 31 correct dates for period from 2022-12-01 to 2022-12-31', () => {
+    const result = service.getAllDaysInPeriodOfTime(new Date(2022, 11, 1), new Date(2022, 11, 31));
+
+    [...Array(31).keys()].forEach((i) => {
+      expect(+result[i]).toBe(+new Date(2022, 11, i + 1, 0, 0, 0, 0));
+    });
+  });
+
   it('#getAllDaysInMonth should return 30 dates for month 2022-11', () => {
     const result = service.getAllDaysInMonth(new Date(2022, 10, 17));
     expect(result.length).toBe(30);
