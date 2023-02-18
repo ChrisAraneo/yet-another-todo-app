@@ -37,18 +37,10 @@ export class AppComponent implements OnDestroy {
 
   changeStartDate(startDate: Date): void {
     this.timelineStartDate = startDate;
-
-    if (+this.timelineEndDate < +this.timelineStartDate) {
-      this.timelineEndDate = new Date(this.timelineStartDate);
-    }
   }
 
   changeEndDate(endDate: Date): void {
     this.timelineEndDate = endDate;
-
-    if (+this.timelineEndDate < +this.timelineStartDate) {
-      this.timelineStartDate = new Date(this.timelineEndDate);
-    }
   }
 
   private initializeTimelineStartDate() {

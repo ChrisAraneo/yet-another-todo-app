@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { debounceTime, Subscription } from 'rxjs';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { DatesFilterForm } from './dates-filter.types';
 
@@ -27,6 +27,8 @@ export class DatesFilterComponent implements OnChanges, OnDestroy {
   form?: FormGroup<DatesFilterForm>;
 
   private subscription: Subscription = new Subscription();
+  private lastStartDateString: string = '';
+  private lastEndDateString: string = '';
 
   constructor(private formBuilder: FormBuilder, private dateUtilsService: DateUtilsService) {}
 
@@ -55,15 +57,25 @@ export class DatesFilterComponent implements OnChanges, OnDestroy {
 
   private initializeValueChangesSubscriptions(): void {
     this.subscription.add(
-      this.form?.controls.startDate.valueChanges.subscribe((value: string | null) => {
-        value && this.changeStartDate.emit(new Date(value));
-      }),
+      this.form?.controls.startDate.valueChanges
+        .pipe(debounceTime(100))
+        .subscribe((value: string | null) => {
+          if (value && value !== this.lastStartDateString) {
+            this.changeStartDate.emit(new Date(value));
+            this.lastStartDateString = value;
+          }
+        }),
     );
 
     this.subscription.add(
-      this.form?.controls.endDate.valueChanges.subscribe((value: string | null) => {
-        value && this.changeEndDate.emit(new Date(value));
-      }),
+      this.form?.controls.endDate.valueChanges
+        .pipe(debounceTime(100))
+        .subscribe((value: string | null) => {
+          if (value && value !== this.lastEndDateString) {
+            this.changeEndDate.emit(new Date(value));
+            this.lastEndDateString = value;
+          }
+        }),
     );
   }
 

@@ -20,6 +20,11 @@ export class DateUtilsService {
     });
   }
 
+  getDifferenceInDays(startDate: Date, endDate: Date): number {
+    // TODO Unit tests
+    return Math.abs(differenceInDays(startDate, endDate));
+  }
+
   getAllDaysInMonth(today: Date): Date[] {
     return this.getAllDaysInPeriodOfTime(
       this.getFirstDayOfTheMonth(today),
