@@ -5,15 +5,35 @@
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 .timeline-headers-row {
   display: flex;
 }
 
+.timeline-header-button {
+  position: absolute;
+  width: $unit;
+  min-width: $unit;
+  z-index: 1000;
+}
+
+.arrow-back {
+  background: url('../../../assets/timeline-arrow-button-back.png');
+}
+
+.arrow-forward {
+  background: url('../../../assets/timeline-arrow-button-forward.png');
+}
+
 yata-dates-filter {
   box-sizing: border-box;
   border-right: $border;
+  border-left: $border;
+  margin-left: $unit;
 }
 
 yata-timeline-header {
@@ -22,7 +42,11 @@ yata-timeline-header {
   border-bottom: $border;
 }
 
+yata-timeline-header:last-of-type {
+  padding-right: $unit;
+}
+
 yata-timeline-content {
-  margin-left: 5 * $unit + 3 * $unit;
+  margin-left: 6 * $unit;
   min-height: calc(100% - $unit);
 }

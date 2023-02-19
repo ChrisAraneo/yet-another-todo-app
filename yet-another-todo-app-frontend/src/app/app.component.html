@@ -5,13 +5,12 @@
       [isOpened]="isMenuOpened"
       [mode]="appMode"
       (modeChange)="changeAppMode($event)"></yata-side-navigation>
-    <div class="timeline-wrapper" *ngIf="appMode === timelineMode">
-      <yata-timeline
-        [startDate]="timelineStartDate"
-        [endDate]="timelineEndDate"
-        (changeStartDate)="changeStartDate($event)"
-        (changeEndDate)="changeEndDate($event)"></yata-timeline>
-    </div>
+    <yata-timeline
+      *ngIf="appMode === timelineMode"
+      [startDate]="timelineStartDate"
+      [endDate]="timelineEndDate"
+      (changeStartDate)="changeStartDate($event)"
+      (changeEndDate)="changeEndDate($event)"></yata-timeline>
     <div class="table-wrapper" *ngIf="appMode === tableMode">
       <yata-table></yata-table>
     </div>

@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { UNIT } from 'src/app/shared/theme';
 import { StartedTask } from '../../models/task.model';
 
 @Component({
@@ -9,7 +19,7 @@ import { StartedTask } from '../../models/task.model';
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
 })
-export class TimelineComponent implements OnChanges {
+export class TimelineComponent implements OnChanges, AfterViewInit {
   @Input() startDate?: Date;
   @Input() endDate?: Date;
 
@@ -18,8 +28,24 @@ export class TimelineComponent implements OnChanges {
 
   tasks!: Observable<StartedTask[]>;
   headers: string[] = [];
+  previousMonthButtonPosition = {
+    left: '0px',
+    top: '0px',
+  };
+  nextMonthButtonPosition = {
+    left: '0px',
+    top: '0px',
+  };
 
-  constructor(private tasksService: TasksService, private dateUtils: DateUtilsService) {}
+  constructor(
+    private elementRef: ElementRef,
+    private tasksService: TasksService,
+    private dateUtils: DateUtilsService,
+  ) {
+    window.addEventListener('resize', () => {
+      this.updateButtonsPosition(this.elementRef.nativeElement.getBoundingClientRect());
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const currentStartDate =
@@ -44,6 +70,13 @@ export class TimelineComponent implements OnChanges {
       this.updateTimelineHeaders(currentStartDate, currentEndDate);
     }
   }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.updateButtonsPosition(this.elementRef.nativeElement.getBoundingClientRect());
+    }, 0);
+  }
+
   changeStartDateToPreviousMonth() {
     const firstDayOfPreviousMonth = this.dateUtils.getFirstDayOfThePreviousMonth(
       this.startDate as Date,
@@ -90,5 +123,20 @@ export class TimelineComponent implements OnChanges {
     this.headers = this.dateUtils
       .getAllDaysInPeriodOfTime(startDate ? startDate : new Date(), endDate ? endDate : new Date())
       .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
+  }
+
+  private updateButtonsPosition(rect: any): void {
+    if (this.previousMonthButtonPosition.left !== `${rect.x}px`) {
+      this.previousMonthButtonPosition.left = `${rect.x}px`;
+    }
+    if (this.previousMonthButtonPosition.top !== `${rect.y}px`) {
+      this.previousMonthButtonPosition.top = `${rect.y}px`;
+    }
+    if (this.nextMonthButtonPosition.left !== `${rect.x + rect.width - UNIT}px`) {
+      this.nextMonthButtonPosition.left = `${rect.x + rect.width - UNIT}px`;
+    }
+    if (this.nextMonthButtonPosition.top !== `${rect.y}px`) {
+      this.nextMonthButtonPosition.top = `${rect.y}px`;
+    }
   }
 }
