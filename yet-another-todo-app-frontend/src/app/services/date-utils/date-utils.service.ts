@@ -9,26 +9,23 @@ export class DateUtilsService {
   constructor() {}
 
   getAllDaysInPeriodOfTime(startDate: Date, endDate: Date): Date[] {
-    const year = startDate.getFullYear();
-    const month = startDate.getMonth();
-    const date = startDate.getDate();
-
-    const difference = Math.abs(differenceInDays(endDate, startDate)) + 1;
+    const difference = Math.abs(this.getNumberOfDaysBetweenDates(endDate, startDate));
 
     return [...Array(difference).keys()].map((n: number) => {
-      return add(new Date(year, month, date, 0, 0, 0, 0), { days: n });
+      return add(this.getDateAtNoon(startDate), { days: n });
     });
-  }
-
-  getDifferenceInDays(startDate: Date, endDate: Date): number {
-    // TODO Unit tests
-    return Math.abs(differenceInDays(startDate, endDate));
   }
 
   getAllDaysInMonth(today: Date): Date[] {
     return this.getAllDaysInPeriodOfTime(
       this.getFirstDayOfTheMonth(today),
       this.getLastDayOfTheMonth(today),
+    );
+  }
+
+  getNumberOfDaysBetweenDates(startDate: Date, endDate: Date): number {
+    return (
+      Math.abs(differenceInDays(this.getDateAtNoon(endDate), this.getDateAtNoon(startDate))) + 1
     );
   }
 
@@ -54,14 +51,16 @@ export class DateUtilsService {
   }
 
   getLastDayOfTheMonth(today: Date): Date {
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth();
     const numberOfDaysInMonth = getDaysInMonth(today);
 
-    return new Date(currentYear, currentMonth, numberOfDaysInMonth, 0, 0, 0, 0);
+    return new Date(today.getFullYear(), today.getMonth(), numberOfDaysInMonth, 0, 0, 0, 0);
   }
 
   formatDate(date: Date, pattern: string): string {
     return format(date, pattern);
+  }
+
+  private getDateAtNoon(date: Date): Date {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
   }
 }

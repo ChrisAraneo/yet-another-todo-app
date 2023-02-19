@@ -59,6 +59,24 @@ describe('DateUtilsService', () => {
     });
   });
 
+  it('#getNumberOfDaysBetweenDates should return 31 for period from 2022-12-01 to 2022-12-31', () => {
+    const result = service.getNumberOfDaysBetweenDates(
+      new Date(2022, 11, 1, 12, 5, 10),
+      new Date(2022, 11, 31, 16, 55, 56),
+    );
+    expect(result).toBe(31);
+  });
+
+  it('#getNumberOfDaysBetweenDates should return 1 for period from 2020-05-05 to  2020-05-05', () => {
+    const result = service.getNumberOfDaysBetweenDates(new Date(2020, 4, 5), new Date(2020, 4, 5));
+    expect(result).toBe(1);
+  });
+
+  it('#getNumberOfDaysBetweenDates should return 3 for reversed input from 2020-05-07 to 2020-05-05', () => {
+    const result = service.getNumberOfDaysBetweenDates(new Date(2020, 4, 7), new Date(2020, 4, 5));
+    expect(result).toBe(3);
+  });
+
   it('#formatDate should return yyyy-MM string', () => {
     const result = service.formatDate(new Date(2020, 3, 15), 'yyyy-MM');
     expect(result).toBe('2020-04');

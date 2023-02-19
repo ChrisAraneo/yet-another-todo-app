@@ -30,7 +30,7 @@ export class TimelineComponent implements OnChanges {
     const previousEndDate = changes['endDate'] && changes['endDate'].previousValue;
 
     if (+currentStartDate !== +previousStartDate || +currentEndDate !== +previousEndDate) {
-      const daysInPeriodOfTime = this.dateUtils.getDifferenceInDays(
+      const daysInPeriodOfTime = this.dateUtils.getNumberOfDaysBetweenDates(
         currentStartDate,
         currentEndDate,
       );
