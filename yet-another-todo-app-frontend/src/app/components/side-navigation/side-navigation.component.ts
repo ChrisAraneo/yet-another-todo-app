@@ -25,8 +25,8 @@ import { NavigationItem } from './side-navigation.types';
           borderRight: '0px solid black',
         }),
       ),
-      transition('open => closed', [animate('0.25s')]),
-      transition('closed => open', [animate('0.25s')]),
+      transition('open => closed', [animate('0.175s')]),
+      transition('closed => open', [animate('0.175s')]),
     ]),
   ],
 })
