@@ -4,7 +4,10 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnChanges,
+  OnDestroy,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -13,13 +16,14 @@ import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/theme';
 import { StartedTask } from '../../models/task.model';
+import { ElementPosition, Rect } from './timeline.types';
 
 @Component({
   selector: 'yata-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
 })
-export class TimelineComponent implements OnChanges, AfterViewInit {
+export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() startDate?: Date;
   @Input() endDate?: Date;
 
@@ -28,23 +32,24 @@ export class TimelineComponent implements OnChanges, AfterViewInit {
 
   tasks!: Observable<StartedTask[]>;
   headers: string[] = [];
-  previousMonthButtonPosition = {
-    left: '0px',
-    top: '0px',
-  };
-  nextMonthButtonPosition = {
-    left: '0px',
-    top: '0px',
-  };
+  previousMonthButtonPosition!: ElementPosition;
+  nextMonthButtonPosition!: ElementPosition;
+
+  private observer!: ResizeObserver;
 
   constructor(
     private elementRef: ElementRef,
     private tasksService: TasksService,
     private dateUtils: DateUtilsService,
+    private host: ElementRef,
+    private zone: NgZone,
   ) {
-    window.addEventListener('resize', () => {
-      this.updateButtonsPosition(this.elementRef.nativeElement.getBoundingClientRect());
-    });
+    this.initializeButtons();
+    this.addWindowResizeListener();
+  }
+
+  ngOnInit(): void {
+    this.initializeResizeObserver();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -77,6 +82,10 @@ export class TimelineComponent implements OnChanges, AfterViewInit {
     }, 0);
   }
 
+  ngOnDestroy(): void {
+    this.observer && this.observer.unobserve(this.host.nativeElement);
+  }
+
   changeStartDateToPreviousMonth() {
     const firstDayOfPreviousMonth = this.dateUtils.getFirstDayOfThePreviousMonth(
       this.startDate as Date,
@@ -91,6 +100,41 @@ export class TimelineComponent implements OnChanges, AfterViewInit {
 
     this.changeStartDate.next(firstDayOfNextMonth);
     this.changeEndDate.next(this.dateUtils.getLastDayOfTheMonth(firstDayOfNextMonth));
+  }
+
+  private initializeButtons(): void {
+    this.previousMonthButtonPosition = {
+      left: '0px',
+      top: '0px',
+    };
+    this.nextMonthButtonPosition = {
+      left: '0px',
+      top: '0px',
+    };
+  }
+
+  private initializeResizeObserver(): void {
+    this.observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+      this.zone.run(() => {
+        const target = entries[0].target as any;
+        const contentRect = entries[0].contentRect;
+
+        this.updateButtonsPosition({
+          x: target?.offsetLeft,
+          y: target?.offsetTop,
+          width: contentRect.width,
+          height: contentRect.height,
+        });
+      });
+    });
+
+    this.observer.observe(this.host.nativeElement);
+  }
+
+  private addWindowResizeListener(): void {
+    window.addEventListener('resize', () => {
+      this.updateButtonsPosition(this.elementRef.nativeElement.getBoundingClientRect());
+    });
   }
 
   private updateTasks(startDate?: Date, endDate?: Date): void {
@@ -125,18 +169,13 @@ export class TimelineComponent implements OnChanges, AfterViewInit {
       .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
   }
 
-  private updateButtonsPosition(rect: any): void {
-    if (this.previousMonthButtonPosition.left !== `${rect.x}px`) {
-      this.previousMonthButtonPosition.left = `${rect.x}px`;
-    }
-    if (this.previousMonthButtonPosition.top !== `${rect.y}px`) {
-      this.previousMonthButtonPosition.top = `${rect.y}px`;
-    }
-    if (this.nextMonthButtonPosition.left !== `${rect.x + rect.width - UNIT}px`) {
-      this.nextMonthButtonPosition.left = `${rect.x + rect.width - UNIT}px`;
-    }
-    if (this.nextMonthButtonPosition.top !== `${rect.y}px`) {
-      this.nextMonthButtonPosition.top = `${rect.y}px`;
-    }
+  private updateButtonsPosition(rect: Rect): void {
+    this.updateButtonPosition(this.previousMonthButtonPosition, rect.x, rect.y);
+    this.updateButtonPosition(this.nextMonthButtonPosition, rect.x + rect.width - UNIT, rect.y);
+  }
+
+  private updateButtonPosition(button: ElementPosition, x: number, y: number): void {
+    button['left'] !== `${x}px` && (button.left = `${x}px`);
+    button['top'] !== `${y}px` && (button.top = `${y}px`);
   }
 }
