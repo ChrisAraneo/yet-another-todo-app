@@ -1,1 +1,11 @@
-<p>searchbar works!</p>
+<form>
+  <mat-icon class="seachbar-icon" [class.is-focused]="isFocused" aria-hidden="false">
+    search
+  </mat-icon>
+  <input
+    type="text"
+    (input)="onChange($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    [placeholder]="placeholder" />
+</form>

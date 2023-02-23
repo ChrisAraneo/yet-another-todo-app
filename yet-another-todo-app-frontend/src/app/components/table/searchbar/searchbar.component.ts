@@ -1,8 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'yata-searchbar',
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss'],
 })
-export class SearchbarComponent {}
+export class SearchbarComponent {
+  @Output() change = new EventEmitter<string>();
+
+  readonly placeholder: string = 'Search tasks';
+
+  isFocused: boolean = false;
+
+  onChange(event: Event): void {
+    this.change.next((<HTMLInputElement>event.target).value || '');
+  }
+
+  onFocus(): void {
+    this.isFocused = true;
+  }
+
+  onBlur(): void {
+    this.isFocused = false;
+  }
+}
