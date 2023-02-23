@@ -1,5 +1,8 @@
-<div class="wrapper" *ngIf="!!data">
-  <table mat-table [dataSource]="data">
+<div class="searchbar-wrapper">
+  <yata-searchbar (change)="onSearch($event)"></yata-searchbar>
+</div>
+<div class="table-wrapper" *ngIf="!!filteredData">
+  <table mat-table [dataSource]="filteredData">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>
         <yata-title>ID</yata-title>

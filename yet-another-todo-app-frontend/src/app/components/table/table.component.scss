@@ -8,7 +8,7 @@
   height: 100%;
 }
 
-.wrapper {
+.table-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,4 +29,8 @@ th.cdk-header-cell {
 
 .mat-mdc-table .mdc-data-table__row {
   height: $unit;
+}
+
+.searchbar-wrapper {
+  padding: $unit / 4 $unit / 4 0 $unit / 4;
 }

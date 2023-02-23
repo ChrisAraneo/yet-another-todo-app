@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { map, Subscription } from 'rxjs';
+import { BehaviorSubject, map, Subscription } from 'rxjs';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
@@ -29,6 +29,8 @@ export class TableComponent implements OnInit, OnDestroy {
   ];
 
   data: MatTableDataSource<TasksDataSource> | undefined;
+  filteredData: MatTableDataSource<TasksDataSource> | undefined; // TODO Refactor searching into observables
+  search = new BehaviorSubject<string>('');
 
   private subscription!: Subscription;
 
@@ -44,11 +46,39 @@ export class TableComponent implements OnInit, OnDestroy {
       .pipe(map((tasks) => this.mapToTasksDataSource(tasks)))
       .subscribe((tasks) => {
         this.data = new MatTableDataSource<TasksDataSource>(tasks);
+        this.filteredData = this.data;
 
         if (!!this.paginator) {
           this.data.paginator = this.paginator;
+          this.filteredData.paginator = this.paginator;
         }
       });
+
+    this.subscription.add(
+      this.search.subscribe((text) => {
+        if (text === '' && this.data) {
+          this.filteredData = this.data;
+
+          if (!!this.paginator) {
+            this.filteredData.paginator = this.paginator;
+          }
+
+          return;
+        }
+
+        this.filteredData = new MatTableDataSource<TasksDataSource>(
+          this.data?.data.filter((item) => {
+            const stringified = this.taskToString(item);
+
+            return stringified.includes(text.toLocaleLowerCase());
+          }),
+        );
+
+        if (!!this.paginator) {
+          this.filteredData.paginator = this.paginator;
+        }
+      }),
+    );
   }
 
   ngOnDestroy(): void {
@@ -69,6 +99,10 @@ export class TableComponent implements OnInit, OnDestroy {
     this.tasksService.hideTask(taskId);
   }
 
+  onSearch(text: string): void {
+    this.search.next(text);
+  }
+
   private mapToTasksDataSource(tasks: Task[]): TasksDataSource[] {
     return tasks.map((task: Task) => {
       return {
@@ -86,5 +120,11 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private formatDate(date: Date): string {
     return this.dateUtilsService.formatDate(date, 'dd-MM-yyyy');
+  }
+
+  private taskToString(task: TasksDataSource): string {
+    return `${task.id} ${task.shortId} ${task.title} ${task.description} ${task.state.toString()} ${
+      task.creationDate
+    } ${task.startDate} ${task.endDate}`.toLocaleLowerCase();
   }
 }
