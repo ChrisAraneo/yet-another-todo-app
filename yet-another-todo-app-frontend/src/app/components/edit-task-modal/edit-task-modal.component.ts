@@ -1,7 +1,7 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { first, map, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
@@ -20,7 +20,7 @@ import { TaskForm, TaskOption } from './edit-task-modal.types';
   templateUrl: './edit-task-modal.component.html',
   styleUrls: ['./edit-task-modal.component.scss'],
 })
-export class EditTaskModalComponent implements OnDestroy {
+export class EditTaskModalComponent implements OnInit, OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
 
   readonly title = 'Edit task';
@@ -36,9 +36,9 @@ export class EditTaskModalComponent implements OnDestroy {
   }));
 
   tasks!: Observable<TaskOption[]>;
-  showStartDateControl!: Observable<boolean>;
-  showEndDateControl!: Observable<boolean>;
-  taskForm?: FormGroup<TaskForm>;
+  showStartDateControl!: BehaviorSubject<boolean>;
+  showEndDateControl!: BehaviorSubject<boolean>;
+  taskForm!: FormGroup<TaskForm>;
 
   private subscription: Subscription = new Subscription();
 
@@ -48,21 +48,22 @@ export class EditTaskModalComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
   ) {
+    this.initializeForm();
+
+    this.initializeShowStartDateControlSubject(this.taskForm);
+    this.initializeShowEndDateControlSubject(this.taskForm);
     this.initializeTasksObservable();
 
+    this.subscribeToSelectedTaskChanges(this.taskForm);
+  }
+
+  ngOnInit(): void {
     this.subscription.add(
       this.tasks.pipe(first()).subscribe((tasks) => {
         const initialTask = this.getInitialTask(tasks, this.data);
 
         if (initialTask) {
-          this.initializeForm(initialTask);
-        }
-
-        if (this.taskForm) {
-          this.initializeShowStartDateControlObservable(this.taskForm);
-          this.initializeShowEndDateControlObservable(this.taskForm);
-
-          this.subscribeToSelectedTaskChanges(this.taskForm);
+          this.updateFormValues(initialTask);
         }
       }),
     );
@@ -84,6 +85,17 @@ export class EditTaskModalComponent implements OnDestroy {
     this.dialogRef.close();
   }
 
+  private initializeForm(): void {
+    this.taskForm = this.formBuilder.group<TaskForm>({
+      task: new FormControl(),
+      title: new FormControl('', { nonNullable: true }),
+      description: new FormControl('', { nonNullable: true }),
+      state: new FormControl(new NotStartedTaskState(), { nonNullable: true }),
+      startDate: new FormControl(null),
+      endDate: new FormControl(null),
+    });
+  }
+
   private getInitialTask(tasks: TaskOption[], data: any): Task | undefined {
     if (!tasks || !tasks.length) {
       return;
@@ -102,40 +114,47 @@ export class EditTaskModalComponent implements OnDestroy {
       .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
   }
 
-  private initializeForm(initialTask: Task): void {
-    if (!initialTask) {
-      throw new Error("Can't initialize Edit task modal form, initial task is undefined");
-    }
-
-    this.taskForm = this.formBuilder.group<TaskForm>({
-      task: new FormControl(initialTask),
-      title: new FormControl(initialTask.getTitle(), { nonNullable: true }),
-      description: new FormControl(initialTask.getDescription(), { nonNullable: true }),
-      state: new FormControl(initialTask.getState(), { nonNullable: true }),
-      startDate: new FormControl(
-        initialTask instanceof StartedTask ? initialTask.getStartDate() : null,
-      ),
-      endDate: new FormControl(initialTask instanceof EndedTask ? initialTask.getEndDate() : null),
-    });
+  private updateFormValues(task: Task): void {
+    this.taskForm?.controls.task.patchValue(task);
+    this.taskForm?.controls.title.patchValue(task.getTitle());
+    this.taskForm?.controls.description.patchValue(task.getDescription());
+    this.taskForm?.controls.state.patchValue(task.getState());
+    this.taskForm?.controls.startDate.patchValue(
+      task instanceof StartedTask ? task.getStartDate() : null,
+    );
+    this.taskForm?.controls.endDate.patchValue(
+      task instanceof EndedTask ? task.getEndDate() : null,
+    );
+    this.taskForm.updateValueAndValidity();
   }
 
-  private initializeShowStartDateControlObservable(form: FormGroup<TaskForm>): void {
-    this.showStartDateControl = form.controls.state.valueChanges.pipe(
-      map((state: TaskState) => {
-        return (
-          state instanceof InProgressTaskState ||
-          state instanceof SuspendedTaskState ||
-          state instanceof CompletedTaskState ||
-          state instanceof RejectedTaskState
-        );
+  private initializeShowStartDateControlSubject(form: FormGroup<TaskForm>): void {
+    const isVisibleFn = (state: TaskState) =>
+      state instanceof InProgressTaskState ||
+      state instanceof SuspendedTaskState ||
+      state instanceof CompletedTaskState ||
+      state instanceof RejectedTaskState;
+
+    this.showStartDateControl = new BehaviorSubject<boolean>(
+      isVisibleFn(form.controls.state.value),
+    );
+
+    this.subscription.add(
+      form.controls.state.valueChanges.subscribe((state: TaskState) => {
+        this.showStartDateControl.next(isVisibleFn(state));
       }),
     );
   }
 
-  private initializeShowEndDateControlObservable(form: FormGroup<TaskForm>): void {
-    this.showEndDateControl = form.controls.state.valueChanges.pipe(
-      map((state: TaskState) => {
-        return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
+  private initializeShowEndDateControlSubject(form: FormGroup<TaskForm>): void {
+    const isVisibleFn = (state: TaskState) =>
+      state instanceof CompletedTaskState || state instanceof RejectedTaskState;
+
+    this.showEndDateControl = new BehaviorSubject<boolean>(isVisibleFn(form.controls.state.value));
+
+    this.subscription.add(
+      form.controls.state.valueChanges.subscribe((state: TaskState) => {
+        this.showEndDateControl.next(isVisibleFn(state));
       }),
     );
   }
