@@ -7,8 +7,8 @@ export type TaskForm = {
   title: FormControl<string>;
   description: FormControl<string>;
   state: FormControl<TaskState>;
-  startDate: FormControl<Date | null>;
-  endDate: FormControl<Date | null>;
+  startDate: FormControl<string | null>;
+  endDate: FormControl<string | null>;
 };
 
 export type TaskOption = {

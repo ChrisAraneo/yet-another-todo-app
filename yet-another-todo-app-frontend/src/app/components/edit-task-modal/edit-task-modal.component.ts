@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, first, map, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, debounceTime, first, map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
@@ -10,6 +10,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
+import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -47,6 +48,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     public dialogRef: MatDialogRef<EditTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
+    private dateUtilsService: DateUtilsService,
   ) {
     this.initializeForm();
 
@@ -63,7 +65,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
         const initialTask = this.getInitialTask(tasks, this.data);
 
         if (initialTask) {
-          this.updateFormValues(initialTask);
+          this.updateFormValues(this.taskForm, initialTask);
         }
       }),
     );
@@ -114,18 +116,25 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
       .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
   }
 
-  private updateFormValues(task: Task): void {
-    this.taskForm?.controls.task.patchValue(task);
-    this.taskForm?.controls.title.patchValue(task.getTitle());
-    this.taskForm?.controls.description.patchValue(task.getDescription());
-    this.taskForm?.controls.state.patchValue(task.getState());
-    this.taskForm?.controls.startDate.patchValue(
-      task instanceof StartedTask ? task.getStartDate() : null,
-    );
-    this.taskForm?.controls.endDate.patchValue(
-      task instanceof EndedTask ? task.getEndDate() : null,
-    );
-    this.taskForm.updateValueAndValidity();
+  private updateFormValues(form: FormGroup<TaskForm>, task: Task | null): void {
+    form.controls.task.setValue(task);
+    form.controls.title.setValue(task?.getTitle() || '');
+    form.controls.description.setValue(task?.getDescription() || '');
+    form.controls.state.setValue(task?.getState() || new NotStartedTaskState());
+
+    if (task instanceof StartedTask || task instanceof EndedTask) {
+      form.controls.startDate.setValue(
+        this.dateUtilsService.formatDate(task.getStartDate(), 'yyyy-MM-dd'),
+      );
+    }
+
+    if (task instanceof EndedTask) {
+      form.controls.endDate.setValue(
+        this.dateUtilsService.formatDate(task.getEndDate(), 'yyyy-MM-dd'),
+      );
+    }
+
+    form.updateValueAndValidity();
   }
 
   private initializeShowStartDateControlSubject(form: FormGroup<TaskForm>): void {
@@ -161,18 +170,8 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
 
   private subscribeToSelectedTaskChanges(form: FormGroup<TaskForm>): void {
     this.subscription.add(
-      form.controls.task.valueChanges.subscribe((task) => {
-        form.controls.title.setValue(task?.getTitle() || '');
-        form.controls.description.setValue(task?.getDescription() || '');
-        form.controls.state.setValue(task?.getState() || new NotStartedTaskState());
-
-        if (task instanceof StartedTask || task instanceof EndedTask) {
-          form.controls.startDate.setValue(task.getStartDate());
-        }
-
-        if (task instanceof EndedTask) {
-          form.controls.endDate.setValue(task.getEndDate());
-        }
+      form.controls.task.valueChanges.pipe(debounceTime(5)).subscribe((task: Task | null) => {
+        this.updateFormValues(form, task);
       }),
     );
   }
