@@ -1,5 +1,5 @@
 {
-  "name": "yet-another-todo-app-backend",
+  "name": "yet-another-todo-app-mock",
   "version": "0.0.0",
   "scripts": {
     "mock": "node mock"

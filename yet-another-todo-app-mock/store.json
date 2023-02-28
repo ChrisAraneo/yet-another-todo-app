@@ -1,0 +1,11 @@
+[
+    {
+      "title": "Lorem",
+      "description": "Ipsum dolor es",
+      "state": { "value": "IN_PROGRESS", "iconName": "autorenew", "color": "orange", "tooltipText": "Task in progress" },
+      "creationDate": "2023-01-01T19:43:44.738Z",
+      "id": "8e7f40b7-71a2-44fa-b112-8539c1cc068c",
+      "startDate": "2023-01-01T19:43:44.738Z"
+    }
+  ]
+  
