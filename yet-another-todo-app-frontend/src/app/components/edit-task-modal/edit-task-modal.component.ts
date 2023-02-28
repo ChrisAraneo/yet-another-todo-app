@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, debounceTime, first, map, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, first, map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
@@ -42,6 +42,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup<TaskForm>;
 
   private subscription: Subscription = new Subscription();
+  private selectedTaskId = new BehaviorSubject<string | null>(null);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -117,6 +118,14 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private updateFormValues(form: FormGroup<TaskForm>, task: Task | null): void {
+    const id = task?.getId() || null;
+
+    if (id === this.selectedTaskId.getValue()) {
+      return;
+    }
+
+    this.selectedTaskId.next(id);
+
     form.controls.task.setValue(task);
     form.controls.title.setValue(task?.getTitle() || '');
     form.controls.description.setValue(task?.getDescription() || '');
@@ -170,8 +179,8 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
 
   private subscribeToSelectedTaskChanges(form: FormGroup<TaskForm>): void {
     this.subscription.add(
-      form.controls.task.valueChanges.pipe(debounceTime(5)).subscribe((task: Task | null) => {
-        this.updateFormValues(form, task);
+      form.controls.task.valueChanges.subscribe((task: Task | null) => {
+        this.updateFormValues(this.taskForm, task);
       }),
     );
   }
