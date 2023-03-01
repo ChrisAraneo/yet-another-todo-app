@@ -10,12 +10,13 @@ import { ApiResponse, ApiResponseStatus } from './api-client.types';
   providedIn: 'root',
 })
 export class ApiClientService {
-  private url = `${environment.api.origin}/`; // TODO Extract to token
+  private readonly url = `${environment.api.origin}`; // TODO Extract to token
+  private readonly tasksEndpoint = `${this.url}/tasks`;
 
   constructor(private http: HttpClient) {}
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
-    return this.http.get<ApiResponse>(this.url).pipe(
+    return this.http.get<ApiResponse>(this.tasksEndpoint).pipe(
       first(),
       map((response: ApiResponse) => {
         if (response && response.status === ApiResponseStatus.Success) {
@@ -31,7 +32,7 @@ export class ApiClientService {
 
   postTasksToApi(tasks: Task[]): void {
     this.http
-      .post<ApiResponse>(this.url, tasks)
+      .post<ApiResponse>(this.tasksEndpoint, tasks)
       .pipe(first())
       .subscribe((response: ApiResponse) => {
         if (!response || response.status !== ApiResponseStatus.Success) {
@@ -49,6 +50,6 @@ export class ApiClientService {
   }
 
   private printError(error: any): void {
-    console.log(error);
+    console.error('Error', error);
   }
 }
