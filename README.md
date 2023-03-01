@@ -1,4 +1,5 @@
-# yet-another-todo-app
+# YATA - Yet Another Todo App
+
 Developing a daily planner that I would personally use
 
 # Work in progress
