@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, Subscription } from 'rxjs';
+import { map, Observable, skip, Subscription } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -22,7 +22,9 @@ export class TasksService {
     );
 
     this.subscription.add(
-      this.getTasks().subscribe((tasks: Task[]) => this.apiClientService.postTasksToApi(tasks)),
+      this.getTasks().pipe(skip(1)).subscribe((tasks: Task[]) => 
+        this.apiClientService.postTasksToApi(tasks)
+      ),
     );
   }
 
