@@ -3,7 +3,10 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
   getTasks(): string {
-    return JSON.stringify(STUB_TASKS);
+    return JSON.stringify({
+      status: 'success',
+      data: STUB_TASKS,
+    });
   }
 }
 
