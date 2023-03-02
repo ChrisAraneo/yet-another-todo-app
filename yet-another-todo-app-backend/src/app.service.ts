@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { Task } from './models/tasks.type';
 
 @Injectable()
 export class AppService {
-  getTasks(): string {
-    return JSON.stringify({
-      status: 'success',
-      data: STUB_TASKS,
-    });
+  getTasks(): Task[] | null {
+    return STUB_TASKS;
   }
 }
 
-const STUB_TASKS = [
+const STUB_TASKS: Task[] = [
   {
     title: 'Lorem ipsum dolor sit',
     description:
