@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './subtitle.component.html',
   styleUrls: ['./subtitle.component.scss'],
 })
-export class SubtitleComponent {}
+export class SubtitleComponent {
+  constructor() {}
+}
