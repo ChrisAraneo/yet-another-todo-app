@@ -9,3 +9,8 @@ export type Rect = {
   width: number;
   height: number;
 };
+
+export type TimelineHeader = {
+  date: string,
+  dayOfWeek: string,
+}

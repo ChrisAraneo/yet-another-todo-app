@@ -18,7 +18,10 @@
     [endDate]="endDate"
     (changeStartDate)="changeStartDate.next($event)"
     (changeEndDate)="changeEndDate.next($event)"></yata-dates-filter>
-  <yata-timeline-header *ngFor="let label of headers">{{ label }}</yata-timeline-header>
+  <yata-timeline-header *ngFor="let header of headers">
+    <yata-title>{{ header.dayOfWeek }}</yata-title>
+    <yata-subtitle>{{ header.date }}</yata-subtitle>
+  </yata-timeline-header>
 </div>
 <yata-timeline-content
   *ngIf="startDate && endDate"

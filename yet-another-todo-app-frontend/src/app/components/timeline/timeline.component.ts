@@ -16,7 +16,7 @@ import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/theme';
 import { StartedTask } from '../../models/task.model';
-import { ElementPosition, Rect } from './timeline.types';
+import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 @Component({
   selector: 'yata-timeline',
@@ -31,7 +31,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   @Output() changeEndDate = new EventEmitter<Date>();
 
   tasks!: Observable<StartedTask[]>;
-  headers: string[] = [];
+  headers: TimelineHeader[] = [];
   previousMonthButtonPosition!: ElementPosition;
   nextMonthButtonPosition!: ElementPosition;
 
@@ -164,9 +164,15 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
 
-    this.headers = this.dateUtils
-      .getAllDaysInPeriodOfTime(startDate ? startDate : new Date(), endDate ? endDate : new Date())
-      .map((date) => this.dateUtils.formatDate(date, 'dd-MM-yyyy'));
+    const dates = this.dateUtils.getAllDaysInPeriodOfTime(
+      startDate ? startDate : new Date(),
+      endDate ? endDate : new Date(),
+    );
+
+    this.headers = dates.map((date: Date) => ({
+      date: this.dateUtils.formatDate(date, 'dd-MM-yyyy'),
+      dayOfWeek: this.capitalizeFirstLetter(this.dateUtils.formatDate(date, 'EEEE')),
+    }));
   }
 
   private updateButtonsPosition(rect: Rect): void {
@@ -177,5 +183,9 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   private updateButtonPosition(button: ElementPosition, x: number, y: number): void {
     button['left'] !== `${x}px` && (button.left = `${x}px`);
     button['top'] !== `${y}px` && (button.top = `${y}px`);
+  }
+
+  private capitalizeFirstLetter(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
   }
 }
