@@ -8,6 +8,11 @@ import { Tasks } from './models/tasks.type';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @Post('login')
+  login(): string {
+    return JSON.stringify({});
+  }
+
   @Get('tasks')
   @Header('content-type', 'application/json')
   @Header('Access-Control-Allow-Origin', '*') // TODO Temporary... unsafe and only for testing purposes
