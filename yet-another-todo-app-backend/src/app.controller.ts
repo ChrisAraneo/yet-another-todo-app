@@ -1,5 +1,6 @@
-import { Controller, Get, Header, Post } from '@nestjs/common';
+import { Controller, Get, Header, Post, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
 import { Tasks } from './models/tasks.type';
@@ -8,6 +9,7 @@ import { Tasks } from './models/tasks.type';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @UseGuards(LocalAuthGuard)
   @Post('login')
   login(): string {
     return JSON.stringify({});
