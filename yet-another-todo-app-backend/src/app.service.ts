@@ -4,11 +4,11 @@ import { Task } from './models/tasks.type';
 @Injectable()
 export class AppService {
   getTasks(): Task[] | null {
-    return STUB_TASKS;
+    return TASKS;
   }
 }
 
-const STUB_TASKS: Task[] = [
+const TASKS: Task[] = [
   {
     title: 'Lorem ipsum dolor sit',
     description:
