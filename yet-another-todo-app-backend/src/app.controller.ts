@@ -32,24 +32,20 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('tasks')
   @Header('content-type', 'application/json')
-  getTasks(): string {
-    const response: Tasks = {
+  getTasks(): Tasks {
+    return {
       status: Status.Success,
       data: this.appService.getTasks(),
     };
-
-    return JSON.stringify(response);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('tasks')
   @Header('content-type', 'application/json')
-  setTasks(): string {
-    const response: Response<null> = {
+  setTasks(): Response<null> {
+    return {
       status: Status.Success,
       data: null,
     };
-
-    return JSON.stringify(response);
   }
 }
