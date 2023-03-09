@@ -26,7 +26,10 @@ export class AppController {
   @Post('login')
   @Header('content-type', 'application/json')
   login(@Request() request: any) {
-    return this.authService.login(request.user as User);
+    return {
+      status: Status.Success,
+      data: this.authService.login(request.user as User),
+    };
   }
 
   @UseGuards(JwtAuthGuard)
