@@ -39,6 +39,7 @@ import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { tasksReducer } from './store/reducers/task.reducer';
+import { tokenReducer } from './store/reducers/token.reducer';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     SubtitleComponent,
   ],
   imports: [
-    StoreModule.forRoot({ tasks: tasksReducer }),
+    StoreModule.forRoot({ tasks: tasksReducer, token: tokenReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
