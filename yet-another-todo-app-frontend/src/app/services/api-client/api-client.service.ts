@@ -11,14 +11,15 @@ import { ApiResponse, ApiResponseStatus } from './api-client.types';
 })
 export class ApiClientService {
   private readonly url = `${environment.api.origin}`; // TODO Extract to token
+  private readonly loginEndpoint = `${this.url}/login`;
   private readonly tasksEndpoint = `${this.url}/tasks`;
 
   constructor(private http: HttpClient) {}
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
-    return this.http.get<ApiResponse>(this.tasksEndpoint).pipe(
+    return this.http.get<ApiResponse<TaskData[]>>(this.tasksEndpoint).pipe(
       first(),
-      map((response: ApiResponse) => {
+      map((response: ApiResponse<TaskData[]>) => {
         if (response && response.status === ApiResponseStatus.Success) {
           return this.mapTasks(response);
         }
@@ -32,9 +33,9 @@ export class ApiClientService {
 
   postTasksToApi(tasks: Task[]): void {
     this.http
-      .post<ApiResponse>(this.tasksEndpoint, tasks)
+      .post<ApiResponse<TaskData[]>>(this.tasksEndpoint, tasks)
       .pipe(first())
-      .subscribe((response: ApiResponse) => {
+      .subscribe((response: ApiResponse<TaskData[]>) => {
         if (!response || response.status !== ApiResponseStatus.Success) {
           this.printError(response);
         }
@@ -43,7 +44,20 @@ export class ApiClientService {
       });
   }
 
-  private mapTasks(response: ApiResponse): Task[] {
+  login(username: string, password: string): Observable<string | null> {
+    return this.http.post<ApiResponse<string>>(this.loginEndpoint, { username, password }).pipe(
+      first(),
+      map((response: ApiResponse<string | null>) => {
+        if (response && response.status === ApiResponseStatus.Success) {
+          return response.data || null;
+        }
+
+        return null;
+      }),
+    );
+  }
+
+  private mapTasks(response: ApiResponse<TaskData[]>): Task[] {
     return (response.data || []).map((item) => {
       return TaskCreator.create(item);
     });

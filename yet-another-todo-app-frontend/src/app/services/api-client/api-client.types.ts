@@ -3,13 +3,13 @@ export enum ApiResponseStatus {
   Error = 'error',
 }
 
-export type ApiResponse = {
+export type ApiResponse<T> = {
   status: ApiResponseStatus;
-  data: ApiResponseData[] | null;
+  data: T | null;
   message?: string;
 };
 
-export type ApiResponseData = {
+export type TaskData = {
   id: string;
   title: string;
   description: string;
