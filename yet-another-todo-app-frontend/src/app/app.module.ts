@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -32,6 +32,7 @@ import { TimelineHeaderComponent } from './components/timeline/timeline-header/t
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
 import { ApiClientService } from './services/api-client/api-client.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
@@ -81,7 +82,13 @@ import { tasksReducer } from './store/reducers/task.reducer';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [DateUtilsService, DialogService, ApiClientService, TasksService],
+  providers: [
+    DateUtilsService,
+    DialogService,
+    ApiClientService,
+    TasksService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
