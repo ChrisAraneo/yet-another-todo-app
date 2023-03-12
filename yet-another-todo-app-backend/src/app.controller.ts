@@ -25,10 +25,10 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @Header('content-type', 'application/json')
-  login(@Request() request: any) {
+  async login(@Request() request: any): Promise<Response<string>> {
     return {
       status: Status.Success,
-      data: this.authService.login(request.user as User),
+      data: await this.authService.login(request.user as User),
     };
   }
 
