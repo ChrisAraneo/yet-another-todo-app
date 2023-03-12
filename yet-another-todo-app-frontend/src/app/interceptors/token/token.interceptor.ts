@@ -5,22 +5,21 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, first, map, Observable, switchMap } from 'rxjs';
 import { ApiResponse, ApiResponseStatus } from 'src/app/services/api-client/api-client.types';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  private readonly url = `${environment.api.origin}`; // TODO Extract to token
-  private readonly loginEndpoint = `${this.url}/login`;
+  private readonly loginEndpoint;
 
   private username: string = 'loremuser'; // TODO User providing username and password in form
   private password: string = 'pleasechangeme';
   private token = new BehaviorSubject<string | null>(null);
   private http: HttpClient;
 
-  constructor(httpBackend: HttpBackend) {
+  constructor(@Inject('ORIGIN') public url: String, httpBackend: HttpBackend) {
+    this.loginEndpoint = `${this.url}/login`;
     this.http = new HttpClient(httpBackend);
   }
 

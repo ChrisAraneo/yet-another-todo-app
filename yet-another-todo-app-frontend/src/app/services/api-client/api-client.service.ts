@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import { Task } from 'src/app/models/task.model';
-import { environment } from 'src/environments/environment';
 import { ApiResponse, ApiResponseStatus } from './api-client.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiClientService {
-  private readonly url = `${environment.api.origin}`; // TODO Extract to token
-  private readonly tasksEndpoint = `${this.url}/tasks`;
+  private readonly tasksEndpoint;
 
-  constructor(private http: HttpClient) {}
+  constructor(@Inject('ORIGIN') public url: String, private http: HttpClient) {
+    this.tasksEndpoint = `${this.url}/tasks`;
+  }
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
     return this.http.get<ApiResponse<TaskData[]>>(this.tasksEndpoint).pipe(
