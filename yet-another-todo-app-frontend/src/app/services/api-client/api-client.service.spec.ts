@@ -4,12 +4,12 @@ import { TaskCreator } from 'src/app/models/task-creator.model';
 import { environment } from 'src/environments/environment';
 import { Task } from '../../models/task.model';
 import { ApiClientService } from './api-client.service';
-import { ApiResponse, ApiResponseData, ApiResponseStatus } from './api-client.types';
+import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
 describe('ApiClientService', () => {
   let service: ApiClientService;
   let httpMock: HttpTestingController;
-  let dummyResponseData: ApiResponseData[];
+  let dummyResponseData: TaskData[];
   let dummyTasks: Task[];
 
   beforeEach(() => {
@@ -55,7 +55,7 @@ describe('ApiClientService', () => {
   });
 
   it('#fetchTasksFromApi should return an Observable<Task[]> on successful response', () => {
-    const dummySuccessResponse: ApiResponse = {
+    const dummySuccessResponse: ApiResponse<TaskData[]> = {
       status: ApiResponseStatus.Success,
       data: dummyResponseData,
     };
@@ -71,7 +71,7 @@ describe('ApiClientService', () => {
   });
 
   it('#fetchTasksFromApi should return an Observable<undefined> on error response', () => {
-    const dummyErrorResponse: ApiResponse = {
+    const dummyErrorResponse: ApiResponse<TaskData[]> = {
       status: ApiResponseStatus.Error,
       data: null,
       message: 'Error message',

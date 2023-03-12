@@ -11,7 +11,6 @@ import { ApiResponse, ApiResponseStatus } from './api-client.types';
 })
 export class ApiClientService {
   private readonly url = `${environment.api.origin}`; // TODO Extract to token
-  private readonly loginEndpoint = `${this.url}/login`;
   private readonly tasksEndpoint = `${this.url}/tasks`;
 
   constructor(private http: HttpClient) {}
@@ -42,19 +41,6 @@ export class ApiClientService {
 
         return;
       });
-  }
-
-  login(username: string, password: string): Observable<string | null> {
-    return this.http.post<ApiResponse<string>>(this.loginEndpoint, { username, password }).pipe(
-      first(),
-      map((response: ApiResponse<string | null>) => {
-        if (response && response.status === ApiResponseStatus.Success) {
-          return response.data || null;
-        }
-
-        return null;
-      }),
-    );
   }
 
   private mapTasks(response: ApiResponse<TaskData[]>): Task[] {
