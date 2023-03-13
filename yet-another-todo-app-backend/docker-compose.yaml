@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  yata-dev-db:
+    image: postgres:13
+    ports:
+      - 5434:5434
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: yata_db
+    networks:
+      - yata
+networks:
+  yata:
