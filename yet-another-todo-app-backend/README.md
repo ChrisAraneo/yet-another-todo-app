@@ -7,12 +7,20 @@
 * Node.js - recommended v18.13.0
 * npm (recommended v8.19.3) or another package manager
 * Nest.js CLI - recommended v9.2.0
+* Docker
 
 ### Installation
 
 ```bash
 # installation
 npm install
+```
+
+### Creating database container
+
+```bash
+docker compose up yata-dev-db -d
+
 ```
 
 ### Running the app
