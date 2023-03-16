@@ -24,6 +24,9 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "css.validate": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.codeActionsOnSave": {
