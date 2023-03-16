@@ -12,7 +12,6 @@
 ### Installation
 
 ```bash
-# installation
 npm install
 ```
 
@@ -20,7 +19,12 @@ npm install
 
 ```bash
 docker compose up yata-dev-db -d
+```
 
+### Running Prisma migration
+
+```bash
+npx prisma migrate dev
 ```
 
 ### Running the app
