@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Header,
@@ -14,13 +15,33 @@ import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
 import { Tasks } from './models/tasks.type';
 import { User } from './models/user.type';
+import { UsersService } from './users/users.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private authService: AuthService,
+    private usersService: UsersService,
   ) {}
+
+  @Post('signup')
+  @Header('content-type', 'application/json')
+  async signup(@Body() body: any): Promise<Response<User | null>> {
+    return await this.usersService
+      .createUser(body as User)
+      .then((result) => ({
+        status: Status.Success,
+        data: result,
+      }))
+      .catch((error: Error) => {
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
+  }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
