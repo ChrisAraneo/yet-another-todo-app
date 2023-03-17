@@ -1,25 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/models/user.type';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
-  // TODO Not safe, only for development & test purposes
-  private readonly users: User[] = [
-    {
-      id: 'e42ad191-40b5-44b7-b630-17846032e70c',
-      name: 'Lorem user',
-      username: 'loremuser',
-      password: 'pleasechangeme',
-    },
-    {
-      id: 'aef0a6ab-9a33-4420-a8ab-70685ccedea5',
-      name: 'Ipsum user',
-      username: 'ipsumuser',
-      password: 'pleasechangeme',
-    },
-  ];
+  constructor(private prismaService: PrismaService) {}
+
+  async createUser(user: User): Promise<User | null> {
+    return this.prismaService
+      .createUser(user)
+      .then((result) => result)
+      .catch((error) => {
+        const target = error.meta.target[0];
+
+        if (target === 'username') {
+          throw new Error('Username already exists');
+        }
+
+        throw new Error(JSON.stringify(error));
+      });
+  }
 
   async findUser(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+    return await this.prismaService.getUser(username);
   }
 }
