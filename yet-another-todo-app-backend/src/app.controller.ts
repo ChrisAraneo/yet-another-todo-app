@@ -57,6 +57,7 @@ export class AppController {
   @Get('tasks')
   @Header('content-type', 'application/json')
   getTasks(): Tasks {
+    // TODO Implement
     return {
       status: Status.Success,
       data: this.appService.getTasks(),
@@ -67,6 +68,7 @@ export class AppController {
   @Post('tasks')
   @Header('content-type', 'application/json')
   setTasks(): Response<null> {
+    // TODO Implement
     return {
       status: Status.Success,
       data: null,
