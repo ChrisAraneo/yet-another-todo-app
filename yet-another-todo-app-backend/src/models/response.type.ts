@@ -2,6 +2,7 @@ import { Status } from './status.enum';
 
 export type Response<T> = {
   status: Status;
-  data: T | null;
+  statusCode?: number;
+  data: T | null | undefined;
   message?: string;
 };
