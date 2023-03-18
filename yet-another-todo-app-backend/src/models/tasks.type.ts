@@ -1,7 +1,4 @@
-import { Response } from './response.type';
 import { TaskState } from './task-state.type';
-
-export type Tasks = Response<Task[]>;
 
 export type Task = {
   id: string;

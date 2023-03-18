@@ -3,8 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { User } from './models/user.type';
-import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
+import { TasksModule } from './tasks/tasks.module';
+import { TasksService } from './tasks/tasks.service';
 import { UsersService } from './users/users.service';
 
 describe('AppController', () => {
@@ -13,11 +14,12 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [PrismaModule],
+      imports: [TasksModule],
       controllers: [AppController],
       providers: [
         AppService,
         UsersService,
+        TasksService,
         {
           provide: AuthService,
           useValue: {
@@ -52,7 +54,9 @@ describe('AppController', () => {
 
   describe('tasks', () => {
     it('should return example tasks', () => {
-      expect(appController.getTasks()).toStrictEqual(response);
+      expect(
+        appController.getTasks('e42ad191-40b5-44b7-b630-17846032e70c'),
+      ).toStrictEqual(response);
     });
   });
 });

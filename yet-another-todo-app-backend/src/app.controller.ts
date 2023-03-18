@@ -7,22 +7,21 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
-import { Tasks } from './models/tasks.type';
 import { User } from './models/user.type';
+import { TasksService } from './tasks/tasks.service';
 import { UsersService } from './users/users.service';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
     private authService: AuthService,
     private usersService: UsersService,
+    private tasksService: TasksService,
   ) {}
 
   @Post('signup')
@@ -47,21 +46,33 @@ export class AppController {
   @Post('login')
   @Header('content-type', 'application/json')
   async login(@Request() request: any): Promise<Response<string>> {
+    const jwtPayload = request.user;
+
     return {
       status: Status.Success,
-      data: await this.authService.login(request.user as User),
+      data: await this.authService.login(jwtPayload),
     };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('tasks')
   @Header('content-type', 'application/json')
-  getTasks(): Tasks {
-    // TODO Implement
-    return {
-      status: Status.Success,
-      data: this.appService.getTasks(),
-    };
+  async getTasks(@Request() request: any): Promise<Response<any>> {
+    const jwtPayload = request.user;
+
+    return await this.tasksService
+      .getTasksOfUser(jwtPayload.username)
+      .then((result) => ({
+        status: Status.Success,
+        data: result,
+      }))
+      .catch((error: Error) => {
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
   }
 
   @UseGuards(JwtAuthGuard)
@@ -69,9 +80,6 @@ export class AppController {
   @Header('content-type', 'application/json')
   setTasks(): Response<null> {
     // TODO Implement
-    return {
-      status: Status.Success,
-      data: null,
-    };
+    throw new Error('Not implemented');
   }
 }

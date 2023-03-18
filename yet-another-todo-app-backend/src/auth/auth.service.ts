@@ -20,7 +20,11 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User): Promise<string> {
+  async login(user: {
+    id: string;
+    username: string;
+    name: string;
+  }): Promise<string> {
     const payload = { id: user.id, username: user.username, name: user.name };
 
     return this.jwtService.sign(payload);
