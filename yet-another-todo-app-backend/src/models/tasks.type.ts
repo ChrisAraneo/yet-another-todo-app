@@ -11,5 +11,4 @@ export type Task = {
   creationDate: string;
   startDate?: string;
   endDate?: string;
-  userId?: string;
 };

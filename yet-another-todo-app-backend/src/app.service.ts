@@ -23,7 +23,6 @@ const TASKS: Task[] = [
     creationDate: '2023-03-01T19:43:44.738Z',
     id: '8e7f40b7-71a2-44fa-b112-8539c1cc068c',
     startDate: '2023-03-01T19:43:44.738Z',
-    userId: '213b872b-4929-497e-a79d-5df99f37ec77',
   },
   {
     title: 'Curabitur ornare fringilla',
@@ -39,6 +38,5 @@ const TASKS: Task[] = [
     creationDate: '2023-03-02T15:45:44.738Z',
     id: '8e7f40b7-71a2-44fa-b112-8539c1cc068c',
     startDate: '2023-03-02T16:45:44.738Z',
-    userId: '213b872b-4929-497e-a79d-5df99f37ec77',
   },
 ];
