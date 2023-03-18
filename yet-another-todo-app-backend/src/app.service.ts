@@ -14,6 +14,7 @@ const TASKS: Task[] = [
     description:
       'Nam consectetur tempus hendrerit. Nullam pharetra, risus eget feugiat maximus, tellus magna dignissim eros, at pulvinar nisi purus vitae lectus.',
     state: {
+      id: '17fc6138-53c6-41d9-b3dd-83ef2ed032ab',
       value: 'IN_PROGRESS',
       iconName: 'autorenew',
       color: 'orange',
@@ -29,6 +30,7 @@ const TASKS: Task[] = [
     description:
       'Proin nulla ligula, cursus vel sapien in, euismod placerat elit. Vestibulum volutpat lectus id tempor pellentesque. Vestibulum suscipit vulputate augue sit amet porttitor. Sed eget cursus tortor. Ut a enim et dolor aliquet interdum sit amet porttitor sem.',
     state: {
+      id: '17fc6138-53c6-41d9-b3dd-83ef2ed032ab',
       value: 'IN_PROGRESS',
       iconName: 'autorenew',
       color: 'orange',
