@@ -12,6 +12,7 @@ export type Task = {
     color: string;
     tooltipText: string;
   };
+  userId: string;
   creationDate: string;
   startDate?: string;
   endDate?: string;
