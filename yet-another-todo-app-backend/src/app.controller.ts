@@ -46,11 +46,11 @@ export class AppController {
   @Post('login')
   @Header('content-type', 'application/json')
   async login(@Request() request: any): Promise<Response<string>> {
-    const jwtPayload = request.user;
+    const user = request.user;
 
     return {
       status: Status.Success,
-      data: await this.authService.login(jwtPayload),
+      data: await this.authService.login(user),
     };
   }
 
@@ -58,10 +58,10 @@ export class AppController {
   @Get('tasks')
   @Header('content-type', 'application/json')
   async getTasks(@Request() request: any): Promise<Response<any>> {
-    const jwtPayload = request.user;
+    const username = request && request.user && request.user.username;
 
     return await this.tasksService
-      .getTasksOfUser(jwtPayload.username)
+      .getTasksOfUser(username)
       .then((result) => ({
         status: Status.Success,
         data: result,
