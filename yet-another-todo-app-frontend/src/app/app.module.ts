@@ -88,7 +88,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     ApiClientService,
     TasksService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: 'ORIGIN', useValue: environment.api },
+    { provide: 'API', useValue: environment.api },
   ],
   bootstrap: [AppComponent],
 })

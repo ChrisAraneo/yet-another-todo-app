@@ -18,8 +18,8 @@ export class TokenInterceptor implements HttpInterceptor {
   private token = new BehaviorSubject<string | null>(null);
   private http: HttpClient;
 
-  constructor(@Inject('ORIGIN') public url: String, httpBackend: HttpBackend) {
-    this.loginEndpoint = `${this.url}/login`;
+  constructor(@Inject('API') public api: any, httpBackend: HttpBackend) {
+    this.loginEndpoint = `${this.api.origin}/login`;
     this.http = new HttpClient(httpBackend);
   }
 

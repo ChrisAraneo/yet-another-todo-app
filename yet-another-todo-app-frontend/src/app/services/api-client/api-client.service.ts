@@ -11,8 +11,8 @@ import { ApiResponse, ApiResponseStatus } from './api-client.types';
 export class ApiClientService {
   private readonly tasksEndpoint;
 
-  constructor(@Inject('ORIGIN') public url: String, private http: HttpClient) {
-    this.tasksEndpoint = `${this.url}/tasks`;
+  constructor(@Inject('API') public api: any, private http: HttpClient) {
+    this.tasksEndpoint = `${this.api.origin}/tasks`;
   }
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
