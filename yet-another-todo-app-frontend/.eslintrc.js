@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/no-inferrable-types": ["error", {ignoreParameters: true, ignoreProperties: true}],
     "@typescript-eslint/explicit-member-accessibility": ["error", {accessibility: 'no-public'}],
     "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/explicit-function-return-type": "error"
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/method-signature-style": "error",
   },
 };
