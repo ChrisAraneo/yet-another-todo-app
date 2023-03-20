@@ -147,7 +147,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private initializeShowStartDateControlSubject(form: FormGroup<TaskForm>): void {
-    const isVisibleFn = (state: TaskState) =>
+    const isVisibleFn = (state: TaskState): boolean =>
       state instanceof InProgressTaskState ||
       state instanceof SuspendedTaskState ||
       state instanceof CompletedTaskState ||
@@ -165,7 +165,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private initializeShowEndDateControlSubject(form: FormGroup<TaskForm>): void {
-    const isVisibleFn = (state: TaskState) =>
+    const isVisibleFn = (state: TaskState): boolean =>
       state instanceof CompletedTaskState || state instanceof RejectedTaskState;
 
     this.showEndDateControl = new BehaviorSubject<boolean>(isVisibleFn(form.controls.state.value));

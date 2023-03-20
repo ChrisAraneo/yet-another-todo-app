@@ -85,7 +85,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (!!this.data) {
       this.data.paginator = this.paginator;
     }

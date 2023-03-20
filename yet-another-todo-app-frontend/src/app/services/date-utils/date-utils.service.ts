@@ -7,8 +7,6 @@ import { enGB, pl } from 'date-fns/locale';
   providedIn: 'root',
 })
 export class DateUtilsService {
-  constructor() {}
-
   getAllDaysInPeriodOfTime(startDate: Date, endDate: Date): Date[] {
     const difference = Math.abs(this.getNumberOfDaysBetweenDates(endDate, startDate));
 

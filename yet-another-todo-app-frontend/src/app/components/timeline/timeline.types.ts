@@ -11,6 +11,6 @@ export type Rect = {
 };
 
 export type TimelineHeader = {
-  date: string,
-  dayOfWeek: string,
-}
+  date: string;
+  dayOfWeek: string;
+};

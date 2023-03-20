@@ -86,7 +86,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
     this.observer && this.observer.unobserve(this.host.nativeElement);
   }
 
-  changeStartDateToPreviousMonth() {
+  changeStartDateToPreviousMonth(): void {
     const firstDayOfPreviousMonth = this.dateUtils.getFirstDayOfThePreviousMonth(
       this.startDate as Date,
     );
@@ -95,7 +95,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
     this.changeEndDate.next(this.dateUtils.getLastDayOfTheMonth(firstDayOfPreviousMonth));
   }
 
-  changeStartDateToNextMonth() {
+  changeStartDateToNextMonth(): void {
     const firstDayOfNextMonth = this.dateUtils.getFirstDayOfTheNextMonth(this.startDate as Date);
 
     this.changeStartDate.next(firstDayOfNextMonth);

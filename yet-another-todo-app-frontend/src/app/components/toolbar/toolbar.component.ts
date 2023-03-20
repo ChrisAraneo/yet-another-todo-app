@@ -10,13 +10,11 @@ export class ToolbarComponent {
 
   @Output() menuClick = new EventEmitter();
 
-  constructor() {}
-
-  onMenuClick() {
+  onMenuClick(): void {
     this.menuClick.emit();
   }
 
-  onGitClick() {
+  onGitClick(): void {
     window.open('https://github.com/ChrisAraneo/yet-another-todo-app', '_blank');
   }
 }

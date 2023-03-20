@@ -43,13 +43,13 @@ export class AppComponent implements OnDestroy {
     this.timelineEndDate = endDate;
   }
 
-  private initializeTimelineStartDate() {
+  private initializeTimelineStartDate(): void {
     const today = new Date();
 
     this.timelineStartDate = this.dateUtilsService.getFirstDayOfTheMonth(today);
   }
 
-  private initializeTimelineEndDate() {
+  private initializeTimelineEndDate(): void {
     const today = new Date();
 
     this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(today);

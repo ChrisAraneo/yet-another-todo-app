@@ -53,7 +53,7 @@ export class SideNavigationComponent implements OnChanges {
     const showTable = {
       icon: 'list',
       label: 'Table view',
-      click: () => {
+      click: (): void => {
         this.modeChange.emit(AppMode.Table);
       },
     };
@@ -61,7 +61,7 @@ export class SideNavigationComponent implements OnChanges {
     const showTimeline = {
       icon: 'event_note',
       label: 'Timeline view',
-      click: () => {
+      click: (): void => {
         this.modeChange.emit(AppMode.Timeline);
       },
     };
@@ -69,7 +69,7 @@ export class SideNavigationComponent implements OnChanges {
     const addTask = {
       icon: 'add',
       label: 'Add task',
-      click: () => {
+      click: (): void => {
         this.dialogService.openAddTaskModal();
       },
     };
@@ -77,7 +77,7 @@ export class SideNavigationComponent implements OnChanges {
     const editTask = {
       icon: 'edit',
       label: 'Edit task',
-      click: () => {
+      click: (): void => {
         this.dialogService.openEditTaskModal();
       },
     };
@@ -85,7 +85,7 @@ export class SideNavigationComponent implements OnChanges {
     const deleteTask = {
       icon: 'delete',
       label: 'Delete task',
-      click: () => {
+      click: (): void => {
         this.dialogService.openDeleteTaskModal();
       },
     };

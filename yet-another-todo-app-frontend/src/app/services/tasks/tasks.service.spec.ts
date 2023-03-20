@@ -8,10 +8,7 @@ describe('TasksService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        StoreModule.forRoot({})
-      ],
+      imports: [HttpClientTestingModule, StoreModule.forRoot({})],
       providers: [TasksService],
     });
     service = TestBed.inject(TasksService);

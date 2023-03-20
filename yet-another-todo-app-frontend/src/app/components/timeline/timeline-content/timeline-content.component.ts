@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { COLUMN_WIDTH } from 'src/app/shared/theme';
@@ -25,7 +25,7 @@ export class TimelineContentComponent implements OnChanges {
 
   constructor(private dateUtils: DateUtilsService) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     if (this.tasks && this.startDate) {
       this.columns = this.mapTasksToColumns(this.tasks, this.startDate);
     }

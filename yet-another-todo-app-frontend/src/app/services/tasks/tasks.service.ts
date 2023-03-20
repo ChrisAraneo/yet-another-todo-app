@@ -22,9 +22,9 @@ export class TasksService {
     );
 
     this.subscription.add(
-      this.getTasks().pipe(skip(1)).subscribe((tasks: Task[]) => 
-        this.apiClientService.postTasksToApi(tasks)
-      ),
+      this.getTasks()
+        .pipe(skip(1))
+        .subscribe((tasks: Task[]) => this.apiClientService.postTasksToApi(tasks)),
     );
   }
 
@@ -67,7 +67,7 @@ export class TasksService {
     this.store.dispatch(hideTask({ id: taskId }));
   }
 
-  unsubscribe() {
+  unsubscribe(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
