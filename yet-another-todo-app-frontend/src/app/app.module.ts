@@ -40,6 +40,7 @@ import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { tasksReducer } from './store/reducers/task.reducer';
+import { userReducer } from './store/reducers/user.reducer';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { tasksReducer } from './store/reducers/task.reducer';
     SignInModalComponent,
   ],
   imports: [
-    StoreModule.forRoot({ tasks: tasksReducer }),
+    StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
