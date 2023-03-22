@@ -39,6 +39,7 @@ import { ApiClientService } from './services/api-client/api-client.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
+import { UserService } from './services/user/user.service';
 import { tasksReducer } from './store/reducers/task.reducer';
 import { userReducer } from './store/reducers/user.reducer';
 
@@ -92,6 +93,7 @@ import { userReducer } from './store/reducers/user.reducer';
     TasksService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: 'API', useValue: environment.api },
+    UserService,
   ],
   bootstrap: [AppComponent],
 })
