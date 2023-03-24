@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, Observable, skip, Subscription } from 'rxjs';
+import { filter, first, map, Observable, skip, Subscription, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +13,28 @@ import { ApiClientService } from '../api-client/api-client.service';
 export class TasksService {
   private subscription = new Subscription();
 
-  constructor(private store: Store<{ tasks: Task[] }>, private apiClientService: ApiClientService) {
+  constructor(
+    private store: Store<{ tasks: Task[] }>,
+    private apiClientService: ApiClientService,
+    private userService: UserService,
+  ) {
     this.subscription.add(
-      this.apiClientService.fetchTasksFromApi().subscribe((tasks: Task[] | undefined) => {
-        if (tasks) {
-          this.setTasks(tasks);
-        }
-      }),
+      this.userService
+        .getUser()
+        .pipe(filter((user) => !!user.username && !!user.password))
+        .subscribe(() => {
+          this.apiClientService
+            .fetchTasksFromApi()
+            .pipe(
+              first(),
+              tap((tasks: Task[] | undefined) => {
+                if (tasks) {
+                  this.setTasks(tasks);
+                }
+              }),
+            )
+            .subscribe();
+        }),
     );
 
     this.subscription.add(
