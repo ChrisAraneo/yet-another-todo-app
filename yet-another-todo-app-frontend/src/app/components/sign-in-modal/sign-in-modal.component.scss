@@ -1,0 +1,41 @@
+@import '../../shared/variables.scss';
+
+.sign-in-modal .mat-mdc-dialog-container {
+  > div {
+    display: flex;
+    flex-direction: column;
+    border: $border;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mat-mdc-dialog-surface {
+    border-radius: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: $unit / 2;
+  }
+
+  .modal-title {
+    h1 {
+      padding: $unit / 4 $unit / 2;
+      border-bottom: $border;
+    }
+  }
+
+  yata-text-input,
+  yata-textarea,
+  yata-select,
+  yata-date-picker {
+    margin-bottom: $unit / 4;
+  }
+
+  button {
+    margin-top: $unit / 2;
+  }
+}

@@ -1,1 +1,8 @@
-<p>sign-in-modal works!</p>
+<yata-title class="modal-title">{{ title }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form">
+    <yata-text-input [formControlName]="'username'" [label]="'Username'"></yata-text-input>
+    <yata-text-input [formControlName]="'password'" [label]="'Password'"></yata-text-input>
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">
+      Sign in
+    </button>
+</form>
