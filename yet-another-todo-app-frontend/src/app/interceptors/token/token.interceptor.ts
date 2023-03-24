@@ -3,7 +3,7 @@ import {
   HttpClient,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import {
@@ -14,7 +14,7 @@ import {
   map,
   Observable,
   Subscription,
-  switchMap
+  switchMap,
 } from 'rxjs';
 import { ApiResponse, ApiResponseStatus } from 'src/app/services/api-client/api-client.types';
 import { UserService } from 'src/app/services/user/user.service';
