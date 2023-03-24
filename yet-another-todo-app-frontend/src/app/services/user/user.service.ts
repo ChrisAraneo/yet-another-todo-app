@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { CurrentUser } from 'src/app/models/current-user.model';
 import { SignInData } from 'src/app/models/sign-in-data.model';
 import { removePassword, setPassword, setUsername } from 'src/app/store/actions/user.actions';
 
@@ -8,10 +9,10 @@ import { removePassword, setPassword, setUsername } from 'src/app/store/actions/
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private store: Store<{ user: SignInData }>) {}
+  constructor(private store: Store<{ user: CurrentUser }>) {}
 
   getUser(): Observable<SignInData> {
-    return this.store.select('user');
+    return this.store.select('user').pipe(map((data) => data.user));
   }
 
   setUser(username: string, password: string): void {
