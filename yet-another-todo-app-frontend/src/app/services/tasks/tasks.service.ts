@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter, first, map, Observable, skip, Subscription, tap } from 'rxjs';
+import { first, map, Observable, skip, Subscription, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -19,10 +19,8 @@ export class TasksService {
     private userService: UserService,
   ) {
     this.subscription.add(
-      this.userService
-        .getUser()
-        .pipe(filter((user) => !!user.username && !!user.password))
-        .subscribe(() => {
+      this.userService.getIsUserLogged().subscribe((isLogged) => {
+        if (isLogged) {
           this.apiClientService
             .fetchTasksFromApi()
             .pipe(
@@ -34,7 +32,10 @@ export class TasksService {
               }),
             )
             .subscribe();
-        }),
+        } else {
+          this.setTasks([]);
+        }
+      }),
     );
 
     this.subscription.add(
