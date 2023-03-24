@@ -17,7 +17,6 @@ export class ApiClientService {
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
     return this.http.get<ApiResponse<TaskData[]>>(this.tasksEndpoint).pipe(
-      first(),
       map((response: ApiResponse<TaskData[]>) => {
         if (response && response.status === ApiResponseStatus.Success) {
           return this.mapTasks(response);
