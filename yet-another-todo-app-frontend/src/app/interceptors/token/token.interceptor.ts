@@ -3,24 +3,51 @@ import {
   HttpClient,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, first, map, Observable, switchMap } from 'rxjs';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
+import {
+  BehaviorSubject,
+  catchError,
+  filter,
+  first,
+  map,
+  Observable,
+  Subscription,
+  switchMap
+} from 'rxjs';
 import { ApiResponse, ApiResponseStatus } from 'src/app/services/api-client/api-client.types';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor, OnDestroy {
   private readonly loginEndpoint;
 
-  private username: string = 'loremuser'; // TODO User providing username and password in form
-  private password: string = 'pleasechangeme';
+  private username = new BehaviorSubject<string>('');
+  private password = new BehaviorSubject<string | null>(null);
   private token = new BehaviorSubject<string | null>(null);
   private http: HttpClient;
+  private subscription: Subscription;
 
-  constructor(@Inject('API') public api: any, httpBackend: HttpBackend) {
+  constructor(
+    @Inject('API') public api: any,
+    httpBackend: HttpBackend,
+    private userService: UserService,
+  ) {
     this.loginEndpoint = `${this.api.origin}/login`;
     this.http = new HttpClient(httpBackend);
+
+    this.subscription = userService
+      .getUser()
+      .pipe(filter((user) => !!user.username && !!user.password))
+      .subscribe((user) => {
+        this.username.next(user.username);
+        this.password.next(user.password);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
@@ -44,9 +71,9 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   handleResponseError(request: HttpRequest<unknown>, next: any): Observable<any> {
-    return this.refreshToken(this.username, this.password).pipe(
+    return this.refreshToken(this.username.getValue(), this.password.getValue()).pipe(
       switchMap((token: string | null) => {
-        this.token.next(token);
+        this.setTokenAndRemovePassword(token);
 
         return next.handle(
           request.clone({
@@ -57,7 +84,7 @@ export class TokenInterceptor implements HttpInterceptor {
     );
   }
 
-  private refreshToken(username: string, password: string): Observable<string | null> {
+  private refreshToken(username: string, password: string | null): Observable<string | null> {
     // TODO Refactor into AuthService
     return this.http.post<ApiResponse<string>>(this.loginEndpoint, { username, password }).pipe(
       first(),
@@ -69,5 +96,10 @@ export class TokenInterceptor implements HttpInterceptor {
         return null;
       }),
     );
+  }
+
+  private setTokenAndRemovePassword(token: string | null): void {
+    this.token.next(token);
+    this.userService.removePassword();
   }
 }
