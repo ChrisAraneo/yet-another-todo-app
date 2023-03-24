@@ -15,6 +15,10 @@ export class UserService {
     return this.store.select('user').pipe(map((data) => data.user));
   }
 
+  getIsUserLogged(): Observable<boolean> {
+    return this.store.select('user').pipe(map((data) => data.isLogged));
+  }
+
   setUser(username: string, password: string): void {
     this.store.dispatch(setUsername({ username }));
     this.store.dispatch(setPassword({ password }));
