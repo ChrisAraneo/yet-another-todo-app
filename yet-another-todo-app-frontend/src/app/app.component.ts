@@ -1,7 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
+import { filter, Subscription } from 'rxjs';
 import { AppMode } from './app.types';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
+import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +21,22 @@ export class AppComponent implements OnDestroy {
   timelineEndDate!: Date;
   appMode: AppMode = AppMode.Timeline;
 
-  constructor(private taskService: TasksService, private dateUtilsService: DateUtilsService) {
+  private subscription!: Subscription;
+
+  constructor(
+    private taskService: TasksService,
+    private dateUtilsService: DateUtilsService,
+    private userService: UserService,
+    private dialogService: DialogService,
+  ) {
     this.initializeTimelineStartDate();
     this.initializeTimelineEndDate();
+    this.subscribeToUserChanges();
   }
 
   ngOnDestroy(): void {
     this.taskService.unsubscribe();
+    this.subscription && this.subscription.unsubscribe();
   }
 
   onMenuClick(): void {
@@ -53,5 +65,12 @@ export class AppComponent implements OnDestroy {
     const today = new Date();
 
     this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(today);
+  }
+
+  private subscribeToUserChanges(): void {
+    this.subscription = this.userService
+      .getUser()
+      .pipe(filter((user) => !!user.username))
+      .subscribe(() => this.dialogService.openSignInModal);
   }
 }
