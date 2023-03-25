@@ -5,13 +5,14 @@ import {
   Header,
   Post,
   Request,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
+import { Task } from './models/tasks.type';
 import { User } from './models/user.type';
 import { TasksService } from './tasks/tasks.service';
 import { UsersService } from './users/users.service';
@@ -76,10 +77,24 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('tasks')
+  @Post('task')
   @Header('content-type', 'application/json')
-  setTasks(): Response<null> {
-    // TODO Implement
-    throw new Error('Not implemented');
+  async createOrUpdateTask(@Request() request: any): Promise<Response<Task>> {
+    const username = request && request.user && request.user.username;
+    const task = request && request.body;
+
+    return await this.tasksService
+      .createOrUpdateTask(username, task)
+      .then((result) => ({
+        status: Status.Success,
+        data: result,
+      }))
+      .catch((error: Error) => {
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
   }
 }
