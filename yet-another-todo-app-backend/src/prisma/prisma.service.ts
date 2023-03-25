@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaClient, Task as TaskSchema, TaskState } from '@prisma/client';
+import {
+  PrismaClient,
+  Task as TaskSchema,
+  TaskState as TaskStateSchema,
+} from '@prisma/client';
+import { TaskState } from '../models/task-state.type';
 import { Task } from '../models/tasks.type';
 import { User } from '../models/user.type';
 
@@ -33,7 +38,11 @@ export class PrismaService extends PrismaClient {
     });
   }
 
-  async getTaskState(id: string): Promise<TaskState> {
+  async getTaskStates(): Promise<TaskStateSchema[]> {
+    return await this.taskState.findMany();
+  }
+
+  async getTaskState(id: string): Promise<TaskStateSchema> {
     return await this.taskState.findUnique({
       where: {
         id: id,
@@ -41,7 +50,7 @@ export class PrismaService extends PrismaClient {
     });
   }
 
-  async createTaskState(taskState: TaskState): Promise<TaskState> {
+  async createTaskState(taskState: TaskState): Promise<TaskStateSchema> {
     return this.taskState.create({
       data: {
         value: taskState.value,
@@ -64,6 +73,29 @@ export class PrismaService extends PrismaClient {
 
   async createTask(username: string, task: Task): Promise<TaskSchema> {
     return await this.task.create({
+      data: {
+        title: task.title,
+        description: task.description,
+        startDate: task.startDate,
+        endDate: task.endDate,
+        state: {
+          connect: {
+            id: task.state.id,
+          },
+        },
+        user: {
+          connect: {
+            id: username,
+            username: username,
+          },
+        },
+      },
+    });
+  }
+
+  async updateTask(username: string, task: Task): Promise<TaskSchema> {
+    return await this.task.update({
+      where: { id: task.id },
       data: {
         title: task.title,
         description: task.description,
