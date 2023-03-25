@@ -71,6 +71,17 @@ export class PrismaService extends PrismaClient {
     });
   }
 
+  async getTaskOfUser(username: string, taskId: string): Promise<TaskSchema> {
+    return await this.task.findFirst({
+      where: {
+        id: taskId,
+        user: {
+          username: username,
+        },
+      },
+    });
+  }
+
   async createTask(username: string, task: Task): Promise<TaskSchema> {
     return await this.task.create({
       data: {
