@@ -32,10 +32,39 @@ export class TasksService {
           color: taskState.color,
           tooltipText: taskState.tooltipText,
         },
-        creationDate: item.creationDate.toISOString(),
-        startDate: item.startDate.toISOString(),
-        endDate: item.endDate.toISOString(),
+        creationDate: item.creationDate && item.creationDate.toISOString(),
+        startDate: item.startDate && item.startDate.toISOString(),
+        endDate: item.endDate && item.endDate.toISOString(),
       };
     });
+  }
+
+  async createOrUpdateTask(username: string, task: Task): Promise<Task> {
+    const existingTask: TaskSchema = await this.prismaService.getTaskOfUser(
+      username,
+      task.id,
+    );
+
+    const result = !existingTask
+      ? await this.prismaService.createTask(username, task)
+      : await this.prismaService.updateTask(username, task);
+
+    const taskState = await this.prismaService.getTaskState(result.stateId);
+
+    return {
+      id: result.id,
+      title: result.title,
+      description: result.description,
+      state: {
+        id: taskState.id,
+        value: taskState.value,
+        iconName: taskState.iconName,
+        color: taskState.color,
+        tooltipText: taskState.tooltipText,
+      },
+      creationDate: result.creationDate && result.creationDate.toISOString(),
+      startDate: result.startDate && result.startDate.toISOString(),
+      endDate: result.endDate && result.endDate.toISOString(),
+    };
   }
 }
