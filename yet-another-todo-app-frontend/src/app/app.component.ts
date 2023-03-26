@@ -71,6 +71,8 @@ export class AppComponent implements OnDestroy {
     this.subscription = this.userService
       .getIsUserLogged()
       .pipe(filter((isLogged) => !isLogged))
-      .subscribe(() => this.dialogService.openSignInModal);
+      .subscribe(() => {
+        this.dialogService.openSignInModal();
+      });
   }
 }
