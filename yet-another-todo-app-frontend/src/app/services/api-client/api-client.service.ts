@@ -3,49 +3,55 @@ import { Inject, Injectable } from '@angular/core';
 import { first, map, Observable } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import { Task } from 'src/app/models/task.model';
-import { ApiResponse, ApiResponseStatus } from './api-client.types';
+import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiClientService {
   private readonly tasksEndpoint;
+  private readonly taskEndpoint;
 
   constructor(@Inject('API') public api: any, private http: HttpClient) {
     this.tasksEndpoint = `${this.api.origin}/tasks`;
+    this.taskEndpoint = `${this.api.origin}/task`;
   }
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
     return this.http.get<ApiResponse<TaskData[]>>(this.tasksEndpoint).pipe(
       map((response: ApiResponse<TaskData[]>) => {
-        if (response && response.status === ApiResponseStatus.Success) {
-          return this.mapTasks(response);
+        if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
+          this.printError(response);
+
+          return;
         }
 
-        this.printError(response);
-
-        return;
+        return this.mapTasks(response.data);
       }),
     );
   }
 
-  postTasksToApi(tasks: Task[]): void {
-    this.http
-      .post<ApiResponse<TaskData[]>>(this.tasksEndpoint, tasks)
-      .pipe(first())
-      .subscribe((response: ApiResponse<TaskData[]>) => {
-        if (!response || response.status !== ApiResponseStatus.Success) {
+  postTaskToApi(task: Task): Observable<Task | undefined> {
+    return this.http.post<ApiResponse<TaskData>>(this.taskEndpoint, task).pipe(
+      first(),
+      map((response: ApiResponse<TaskData>) => {
+        if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
           this.printError(response);
+
+          return;
         }
 
-        return;
-      });
+        return this.mapTask(response.data);
+      }),
+    );
   }
 
-  private mapTasks(response: ApiResponse<TaskData[]>): Task[] {
-    return (response.data || []).map((item) => {
-      return TaskCreator.create(item);
-    });
+  private mapTasks(data: TaskData[]): Task[] {
+    return data.map((item) => this.mapTask(item));
+  }
+
+  private mapTask(data: TaskData): Task {
+    return TaskCreator.create(data);
   }
 
   private printError(error: any): void {
