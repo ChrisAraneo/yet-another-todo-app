@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { first, map, Observable, skip, Subscription, tap } from 'rxjs';
+import { first, map, Observable, Subscription, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -37,12 +37,6 @@ export class TasksService {
         }
       }),
     );
-
-    this.subscription.add(
-      this.getTasks()
-        .pipe(skip(1))
-        .subscribe((tasks: Task[]) => this.apiClientService.postTasksToApi(tasks)),
-    );
   }
 
   getTasks(): Observable<Task[]> {
@@ -57,12 +51,28 @@ export class TasksService {
       .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
+  // TODO ngrx effects
   addTask(task: Task): void {
-    this.store.dispatch(createTask({ task }));
+    this.apiClientService
+      .postTaskToApi(task)
+      .pipe(first())
+      .subscribe((task) => {
+        if (task) {
+          this.store.dispatch(createTask({ task }));
+        }
+      });
   }
 
+  // TODO ngrx effects
   updateTask(task: Task): void {
-    this.store.dispatch(updateTask({ task }));
+    this.apiClientService
+      .postTaskToApi(task)
+      .pipe(first())
+      .subscribe((task) => {
+        if (task) {
+          this.store.dispatch(updateTask({ task }));
+        }
+      });
   }
 
   completeTask(task: Task): void {
