@@ -36,6 +36,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
 import { ApiClientService } from './services/api-client/api-client.service';
+import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
 import { TasksService } from './services/tasks/tasks.service';
@@ -94,6 +95,7 @@ import { userReducer } from './store/reducers/user.reducer';
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: 'API', useValue: environment.api },
     UserService,
+    AuthService,
   ],
   bootstrap: [AppComponent],
 })
