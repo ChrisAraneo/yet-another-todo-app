@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { filter, Subscription } from 'rxjs';
+import { debounceTime, filter, Subscription } from 'rxjs';
 import { AppMode } from './app.types';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
@@ -70,7 +70,10 @@ export class AppComponent implements OnDestroy {
   private subscribeToUserChanges(): void {
     this.subscription = this.userService
       .getIsUserLogged()
-      .pipe(filter((isLogged) => !isLogged))
+      .pipe(
+        debounceTime(2000),
+        filter((isLogged) => !isLogged),
+      )
       .subscribe(() => {
         this.dialogService.openSignInModal();
       });
