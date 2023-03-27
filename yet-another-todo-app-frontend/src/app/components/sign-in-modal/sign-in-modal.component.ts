@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserService } from 'src/app/services/user/user.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { SignInForm } from './sign-in-modal.types';
 
 @Component({
@@ -20,7 +20,7 @@ export class SignInModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<SignInModalComponent>,
     private formBuilder: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
   ) {
     this.initializeForm();
   }
@@ -30,7 +30,7 @@ export class SignInModalComponent {
       return;
     }
 
-    this.userService.setUser(this.form.value.username || '', this.form.value.password || '');
+    this.authService.signIn(this.form.value.username || '', this.form.value.password || '');
 
     this.dialogRef.close();
   }
