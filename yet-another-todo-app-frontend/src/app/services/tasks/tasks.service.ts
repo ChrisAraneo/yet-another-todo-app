@@ -51,16 +51,8 @@ export class TasksService {
       .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
-  // TODO ngrx effects
   addTask(task: Task): void {
-    this.apiClientService
-      .postTaskToApi(task)
-      .pipe(first())
-      .subscribe((task) => {
-        if (task) {
-          this.store.dispatch(createTask({ task }));
-        }
-      });
+    this.store.dispatch(createTask({ task }));
   }
 
   // TODO ngrx effects
