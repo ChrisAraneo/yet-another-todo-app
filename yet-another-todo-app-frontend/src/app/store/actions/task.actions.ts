@@ -3,7 +3,7 @@ import { Task } from '../../models/task.model';
 
 export const CREATE_TASK = 'CREATE_TASK';
 const REMOVE_TASK = 'REMOVE_TASK';
-const UPDATE_TASK = 'UPDATE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
 const HIDE_TASK = 'HIDE_TASK';
 const SET_TASKS = 'SET_TASKS';
 

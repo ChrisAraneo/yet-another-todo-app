@@ -55,16 +55,8 @@ export class TasksService {
     this.store.dispatch(createTask({ task }));
   }
 
-  // TODO ngrx effects
   updateTask(task: Task): void {
-    this.apiClientService
-      .postTaskToApi(task)
-      .pipe(first())
-      .subscribe((task) => {
-        if (task) {
-          this.store.dispatch(updateTask({ task }));
-        }
-      });
+    this.store.dispatch(updateTask({ task }));
   }
 
   completeTask(task: Task): void {
