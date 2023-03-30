@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first, map, Observable, Subscription, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
-import { createTask, hideTask, setTasks, updateTask } from 'src/app/store/actions/task.actions';
+import {
+  hideTask,
+  sendCreateTaskRequest,
+  sendUpdateTaskRequest,
+  setTasks,
+} from 'src/app/store/actions/task.actions';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
@@ -52,11 +57,11 @@ export class TasksService {
   }
 
   addTask(task: Task): void {
-    this.store.dispatch(createTask({ task }));
+    this.store.dispatch(sendCreateTaskRequest({ task }));
   }
 
   updateTask(task: Task): void {
-    this.store.dispatch(updateTask({ task }));
+    this.store.dispatch(sendUpdateTaskRequest({ task }));
   }
 
   completeTask(task: Task): void {
