@@ -5,6 +5,7 @@ export type Task = {
   title: string;
   description: string;
   state: TaskState;
+  isHidden: boolean;
   creationDate: string;
   startDate?: string;
   endDate?: string;

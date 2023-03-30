@@ -94,9 +94,9 @@ export class PrismaService extends PrismaClient {
             id: task.state.id,
           },
         },
+        isHidden: task.isHidden,
         user: {
           connect: {
-            id: username,
             username: username,
           },
         },
@@ -117,9 +117,9 @@ export class PrismaService extends PrismaClient {
             id: task.state.id,
           },
         },
+        isHidden: task.isHidden,
         user: {
           connect: {
-            id: username,
             username: username,
           },
         },
