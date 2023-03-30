@@ -19,7 +19,7 @@ model User {
 
 model TaskState {
   id          String @id @default(uuid())
-  value       String
+  value       String @unique
   iconName    String
   color       String
   tooltipText String

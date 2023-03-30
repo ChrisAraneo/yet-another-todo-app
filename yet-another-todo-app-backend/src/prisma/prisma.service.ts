@@ -83,6 +83,8 @@ export class PrismaService extends PrismaClient {
   }
 
   async createTask(username: string, task: Task): Promise<TaskSchema> {
+    await this.createTaskStateOfTaskIfDoesntExist(task);
+
     return await this.task.create({
       data: {
         title: task.title,
@@ -91,7 +93,7 @@ export class PrismaService extends PrismaClient {
         endDate: task.endDate,
         state: {
           connect: {
-            id: task.state.id,
+            value: task.state.value,
           },
         },
         isHidden: task.isHidden,
@@ -105,6 +107,8 @@ export class PrismaService extends PrismaClient {
   }
 
   async updateTask(username: string, task: Task): Promise<TaskSchema> {
+    await this.createTaskStateOfTaskIfDoesntExist(task);
+
     return await this.task.update({
       where: { id: task.id },
       data: {
@@ -114,7 +118,7 @@ export class PrismaService extends PrismaClient {
         endDate: task.endDate,
         state: {
           connect: {
-            id: task.state.id,
+            value: task.state.value,
           },
         },
         isHidden: task.isHidden,
@@ -125,5 +129,16 @@ export class PrismaService extends PrismaClient {
         },
       },
     });
+  }
+
+  private async createTaskStateOfTaskIfDoesntExist(task: Task): Promise<void> {
+    const states = await this.getTaskStates();
+    const state = states.find((state) => state.value === task.state.value);
+
+    if (!state) {
+      await this.createTaskState(task.state);
+    }
+
+    return;
   }
 }
