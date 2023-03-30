@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, switchMap } from 'rxjs';
+import { createAction } from '@ngrx/store';
+import { map, mergeMap } from 'rxjs';
 import { ApiClientService } from 'src/app/services/api-client/api-client.service';
 import { Task } from '../../models/task.model';
-import { CREATE_TASK, updateTask, UPDATE_TASK } from '../actions/task.actions';
+import { createTask, CREATE_TASK_API, updateTask, UPDATE_TASK_API } from '../actions/task.actions';
 
 @Injectable()
 export class TaskEffects {
   createTaskEffect = createEffect(() =>
     this.actions.pipe(
-      ofType(CREATE_TASK),
+      ofType(CREATE_TASK_API),
       map((action: any) => action && action?.task),
-      switchMap((task: Task) =>
+      mergeMap((task: Task) =>
         this.apiClientService
           .postTaskToApi(task)
-          .pipe(first())
           .pipe(
             map((result: Task | undefined) =>
-              result ? updateTask({ task: result }) : updateTask({ task }),
+              result ? createTask({ task: result }) : createAction('')(),
             ),
           ),
       ),
@@ -26,15 +26,14 @@ export class TaskEffects {
 
   updateTaskEffect = createEffect(() =>
     this.actions.pipe(
-      ofType(UPDATE_TASK),
+      ofType(UPDATE_TASK_API),
       map((action: any) => action && action?.task),
-      switchMap((task: Task) =>
+      mergeMap((task: Task) =>
         this.apiClientService
           .postTaskToApi(task)
-          .pipe(first())
           .pipe(
             map((result: Task | undefined) =>
-              result ? updateTask({ task: result }) : updateTask({ task }),
+              result ? updateTask({ task: result }) : createAction('')(),
             ),
           ),
       ),
