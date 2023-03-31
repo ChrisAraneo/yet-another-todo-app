@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Header,
   Post,
@@ -58,7 +59,7 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('tasks')
   @Header('content-type', 'application/json')
-  async getTasks(@Request() request: any): Promise<Response<any>> {
+  async getTasks(@Request() request: any): Promise<Response<Task[]>> {
     const username = request && request.user && request.user.username;
 
     return await this.tasksService
@@ -85,6 +86,28 @@ export class AppController {
 
     return await this.tasksService
       .createOrUpdateTask(username, task)
+      .then((result) => ({
+        status: Status.Success,
+        data: result,
+      }))
+      .catch((error: Error) => {
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('task')
+  @Header('content-type', 'application/json')
+  async removeTask(@Request() request: any): Promise<Response<Task>> {
+    const username = request && request.user && request.user.username;
+    const task = request && request.body;
+
+    return await this.tasksService
+      .removeTask(username, task)
       .then((result) => ({
         status: Status.Success,
         data: result,

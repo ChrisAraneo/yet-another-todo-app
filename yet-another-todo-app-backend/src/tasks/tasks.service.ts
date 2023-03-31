@@ -69,4 +69,10 @@ export class TasksService {
       endDate: result.endDate && result.endDate.toISOString(),
     };
   }
+
+  async removeTask(username: string, task: Task): Promise<Task> {
+    return this.prismaService.removeTask(username, task.id).then(() => {
+      return task;
+    });
+  }
 }

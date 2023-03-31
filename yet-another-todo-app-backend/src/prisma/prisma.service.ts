@@ -131,6 +131,20 @@ export class PrismaService extends PrismaClient {
     });
   }
 
+  async removeTask(username: string, taskId: string): Promise<void> {
+    if (await this.getTaskOfUser(username, taskId)) {
+      await this.task.delete({
+        where: {
+          id: taskId,
+        },
+      });
+    } else {
+      throw new Error(
+        `Task with Id ${taskId} does not belong to the user ${username}`,
+      );
+    }
+  }
+
   private async createTaskStateIfDoesntExist(state: TaskState): Promise<void> {
     const states = await this.getTaskStates();
 
