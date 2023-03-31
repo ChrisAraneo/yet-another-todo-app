@@ -3,8 +3,8 @@ import { Store } from '@ngrx/store';
 import { first, map, Observable, Subscription, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import {
-  hideTask,
   sendCreateTaskRequest,
+  sendHideTaskRequest,
   sendUpdateTaskRequest,
   setTasks,
 } from 'src/app/store/actions/task.actions';
@@ -80,7 +80,7 @@ export class TasksService {
   }
 
   hideTask(taskId: string): void {
-    this.store.dispatch(hideTask({ id: taskId }));
+    this.store.dispatch(sendHideTaskRequest({ id: taskId }));
   }
 
   unsubscribe(): void {
