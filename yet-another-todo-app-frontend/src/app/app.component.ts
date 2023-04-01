@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { debounceTime, filter, Subscription } from 'rxjs';
 import { AppMode } from './app.types';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
@@ -15,7 +16,6 @@ export class AppComponent implements OnDestroy {
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
-  title: string = 'ヤタ YATA - Yet Another Todo App';
   isMenuOpened: boolean = true;
   timelineStartDate!: Date;
   timelineEndDate!: Date;
@@ -24,11 +24,13 @@ export class AppComponent implements OnDestroy {
   private subscription!: Subscription;
 
   constructor(
+    private translateService: TranslateService,
     private taskService: TasksService,
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
     private dialogService: DialogService,
   ) {
+    this.initializeTranslateService();
     this.initializeTimelineStartDate();
     this.initializeTimelineEndDate();
     this.subscribeToUserChanges();
@@ -53,6 +55,12 @@ export class AppComponent implements OnDestroy {
 
   changeEndDate(endDate: Date): void {
     this.timelineEndDate = endDate;
+  }
+
+  private initializeTranslateService(): void {
+    this.translateService.addLangs(['en']);
+    this.translateService.setDefaultLang('en');
+    this.translateService.use('en');
   }
 
   private initializeTimelineStartDate(): void {
