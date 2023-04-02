@@ -1,11 +1,7 @@
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import diff from 'microdiff';
-
-type Option = {
-  label: string;
-  value: any;
-};
+import { Option } from './select.types';
 
 @Component({
   selector: 'yata-select',
@@ -23,7 +19,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   @ViewChild('select') selectElementRef!: ElementRef;
 
   @Input() label: string = '';
-  @Input() options: Option[] = [];
+  @Input() options: Option<any>[] = [];
 
   value: any;
   isDisabled: boolean;
