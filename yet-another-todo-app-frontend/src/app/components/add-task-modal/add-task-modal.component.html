@@ -1,21 +1,21 @@
-<yata-title class="modal-title">{{ title }}</yata-title>
+<yata-title class="modal-title">{{ 'addTaskModal.modalTitle' | translate }}</yata-title>
 <form [formGroup]="taskForm">
-  <yata-text-input [formControlName]="'title'" [label]="'Title'"></yata-text-input>
+  <yata-text-input [formControlName]="'title'" [label]="'addTaskModal.title' | translate"></yata-text-input>
   <yata-textarea
     [formControlName]="'description'"
-    [label]="'Description'"
+    [label]="'addTaskModal.description' | translate"
     [rows]="2"
     [maxLength]="200"></yata-textarea>
-  <yata-select [formControlName]="'state'" [label]="'State'" [options]="states"></yata-select>
+  <yata-select [formControlName]="'state'" [label]="'addTaskModal.state' | translate" [options]="states"></yata-select>
   <yata-date-picker
     *ngIf="!!showStartDateControl && (showStartDateControl | async)"
     [formControlName]="'startDate'"
-    [label]="'Start date'"></yata-date-picker>
+    [label]="'addTaskModal.startDate' | translate"></yata-date-picker>
   <yata-date-picker
     *ngIf="!!showEndDateControl && (showEndDateControl | async)"
     [formControlName]="'endDate'"
-    [label]="'End date'"></yata-date-picker>
+    [label]="'addTaskModal.endDate' | translate"></yata-date-picker>
   <button mat-flat-button color="primary" (click)="submit()" [disabled]="taskForm.invalid">
-    Submit
+    {{ 'addTaskModal.submit' | translate }}
   </button>
 </form>

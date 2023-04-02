@@ -1,3 +1,17 @@
 {
-    "appTitle": "ヤタ YATA - Yet Another Todo App"
+    "appTitle": "ヤタ YATA - Yet Another Todo App",
+    "addTaskModal": {
+        "modalTitle": "Add new task",
+        "title": "Title",
+        "description": "Description",
+        "state": "State",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "submit": "Submit"
+    },
+    "NOT_STARTED": "Task not started",
+    "IN_PROGRESS": "Task in progress",
+    "SUSPENDED": "Task is suspended",
+    "COMPLETED": "Task completed",
+    "REJECTED": "Task is rejected"
 }
