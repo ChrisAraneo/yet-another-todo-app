@@ -14,8 +14,6 @@ import { TaskForm, TaskOption } from './delete-task-modal.types';
 export class DeleteTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'delete-task-modal';
 
-  readonly title = 'Delete task';
-
   tasks!: Observable<TaskOption[]>;
   taskForm?: FormGroup<TaskForm>;
 

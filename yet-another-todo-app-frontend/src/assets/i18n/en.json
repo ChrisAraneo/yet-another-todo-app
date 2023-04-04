@@ -10,6 +10,13 @@
         "endDate": "End date",
         "submit": "Submit"
     },
+    "deleteTaskModal": {
+        "modalTitle": "Delete task",
+        "selectTask": "Task to delete",
+        "delete": "Delete",
+        "emptyCaption": "There are no defined tasks to delete",
+        "emptyHint": "Create tasks first so you can delete them later"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",

@@ -1,18 +1,18 @@
-<yata-title class="modal-title">{{ title }}</yata-title>
+<yata-title class="modal-title">{{ 'deleteTaskModal.modalTitle' | translate }}</yata-title>
 <form [formGroup]="taskForm" *ngIf="!!taskForm; else empty">
   <yata-select
     [formControlName]="'task'"
-    [label]="'Task to delete'"
+    [label]="'deleteTaskModal.selectTask' | translate"
     [options]="(tasks | async) || []"></yata-select>
   <ng-container *ngIf="taskForm.value.task">
     <button mat-flat-button color="danger" (click)="submit()" [disabled]="taskForm.invalid">
-      Delete
+      {{ 'deleteTaskModal.delete' | translate }}
     </button>
   </ng-container>
 </form>
 
-<ng-template #empty
-  ><yata-empty-info-box
-    caption="There are no defined tasks to delete"
-    hint="Create tasks first so you can delete them later"></yata-empty-info-box
-></ng-template>
+<ng-template #empty>
+  <yata-empty-info-box
+    [caption]="'deleteTaskModal.emptyCaption' | translate"
+    [hint]="'deleteTaskModal.emptyHint' | translate"></yata-empty-info-box>
+</ng-template>
