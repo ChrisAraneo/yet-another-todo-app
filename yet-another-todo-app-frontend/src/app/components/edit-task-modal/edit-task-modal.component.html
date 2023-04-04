@@ -1,5 +1,5 @@
 <yata-title class="modal-title">{{ title }}</yata-title>
-<form [formGroup]="taskForm" *ngIf="!!taskForm; else empty">
+<form [formGroup]="taskForm" *ngIf="!!taskForm && (isAnyTaskDefined | async); else empty">
   <yata-select
     [formControlName]="'task'"
     [label]="'Task to edit'"

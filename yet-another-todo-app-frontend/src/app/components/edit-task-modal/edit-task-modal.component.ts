@@ -37,6 +37,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }));
 
   tasks!: Observable<TaskOption[]>;
+  isAnyTaskDefined!: Observable<boolean>;
   showStartDateControl!: BehaviorSubject<boolean>;
   showEndDateControl!: BehaviorSubject<boolean>;
   taskForm!: FormGroup<TaskForm>;
@@ -70,6 +71,8 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
         }
       }),
     );
+
+    this.isAnyTaskDefined = this.tasks.pipe(map((tasks) => tasks && tasks.length > 0));
   }
 
   ngOnDestroy(): void {
