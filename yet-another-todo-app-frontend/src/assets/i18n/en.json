@@ -17,6 +17,18 @@
         "emptyCaption": "There are no defined tasks to delete",
         "emptyHint": "Create tasks first so you can delete them later"
     },
+    "EditTaskModal": {
+        "modalTitle": "Edit task",
+        "selectTask": "Task to edit",
+        "title": "Title",
+        "description": "Description",
+        "state": "State",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "saveChanges": "Save changes",
+        "emptyCaption": "There are no defined tasks to edit",
+        "emptyHint": "Create tasks first so you can edit them later"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",

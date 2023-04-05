@@ -24,7 +24,6 @@ import { TaskForm, TaskOption } from './edit-task-modal.types';
 export class EditTaskModalComponent implements OnInit, OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
 
-  readonly title = 'Edit task';
   readonly states = [
     new NotStartedTaskState(),
     new InProgressTaskState(),
