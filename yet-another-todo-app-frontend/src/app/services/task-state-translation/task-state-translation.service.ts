@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -22,12 +22,12 @@ export class TaskStateTranslationService {
     new RejectedTaskState(),
   ];
 
-  constructor(private translatePipe: TranslatePipe) {}
+  constructor(private translateService: TranslateService) {}
 
   getTranslatedSelectOptions(): Option<TaskState>[] {
     return [
       ...this.states.map((state) => ({
-        label: this.translatePipe.transform(state.toString()),
+        label: this.translateService.instant(state.toString()),
         value: state,
       })),
     ];
