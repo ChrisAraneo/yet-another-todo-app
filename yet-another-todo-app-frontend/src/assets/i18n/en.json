@@ -29,6 +29,13 @@
         "emptyCaption": "There are no defined tasks to edit",
         "emptyHint": "Create tasks first so you can edit them later"
     },
+    "SideNavigation": {
+        "tableView": "Table view",
+        "timelineView": "Timeline view",
+        "addTask": "Add task",
+        "editTask": "Edit task",
+        "deleteTask": "Delete task"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",

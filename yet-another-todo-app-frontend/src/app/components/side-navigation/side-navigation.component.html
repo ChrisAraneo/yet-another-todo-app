@@ -2,7 +2,7 @@
   <div class="side-navigation-content">
     <yata-navigation-item
       *ngFor="let item of items"
-      [label]="item.label"
+      [label]="item.label | translate"
       [icon]="item.icon"
       [click]="item.click"></yata-navigation-item>
   </div>
