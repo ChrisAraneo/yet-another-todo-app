@@ -10,8 +10,3 @@ export type TaskForm = {
   startDate: FormControl<string | null>;
   endDate: FormControl<string | null>;
 };
-
-export type TaskOption = {
-  label: string;
-  value: Task;
-};

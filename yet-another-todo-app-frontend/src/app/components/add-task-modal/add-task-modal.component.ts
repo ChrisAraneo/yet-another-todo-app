@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { TranslatePipe } from '@ngx-translate/core';
 import { map, Observable, Subscription } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
@@ -12,6 +11,7 @@ import {
   SuspendedTaskState,
   TaskState,
 } from 'src/app/models/task-state.model';
+import { TaskStateTranslationService } from 'src/app/services/task-state-translation/task-state-translation.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { Task } from '../../models/task.model';
 import { Option } from '../form/select/select.types';
@@ -21,7 +21,6 @@ import { TaskForm } from './add-task-modal.types';
   selector: 'yata-add-task-modal',
   templateUrl: './add-task-modal.component.html',
   styleUrls: ['./add-task-modal.component.scss'],
-  providers: [TranslatePipe],
 })
 export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';
@@ -37,7 +36,7 @@ export class AddTaskModalComponent implements OnDestroy {
     public dialogRef: MatDialogRef<AddTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
-    private translatePipe: TranslatePipe,
+    private taskStateTranslationService: TaskStateTranslationService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -60,16 +59,7 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   private initializeStates(): void {
-    this.states = [
-      new NotStartedTaskState(),
-      new InProgressTaskState(),
-      new SuspendedTaskState(),
-      new CompletedTaskState(),
-      new RejectedTaskState(),
-    ].map((state) => ({
-      label: this.translatePipe.transform(state.toString()),
-      value: state,
-    }));
+    this.states = this.taskStateTranslationService.getTranslatedSelectOptions();
   }
 
   private initializeForm(): void {

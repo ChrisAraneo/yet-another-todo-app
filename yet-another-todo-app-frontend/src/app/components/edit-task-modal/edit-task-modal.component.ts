@@ -11,10 +11,12 @@ import {
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
+import { TaskStateTranslationService } from 'src/app/services/task-state-translation/task-state-translation.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
-import { TaskForm, TaskOption } from './edit-task-modal.types';
+import { Option } from '../form/select/select.types';
+import { TaskForm } from './edit-task-modal.types';
 
 @Component({
   selector: 'yata-edit-task-modal',
@@ -24,22 +26,12 @@ import { TaskForm, TaskOption } from './edit-task-modal.types';
 export class EditTaskModalComponent implements OnInit, OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
 
-  readonly states = [
-    new NotStartedTaskState(),
-    new InProgressTaskState(),
-    new SuspendedTaskState(),
-    new CompletedTaskState(),
-    new RejectedTaskState(),
-  ].map((state) => ({
-    label: state.getRelatedTooltipText(),
-    value: state,
-  }));
-
-  tasks!: Observable<TaskOption[]>;
+  tasks!: Observable<Option<Task>[]>;
   isAnyTaskDefined!: Observable<boolean>;
   showStartDateControl!: BehaviorSubject<boolean>;
   showEndDateControl!: BehaviorSubject<boolean>;
   taskForm!: FormGroup<TaskForm>;
+  states: Option<TaskState>[] = [];
 
   private subscription: Subscription = new Subscription();
   private selectedTaskId = new BehaviorSubject<string | null>(null);
@@ -50,7 +42,9 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private dateUtilsService: DateUtilsService,
+    private taskStateTranslationService: TaskStateTranslationService,
   ) {
+    this.initializeStates();
     this.initializeForm();
 
     this.initializeShowStartDateControlSubject(this.taskForm);
@@ -90,6 +84,10 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     this.dialogRef.close();
   }
 
+  private initializeStates(): void {
+    this.states = this.taskStateTranslationService.getTranslatedSelectOptions();
+  }
+
   private initializeForm(): void {
     this.taskForm = this.formBuilder.group<TaskForm>({
       task: new FormControl(),
@@ -101,7 +99,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getInitialTask(tasks: TaskOption[], data: any): Task | undefined {
+  private getInitialTask(tasks: Option<Task>[], data: any): Task | undefined {
     if (!tasks || !tasks.length) {
       return;
     }
