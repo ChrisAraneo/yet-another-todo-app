@@ -42,7 +42,7 @@ import { ApiClientService } from './services/api-client/api-client.service';
 import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
-import { TaskStateTranslationService } from './services/task-state-translation/task-state-translation.service';
+import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { UserService } from './services/user/user.service';
 import { TaskEffects } from './store/effects/task.effects';
@@ -114,7 +114,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     { provide: 'API', useValue: environment.api },
     UserService,
     AuthService,
-    TaskStateTranslationService,
+    TaskStateTranslatorService,
   ],
   bootstrap: [AppComponent],
 })

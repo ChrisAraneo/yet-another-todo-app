@@ -11,7 +11,7 @@ import {
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
-import { TaskStateTranslationService } from 'src/app/services/task-state-translation/task-state-translation.service';
+import { TaskStateTranslatorService } from 'src/app/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
@@ -42,7 +42,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private dateUtilsService: DateUtilsService,
-    private taskStateTranslationService: TaskStateTranslationService,
+    private taskStateTranslatorService: TaskStateTranslatorService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -85,7 +85,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private initializeStates(): void {
-    this.states = this.taskStateTranslationService.getTranslatedSelectOptions();
+    this.states = this.taskStateTranslatorService.getTranslatedTaskStateSelectOptions();
   }
 
   private initializeForm(): void {

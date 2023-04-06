@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Option } from '../../components/form/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -7,13 +8,12 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from 'src/app/models/task-state.model';
-import { Option } from '../../components/form/select/select.types';
+} from '../../models/task-state.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TaskStateTranslationService {
+export class TaskStateTranslatorService {
   readonly states: TaskState[] = [
     new NotStartedTaskState(),
     new InProgressTaskState(),
@@ -24,7 +24,7 @@ export class TaskStateTranslationService {
 
   constructor(private translateService: TranslateService) {}
 
-  getTranslatedSelectOptions(): Option<TaskState>[] {
+  getTranslatedTaskStateSelectOptions(): Option<TaskState>[] {
     return [
       ...this.states.map((state) => ({
         label: this.translateService.instant(state.toString()),

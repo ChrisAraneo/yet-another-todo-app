@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { map, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
@@ -11,9 +11,9 @@ import {
   SuspendedTaskState,
   TaskState,
 } from 'src/app/models/task-state.model';
-import { TaskStateTranslationService } from 'src/app/services/task-state-translation/task-state-translation.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { Task } from '../../models/task.model';
+import { TaskStateTranslatorService } from '../../services/task-state-translator/task-state-translator.service';
 import { Option } from '../form/select/select.types';
 import { TaskForm } from './add-task-modal.types';
 
@@ -36,7 +36,7 @@ export class AddTaskModalComponent implements OnDestroy {
     public dialogRef: MatDialogRef<AddTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
-    private taskStateTranslationService: TaskStateTranslationService,
+    private taskStateTranslatorService: TaskStateTranslatorService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -59,7 +59,7 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   private initializeStates(): void {
-    this.states = this.taskStateTranslationService.getTranslatedSelectOptions();
+    this.states = this.taskStateTranslatorService.getTranslatedTaskStateSelectOptions();
   }
 
   private initializeForm(): void {
