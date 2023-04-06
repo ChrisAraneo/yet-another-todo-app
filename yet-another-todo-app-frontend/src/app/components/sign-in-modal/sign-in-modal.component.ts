@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SignInForm } from './sign-in-modal.types';
 
@@ -11,8 +11,6 @@ import { SignInForm } from './sign-in-modal.types';
 })
 export class SignInModalComponent {
   static readonly PANEL_CLASS = 'sign-in-modal';
-
-  readonly title = 'Sign in';
 
   form!: FormGroup<SignInForm>;
 

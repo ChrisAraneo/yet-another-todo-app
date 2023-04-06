@@ -36,6 +36,12 @@
         "editTask": "Edit task",
         "deleteTask": "Delete task"
     },
+    "SignInModal": {
+        "modalTitle": "Sign in",
+        "username": "Username",
+        "password": "Password",
+        "signIn": "Sign in"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",
