@@ -2,14 +2,14 @@
   <yata-timeline-header
     class="timeline-header-button arrow-back"
     [ngStyle]="{ top: previousMonthButtonPosition.top, left: previousMonthButtonPosition.left }">
-    <button mat-icon-button aria-label="Previous month" (click)="changeStartDateToPreviousMonth()">
+    <button mat-icon-button [attr.aria-label]="'Timeline.previousMonth' | translate" (click)="changeStartDateToPreviousMonth()">
       <mat-icon>arrow_back</mat-icon>
     </button>
   </yata-timeline-header>
   <yata-timeline-header
     class="timeline-header-button arrow-forward"
     [ngStyle]="{ top: nextMonthButtonPosition.top, left: nextMonthButtonPosition.left }">
-    <button mat-icon-button aria-label="Next month" (click)="changeStartDateToNextMonth()">
+    <button mat-icon-button [attr.aria-label]="'Timeline.nextMonth' | translate" (click)="changeStartDateToNextMonth()">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </yata-timeline-header>

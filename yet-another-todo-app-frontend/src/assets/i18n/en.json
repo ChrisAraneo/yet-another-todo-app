@@ -59,6 +59,10 @@
         "startDate": "Start date",
         "endDate": "End date"
     },
+    "Timeline": {
+        "previousMonth": "Previous month",
+        "nextMonth": "Next month"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",
