@@ -11,6 +11,7 @@ describe('ApiClientService', () => {
   let httpMock: HttpTestingController;
   let dummyResponseData: TaskData[];
   let dummyTasks: Task[];
+  let dummyTask: Task;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,7 +28,6 @@ describe('ApiClientService', () => {
           value: 'IN_PROGRESS',
           iconName: 'autorenew',
           color: 'orange',
-          tooltipText: 'Task in progress',
         },
         creationDate: '2023-02-01T22:50:45.959Z',
         id: '2f1f0392-bf60-40ed-9d01-2b7e2bf7c819',
@@ -40,7 +40,6 @@ describe('ApiClientService', () => {
           value: 'SUSPENDED',
           iconName: 'hourglass_empty',
           color: 'black',
-          tooltipText: 'Task is suspended',
         },
         creationDate: '2023-02-06T19:38:33.345Z',
         id: '2b3f690b-7a65-4e03-b042-467dd758ac6f',
@@ -48,6 +47,7 @@ describe('ApiClientService', () => {
       },
     ];
     dummyTasks = dummyResponseData.map((item) => TaskCreator.create(item));
+    dummyTask = dummyTasks[0];
   });
 
   it('should be created', () => {
@@ -98,8 +98,8 @@ describe('ApiClientService', () => {
     req.flush(invalidResponse);
   });
 
-  it('#postTasksToApi should handle success response', () => {
-    service.postTasksToApi(dummyTasks);
+  it('#postTaskToApi should handle success response', () => {
+    service.postTaskToApi(dummyTask);
 
     const req = httpMock.expectOne(`${environment.api.origin}/`);
     expect(req.request.method).toBe('POST');
@@ -109,8 +109,8 @@ describe('ApiClientService', () => {
     });
   });
 
-  it('#postTasksToApi should handle error response', () => {
-    service.postTasksToApi(dummyTasks);
+  it('#postTaskToApi should handle error response', () => {
+    service.postTaskToApi(dummyTask);
 
     const req = httpMock.expectOne(`${environment.api.origin}/`);
     expect(req.request.method).toBe('POST');
@@ -120,10 +120,10 @@ describe('ApiClientService', () => {
     });
   });
 
-  it('#postTasksToApi should handle invalid response', () => {
+  it('#postTaskToApi should handle invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.postTasksToApi(dummyTasks);
+    service.postTaskToApi(dummyTask);
 
     const req = httpMock.expectOne(`${environment.api.origin}/`);
     expect(req.request.method).toBe('POST');

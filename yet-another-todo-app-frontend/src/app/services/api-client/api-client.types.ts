@@ -17,7 +17,6 @@ export type TaskData = {
     value: string;
     iconName: string;
     color: string;
-    tooltipText: string;
   };
   creationDate: string;
   startDate?: string;

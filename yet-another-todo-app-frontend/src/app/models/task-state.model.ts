@@ -10,13 +10,11 @@ export abstract class TaskState {
   private value: string;
   private iconName: string;
   private color: string;
-  private tooltipText: string;
 
-  constructor(value: string, iconName: string, color: string, tooltipText: string) {
+  constructor(value: string, iconName: string, color: string) {
     this.value = value;
     this.iconName = iconName;
     this.color = color;
-    this.tooltipText = tooltipText;
   }
 
   toString(): string {
@@ -30,38 +28,34 @@ export abstract class TaskState {
   getRelatedColor(): string {
     return this.color;
   }
-
-  getRelatedTooltipText(): string {
-    return this.tooltipText;
-  }
 }
 
 export class NotStartedTaskState extends TaskState {
   constructor() {
-    super('NOT_STARTED', 'auto_awesome', COLOR_DISABLED, 'Task not started');
+    super('NOT_STARTED', 'auto_awesome', COLOR_DISABLED);
   }
 }
 
 export class InProgressTaskState extends TaskState {
   constructor() {
-    super('IN_PROGRESS', 'autorenew', COLOR_DANGER, 'Task in progress');
+    super('IN_PROGRESS', 'autorenew', COLOR_DANGER);
   }
 }
 
 export class SuspendedTaskState extends TaskState {
   constructor() {
-    super('SUSPENDED', 'hourglass_empty', COLOR_TEXT, 'Task is suspended');
+    super('SUSPENDED', 'hourglass_empty', COLOR_TEXT);
   }
 }
 
 export class CompletedTaskState extends TaskState {
   constructor() {
-    super('COMPLETED', 'task_alt', COLOR_ACCENT, 'Task is completed');
+    super('COMPLETED', 'task_alt', COLOR_ACCENT);
   }
 }
 
 export class RejectedTaskState extends TaskState {
   constructor() {
-    super('REJECTED', 'not_interested', COLOR_WARN, 'Task rejected');
+    super('REJECTED', 'not_interested', COLOR_WARN);
   }
 }
