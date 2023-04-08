@@ -1,3 +1,4 @@
+// @ts-nocheck
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -18,6 +19,7 @@ module.exports = {
       parser: "jsonc-eslint-parser",
     },
   ],
+  ignorePatterns: ['.eslintrc.js'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
