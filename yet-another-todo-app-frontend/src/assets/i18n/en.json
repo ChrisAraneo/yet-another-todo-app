@@ -1,6 +1,10 @@
 {
-    "appTitle": "ヤタ YATA - Yet Another Todo App",
-    "appMadeBy": "App by Krzysztof Pająk \"ChrisAraneo\"",
+    "App": {
+        "title": "ヤタ YATA - Yet Another Todo App"
+    },
+    "AppFooter": {
+        "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
+    },
     "addTaskModal": {
         "modalTitle": "Add new task",
         "title": "Title",
