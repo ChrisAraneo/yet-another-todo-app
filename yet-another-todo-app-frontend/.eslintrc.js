@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'json'],
   extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   root: true,
   env: {
@@ -23,5 +23,6 @@ module.exports = {
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/method-signature-style": "error",
+    "json/*": ["error", {"allowComments": false}],
   },
 };
