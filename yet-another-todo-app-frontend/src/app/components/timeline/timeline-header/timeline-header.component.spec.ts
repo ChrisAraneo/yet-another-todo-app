@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TimelineHeaderComponent } from './timeline-header.component';
 
 describe('TimelineHeaderComponent', () => {
