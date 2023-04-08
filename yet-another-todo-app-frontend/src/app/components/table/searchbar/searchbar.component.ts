@@ -8,8 +8,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class SearchbarComponent {
   @Output() change = new EventEmitter<string>();
 
-  readonly placeholder: string = 'Search tasks';
-
   isFocused: boolean = false;
 
   onChange(event: Event): void {

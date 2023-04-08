@@ -42,6 +42,9 @@
         "password": "Password",
         "signIn": "Sign in"
     },
+    "SearchBar": {
+        "searchTasks": "Search tasks"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",
