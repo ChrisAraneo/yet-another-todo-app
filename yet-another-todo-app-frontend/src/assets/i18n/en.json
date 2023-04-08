@@ -45,6 +45,16 @@
     "SearchBar": {
         "searchTasks": "Search tasks"
     },
+    "Table": {
+        "id": "ID",
+        "title": "Title",
+        "description": "Description",
+        "state": "State",
+        "creationDate": "Creation date",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "paginatorLabel": "Select page of tasks"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",

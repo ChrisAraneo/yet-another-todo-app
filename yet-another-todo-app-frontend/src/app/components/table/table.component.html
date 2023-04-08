@@ -5,25 +5,25 @@
   <table mat-table [dataSource]="filteredData">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>ID</yata-title>
+        <yata-title>{{ 'Table.id' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.shortId }}</td>
     </ng-container>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>Title</yata-title>
+        <yata-title>{{ 'Table.title' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.title }}</td>
     </ng-container>
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>Description</yata-title>
+        <yata-title>{{ 'Table.description' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>State</yata-title>
+        <yata-title>{{ 'Table.state' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">
         <yata-task-state-icon
@@ -34,13 +34,13 @@
     </ng-container>
     <ng-container matColumnDef="creationDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>Creation date</yata-title>
+        <yata-title>{{ 'Table.creationDate' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.creationDate }}</td>
     </ng-container>
     <ng-container matColumnDef="startDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>Start date</yata-title>
+        <yata-title>{{ 'Table.startDate' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.startDate }}
@@ -48,7 +48,7 @@
     </ng-container>
     <ng-container matColumnDef="endDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>End date</yata-title>
+        <yata-title>{{ 'Table.endDate' | translate }}</yata-title>
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.endDate }}
@@ -71,6 +71,6 @@
   <mat-paginator
     [pageSizeOptions]="pageSizeOptions"
     showFirstLastButtons
-    aria-label="Select page of tasks">
+    [attr.aria-label]="'Table.paginatorLabel' | translate">
   </mat-paginator>
 </div>
