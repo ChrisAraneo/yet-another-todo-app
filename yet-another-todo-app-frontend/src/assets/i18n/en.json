@@ -63,6 +63,10 @@
         "previousMonth": "Previous month",
         "nextMonth": "Next month"
     },
+    "Toolbar": {
+        "menuIcon": "Menu icon",
+        "githubIcon": "Github iton"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",
