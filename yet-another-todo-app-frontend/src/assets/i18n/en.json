@@ -55,6 +55,10 @@
         "endDate": "End date",
         "paginatorLabel": "Select page of tasks"
     },
+    "DatesFilter": {
+        "startDate": "Start date",
+        "endDate": "End date"
+    },
     "NOT_STARTED": "Task not started",
     "IN_PROGRESS": "Task in progress",
     "SUSPENDED": "Task is suspended",

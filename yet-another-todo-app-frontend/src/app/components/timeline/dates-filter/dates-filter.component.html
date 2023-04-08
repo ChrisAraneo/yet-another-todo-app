@@ -1,10 +1,10 @@
 <form [formGroup]="form" *ngIf="!!form">
   <yata-date-picker
     [formControlName]="'startDate'"
-    [label]="'Start date'"
+    [label]="'DatesFilter.startDate' | translate"
     class="custom-date-picker"></yata-date-picker>
   <yata-date-picker
     [formControlName]="'endDate'"
-    [label]="'End date'"
+     [label]="'DatesFilter.endDate' | translate"
     class="custom-date-picker"></yata-date-picker>
 </form>
