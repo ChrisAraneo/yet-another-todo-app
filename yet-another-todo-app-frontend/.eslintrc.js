@@ -3,16 +3,21 @@ module.exports = {
   parserOptions: {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
-    sourceType: 'module',
+    sourceType: 'module'
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'json'],
-  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  plugins: ['@typescript-eslint/eslint-plugin'],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', "plugin:jsonc/recommended-with-jsonc",],
   root: true,
   env: {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js'],
+  overrides: [
+    {
+      files: ["*.json"],
+      parser: "jsonc-eslint-parser",
+    },
+  ],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -23,6 +28,6 @@ module.exports = {
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/method-signature-style": "error",
-    "json/*": ["error", {"allowComments": false}],
+    "jsonc/sort-keys": "error"
   },
 };
