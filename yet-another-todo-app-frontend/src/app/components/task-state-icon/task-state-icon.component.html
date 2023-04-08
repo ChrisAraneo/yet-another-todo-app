@@ -1,9 +1,9 @@
 <mat-icon
-  *ngIf="!!iconName && !!style && !!label"
+  *ngIf="!!iconName && !!style && !!value"
   aria-hidden="false"
-  [attr.aria-label]="label"
+  [attr.aria-label]="value | translate"
   [ngStyle]="style"
-  [matTooltip]="label"
+  [matTooltip]="value | translate"
   [matTooltipPosition]="'above'"
   [matTooltipShowDelay]="250">
   {{ iconName }}

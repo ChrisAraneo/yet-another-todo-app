@@ -13,7 +13,7 @@ export class TaskStateIconComponent implements OnChanges {
 
   iconName?: string;
   style?: { [cssProperty: string]: any };
-  label?: string;
+  value?: string;
 
   ngOnChanges(changes: SimpleChanges): void {
     const currentState = changes['state'] && changes['state'].currentValue;
@@ -25,7 +25,7 @@ export class TaskStateIconComponent implements OnChanges {
 
     if (currentState !== previousState) {
       this.updateIconName(currentState);
-      this.updateLabel(currentState);
+      this.updateTaskStateValue(currentState);
     }
 
     if (
@@ -56,7 +56,7 @@ export class TaskStateIconComponent implements OnChanges {
     };
   }
 
-  private updateLabel(state: TaskState): void {
-    this.label = state.getRelatedTooltipText();
+  private updateTaskStateValue(state: TaskState): void {
+    this.value = state.toString();
   }
 }
