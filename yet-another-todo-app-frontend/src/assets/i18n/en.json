@@ -5,7 +5,7 @@
     "AppFooter": {
         "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
     },
-    "addTaskModal": {
+    "AddTaskModal": {
         "modalTitle": "Add new task",
         "title": "Title",
         "description": "Description",
@@ -14,7 +14,7 @@
         "endDate": "End date",
         "submit": "Submit"
     },
-    "deleteTaskModal": {
+    "DeleteTaskModal": {
         "modalTitle": "Delete task",
         "selectTask": "Task to delete",
         "delete": "Delete",
