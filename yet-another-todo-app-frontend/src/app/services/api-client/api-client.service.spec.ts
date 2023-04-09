@@ -99,18 +99,24 @@ describe('ApiClientService', () => {
   });
 
   it('#postTaskToApi should handle success response', () => {
-    service.postTaskToApi(dummyTask);
+    const dummySuccessResponse: ApiResponse<TaskData> = {
+      status: ApiResponseStatus.Success,
+      data: dummyResponseData[0],
+    };
+
+    service.postTaskToApi(dummyTask).subscribe((task) => {
+      expect(task).toEqual(dummyTask);
+    });
 
     const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
-    req.flush({
-      status: ApiResponseStatus.Success,
-      data: null,
-    });
+    req.flush(dummySuccessResponse);
   });
 
   it('#postTaskToApi should handle error response', () => {
-    service.postTaskToApi(dummyTask);
+    service.postTaskToApi(dummyTask).subscribe((task) => {
+      expect(task).toEqual(undefined);
+    });
 
     const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
@@ -123,7 +129,9 @@ describe('ApiClientService', () => {
   it('#postTaskToApi should handle invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.postTaskToApi(dummyTask);
+    service.postTaskToApi(dummyTask).subscribe((task) => {
+      expect(task).toEqual(undefined);
+    });
 
     const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
