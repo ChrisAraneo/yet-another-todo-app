@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MockPipe, MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TimelineComponent } from './timeline.component';
 
 describe('TimelineComponent', () => {
@@ -11,7 +15,7 @@ describe('TimelineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TimelineComponent],
+      declarations: [TimelineComponent, MockPipe(TranslatePipe)],
       imports: [
         MatDialogModule,
         NoopAnimationsModule,
@@ -21,6 +25,9 @@ describe('TimelineComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
+        MockProvider(TasksService, {
+          getTasks: () => of([]),
+        }),
       ],
     }).compileComponents();
   });

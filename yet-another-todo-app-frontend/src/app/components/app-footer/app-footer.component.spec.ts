@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MockPipe } from 'ng-mocks';
 import { AppFooterComponent } from './app-footer.component';
 
 describe('AppFooterComponent', () => {
@@ -7,7 +9,7 @@ describe('AppFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppFooterComponent],
+      declarations: [AppFooterComponent, MockPipe(TranslatePipe)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppFooterComponent);

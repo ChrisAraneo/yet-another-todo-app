@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MockPipe } from 'ng-mocks';
 import { SearchbarComponent } from './searchbar.component';
 
 describe('SearchbarComponent', () => {
@@ -7,7 +9,7 @@ describe('SearchbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SearchbarComponent],
+      declarations: [SearchbarComponent, MockPipe(TranslatePipe)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchbarComponent);

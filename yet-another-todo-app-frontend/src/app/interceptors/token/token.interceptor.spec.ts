@@ -1,10 +1,20 @@
 import { TestBed } from '@angular/core/testing';
+import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { TokenInterceptor } from './token.interceptor';
 
 describe('TokenInterceptor', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      providers: [TokenInterceptor],
+      imports: [],
+      providers: [
+        MockProvider(AuthService, {
+          getToken: () => '1010',
+          refreshToken: () => of(undefined),
+        }),
+        TokenInterceptor,
+      ],
     }),
   );
 

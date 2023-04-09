@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslatePipe } from '@ngx-translate/core';
+import { MockPipe } from 'ng-mocks';
 import { SideNavigationComponent } from './side-navigation.component';
 
 describe('SideNavigationComponent', () => {
@@ -9,7 +11,7 @@ describe('SideNavigationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SideNavigationComponent],
+      declarations: [SideNavigationComponent, MockPipe(TranslatePipe)],
       imports: [MatDialogModule, NoopAnimationsModule],
       providers: [
         { provide: MatDialogRef, useValue: {} },

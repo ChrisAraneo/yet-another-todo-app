@@ -16,7 +16,7 @@ describe('ApiClientService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ApiClientService],
+      providers: [{ provide: 'API', useValue: environment.api }, ApiClientService],
     });
     service = TestBed.inject(ApiClientService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -65,7 +65,7 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(dummyTasks);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
     expect(req.request.method).toBe('GET');
     req.flush(dummySuccessResponse);
   });
@@ -81,7 +81,7 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(undefined);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
     expect(req.request.method).toBe('GET');
     req.flush(dummyErrorResponse);
   });
@@ -93,7 +93,7 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(undefined);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
     expect(req.request.method).toBe('GET');
     req.flush(invalidResponse);
   });
@@ -101,7 +101,7 @@ describe('ApiClientService', () => {
   it('#postTaskToApi should handle success response', () => {
     service.postTaskToApi(dummyTask);
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
     req.flush({
       status: ApiResponseStatus.Success,
@@ -112,7 +112,7 @@ describe('ApiClientService', () => {
   it('#postTaskToApi should handle error response', () => {
     service.postTaskToApi(dummyTask);
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
     req.flush({
       status: ApiResponseStatus.Error,
@@ -125,7 +125,7 @@ describe('ApiClientService', () => {
 
     service.postTaskToApi(dummyTask);
 
-    const req = httpMock.expectOne(`${environment.api.origin}/`);
+    const req = httpMock.expectOne(`${environment.api.origin}/task`);
     expect(req.request.method).toBe('POST');
     req.flush(invalidResponse);
   });
