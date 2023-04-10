@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, filter, first, map, mergeMap, Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, filter, first, map, mergeMap, tap } from 'rxjs';
+import { SignInData } from 'src/app/models/sign-in-data.model';
 import { ApiResponse, ApiResponseStatus } from '../api-client/api-client.types';
 import { UserService } from '../user/user.service';
 
@@ -22,21 +23,7 @@ export class AuthService implements OnDestroy {
   ) {
     this.loginEndpoint = `${this.api.origin}/login`;
 
-    this.subscription = this.userService
-      .getUser()
-      .pipe(
-        filter((user) => !!user.username && !!user.password),
-        tap((user) => {
-          this.username.next(user.username);
-          this.password.next(user.password);
-        }),
-        mergeMap((user) => {
-          return this.fetchNewToken(user.username, user.password);
-        }),
-      )
-      .subscribe((token: string | null) => {
-        this.update(token);
-      });
+    this.subscribeToUserChanges();
   }
 
   ngOnDestroy(): void {
@@ -56,8 +43,37 @@ export class AuthService implements OnDestroy {
   }
 
   getToken(): string | null {
-    // TODO Observable?
     return this.token.getValue();
+  }
+
+  private subscribeToUserChanges(): void {
+    const filterByExistingUsernameAndPassword = filter(
+      (user: SignInData) => !!user.username && !!user.password,
+    );
+
+    const emitUsername = tap((user: SignInData) => {
+      this.username.next(user.username);
+    });
+
+    const emitPassword = tap((user: SignInData) => {
+      this.password.next(user.password);
+    });
+
+    const fetchNewTokenOnUserChange = mergeMap((user: SignInData) => {
+      return this.fetchNewToken(user.username, user.password);
+    });
+
+    this.subscription = this.userService
+      .getUser()
+      .pipe(
+        filterByExistingUsernameAndPassword,
+        emitUsername,
+        emitPassword,
+        fetchNewTokenOnUserChange,
+      )
+      .subscribe((token: string | null) => {
+        this.update(token);
+      });
   }
 
   private fetchNewToken(username: string, password: string | null): Observable<string | null> {
