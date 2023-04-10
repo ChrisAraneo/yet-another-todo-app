@@ -30,7 +30,7 @@ export class UserService {
   }
 
   getIsUserLogged(): Observable<boolean> {
-    return this.store.select('user').pipe(map((data) => data.isLogged));
+    return this.store.select('user').pipe(map((data) => !!(data && data.isLogged)));
   }
 
   setIsUserLogged(value: boolean): void {
