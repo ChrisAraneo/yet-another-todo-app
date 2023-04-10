@@ -19,6 +19,7 @@ export type TaskData = {
     color: string;
   };
   creationDate: string;
+  isHidden: boolean;
   startDate?: string;
   endDate?: string;
 };
