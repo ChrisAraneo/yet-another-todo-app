@@ -1,3 +1,4 @@
+import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteTaskModalComponent } from 'src/app/components/delete-task-modal/delete-task-modal.component';
@@ -13,32 +14,26 @@ export class DialogService {
   constructor(public dialog: MatDialog) {}
 
   openAddTaskModal(): void {
-    this.dialog.open(AddTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: AddTaskModalComponent.PANEL_CLASS,
-    });
+    this.openDialog(AddTaskModalComponent);
   }
 
   openEditTaskModal(initialTaskId?: string): void {
-    this.dialog.open(EditTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: EditTaskModalComponent.PANEL_CLASS,
-      data: { initialTaskId },
-    });
+    this.openDialog(EditTaskModalComponent, { initialTaskId });
   }
 
   openDeleteTaskModal(initialTaskId?: string): void {
-    this.dialog.open(DeleteTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: DeleteTaskModalComponent.PANEL_CLASS,
-      data: { initialTaskId },
-    });
+    this.openDialog(DeleteTaskModalComponent, { initialTaskId });
   }
 
   openSignInModal(): void {
-    this.dialog.open(SignInModalComponent, {
+    this.openDialog(SignInModalComponent);
+  }
+
+  private openDialog(component: ComponentType<any>, data: object = {}): void {
+    this.dialog.open(component, {
       width: DIALOG_WIDTH,
-      panelClass: SignInModalComponent.PANEL_CLASS,
+      panelClass: (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
+      ...data,
     });
   }
 }
