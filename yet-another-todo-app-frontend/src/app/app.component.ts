@@ -4,7 +4,6 @@ import { Subscription, debounceTime, filter } from 'rxjs';
 import { AppMode } from './app.types';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
-import { TasksService } from './services/tasks/tasks.service';
 import { UserService } from './services/user/user.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private translateService: TranslateService,
-    private taskService: TasksService,
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
     private dialogService: DialogService,
