@@ -27,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
       );
   }
 
-  handleResponseError(request: HttpRequest<unknown>, next: any): Observable<any> {
+  private handleResponseError(request: HttpRequest<unknown>, next: any): Observable<any> {
     return this.authService.refreshToken().pipe(
       mergeMap(() => {
         return next.handle(
