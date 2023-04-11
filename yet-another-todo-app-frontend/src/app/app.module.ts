@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -42,6 +42,7 @@ import { ApiClientService } from './services/api-client/api-client.service';
 import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
+import { TaskCreatorService } from './services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { UserService } from './services/user/user.service';
@@ -115,6 +116,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     UserService,
     AuthService,
     TaskStateTranslatorService,
+    TaskCreatorService,
   ],
   bootstrap: [AppComponent],
 })
