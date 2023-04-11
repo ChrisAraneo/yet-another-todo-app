@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { first, map, Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, first, map, tap } from 'rxjs';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
 import {
   sendCreateTaskRequest,
@@ -15,33 +15,19 @@ import { UserService } from '../user/user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class TasksService {
-  private subscription = new Subscription();
+export class TasksService implements OnDestroy {
+  private subscription!: Subscription;
 
   constructor(
     private store: Store<{ tasks: Task[] }>,
     private apiClientService: ApiClientService,
     private userService: UserService,
   ) {
-    this.subscription.add(
-      this.userService.getIsUserLogged().subscribe((isLogged) => {
-        if (isLogged) {
-          this.apiClientService
-            .fetchTasksFromApi()
-            .pipe(
-              first(),
-              tap((tasks: Task[] | undefined) => {
-                if (tasks) {
-                  this.setTasks(tasks);
-                }
-              }),
-            )
-            .subscribe();
-        } else {
-          this.setTasks([]);
-        }
-      }),
-    );
+    this.subscribeToUserLoggedIn();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
   }
 
   getTasks(): Observable<Task[]> {
@@ -83,8 +69,24 @@ export class TasksService {
     this.store.dispatch(sendHideTaskRequest({ id: taskId }));
   }
 
-  unsubscribe(): void {
-    this.subscription && this.subscription.unsubscribe();
+  private subscribeToUserLoggedIn(): void {
+    this.subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
+      if (isLogged) {
+        this.apiClientService
+          .fetchTasksFromApi()
+          .pipe(
+            first(),
+            tap((tasks: Task[] | undefined) => {
+              if (tasks) {
+                this.setTasks(tasks);
+              }
+            }),
+          )
+          .subscribe();
+      } else {
+        this.setTasks([]);
+      }
+    });
   }
 
   private setTasks(tasks: Task[]): void {

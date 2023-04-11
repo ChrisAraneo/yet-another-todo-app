@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { debounceTime, filter, Subscription } from 'rxjs';
+import { Subscription, debounceTime, filter } from 'rxjs';
 import { AppMode } from './app.types';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { DialogService } from './services/dialog/dialog.service';
@@ -37,7 +37,6 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.taskService.unsubscribe();
     this.subscription && this.subscription.unsubscribe();
   }
 
