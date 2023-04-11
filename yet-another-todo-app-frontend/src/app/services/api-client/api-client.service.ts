@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { first, map, Observable } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
+import { Observable, first, map } from 'rxjs';
 import { Task } from 'src/app/models/task.model';
+import { TaskCreatorService } from '../task-creator/task-creator.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
 @Injectable({
@@ -12,7 +12,11 @@ export class ApiClientService {
   private readonly tasksEndpoint;
   private readonly taskEndpoint;
 
-  constructor(@Inject('API') public api: any, private http: HttpClient) {
+  constructor(
+    @Inject('API') public api: any,
+    private http: HttpClient,
+    private taskCreator: TaskCreatorService,
+  ) {
     this.tasksEndpoint = `${this.api.origin}/tasks`;
     this.taskEndpoint = `${this.api.origin}/task`;
   }
@@ -51,7 +55,7 @@ export class ApiClientService {
   }
 
   private mapTask(data: TaskData): Task {
-    return TaskCreator.create(data);
+    return this.taskCreator.create(data);
   }
 
   private printError(error: any): void {

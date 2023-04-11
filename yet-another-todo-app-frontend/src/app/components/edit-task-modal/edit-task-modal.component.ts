@@ -1,8 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BehaviorSubject, first, map, Observable, Subscription } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BehaviorSubject, Observable, Subscription, first, map } from 'rxjs';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -11,6 +10,7 @@ import {
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
+import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { TaskState } from '../../models/task-state.model';
@@ -43,6 +43,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     private tasksService: TasksService,
     private dateUtilsService: DateUtilsService,
     private taskStateTranslatorService: TaskStateTranslatorService,
+    private taskCreator: TaskCreatorService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -78,7 +79,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     }
 
     const id = this.taskForm.controls.task.value?.getId();
-    const task: Task = TaskCreator.create({ ...this.taskForm.value, task: undefined, id });
+    const task: Task = this.taskCreator.create({ ...this.taskForm.value, task: undefined, id });
     this.tasksService.updateTask(task);
 
     this.dialogRef.close();

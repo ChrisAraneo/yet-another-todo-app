@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, map } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -11,6 +10,7 @@ import {
   SuspendedTaskState,
   TaskState,
 } from 'src/app/models/task-state.model';
+import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { Task } from '../../models/task.model';
 import { TaskStateTranslatorService } from '../../services/task-state-translator/task-state-translator.service';
@@ -37,6 +37,7 @@ export class AddTaskModalComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private taskStateTranslatorService: TaskStateTranslatorService,
+    private taskCreator: TaskCreatorService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -52,7 +53,10 @@ export class AddTaskModalComponent implements OnDestroy {
       return;
     }
 
-    const task: Task = TaskCreator.create({ ...this.taskForm.value, creationDate: new Date() });
+    const task: Task = this.taskCreator.create({
+      ...this.taskForm.value,
+      creationDate: new Date(),
+    });
     this.tasksService.addTask(task);
 
     this.dialogRef.close();

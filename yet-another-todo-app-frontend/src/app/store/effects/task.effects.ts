@@ -2,17 +2,17 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { createAction } from '@ngrx/store';
 import { map, mergeMap, of } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
 import { ApiClientService } from 'src/app/services/api-client/api-client.service';
+import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { Task } from '../../models/task.model';
 import {
-  createTask,
   CREATE_TASK_API,
-  hideTask,
   HIDE_TASK_API,
-  updateTask,
   UPDATE_TASK_API,
+  createTask,
+  hideTask,
+  updateTask,
 } from '../actions/task.actions';
 
 @Injectable()
@@ -60,7 +60,7 @@ export class TaskEffects {
             if (!!task) {
               return this.apiClientService
                 .postTaskToApi(
-                  TaskCreator.create({ ...JSON.parse(JSON.stringify(task)), isHidden: true }),
+                  this.taskCreator.create({ ...JSON.parse(JSON.stringify(task)), isHidden: true }),
                 )
                 .pipe(map(() => id));
             } else {
@@ -77,5 +77,6 @@ export class TaskEffects {
     private actions: Actions,
     private apiClientService: ApiClientService,
     private tasksService: TasksService,
+    private taskCreator: TaskCreatorService,
   ) {}
 }
