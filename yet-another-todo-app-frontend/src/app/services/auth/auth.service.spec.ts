@@ -43,7 +43,20 @@ describe('AuthService', () => {
     req.flush(response);
   });
 
-  it('#getToken should return last stored token', () => {
+  it('#refreshToken should trigger sending a login request', () => {
+    const response: any = {
+      status: 'success',
+      data: 'thisistoken',
+    };
+
+    service.refreshToken();
+
+    const req = httpMock.expectOne(`${environment.api.origin}/login`);
+    expect(req.request.method).toBe('POST');
+    req.flush(response);
+  });
+
+  it('#getToken should return the last stored token after the last successful login', () => {
     const dummyToken = 'thisistoken';
 
     service.signIn('lorem', 'ipsum');
@@ -56,5 +69,23 @@ describe('AuthService', () => {
     });
 
     expect(service.getToken()).toBe(dummyToken);
+  });
+
+  it('#getToken should return null when the last login attempt failed', () => {
+    service.signIn('lorem', 'thisiswrongpassword');
+
+    const req = httpMock.expectOne(`${environment.api.origin}/login`);
+    expect(req.request.method).toBe('POST');
+    req.flush({
+      status: 'error',
+      data: null,
+      message: 'lorem ipsum',
+    });
+
+    expect(service.getToken()).toBe(null);
+  });
+
+  it('#getToken should return null when user has not logged in yet', () => {
+    expect(service.getToken()).toBe(null);
   });
 });
