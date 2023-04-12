@@ -33,7 +33,7 @@ export class DialogService {
     this.dialog.open(component, {
       width: DIALOG_WIDTH,
       panelClass: (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
-      ...data,
+      ...(data ? { ...data } : {}),
     });
   }
 }
