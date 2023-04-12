@@ -51,7 +51,7 @@ export class TaskCreator {
   private static createPendingTask(
     title: unknown,
     description: unknown,
-    creationDate?: unknown,
+    creationDate: unknown,
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
@@ -70,7 +70,7 @@ export class TaskCreator {
     const task = new PendingTask(
       title as string,
       description as string,
-      !!creationDate ? new Date(creationDate as string | number) : undefined,
+      new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
     );
 
@@ -84,7 +84,7 @@ export class TaskCreator {
     description: unknown,
     state: unknown,
     startDate: unknown,
-    creationDate?: unknown,
+    creationDate: unknown,
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
@@ -102,18 +102,17 @@ export class TaskCreator {
       new Error(`Incorrect started task start date: ${startDate}`),
     );
 
-    !!creationDate &&
-      this.throwErrorWhenInvalidDateString(
-        creationDate,
-        new Error(`Incorrect started task creation date: ${creationDate}`),
-      );
+    this.throwErrorWhenInvalidDateString(
+      creationDate,
+      new Error(`Incorrect started task creation date: ${creationDate}`),
+    );
 
     const task = new StartedTask(
       title as string,
       description as string,
       state as TaskState,
       new Date(startDate as string | number),
-      !!creationDate ? new Date(creationDate as string | number) : undefined,
+      new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
     );
 
@@ -128,7 +127,7 @@ export class TaskCreator {
     state: unknown,
     startDate: unknown,
     endDate: unknown,
-    creationDate?: unknown,
+    creationDate: unknown,
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
@@ -151,11 +150,10 @@ export class TaskCreator {
       new Error(`Incorrect ended task end date: ${endDate}`),
     );
 
-    !!creationDate &&
-      this.throwErrorWhenInvalidDateString(
-        creationDate,
-        new Error(`Incorrect started task creation date: ${creationDate}`),
-      );
+    this.throwErrorWhenInvalidDateString(
+      creationDate,
+      new Error(`Incorrect started task creation date: ${creationDate}`),
+    );
 
     const task = new EndedTask(
       title as string,
@@ -163,7 +161,7 @@ export class TaskCreator {
       state as TaskState,
       new Date(startDate as string | number),
       new Date(endDate as string | number),
-      !!creationDate ? new Date(creationDate as string | number) : undefined,
+      new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
     );
 
