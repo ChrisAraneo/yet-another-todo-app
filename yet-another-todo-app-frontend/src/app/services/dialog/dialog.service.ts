@@ -29,11 +29,11 @@ export class DialogService {
     this.openDialog(SignInModalComponent);
   }
 
-  private openDialog(component: ComponentType<any>, data: object = {}): void {
+  private openDialog(component: ComponentType<any>, data?: object): void {
     this.dialog.open(component, {
       width: DIALOG_WIDTH,
       panelClass: (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
-      ...(data ? { ...data } : {}),
+      ...(data ? { data: { ...data } } : {}),
     });
   }
 }
