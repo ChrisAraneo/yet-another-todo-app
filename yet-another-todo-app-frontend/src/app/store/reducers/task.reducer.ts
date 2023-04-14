@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { TaskCreator } from 'src/app/models/task-creator.model';
+import { TaskTransformer } from 'src/app/models/task-transformer';
 import { Task } from '../../models/task.model';
 import { createTask, hideTask, removeTask, setTasks, updateTask } from '../actions/task.actions';
 
@@ -18,15 +18,12 @@ export const tasksReducer = createReducer(
   ),
   on(hideTask, (state, { id }) =>
     [...state]
-      .map((item) => {
-        if (item.getId() === id) {
-          const copy = cloneTask(item);
-          copy.setIsHidden(true);
-
-          return copy;
+      .map((task) => {
+        if (task.getId() === id) {
+          return TaskTransformer.transform(task, { isHidden: true });
+        } else {
+          return task;
         }
-
-        return item;
       })
       .sort(sortByCreationDate),
   ),
@@ -35,8 +32,4 @@ export const tasksReducer = createReducer(
 
 function sortByCreationDate(a: Task, b: Task): number {
   return a.getCreationDate().valueOf() - b.getCreationDate().valueOf();
-}
-
-function cloneTask(task: Task): Task {
-  return TaskCreator.create(JSON.parse(JSON.stringify(task)));
 }
