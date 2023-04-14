@@ -4,7 +4,14 @@ import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
-import { Task } from '../../models/task.model';
+import { TaskModifier } from 'src/app/models/task-modifier.model';
+import { CompletedTaskState } from 'src/app/models/task-state.model';
+import {
+  sendCreateTaskRequest,
+  sendHideTaskRequest,
+  sendUpdateTaskRequest,
+} from 'src/app/store/actions/task.actions';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 import { TasksService } from './tasks.service';
 
@@ -55,6 +62,7 @@ describe('TasksService', () => {
   ].map((item) => TaskCreator.create(item));
 
   let service: TasksService;
+  let store: Store;
   let unhiddenDummyTasks: Task[];
   let hiddenDummyTasks: Task[];
 
@@ -76,6 +84,7 @@ describe('TasksService', () => {
     });
 
     service = TestBed.inject(TasksService);
+    store = service.store;
     unhiddenDummyTasks = dummyTasks.filter((task) => !task.getIsHidden());
     hiddenDummyTasks = dummyTasks.filter((task) => task.getIsHidden());
   });
@@ -94,5 +103,52 @@ describe('TasksService', () => {
     service.getHiddenTasks().subscribe((tasks) => {
       expect(tasks).toEqual(hiddenDummyTasks);
     });
+  });
+
+  it('#addTask should dispatch create task request action', () => {
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const task = dummyTasks[0];
+    const action = sendCreateTaskRequest({ task });
+
+    service.addTask(task);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  it('#updateTask should dispatch update task request action', () => {
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const task = dummyTasks[0];
+    const action = sendUpdateTaskRequest({ task });
+
+    service.updateTask(task);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  it('#completeTask should dispatch update task request action', () => {
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const task: StartedTask = dummyTasks.find(
+      (task) => task instanceof StartedTask && !(task instanceof EndedTask),
+    ) as StartedTask;
+    const now = new Date();
+    const updatedTask: EndedTask = TaskModifier.modify(task, {
+      state: new CompletedTaskState(),
+      endDate: now,
+    }) as EndedTask;
+    const action = sendUpdateTaskRequest({ task: updatedTask });
+
+    service.completeTask(task, now);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  it('#hideTask should dispatch hide task request action', () => {
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const task = dummyTasks[0];
+    const action = sendHideTaskRequest({ id: task.getId() });
+
+    service.hideTask(task.getId());
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 });
