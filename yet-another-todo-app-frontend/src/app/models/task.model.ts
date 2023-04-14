@@ -22,13 +22,14 @@ export abstract class Task {
     state: TaskState,
     creationDate?: Date,
     id?: string,
+    isHidden?: boolean,
   ) {
     this.title = title;
     this.description = description;
     this.state = state;
     this.creationDate = creationDate || new Date();
     this.id = id || uuidv4();
-    this.isHidden = false;
+    this.isHidden = !!isHidden;
   }
 
   getId(): string {
@@ -63,7 +64,7 @@ export abstract class Task {
     return this.isHidden;
   }
 
-  setIsHidden(isHidden: boolean): void {
+  protected setIsHidden(isHidden: boolean): void {
     this.isHidden = isHidden;
   }
 
@@ -73,8 +74,14 @@ export abstract class Task {
 }
 
 export class PendingTask extends Task {
-  constructor(title: string, description: string, creationDate?: Date, id?: string) {
-    super(title, description, new NotStartedTaskState(), creationDate, id);
+  constructor(
+    title: string,
+    description: string,
+    creationDate?: Date,
+    id?: string,
+    isHidden?: boolean,
+  ) {
+    super(title, description, new NotStartedTaskState(), creationDate, id, isHidden);
   }
 }
 
@@ -88,8 +95,9 @@ export class StartedTask extends Task {
     startDate: Date,
     creationDate?: Date,
     id?: string,
+    isHidden?: boolean,
   ) {
-    super(title, description, state, creationDate, id);
+    super(title, description, state, creationDate, id, isHidden);
 
     this.startDate = startDate;
   }
@@ -125,8 +133,9 @@ export class EndedTask extends StartedTask {
     endDate: Date,
     creationDate?: Date,
     id?: string,
+    isHidden?: boolean,
   ) {
-    super(title, description, new InProgressTaskState(), startDate, creationDate, id);
+    super(title, description, new InProgressTaskState(), startDate, creationDate, id, isHidden);
 
     this.setState(state);
     this.endDate = endDate;

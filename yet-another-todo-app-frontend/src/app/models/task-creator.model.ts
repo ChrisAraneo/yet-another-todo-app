@@ -72,9 +72,8 @@ export class TaskCreator {
       description as string,
       new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
+      !!isHidden,
     );
-
-    task.setIsHidden(!!isHidden);
 
     return task;
   }
@@ -114,9 +113,8 @@ export class TaskCreator {
       new Date(startDate as string | number),
       new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
+      !!isHidden,
     );
-
-    task.setIsHidden(!!isHidden);
 
     return task;
   }
@@ -163,9 +161,8 @@ export class TaskCreator {
       new Date(endDate as string | number),
       new Date(creationDate as string | number),
       !!id && typeof id === 'string' ? id : undefined,
+      !!isHidden,
     );
-
-    task.setIsHidden(!!isHidden);
 
     return task;
   }
