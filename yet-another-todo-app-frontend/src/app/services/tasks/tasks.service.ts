@@ -19,7 +19,7 @@ export class TasksService implements OnDestroy {
   private subscription!: Subscription;
 
   constructor(
-    private store: Store<{ tasks: Task[] }>,
+    public store: Store<{ tasks: Task[] }>,
     private apiClientService: ApiClientService,
     private userService: UserService,
   ) {
