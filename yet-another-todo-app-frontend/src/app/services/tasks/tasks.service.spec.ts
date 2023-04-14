@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TaskCreator } from 'src/app/models/task-creator.model';
-import { TaskModifier } from 'src/app/models/task-modifier.model';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
+import { TaskTransformer } from 'src/app/models/task-transformer';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
@@ -131,7 +131,7 @@ describe('TasksService', () => {
       (task) => task instanceof StartedTask && !(task instanceof EndedTask),
     ) as StartedTask;
     const now = new Date();
-    const updatedTask: EndedTask = TaskModifier.modify(task, {
+    const updatedTask: EndedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
       endDate: now,
     }) as EndedTask;

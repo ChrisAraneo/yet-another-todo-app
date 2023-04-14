@@ -1,8 +1,8 @@
-import { Task } from '../models/task.model';
 import { TaskCreator } from './task-creator.model';
+import { Task } from './task.model';
 
-export class TaskModifier {
-  static modify(task: Task, changes: object): Task {
+export class TaskTransformer {
+  static transform(task: Task, changes: object): Task {
     const json = JSON.stringify(task);
     const data = JSON.parse(json);
 

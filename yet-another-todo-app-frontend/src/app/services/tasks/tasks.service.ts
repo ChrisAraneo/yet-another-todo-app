@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, first, map, tap } from 'rxjs';
-import { TaskModifier } from 'src/app/models/task-modifier.model';
 import { CompletedTaskState } from 'src/app/models/task-state.model';
+import { TaskTransformer } from 'src/app/models/task-transformer';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
@@ -52,7 +52,7 @@ export class TasksService implements OnDestroy {
   }
 
   completeTask(task: Task, endDate: Date = new Date()): void {
-    const updatedTask = TaskModifier.modify(task, {
+    const updatedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
