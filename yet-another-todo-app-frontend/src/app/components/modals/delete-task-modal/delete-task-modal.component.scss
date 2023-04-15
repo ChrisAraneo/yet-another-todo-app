@@ -1,6 +1,6 @@
-@import '../../shared/variables.scss';
+@import '../../../shared/variables.scss';
 
-.add-task-modal .mat-mdc-dialog-container {
+.delete-task-modal .mat-mdc-dialog-container {
   > div {
     display: flex;
     flex-direction: column;
@@ -28,10 +28,7 @@
     }
   }
 
-  yata-text-input,
-  yata-textarea,
-  yata-select,
-  yata-date-picker {
+  yata-select {
     margin-bottom: $unit / 4;
   }
 

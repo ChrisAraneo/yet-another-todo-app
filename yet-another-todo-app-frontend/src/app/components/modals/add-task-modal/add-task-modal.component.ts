@@ -12,9 +12,9 @@ import {
 } from 'src/app/models/task-state.model';
 import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
-import { Task } from '../../models/task.model';
-import { TaskStateTranslatorService } from '../../services/task-state-translator/task-state-translator.service';
-import { Option } from '../form/select/select.types';
+import { Task } from '../../../models/task.model';
+import { TaskStateTranslatorService } from '../../../services/task-state-translator/task-state-translator.service';
+import { Option } from '../../form/select/select.types';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({
