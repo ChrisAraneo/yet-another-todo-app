@@ -14,7 +14,7 @@ import {
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private store: Store<{ user: CurrentUser }>) {}
+  constructor(public store: Store<{ user: CurrentUser }>) {}
 
   getUser(): Observable<SignInData> {
     return this.store.select('user').pipe(map((data) => data.user));
