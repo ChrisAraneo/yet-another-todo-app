@@ -19,7 +19,7 @@ import { TimelineContentComponent } from './components/timeline/timeline-content
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { FooterModule } from './footer/footer.module';
+import { ContainerModule } from './container/container.module';
 import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
@@ -60,7 +60,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ModalsModule,
     SideNavigationModule,
     TableModule,
-    FooterModule,
+    ContainerModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

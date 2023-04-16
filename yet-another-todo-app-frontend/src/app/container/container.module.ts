@@ -23,4 +23,4 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   providers: [],
   exports: [FooterComponent],
 })
-export class FooterModule {}
+export class ContainerModule {}
