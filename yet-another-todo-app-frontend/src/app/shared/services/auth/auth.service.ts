@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, filter, first, map, mergeMap, tap } from 'rxjs';
-import { SignInData } from 'src/app/models/sign-in-data.model';
+import { SignInData } from 'src/app/shared/models/sign-in-data.model';
 import { ApiResponse, ApiResponseStatus } from '../api-client/api-client.types';
 import { UserService } from '../user/user.service';
 

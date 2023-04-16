@@ -3,15 +3,15 @@ import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { TaskCreator } from 'src/app/models/task-creator.model';
-import { CompletedTaskState } from 'src/app/models/task-state.model';
-import { TaskTransformer } from 'src/app/models/task-transformer';
+import { TaskCreator } from 'src/app/shared/models/task-creator.model';
+import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import {
-    sendCreateTaskRequest,
-    sendHideTaskRequest,
-    sendUpdateTaskRequest,
+  sendCreateTaskRequest,
+  sendHideTaskRequest,
+  sendUpdateTaskRequest,
 } from 'src/app/store/actions/task.actions';
-import { EndedTask, StartedTask, Task } from '../../../models/task.model';
+import { CompletedTaskState } from '../../models/task-state.model';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 import { TasksService } from './tasks.service';
 

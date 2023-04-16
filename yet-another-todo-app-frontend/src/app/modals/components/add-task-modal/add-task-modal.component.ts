@@ -2,6 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, map } from 'rxjs';
+import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { Option } from '../../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -9,12 +13,8 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from 'src/app/models/task-state.model';
-import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
-import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
-import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Option } from '../../../forms/components/select/select.types';
-import { Task } from '../../../models/task.model';
+} from '../../../shared/models/task-state.model';
+import { Task } from '../../../shared/models/task.model';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({

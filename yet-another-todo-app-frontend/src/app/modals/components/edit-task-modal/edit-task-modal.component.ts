@@ -2,20 +2,20 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BehaviorSubject, Observable, Subscription, first, map } from 'rxjs';
+import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { Option } from '../../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
-} from 'src/app/models/task-state.model';
-import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
-import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
-import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
-import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Option } from '../../../forms/components/select/select.types';
-import { TaskState } from '../../../models/task-state.model';
-import { EndedTask, StartedTask, Task } from '../../../models/task.model';
+  TaskState,
+} from '../../../shared/models/task-state.model';
+import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
 import { TaskForm } from './edit-task-modal.types';
 
 @Component({

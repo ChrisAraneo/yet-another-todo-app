@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TaskCreator } from 'src/app/models/task-creator.model';
-import { Task } from 'src/app/models/task.model';
+import { TaskCreator } from 'src/app/shared/models/task-creator.model';
+import { Task } from 'src/app/shared/models/task.model';
 
 @Injectable({
   providedIn: 'root',

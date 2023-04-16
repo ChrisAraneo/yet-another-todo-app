@@ -1,8 +1,8 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { TaskCreator } from 'src/app/models/task-creator.model';
+import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { environment } from 'src/environments/environment';
-import { Task } from '../../../models/task.model';
+import { Task } from '../../models/task.model';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 

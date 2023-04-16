@@ -8,7 +8,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../../models/task-state.model';
+} from '../../models/task-state.model';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
-import { TaskState } from '../../../models/task-state.model';
-import { Task } from '../../../models/task.model';
+import { TaskState } from '../../../shared/models/task-state.model';
+import { Task } from '../../../shared/models/task.model';
 
 export type TaskForm = {
   task: FormControl<Task | null>;

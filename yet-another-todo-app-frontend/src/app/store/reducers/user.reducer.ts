@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentUser } from 'src/app/models/current-user.model';
+import { CurrentUser } from 'src/app/shared/models/current-user.model';
 import { removePassword, setIsLogged, setPassword, setUsername } from '../actions/user.actions';
 
 export const initialState: CurrentUser = {

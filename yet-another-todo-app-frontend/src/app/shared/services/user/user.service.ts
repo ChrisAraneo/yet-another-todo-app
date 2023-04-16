@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { CurrentUser } from 'src/app/models/current-user.model';
-import { SignInData } from 'src/app/models/sign-in-data.model';
+import { CurrentUser } from 'src/app/shared/models/current-user.model';
+import { SignInData } from 'src/app/shared/models/sign-in-data.model';
 import {
   removePassword,
   setIsLogged,

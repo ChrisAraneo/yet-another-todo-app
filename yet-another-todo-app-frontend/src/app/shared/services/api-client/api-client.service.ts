@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, first, map } from 'rxjs';
-import { Task } from 'src/app/models/task.model';
+import { Task } from 'src/app/shared/models/task.model';
 import { TaskCreatorService } from '../task-creator/task-creator.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 

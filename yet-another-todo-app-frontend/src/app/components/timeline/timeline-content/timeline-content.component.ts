@@ -2,7 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
-import { StartedTask } from '../../../models/task.model';
+import { StartedTask } from '../../../shared/models/task.model';
 
 type Column = {
   tasks: StartedTask[];

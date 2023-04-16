@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { createAction } from '@ngrx/store';
 import { map, mergeMap, of } from 'rxjs';
-import { TaskTransformer } from 'src/app/models/task-transformer';
+import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { ApiClientService } from 'src/app/shared/services/api-client/api-client.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../models/task.model';
+import { Task } from '../../shared/models/task.model';
 import {
   CREATE_TASK_API,
   HIDE_TASK_API,

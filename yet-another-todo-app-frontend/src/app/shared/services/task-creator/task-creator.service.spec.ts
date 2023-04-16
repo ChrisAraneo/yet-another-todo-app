@@ -4,7 +4,7 @@ import {
   InProgressTaskState,
   NotStartedTaskState,
 } from 'src/app/models/task-state.model';
-import { EndedTask, PendingTask, StartedTask, Task } from 'src/app/models/task.model';
+import { EndedTask, PendingTask, StartedTask, Task } from 'src/app/shared/models/task.model';
 import { TaskCreatorService } from './task-creator.service';
 
 describe('TaskCreatorService', () => {

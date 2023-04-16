@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { CurrentUser } from 'src/app/models/current-user.model';
+import { CurrentUser } from 'src/app/shared/models/current-user.model';
 import {
   removePassword,
   setIsLogged,

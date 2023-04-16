@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, first, map } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../../models/task.model';
+import { Task } from '../../../shared/models/task.model';
 import { TaskForm, TaskOption } from './delete-task-modal.types';
 
 @Component({
