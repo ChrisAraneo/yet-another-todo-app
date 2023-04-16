@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Task } from '../../shared/models/task.model';
+import { Task } from '../../models/task.model';
 
 export const CREATE_TASK_API = 'CREATE_TASK_API';
 export const UPDATE_TASK_API = 'UPDATE_TASK_API';

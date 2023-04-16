@@ -21,10 +21,10 @@ import { TimelineHeaderComponent } from './components/timeline/timeline-header/t
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormsModule } from './forms/forms.module';
-import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
+import { TokenInterceptor } from './shared/interceptors/token/token.interceptor';
 import { ApiClientService } from './shared/services/api-client/api-client.service';
 import { AuthService } from './shared/services/auth/auth.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
@@ -33,10 +33,10 @@ import { TaskStateTranslatorService } from './shared/services/task-state-transla
 import { TasksService } from './shared/services/tasks/tasks.service';
 import { UserService } from './shared/services/user/user.service';
 import { SharedModule } from './shared/shared.module';
+import { TaskEffects } from './shared/store/effects/task.effects';
+import { tasksReducer } from './shared/store/reducers/task.reducer';
+import { userReducer } from './shared/store/reducers/user.reducer';
 import { SideNavigationModule } from './side-navigation/side-navigation.module';
-import { TaskEffects } from './store/effects/task.effects';
-import { tasksReducer } from './store/reducers/task.reducer';
-import { userReducer } from './store/reducers/user.reducer';
 import { TableModule } from './table/table.module';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {

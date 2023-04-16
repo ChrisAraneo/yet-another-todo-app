@@ -2,14 +2,14 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, first, map, tap } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { CompletedTaskState } from '../../models/task-state.model';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
   setTasks,
-} from 'src/app/store/actions/task.actions';
-import { CompletedTaskState } from '../../models/task-state.model';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
+} from '../../store/actions/task.actions';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 

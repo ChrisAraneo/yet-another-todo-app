@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
-import { Task } from '../../shared/models/task.model';
+import { Task } from '../../models/task.model';
 import { createTask, hideTask, removeTask, setTasks, updateTask } from '../actions/task.actions';
 
 export const initialState: Task[] = [];

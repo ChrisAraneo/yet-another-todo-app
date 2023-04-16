@@ -5,13 +5,13 @@ import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { CompletedTaskState } from '../../models/task-state.model';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
-} from 'src/app/store/actions/task.actions';
-import { CompletedTaskState } from '../../models/task-state.model';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
+} from '../../store/actions/task.actions';
 import { ApiClientService } from '../api-client/api-client.service';
 import { TasksService } from './tasks.service';
 

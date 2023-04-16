@@ -8,7 +8,7 @@ import {
   setIsLogged,
   setPassword,
   setUsername,
-} from 'src/app/store/actions/user.actions';
+} from '../../store/actions/user.actions';
 
 @Injectable({
   providedIn: 'root',
