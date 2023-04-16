@@ -13,9 +13,9 @@ import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service
 import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { Option } from '../../../forms/components/select/select.types';
 import { TaskState } from '../../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../../models/task.model';
-import { Option } from '../../form/select/select.types';
 import { TaskForm } from './edit-task-modal.types';
 
 @Component({

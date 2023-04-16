@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,10 +14,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
-import { DatePickerComponent } from './components/form/date-picker/date-picker.component';
-import { SelectComponent } from './components/form/select/select.component';
-import { TextInputComponent } from './components/form/text-input/text-input.component';
-import { TextareaComponent } from './components/form/textarea/textarea.component';
 import { AddTaskModalComponent } from './components/modals/add-task-modal/add-task-modal.component';
 import { DeleteTaskModalComponent } from './components/modals/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/modals/edit-task-modal/edit-task-modal.component';
@@ -32,6 +28,7 @@ import { TimelineContentComponent } from './components/timeline/timeline-content
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FormsModule } from './forms/forms.module';
 import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
 import { ApiClientService } from './services/api-client/api-client.service';
@@ -64,10 +61,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     NavigationItemComponent,
     AddTaskModalComponent,
     EditTaskModalComponent,
-    TextInputComponent,
-    TextareaComponent,
-    SelectComponent,
-    DatePickerComponent,
     AppFooterComponent,
     TableComponent,
     DeleteTaskModalComponent,
@@ -77,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   imports: [
     SharedModule,
+    FormsModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
@@ -94,7 +88,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    FormsModule,
+    AngularFormsModule,
     HttpClientModule,
     MatNativeDateModule,
     MaterialModule,

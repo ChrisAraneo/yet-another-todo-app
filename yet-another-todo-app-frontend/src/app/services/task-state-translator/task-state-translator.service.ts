@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Option } from '../../components/form/select/select.types';
+import { Option } from '../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,

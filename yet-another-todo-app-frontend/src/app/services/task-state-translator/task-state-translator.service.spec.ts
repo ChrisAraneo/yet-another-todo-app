@@ -9,7 +9,7 @@ import {
   TaskState,
 } from 'src/app/models/task-state.model';
 import * as json from '../../../assets/i18n/en.json';
-import { Option } from '../../components/form/select/select.types';
+import { Option } from '../../forms/select/select.types';
 import { TaskStateTranslatorService } from './task-state-translator.service';
 
 describe('TaskStateTranslatorService', () => {
