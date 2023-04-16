@@ -13,13 +13,13 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { DatesFilterComponent } from './components/timeline/dates-filter/dates-filter.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FooterModule } from './footer/footer.module';
 import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
@@ -52,7 +52,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppWrapperComponent,
     TaskCardComponent,
     TimelineContentComponent,
-    FooterComponent,
     DatesFilterComponent,
   ],
   imports: [
@@ -61,6 +60,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ModalsModule,
     SideNavigationModule,
     TableModule,
+    FooterModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
