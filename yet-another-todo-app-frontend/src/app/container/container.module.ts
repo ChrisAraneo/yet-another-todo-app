@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -9,7 +10,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [FooterComponent],
+  declarations: [AppWrapperComponent, FooterComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -21,6 +22,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     }),
   ],
   providers: [],
-  exports: [FooterComponent],
+  exports: [AppWrapperComponent, FooterComponent],
 })
 export class ContainerModule {}

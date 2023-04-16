@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.scss';
 
 :host {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
   display: flex;
   justify-items: center;
   align-items: center;
-  background-image: url('../../../assets/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg');
+  background-image: url('../../../../assets/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
