@@ -17,7 +17,6 @@ import { TaskCardComponent } from './components/timeline/task-card/task-card.com
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ContainerModule } from './container/container.module';
 import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
@@ -45,7 +44,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    ToolbarComponent,
     TimelineComponent,
     TimelineHeaderComponent,
     TaskCardComponent,

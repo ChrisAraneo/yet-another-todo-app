@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { EndedTask, PendingTask, StartedTask, Task } from 'src/app/shared/models/task.model';
 import {
   CompletedTaskState,
   InProgressTaskState,
   NotStartedTaskState,
-} from 'src/app/models/task-state.model';
-import { EndedTask, PendingTask, StartedTask, Task } from 'src/app/shared/models/task.model';
+} from '../../models/task-state.model';
 import { TaskCreatorService } from './task-creator.service';
 
 describe('TaskCreatorService', () => {

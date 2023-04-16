@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
-import { AuthService } from 'src/app/services/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SignInModalComponent } from './sign-in-modal.component';
 
 describe('SignInModalComponent', () => {

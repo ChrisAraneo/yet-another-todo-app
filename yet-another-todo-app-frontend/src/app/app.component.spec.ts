@@ -7,7 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { AppComponent } from './app.component';
-import { TasksService } from './services/tasks/tasks.service';
+import { TasksService } from './shared/services/tasks/tasks.service';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { TaskCardComponent } from './task-card.component';
 
 describe('TaskCardComponent', () => {

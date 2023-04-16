@@ -13,12 +13,6 @@ describe('ToolbarComponent', () => {
     }).compileComponents();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });

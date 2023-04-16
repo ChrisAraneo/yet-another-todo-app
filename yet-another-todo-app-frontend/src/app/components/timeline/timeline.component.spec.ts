@@ -6,7 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { TimelineComponent } from './timeline.component';
 
 describe('TimelineComponent', () => {

@@ -7,8 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { TaskStateTranslatorService } from 'src/app/services/task-state-translator/task-state-translator.service';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { EditTaskModalComponent } from './edit-task-modal.component';
 
 describe('EditTaskModalComponent', () => {
