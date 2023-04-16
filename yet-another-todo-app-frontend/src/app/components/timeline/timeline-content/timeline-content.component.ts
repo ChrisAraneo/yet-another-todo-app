@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import differenceInDays from 'date-fns/differenceInDays';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
-import { COLUMN_WIDTH } from 'src/app/shared/theme';
+import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
 import { StartedTask } from '../../../models/task.model';
 
 type Column = {

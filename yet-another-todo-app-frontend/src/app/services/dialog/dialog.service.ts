@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteTaskModalComponent } from 'src/app/components/modals/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/components/modals/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/components/modals/sign-in-modal/sign-in-modal.component';
-import { DIALOG_WIDTH } from 'src/app/shared/theme';
+import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { AddTaskModalComponent } from '../../components/modals/add-task-modal/add-task-modal.component';
 
 @Injectable({

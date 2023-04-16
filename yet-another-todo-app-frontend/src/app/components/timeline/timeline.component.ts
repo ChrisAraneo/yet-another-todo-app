@@ -11,10 +11,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
-import { UNIT } from 'src/app/shared/theme';
+import { UNIT } from 'src/app/shared/styles/theme';
 import { StartedTask } from '../../models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
