@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
 import {
-  CompletedTaskState,
-  InProgressTaskState,
-  NotStartedTaskState,
-  RejectedTaskState,
-  SuspendedTaskState,
-  TaskState,
+    CompletedTaskState,
+    InProgressTaskState,
+    NotStartedTaskState,
+    RejectedTaskState,
+    SuspendedTaskState,
+    TaskState,
 } from 'src/app/models/task-state.model';
-import * as json from '../../../assets/i18n/en.json';
-import { Option } from '../../forms/select/select.types';
+import * as json from '../../../../assets/i18n/en.json';
+import { Option } from '../../../forms/components/select/select.types';
 import { TaskStateTranslatorService } from './task-state-translator.service';
 
 describe('TaskStateTranslatorService', () => {

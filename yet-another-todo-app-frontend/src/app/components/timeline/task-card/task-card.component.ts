@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../../models/task.model';
 
 @Component({

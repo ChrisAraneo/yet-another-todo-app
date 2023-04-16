@@ -15,9 +15,9 @@ import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
-import { TasksService } from '../../../services/tasks/tasks.service';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {

@@ -9,7 +9,7 @@ import {
   sendUpdateTaskRequest,
   setTasks,
 } from 'src/app/store/actions/task.actions';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
+import { EndedTask, StartedTask, Task } from '../../../models/task.model';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 

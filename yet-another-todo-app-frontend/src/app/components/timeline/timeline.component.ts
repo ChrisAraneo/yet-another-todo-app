@@ -12,8 +12,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, map, of } from 'rxjs';
-import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme';
 import { StartedTask } from '../../models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';

@@ -9,10 +9,10 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from 'src/app/models/task-state.model';
-import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
-import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
-import { TaskStateTranslatorService } from 'src/app/services/task-state-translator/task-state-translator.service';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Option } from '../../../forms/components/select/select.types';
 import { TaskState } from '../../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../../models/task.model';

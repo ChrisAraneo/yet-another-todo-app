@@ -8,6 +8,13 @@ import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-bo
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { TitleComponent } from './components/title/title.component';
+import { ApiClientService } from './services/api-client/api-client.service';
+import { AuthService } from './services/auth/auth.service';
+import { DateUtilsService } from './services/date-utils/date-utils.service';
+import { TaskCreatorService } from './services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
+import { TasksService } from './services/tasks/tasks.service';
+import { UserService } from './services/user/user.service';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -27,7 +34,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [
+    ApiClientService,
+    AuthService,
+    DateUtilsService,
+    TaskCreatorService,
+    TaskStateTranslatorService,
+    TasksService,
+    UserService,
+  ],
   exports: [EmptyInfoBoxComponent, TaskStateIconComponent, TitleComponent, SubtitleComponent],
 })
 export class SharedModule {}

@@ -10,11 +10,11 @@ import {
   SuspendedTaskState,
   TaskState,
 } from 'src/app/models/task-state.model';
-import { TaskCreatorService } from 'src/app/services/task-creator/task-creator.service';
-import { TasksService } from 'src/app/services/tasks/tasks.service';
+import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Option } from '../../../forms/components/select/select.types';
 import { Task } from '../../../models/task.model';
-import { TaskStateTranslatorService } from '../../../services/task-state-translator/task-state-translator.service';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({
