@@ -12,8 +12,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { DatesFilterComponent } from './components/timeline/dates-filter/dates-filter.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
@@ -52,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppWrapperComponent,
     TaskCardComponent,
     TimelineContentComponent,
-    AppFooterComponent,
+    FooterComponent,
     DatesFilterComponent,
   ],
   imports: [
