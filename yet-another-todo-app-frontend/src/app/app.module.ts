@@ -14,7 +14,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
-import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { DatePickerComponent } from './components/form/date-picker/date-picker.component';
 import { SelectComponent } from './components/form/select/select.component';
 import { TextInputComponent } from './components/form/text-input/text-input.component';
@@ -25,16 +24,13 @@ import { EditTaskModalComponent } from './components/modals/edit-task-modal/edit
 import { SignInModalComponent } from './components/modals/sign-in-modal/sign-in-modal.component';
 import { NavigationItemComponent } from './components/side-navigation/navigation-item/navigation-item.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
-import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { SearchbarComponent } from './components/table/searchbar/searchbar.component';
 import { TableComponent } from './components/table/table.component';
-import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { DatesFilterComponent } from './components/timeline/dates-filter/dates-filter.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
-import { TitleComponent } from './components/title/title.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
@@ -46,6 +42,7 @@ import { TaskCreatorService } from './services/task-creator/task-creator.service
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { UserService } from './services/user/user.service';
+import { SharedModule } from './shared/shared.module';
 import { TaskEffects } from './store/effects/task.effects';
 import { tasksReducer } from './store/reducers/task.reducer';
 import { userReducer } from './store/reducers/user.reducer';
@@ -64,25 +61,22 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppWrapperComponent,
     TaskCardComponent,
     TimelineContentComponent,
-    TaskStateIconComponent,
     NavigationItemComponent,
     AddTaskModalComponent,
-    TitleComponent,
     EditTaskModalComponent,
     TextInputComponent,
     TextareaComponent,
     SelectComponent,
     DatePickerComponent,
     AppFooterComponent,
-    EmptyInfoBoxComponent,
     TableComponent,
     DeleteTaskModalComponent,
     DatesFilterComponent,
     SearchbarComponent,
-    SubtitleComponent,
     SignInModalComponent,
   ],
   imports: [
+    SharedModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
