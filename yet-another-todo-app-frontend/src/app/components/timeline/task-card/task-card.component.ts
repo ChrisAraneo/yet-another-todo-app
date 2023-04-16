@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { Task } from '../../../models/task.model';
 

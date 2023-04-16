@@ -11,13 +11,13 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { MockComponent, MockProvider } from 'ng-mocks';
-import { AddTaskModalComponent } from 'src/app/components/modals/add-task-modal/add-task-modal.component';
-import { DeleteTaskModalComponent } from 'src/app/components/modals/delete-task-modal/delete-task-modal.component';
-import { EditTaskModalComponent } from 'src/app/components/modals/edit-task-modal/edit-task-modal.component';
-import { SignInModalComponent } from 'src/app/components/modals/sign-in-modal/sign-in-modal.component';
+import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/add-task-modal.component';
+import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
+import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
+import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
-import { TasksService } from '../tasks/tasks.service';
+import { TasksService } from '../../../services/tasks/tasks.service';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {

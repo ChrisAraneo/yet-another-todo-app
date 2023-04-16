@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { AppMode } from 'src/app/app.types';
-import { DialogService } from 'src/app/services/dialog/dialog.service';
+import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { BORDER, UNIT } from 'src/app/shared/styles/theme';
 import { NavigationItem } from './side-navigation.types';
 

@@ -2,8 +2,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, debounceTime, filter } from 'rxjs';
 import { AppMode } from './app.types';
+import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
-import { DialogService } from './services/dialog/dialog.service';
 import { UserService } from './services/user/user.service';
 
 @Component({

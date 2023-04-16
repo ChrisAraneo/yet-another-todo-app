@@ -14,10 +14,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AppWrapperComponent } from './components/app-wrapper/app-wrapper.component';
-import { AddTaskModalComponent } from './components/modals/add-task-modal/add-task-modal.component';
-import { DeleteTaskModalComponent } from './components/modals/delete-task-modal/delete-task-modal.component';
-import { EditTaskModalComponent } from './components/modals/edit-task-modal/edit-task-modal.component';
-import { SignInModalComponent } from './components/modals/sign-in-modal/sign-in-modal.component';
 import { NavigationItemComponent } from './components/side-navigation/navigation-item/navigation-item.component';
 import { SideNavigationComponent } from './components/side-navigation/side-navigation.component';
 import { SearchbarComponent } from './components/table/searchbar/searchbar.component';
@@ -31,10 +27,11 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormsModule } from './forms/forms.module';
 import { TokenInterceptor } from './interceptors/token/token.interceptor';
 import { MaterialModule } from './material.module';
+import { ModalsModule } from './modals/modals.module';
+import { DialogService } from './modals/services/dialog/dialog.service';
 import { ApiClientService } from './services/api-client/api-client.service';
 import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
-import { DialogService } from './services/dialog/dialog.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TasksService } from './services/tasks/tasks.service';
@@ -59,18 +56,15 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TaskCardComponent,
     TimelineContentComponent,
     NavigationItemComponent,
-    AddTaskModalComponent,
-    EditTaskModalComponent,
     AppFooterComponent,
     TableComponent,
-    DeleteTaskModalComponent,
     DatesFilterComponent,
     SearchbarComponent,
-    SignInModalComponent,
   ],
   imports: [
     SharedModule,
     FormsModule,
+    ModalsModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

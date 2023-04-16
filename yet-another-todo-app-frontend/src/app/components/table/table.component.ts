@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { BehaviorSubject, map, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription, map } from 'rxjs';
+import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { DateUtilsService } from 'src/app/services/date-utils/date-utils.service';
-import { DialogService } from 'src/app/services/dialog/dialog.service';
 import { TasksService } from 'src/app/services/tasks/tasks.service';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import { TasksDataSource } from './table.types';
