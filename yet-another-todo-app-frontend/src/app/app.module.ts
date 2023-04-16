@@ -21,10 +21,10 @@ import { TimelineHeaderComponent } from './components/timeline/timeline-header/t
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormsModule } from './forms/forms.module';
-import { MaterialModule } from './material.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { TokenInterceptor } from './shared/interceptors/token/token.interceptor';
+import { MaterialModule } from './shared/material.module';
 import { ApiClientService } from './shared/services/api-client/api-client.service';
 import { AuthService } from './shared/services/auth/auth.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
