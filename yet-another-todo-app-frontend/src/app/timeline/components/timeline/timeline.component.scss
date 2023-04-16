@@ -1,4 +1,4 @@
-@import '../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.scss';
 
 :host {
   display: flex;
@@ -22,11 +22,11 @@
 }
 
 .arrow-back {
-  background: url('../../../assets/timeline-arrow-button-back.png');
+  background: url('../../../../assets/timeline-arrow-button-back.png');
 }
 
 .arrow-forward {
-  background: url('../../../assets/timeline-arrow-button-forward.png');
+  background: url('../../../../assets/timeline-arrow-button-forward.png');
 }
 
 yata-dates-filter {

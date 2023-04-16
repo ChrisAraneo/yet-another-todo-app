@@ -12,11 +12,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DatesFilterComponent } from './components/timeline/dates-filter/dates-filter.component';
-import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
-import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
-import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
-import { TimelineComponent } from './components/timeline/timeline.component';
 import { ContainerModule } from './container/container.module';
 import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
@@ -36,25 +31,20 @@ import { tasksReducer } from './shared/store/reducers/task.reducer';
 import { userReducer } from './shared/store/reducers/user.reducer';
 import { SideNavigationModule } from './side-navigation/side-navigation.module';
 import { TableModule } from './table/table.module';
+import { TimelineModule } from './timeline/timeline.module';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TimelineComponent,
-    TimelineHeaderComponent,
-    TaskCardComponent,
-    TimelineContentComponent,
-    DatesFilterComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     SharedModule,
     FormsModule,
     ModalsModule,
     SideNavigationModule,
+    TimelineModule,
     TableModule,
     ContainerModule,
     StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),

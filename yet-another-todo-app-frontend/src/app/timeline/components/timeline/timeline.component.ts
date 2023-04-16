@@ -15,7 +15,7 @@ import { Observable, map, of } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme';
-import { StartedTask } from '../../shared/models/task.model';
+import { StartedTask } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 @Component({

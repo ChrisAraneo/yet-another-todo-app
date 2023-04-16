@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../../shared/models/task.model';
+import { Task } from '../../../../shared/models/task.model';
 
 @Component({
   selector: 'yata-task-card',
