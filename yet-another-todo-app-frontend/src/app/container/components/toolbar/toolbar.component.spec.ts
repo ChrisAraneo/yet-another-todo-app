@@ -11,6 +11,10 @@ describe('ToolbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ToolbarComponent, MockPipe(TranslatePipe)],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(ToolbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
