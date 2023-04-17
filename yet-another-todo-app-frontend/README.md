@@ -2,10 +2,14 @@
 
 ## Development
 
-### Reguired software
+### Required software
 
-* Node.js - recommended v18.13.0
-* npm (recommended v8.19.3) or another package manager
+- Node.js - recommended v18.13.0
+- npm (recommended v8.19.3) or another package manager
+
+Optional & recommended:
+
+- Angular CLI
 
 ### Installation
 
@@ -28,14 +32,12 @@ $ npm run watch
 ```bash
 # unit tests
 $ npm run test
-
 ```
 
 ### Linting and formatting code
 
 ```bash
 $ npm run lint && npm run format
-
 ```
 
 ## License
