@@ -16,6 +16,12 @@ import { TextareaComponent } from './components/textarea/textarea.component';
   ],
   imports: [BrowserModule],
   providers: [],
-  exports: [DatePickerComponent, SelectComponent, TextInputComponent, TextareaComponent],
+  exports: [
+    DatePickerComponent,
+    SelectComponent,
+    TextInputComponent,
+    TextareaComponent,
+    PasswordInputComponent,
+  ],
 })
 export class FormsModule {}
