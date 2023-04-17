@@ -35,6 +35,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private selectedTaskId = new BehaviorSubject<string | null>(null);
+  private creationDate: Date | undefined;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -79,7 +80,12 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     }
 
     const id = this.taskForm.controls.task.value?.getId();
-    const task: Task = this.taskCreator.create({ ...this.taskForm.value, task: undefined, id });
+    const task: Task = this.taskCreator.create({
+      ...this.taskForm.value,
+      task: undefined,
+      id,
+      creationDate: this.creationDate,
+    });
     this.tasksService.updateTask(task);
 
     this.dialogRef.close();
@@ -182,6 +188,7 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     this.subscription.add(
       form.controls.task.valueChanges.subscribe((task: Task | null) => {
         this.updateFormValues(this.taskForm, task);
+        this.creationDate = task?.getCreationDate();
       }),
     );
   }
