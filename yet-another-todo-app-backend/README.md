@@ -4,10 +4,10 @@
 
 ### Reguired software
 
-* Node.js - recommended v18.13.0
-* npm (recommended v8.19.3) or another package manager
-* Nest.js CLI - recommended v9.2.0
-* Docker
+- Node.js - recommended v18.13.0
+- npm (recommended v8.19.3) or another package manager
+- Nest.js CLI - recommended v9.2.0
+- Docker
 
 ### Installation
 
@@ -25,6 +25,21 @@ docker compose up yata-dev-db -d
 
 ```bash
 npx prisma migrate dev
+```
+
+### Registering user using API
+
+You need a user account to use the app.
+To sign up, send a POST request to the /signup endpoint.
+
+```bash
+curl --location 'http://localhost:9339/signup' \
+--header 'Content-Type: application/json' \
+--data '{
+    "username": "test",
+    "password": "Qwerty123/",
+    "name": "Test user"
+}'
 ```
 
 ### Running the app
