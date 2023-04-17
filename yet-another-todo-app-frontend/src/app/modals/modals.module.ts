@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule } from '../forms/forms.module';
+import { MaterialModule } from '../shared/material.module';
 import { ApiClientService } from '../shared/services/api-client/api-client.service';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { DateUtilsService } from '../shared/services/date-utils/date-utils.service';
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    MaterialModule,
   ],
   providers: [
     DateUtilsService,
