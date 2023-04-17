@@ -56,7 +56,6 @@ export class PrismaService extends PrismaClient {
         value: taskState.value,
         iconName: taskState.iconName,
         color: taskState.color,
-        tooltipText: taskState.tooltipText,
       },
     });
   }

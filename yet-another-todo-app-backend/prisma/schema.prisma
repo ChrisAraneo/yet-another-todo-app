@@ -22,7 +22,6 @@ model TaskState {
   value       String @unique
   iconName    String
   color       String
-  tooltipText String
   Task        Task[]
 }
 

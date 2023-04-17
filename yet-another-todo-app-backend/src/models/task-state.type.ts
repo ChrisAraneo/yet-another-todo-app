@@ -3,5 +3,4 @@ export type TaskState = {
   value: string;
   iconName: string;
   color: string;
-  tooltipText: string;
 };
