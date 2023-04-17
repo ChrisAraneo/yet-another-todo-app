@@ -11,7 +11,7 @@ export class UsersService {
       .createUser(user)
       .then((result) => result)
       .catch((error) => {
-        const target = error.meta.target[0];
+        const target = error?.meta?.target[0];
 
         if (target === 'username') {
           throw new Error('Username already exists');
