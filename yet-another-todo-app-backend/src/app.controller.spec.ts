@@ -132,9 +132,7 @@ describe('AppController', () => {
         data: newUser,
       });
     });
-  });
 
-  describe('signup', () => {
     it('should return error response when username is already taken', async () => {
       const result = await appController.signup(dummyExistingUser);
 
