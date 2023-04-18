@@ -62,11 +62,16 @@ describe('AppController', () => {
           useValue: {
             validateUser: jest.fn(
               async (username: string, password: string) => {
-                return {
-                  ...dummyExistingUser,
-                  username: username,
-                  password: password,
-                };
+                return new Promise<any>((resolve) => {
+                  if (
+                    username === dummyExistingUser.username &&
+                    password === dummyExistingUser.password
+                  ) {
+                    resolve({ ...dummyExistingUser });
+                  } else {
+                    resolve(null);
+                  }
+                });
               },
             ),
             login: jest.fn(async (user: User) => {
@@ -104,6 +109,8 @@ describe('AppController', () => {
             getTasksOfUser: jest.fn(async () => {
               return dummyTasks;
             }),
+            createOrUpdateTask: jest.fn(async (_: string, task: Task) => task),
+            removeTask: jest.fn(async (_: string, task: Task) => task),
           },
         },
       ],
@@ -136,11 +143,46 @@ describe('AppController', () => {
     });
   });
 
+  describe('login', () => {
+    it('should return token when user provided correct credentials', async () => {
+      expect(
+        await appController.login({
+          user: { ...dummyExistingUser },
+        }),
+      ).toEqual({
+        status: Status.Success,
+        data: 'dummy.jwt.token961d2c4d-8042-43a6-9a25-78d733094837',
+      });
+    });
+  });
+
   describe('getTasks', () => {
     it('should return success response with tasks', async () => {
       expect(
         await appController.getTasks({ user: { ...dummyExistingUser } }),
       ).toEqual({ status: Status.Success, data: dummyTasks });
+    });
+  });
+
+  describe('createOrUpdateTask', () => {
+    it('should return success response when task was successfuly created', async () => {
+      expect(
+        await appController.createOrUpdateTask({
+          user: { ...dummyExistingUser },
+          body: dummyTasks[0],
+        }),
+      ).toEqual({ status: Status.Success, data: dummyTasks[0] });
+    });
+  });
+
+  describe('removeTask', () => {
+    it('should return success response when task was successfuly deleted', async () => {
+      expect(
+        await appController.removeTask({
+          user: { ...dummyExistingUser },
+          body: dummyTasks[0],
+        }),
+      ).toEqual({ status: Status.Success, data: dummyTasks[0] });
     });
   });
 });
