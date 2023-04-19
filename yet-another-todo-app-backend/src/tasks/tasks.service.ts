@@ -32,9 +32,15 @@ export class TasksService {
           color: taskState.color,
         },
         isHidden: item.isHidden,
-        creationDate: item.creationDate && item.creationDate.toISOString(),
-        startDate: item.startDate && item.startDate.toISOString(),
-        endDate: item.endDate && item.endDate.toISOString(),
+        creationDate: !this.isNullOrUndefined(item.creationDate)
+          ? item.creationDate.toISOString()
+          : undefined, // TODO creationDate should be Date type ??
+        startDate: !this.isNullOrUndefined(item.startDate)
+          ? item.startDate.toISOString()
+          : undefined,
+        endDate: !this.isNullOrUndefined(item.endDate)
+          ? item.endDate.toISOString()
+          : undefined,
       };
     });
   }
@@ -62,9 +68,15 @@ export class TasksService {
         color: taskState.color,
       },
       isHidden: task.isHidden,
-      creationDate: result.creationDate && result.creationDate.toISOString(),
-      startDate: result.startDate && result.startDate.toISOString(),
-      endDate: result.endDate && result.endDate.toISOString(),
+      creationDate: !this.isNullOrUndefined(result.creationDate)
+        ? result.creationDate.toISOString()
+        : undefined, // TODO creationDate should be Date type??
+      startDate: !this.isNullOrUndefined(result.startDate)
+        ? result.startDate.toISOString()
+        : undefined,
+      endDate: !this.isNullOrUndefined(result.endDate)
+        ? result.endDate.toISOString()
+        : undefined,
     };
   }
 
@@ -72,5 +84,9 @@ export class TasksService {
     return this.prismaService.removeTask(username, task.id).then(() => {
       return task;
     });
+  }
+
+  private isNullOrUndefined(item: any): boolean {
+    return item === undefined || item === null;
   }
 }
