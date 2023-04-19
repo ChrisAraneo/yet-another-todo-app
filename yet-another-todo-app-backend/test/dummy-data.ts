@@ -1,4 +1,7 @@
-import { TaskState as TaskStateSchema } from '@prisma/client';
+import {
+  Task as TaskSchema,
+  TaskState as TaskStateSchema,
+} from '@prisma/client';
 import { Task } from 'src/models/tasks.type';
 import { User } from 'src/models/user.type';
 
@@ -24,7 +27,7 @@ export class DummyData {
       color: 'orange',
     },
     {
-      id: '386db121-e9b7-4801-856a-10af38cc54d7',
+      id: '704b0396-f363-4981-b3f9-672620a4f959',
       value: 'SUSPENDED',
       iconName: 'hourglass_empty',
       color: 'black',
@@ -42,6 +45,11 @@ export class DummyData {
       color: '#f44336',
     },
   ];
+
+  public static readonly schemaTaskStates: TaskStateSchema[] =
+    DummyData.taskStates.map((state) => ({
+      ...state,
+    }));
 
   public static readonly tasks: Task[] = [
     {
@@ -69,4 +77,16 @@ export class DummyData {
       isHidden: false,
     },
   ];
+
+  public static readonly schemaTasks: TaskSchema[] = DummyData.tasks.map(
+    (task) => ({
+      ...task,
+      creationDate: task.creationDate ? new Date(task.creationDate) : null,
+      startDate: task.startDate ? new Date(task.startDate) : null,
+      endDate: task.endDate ? new Date(task.endDate) : null,
+      updateDate: new Date('2023-04-01T15:15:15.343Z'),
+      userId: DummyData.user.id,
+      stateId: task.state.id,
+    }),
+  );
 }
