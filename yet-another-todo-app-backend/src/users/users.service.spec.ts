@@ -1,17 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from 'src/models/user.type';
+import { DummyData } from '../../test/dummy-data';
+import { User } from '../models/user.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  const dummyExistingUser: User = {
-    id: '961d2c4d-8042-43a6-9a25-78d733094837',
-    name: 'Lorem',
-    username: 'lorem_ipsum',
-    password: 'Qwerty123/',
-  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,7 +18,7 @@ describe('UsersService', () => {
           useValue: {
             createUser: jest.fn(async (user: User): Promise<User> => {
               return new Promise<any>((resolve, reject) => {
-                if (user.username === dummyExistingUser.username) {
+                if (user.username === DummyData.user.username) {
                   reject({
                     meta: {
                       target: ['username'],
@@ -36,8 +31,8 @@ describe('UsersService', () => {
             }),
             getUser: jest.fn(async (username: string): Promise<User> => {
               return new Promise<any | void>((resolve) => {
-                if (username === dummyExistingUser.username) {
-                  resolve(dummyExistingUser);
+                if (username === DummyData.user.username) {
+                  resolve(DummyData.user);
                 } else {
                   resolve(undefined);
                 }
@@ -68,16 +63,14 @@ describe('UsersService', () => {
     });
 
     it('should throw error when user already exists', async () => {
-      await expect(service.createUser(dummyExistingUser)).rejects.toThrow(
-        Error,
-      );
+      await expect(service.createUser(DummyData.user)).rejects.toThrow(Error);
     });
   });
 
   describe('findUser', () => {
     it('should return user when user was successfuly found', async () => {
-      expect(await service.findUser(dummyExistingUser.username)).toEqual(
-        dummyExistingUser,
+      expect(await service.findUser(DummyData.user.username)).toEqual(
+        DummyData.user,
       );
     });
 
