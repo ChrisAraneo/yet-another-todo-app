@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Task } from 'src/models/tasks.type';
-import { DummyData } from 'test/dummy-data';
+import { DummyData } from '../test/dummy-data';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { Status } from './models/status.enum';
+import { Task } from './models/tasks.type';
 import { User } from './models/user.type';
 import { PrismaService } from './prisma/prisma.service';
 import { TasksModule } from './tasks/tasks.module';
