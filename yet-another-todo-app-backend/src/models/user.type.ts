@@ -1,6 +1,6 @@
-export type User = {
+import { UserInfo } from './user-info.type';
+
+export type User = UserInfo & {
   id: string;
-  name: string;
-  username: string;
-  password: string;
+  password: string; // TODO Security!
 };

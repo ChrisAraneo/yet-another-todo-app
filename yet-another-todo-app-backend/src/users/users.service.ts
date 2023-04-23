@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UserInfo } from 'src/models/user-info.type';
 import { User } from '../models/user.type';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -6,9 +7,9 @@ import { PrismaService } from '../prisma/prisma.service';
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
-  async createUser(user: User): Promise<User | null> {
+  async createUser(user: UserInfo, password: string): Promise<User | null> {
     return this.prismaService
-      .createUser(user)
+      .createUser(user, password)
       .then((result) => result)
       .catch((error) => {
         const target = error?.meta?.target[0];
@@ -23,5 +24,14 @@ export class UsersService {
 
   async findUser(username: string): Promise<User | undefined> {
     return await this.prismaService.getUser(username);
+  }
+
+  async deleteUser(username: string): Promise<User | null> {
+    return this.prismaService
+      .deleteUser(username)
+      .then((result) => result)
+      .catch((error) => {
+        throw error;
+      });
   }
 }

@@ -3,10 +3,11 @@ import {
   PrismaClient,
   Task as TaskSchema,
   TaskState as TaskStateSchema,
+  User as UserSchema,
 } from '@prisma/client';
+import { UserInfo } from 'src/models/user-info.type';
 import { TaskState } from '../models/task-state.type';
 import { Task } from '../models/tasks.type';
-import { User } from '../models/user.type';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
@@ -20,7 +21,7 @@ export class PrismaService extends PrismaClient {
     });
   }
 
-  async getUser(username: string): Promise<User> {
+  async getUser(username: string): Promise<UserSchema> {
     return await this.user.findUnique({
       where: {
         username: username,
@@ -28,12 +29,20 @@ export class PrismaService extends PrismaClient {
     });
   }
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: UserInfo, password: string): Promise<UserSchema> {
     return this.user.create({
       data: {
         name: user.name,
         username: user.username,
-        password: user.password,
+        password: password,
+      },
+    });
+  }
+
+  async deleteUser(username: string): Promise<UserSchema> {
+    return this.user.delete({
+      where: {
+        username: username,
       },
     });
   }

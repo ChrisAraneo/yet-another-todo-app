@@ -30,7 +30,7 @@ export class AppController {
   @Header('content-type', 'application/json')
   async signup(@Body() body: any): Promise<Response<User | null>> {
     return await this.usersService
-      .createUser(body as User)
+      .createUser({ name: body.name, username: body.username }, body.password)
       .then((result) => ({
         status: Status.Success,
         data: result,
@@ -119,5 +119,17 @@ export class AppController {
           message: error.stack,
         };
       });
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Delete('user')
+  @Header('content-type', 'application/json')
+  async deleteUser(@Request() request: any): Promise<Response<User>> {
+    const user = request.user;
+
+    return {
+      status: Status.Success,
+      data: await this.usersService.deleteUser(user.username),
+    };
   }
 }
