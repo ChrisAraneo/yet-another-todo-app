@@ -46,10 +46,10 @@ describe('AppController', () => {
         {
           provide: PrismaService,
           useValue: {
-            getTasksOfUser: jest.fn(async (_) => {
+            getTasksOfUser: jest.fn(async () => {
               return DummyData.tasks;
             }),
-            getTaskStates: jest.fn(async (_) => {
+            getTaskStates: jest.fn(async () => {
               return DummyData.taskStates;
             }),
             createUser: jest.fn(async (user: User): Promise<User> => {

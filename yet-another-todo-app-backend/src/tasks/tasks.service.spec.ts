@@ -39,7 +39,7 @@ describe('TasksService', () => {
                 }
               },
             ),
-            getTaskStates: jest.fn(async (_): Promise<TaskStateSchema[]> => {
+            getTaskStates: jest.fn(async (): Promise<TaskStateSchema[]> => {
               return DummyData.schemaTaskStates;
             }),
             getTaskState: jest.fn(
