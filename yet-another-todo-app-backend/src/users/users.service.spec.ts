@@ -5,6 +5,7 @@ import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from './users.service';
 
+// TODO Delete User unit tests
 describe('UsersService', () => {
   let service: UsersService;
 
@@ -59,11 +60,15 @@ describe('UsersService', () => {
         password: 'Qwerty123/',
       };
 
-      expect(await service.createUser(newUser)).toEqual(newUser);
+      expect(await service.createUser(newUser, newUser.password)).toEqual(
+        newUser,
+      );
     });
 
     it('should throw error when user already exists', async () => {
-      await expect(service.createUser(DummyData.user)).rejects.toThrow(Error);
+      await expect(
+        service.createUser(DummyData.user, DummyData.user.password),
+      ).rejects.toThrow(Error);
     });
   });
 
