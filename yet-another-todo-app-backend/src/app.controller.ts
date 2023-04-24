@@ -14,7 +14,7 @@ import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
 import { Task } from './models/tasks.type';
-import { User } from './models/user.type';
+import { UserDetails } from './models/user-details.type';
 import { TasksService } from './tasks/tasks.service';
 import { UsersService } from './users/users.service';
 
@@ -28,7 +28,7 @@ export class AppController {
 
   @Post('signup')
   @Header('content-type', 'application/json')
-  async signup(@Body() body: any): Promise<Response<User | null>> {
+  async signup(@Body() body: any): Promise<Response<UserDetails | null>> {
     return await this.usersService
       .createUser({ name: body.name, username: body.username }, body.password)
       .then((result) => ({
@@ -124,7 +124,7 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Delete('user')
   @Header('content-type', 'application/json')
-  async deleteUser(@Request() request: any): Promise<Response<User>> {
+  async deleteUser(@Request() request: any): Promise<Response<UserDetails>> {
     const user = request.user;
 
     return {

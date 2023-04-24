@@ -1,6 +1,8 @@
 import { JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
+import * as bcrypt from 'bcrypt';
+import { UserDetails } from 'src/models/user-details.type';
 import { DummyData } from '../../test/dummy-data';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
@@ -46,11 +48,25 @@ describe('AuthService', () => {
         {
           provide: UsersService,
           useValue: {
-            findUser: jest.fn(async (username: string) => {
-              return username === DummyData.user.username
-                ? DummyData.user
-                : null;
-            }),
+            findUser: jest.fn(
+              async (
+                username: string,
+              ): Promise<
+                (UserDetails & { passwordHash: string }) | undefined
+              > => {
+                return username === DummyData.user.username
+                  ? {
+                      id: DummyData.user.id,
+                      name: DummyData.user.name,
+                      username: DummyData.user.username,
+                      passwordHash: await bcrypt.hash(
+                        DummyData.user.password,
+                        10,
+                      ),
+                    }
+                  : null;
+              },
+            ),
           },
         },
       ],
@@ -66,12 +82,18 @@ describe('AuthService', () => {
 
   describe('validateUser', () => {
     it('should return user when provided correct credentials', async () => {
+      const user: UserDetails = {
+        id: DummyData.user.id,
+        name: DummyData.user.name,
+        username: DummyData.user.username,
+      };
+
       expect(
         await service.validateUser(
           DummyData.user.username,
           DummyData.user.password,
         ),
-      ).toEqual(DummyData.user);
+      ).toEqual(user);
     });
 
     it('should return null if non-existent username is provided', async () => {

@@ -5,6 +5,7 @@ import {
   TaskState as TaskStateSchema,
   User as UserSchema,
 } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 import { UserInfo } from 'src/models/user-info.type';
 import { TaskState } from '../models/task-state.type';
 import { Task } from '../models/tasks.type';
@@ -34,7 +35,7 @@ export class PrismaService extends PrismaClient {
       data: {
         name: user.name,
         username: user.username,
-        password: password,
+        password: await bcrypt.hash(password, 10),
       },
     });
   }

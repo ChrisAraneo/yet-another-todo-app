@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User as UserSchema } from '@prisma/client';
 import { DummyData } from '../test/dummy-data';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { Status } from './models/status.enum';
 import { Task } from './models/tasks.type';
-import { User } from './models/user.type';
+import { UserDetails } from './models/user-details.type';
+import { UserInfo } from './models/user-info.type';
 import { PrismaService } from './prisma/prisma.service';
 import { TasksModule } from './tasks/tasks.module';
 import { TasksService } from './tasks/tasks.service';
@@ -38,7 +40,7 @@ describe('AppController', () => {
                 });
               },
             ),
-            login: jest.fn(async (user: User) => {
+            login: jest.fn(async (user: UserDetails) => {
               return `dummy.jwt.token${user.id}`;
             }),
           },
@@ -52,7 +54,7 @@ describe('AppController', () => {
             getTaskStates: jest.fn(async () => {
               return DummyData.taskStates;
             }),
-            createUser: jest.fn(async (user: User): Promise<User> => {
+            createUser: jest.fn(async (user: UserInfo): Promise<UserSchema> => {
               return new Promise<any>((resolve, reject) => {
                 if (user.username === DummyData.user.username) {
                   reject({
@@ -93,7 +95,7 @@ describe('AppController', () => {
 
       expect(await appController.signup(newUser)).toEqual({
         status: Status.Success,
-        data: newUser,
+        data: { id: undefined, name: newUser.name, username: newUser.username },
       });
     });
 

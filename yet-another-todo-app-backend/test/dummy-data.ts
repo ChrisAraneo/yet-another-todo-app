@@ -1,16 +1,18 @@
 import {
   Task as TaskSchema,
   TaskState as TaskStateSchema,
+  User as UserSchema,
 } from '@prisma/client';
 import { Task } from 'src/models/tasks.type';
-import { User } from 'src/models/user.type';
 
 export class DummyData {
-  public static readonly user: User = {
+  public static readonly user: UserSchema = {
     id: '961d2c4d-8042-43a6-9a25-78d733094837',
     name: 'John Loremipsum',
     username: 'lorem_ipsum',
     password: 'Qwerty123/',
+    creationDate: undefined,
+    updateDate: undefined,
   };
 
   public static readonly taskStates: TaskStateSchema[] = [

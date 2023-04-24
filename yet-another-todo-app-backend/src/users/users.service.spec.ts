@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { User as UserSchema } from '@prisma/client';
+import { UserInfo } from 'src/models/user-info.type';
 import { DummyData } from '../../test/dummy-data';
-import { User } from '../models/user.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from './users.service';
@@ -17,7 +18,7 @@ describe('UsersService', () => {
         {
           provide: PrismaService,
           useValue: {
-            createUser: jest.fn(async (user: User): Promise<User> => {
+            createUser: jest.fn(async (user: UserInfo): Promise<UserSchema> => {
               return new Promise<any>((resolve, reject) => {
                 if (user.username === DummyData.user.username) {
                   reject({
@@ -30,10 +31,13 @@ describe('UsersService', () => {
                 }
               });
             }),
-            getUser: jest.fn(async (username: string): Promise<User> => {
+            getUser: jest.fn(async (username: string): Promise<UserSchema> => {
               return new Promise<any | void>((resolve) => {
                 if (username === DummyData.user.username) {
-                  resolve(DummyData.user);
+                  resolve({
+                    ...DummyData.user,
+                    password: 'this_is_password_hash',
+                  });
                 } else {
                   resolve(undefined);
                 }
@@ -57,12 +61,9 @@ describe('UsersService', () => {
         id: '7f83b4eb-336c-4f9c-b17a-bbe46d2526df',
         name: 'New user',
         username: 'new_user',
-        password: 'Qwerty123/',
       };
 
-      expect(await service.createUser(newUser, newUser.password)).toEqual(
-        newUser,
-      );
+      expect(await service.createUser(newUser, 'Qwerty123/')).toEqual(newUser);
     });
 
     it('should throw error when user already exists', async () => {
@@ -74,9 +75,14 @@ describe('UsersService', () => {
 
   describe('findUser', () => {
     it('should return user when user was successfuly found', async () => {
-      expect(await service.findUser(DummyData.user.username)).toEqual(
-        DummyData.user,
-      );
+      const user = {
+        id: DummyData.user.id,
+        name: DummyData.user.name,
+        username: DummyData.user.username,
+        passwordHash: 'this_is_password_hash',
+      };
+
+      expect(await service.findUser(DummyData.user.username)).toEqual(user);
     });
 
     it('should return undefined when user was not found', async () => {
