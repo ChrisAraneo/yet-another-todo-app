@@ -32,6 +32,11 @@ describe('AppController (e2e)', () => {
 
   afterEach(async () => {
     await request(app.getHttpServer()).delete('/user').send(user);
+    await request(app.getHttpServer()).delete('/user').send({
+      name: 'E2E Test New Signup User',
+      username: 'end2endNewTestUser',
+      password: 'pleasechangeme',
+    });
   });
 
   describe('Login', () => {
@@ -44,6 +49,19 @@ describe('AppController (e2e)', () => {
         .post('/login')
         .send({ ...user, password: `${user.password}#` })
         .expect(401);
+    });
+  });
+
+  describe('Sign up', () => {
+    it('should sign up new user and receive success response', () => {
+      return request(app.getHttpServer())
+        .post('/signup')
+        .send({
+          name: 'E2E Test New Signup User',
+          username: 'end2endNewTestUser',
+          password: 'pleasechangeme',
+        })
+        .expect(201);
     });
   });
 });
