@@ -3,6 +3,8 @@ import { UserDetails } from '../models/user-details.type';
 import { UserInfo } from '../models/user-info.type';
 import { PrismaService } from '../prisma/prisma.service';
 
+export const USERNAME_ALREADY_EXISTS = new Error('Username already exists'); // TODO Move elsewhere
+
 @Injectable()
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
@@ -18,7 +20,7 @@ export class UsersService {
         const target = error?.meta?.target[0];
 
         if (target === 'username') {
-          throw new Error('Username already exists');
+          throw USERNAME_ALREADY_EXISTS;
         }
 
         throw new Error(JSON.stringify(error));
