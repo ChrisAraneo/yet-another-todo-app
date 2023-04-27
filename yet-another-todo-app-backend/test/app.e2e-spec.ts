@@ -2,6 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { Status } from '../src/models/status.enum';
+import { Task } from '../src/models/tasks.type';
 import { AppModule } from './../src/app.module';
 
 type SignupRequest = {
@@ -38,11 +39,11 @@ describe('AppController (e2e)', () => {
   });
 
   afterEach(async () => {
-    await request(app.getHttpServer()).delete('/user').send(existingUser);
-    await request(app.getHttpServer()).delete('/user').send(newUser);
+    await request(app.getHttpServer()).delete('/user').send(existingUser); // TODO delete only if exists
+    await request(app.getHttpServer()).delete('/user').send(newUser); // TODO delete only if exists
   });
 
-  describe('Login', () => {
+  describe('POST /login', () => {
     it('should login and receive token when provided correct credentials', () => {
       return request(app.getHttpServer())
         .post('/login')
@@ -60,7 +61,7 @@ describe('AppController (e2e)', () => {
     });
   });
 
-  describe('Sign up', () => {
+  describe('POST /signup', () => {
     it('should sign up new user and receive success response', () => {
       return request(app.getHttpServer())
         .post('/signup')
@@ -86,7 +87,7 @@ describe('AppController (e2e)', () => {
     });
   });
 
-  describe('Tasks', () => {
+  describe('GET /tasks', () => {
     it('should return success response with tasks when provided correct token', async () => {
       const loginRequest = await request(app.getHttpServer())
         .post('/login')
@@ -109,6 +110,43 @@ describe('AppController (e2e)', () => {
         .set('Content-Type', 'application/json')
         .send()
         .expect(401);
+    });
+  });
+
+  describe('POST /task', () => {
+    it('should return success response with tasks when provided correct token', async () => {
+      const task: Task = {
+        id: '1',
+        title: 'Lorem ipsum',
+        description: 'Dolor es',
+        state: {
+          id: '1',
+          value: 'IN_PROGRESS',
+          iconName: 'progress',
+          color: 'white',
+        },
+        isHidden: false,
+        creationDate: new Date(2023, 1, 2).toISOString(),
+        startDate: new Date(2023, 1, 3).toISOString(),
+      };
+
+      const loginRequest = await request(app.getHttpServer())
+        .post('/login')
+        .send(existingUser);
+
+      return request(app.getHttpServer())
+        .post('/task')
+        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Content-Type', 'application/json')
+        .send(task)
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Success);
+          expect(res.body.data.title).toBe(task.title);
+          expect(res.body.data.description).toBe(task.description);
+          expect(res.body.data.state.value).toBe(task.state.value);
+          expect(res.body.data.isHidden).toBe(task.isHidden);
+          expect(res.body.data.startDate).toBe(task.startDate);
+        });
     });
   });
 });
