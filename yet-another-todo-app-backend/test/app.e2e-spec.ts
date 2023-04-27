@@ -43,7 +43,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('Login', () => {
-    it('should login and receive valid token', () => {
+    it('should login and receive token when provided correct credentials', () => {
       return request(app.getHttpServer())
         .post('/login')
         .send(existingUser)
@@ -52,7 +52,7 @@ describe('AppController (e2e)', () => {
         });
     });
 
-    it('should reject login', () => {
+    it('should return unauthorized error and reject login when provided incorrect credentials', () => {
       return request(app.getHttpServer())
         .post('/login')
         .send({ ...existingUser, password: `${existingUser.password}#` })
@@ -74,7 +74,7 @@ describe('AppController (e2e)', () => {
         });
     });
 
-    it('should return error when registering  new user and receive success response', async () => {
+    it('should return error when signing up user with existing username', async () => {
       await request(app.getHttpServer()).post('/signup').send(newUser);
 
       await request(app.getHttpServer())
@@ -83,6 +83,32 @@ describe('AppController (e2e)', () => {
         .expect((res) => {
           expect(res.body.status).toBe(Status.Error);
         });
+    });
+  });
+
+  describe('Tasks', () => {
+    it('should return success response with tasks when provided correct token', async () => {
+      const loginRequest = await request(app.getHttpServer())
+        .post('/login')
+        .send(existingUser);
+
+      return request(app.getHttpServer())
+        .get('/tasks')
+        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Content-Type', 'application/json')
+        .send()
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Success);
+        });
+    });
+
+    it('should return unauthorized error when provided incorrect token', async () => {
+      return request(app.getHttpServer())
+        .get('/tasks')
+        .set('Authorization', `Bearer 1ncorr3ct_token`)
+        .set('Content-Type', 'application/json')
+        .send()
+        .expect(401);
     });
   });
 });
