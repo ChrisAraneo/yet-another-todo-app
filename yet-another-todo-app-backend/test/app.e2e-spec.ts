@@ -114,7 +114,7 @@ describe('AppController (e2e)', () => {
   });
 
   describe('POST /task', () => {
-    it('should return success response with tasks when provided correct token', async () => {
+    it('should return success response with created task when provided correct token', async () => {
       const task: Task = {
         id: '1',
         title: 'Lorem ipsum',
@@ -146,6 +146,81 @@ describe('AppController (e2e)', () => {
           expect(res.body.data.state.value).toBe(task.state.value);
           expect(res.body.data.isHidden).toBe(task.isHidden);
           expect(res.body.data.startDate).toBe(task.startDate);
+        });
+    });
+  });
+
+  describe('DELETE /task', () => {
+    it('should return success response containing confirmation of deletion of the pre-existing task', async () => {
+      const task: Task = {
+        id: '1',
+        title: 'Lorem ipsum',
+        description: 'Dolor es',
+        state: {
+          id: '1',
+          value: 'IN_PROGRESS',
+          iconName: 'progress',
+          color: 'white',
+        },
+        isHidden: false,
+        creationDate: new Date(2023, 1, 2).toISOString(),
+        startDate: new Date(2023, 1, 3).toISOString(),
+      };
+
+      const loginRequest = await request(app.getHttpServer())
+        .post('/login')
+        .send(existingUser);
+
+      const postTaskRequest = await request(app.getHttpServer())
+        .post('/task')
+        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Content-Type', 'application/json')
+        .send(task);
+
+      return request(app.getHttpServer())
+        .delete('/task')
+        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Content-Type', 'application/json')
+        .send(postTaskRequest.body.data)
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Success);
+          expect(res.body.data.title).toBe(task.title);
+          expect(res.body.data.description).toBe(task.description);
+          expect(res.body.data.state.value).toBe(task.state.value);
+          expect(res.body.data.isHidden).toBe(task.isHidden);
+          expect(res.body.data.startDate).toBe(task.startDate);
+        });
+    });
+
+    it('should return error response when task doesn\t exist', async () => {
+      const taskId = `${Math.random()}`;
+      const nonexistentTask: Task = {
+        id: taskId,
+        title: `${Math.random()}`,
+        description: `${Math.random()}`,
+        state: {
+          id: '1',
+          value: 'IN_PROGRESS',
+          iconName: 'progress',
+          color: 'white',
+        },
+        isHidden: false,
+        creationDate: new Date(2023, 1, 2).toISOString(),
+        startDate: new Date(2023, 1, 3).toISOString(),
+      };
+
+      const loginRequest = await request(app.getHttpServer())
+        .post('/login')
+        .send(existingUser);
+
+      return request(app.getHttpServer())
+        .delete('/task')
+        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Content-Type', 'application/json')
+        .send(nonexistentTask)
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Error);
+          expect(res.body.data).toBe(null);
         });
     });
   });
