@@ -224,4 +224,31 @@ describe('AppController (e2e)', () => {
         });
     });
   });
+
+  describe('DELETE /users', () => {
+    it('should return success response confirming deletion of the user when provided correct credentials', async () => {
+      const randomNumber = Math.random();
+      const user = {
+        name: `E2E Test User ${randomNumber}`,
+        username: `end2endTestUser${randomNumber}`,
+        password: 'pleasechangeme',
+      };
+
+      await request(app.getHttpServer()).post('/signup').send(user);
+
+      return request(app.getHttpServer())
+        .delete('/user')
+        .send(user)
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Success);
+        });
+    });
+
+    it('should return unauthorized error when trying to delete not existing user', async () => {
+      return request(app.getHttpServer())
+        .delete('/user')
+        .send(newUser)
+        .expect(401);
+    });
+  });
 });
