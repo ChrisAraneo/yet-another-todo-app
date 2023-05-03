@@ -1,6 +1,6 @@
 # YATA - Angular Frontend
 
-## Development
+## Development setup
 
 ### Required software
 
@@ -11,13 +11,15 @@ Optional & recommended:
 
 - Angular CLI
 
-### Installation
+### Installing dependencies
 
 ```bash
 npm install
 ```
 
-### Running the app
+### Running the Angular web app
+
+Make sure database & backend and then start the UI:
 
 ```bash
 # development
@@ -27,14 +29,18 @@ $ npm run start
 $ npm run watch
 ```
 
-### Test
+If you have done all steps without errors, you should be able to access the application interface from the browser on the [http://localhost:4200/](http://localhost:4200/)
+
+## Testing
 
 ```bash
 # unit tests
 $ npm run test
 ```
 
-### Linting and formatting code
+## Linting and formatting code
+
+Before every commit don't forget to lint and format code:
 
 ```bash
 $ npm run lint && npm run format
