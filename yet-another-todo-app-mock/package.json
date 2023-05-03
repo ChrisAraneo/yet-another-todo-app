@@ -7,6 +7,7 @@
   "author": "Krzysztof Pająk",
   "license": "MIT",
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "json-diff": "^1.0.0",
