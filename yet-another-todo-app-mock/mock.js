@@ -33,13 +33,13 @@ server.post("/signup", (request, response) => {
     JSON.stringify({
       status: "success",
       data: {
-        id: 'this_is_mock_id',
+        id: "this_is_mock_id",
         name: body.name,
-        username: body.username
+        username: body.username,
       },
     })
   );
-})
+});
 
 server.post("/login", (_, response) => {
   logger.debug("Received POST /login request. Responding with example token.");
@@ -50,7 +50,7 @@ server.post("/login", (_, response) => {
       data: token,
     })
   );
-})
+});
 
 server.get("/tasks", (_, response) => {
   logger.debug("Received GET /tasks request");
@@ -76,11 +76,11 @@ server.post("/task", (request, response) => {
 
   const task = request.body;
 
-  const isHavingThisTask = !!data.find(item => item.id === task.id);
+  const isHavingThisTask = !!data.find((item) => item.id === task.id);
 
   let updatedData;
   if (isHavingThisTask) {
-    updatedData = data.map(item => {
+    updatedData = data.map((item) => {
       if (item.id === task.id) {
         return task;
       } else {
@@ -97,7 +97,7 @@ server.post("/task", (request, response) => {
 
     logger.debug("Writing store file");
     writeStoreFile(storePath, JSON.stringify(body));
-    
+
     logger.debug("Sending response to POST /task");
     response.set(responseHeaders).send(task);
   } else {
@@ -113,15 +113,15 @@ server.delete("/task", (request, response) => {
   logger.debug("Received DELETE /task request");
 
   const task = request.body;
-  const updatedData = data.filter(item => item.id !== task.id);
+  const updatedData = data.filter((item) => item.id !== task.id);
 
   if (jsonDiff.diff(updatedData, data)) {
     logger.debug("Updating store data");
     data = updatedData;
 
     logger.debug("Writing store file");
-    writeStoreFile(storePath, JSON.stringify(body));
-    
+    writeStoreFile(storePath, JSON.stringify(updatedData));
+
     logger.debug("Sending response to DELETE /task");
     response.set(responseHeaders).send(task);
   } else {
