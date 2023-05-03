@@ -22,8 +22,24 @@ npm install
 ### Running the mock
 
 ```bash
-# development
-$ node mock.js path_to/store.json
+# Example:
+
+$ node mock.js store.json
+
+# store.json is the file where mock will store task data
+```
+
+## Generating example tasks
+
+You can generate example tasks using generate.js script and then serve them with mock backend.
+
+```bash
+# Example:
+
+$ node generate.js store.json 2500
+
+# store.json is the file where mock will store task data
+# The second argument is the number of tasks to generate
 ```
 
 ## License
