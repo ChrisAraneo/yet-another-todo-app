@@ -1,0 +1,79 @@
+{
+  "AddTaskModal": {
+    "description": "Description",
+    "endDate": "End date",
+    "modalTitle": "Add new task",
+    "startDate": "Start date",
+    "state": "State",
+    "submit": "Submit",
+    "title": "Title"
+  },
+  "App": {
+    "title": "ヤタ YATA - Yet Another Todo App"
+  },
+  "AppFooter": {
+    "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
+  },
+  "COMPLETED": "Task completed",
+  "DatesFilter": {
+    "endDate": "End date",
+    "startDate": "Start date"
+  },
+  "DeleteTaskModal": {
+    "delete": "Delete",
+    "emptyCaption": "There are no defined tasks to delete",
+    "emptyHint": "Create tasks first so you can delete them later",
+    "modalTitle": "Delete task",
+    "selectTask": "Task to delete"
+  },
+  "EditTaskModal": {
+    "description": "Description",
+    "emptyCaption": "There are no defined tasks to edit",
+    "emptyHint": "Create tasks first so you can edit them later",
+    "endDate": "End date",
+    "modalTitle": "Edit task",
+    "saveChanges": "Save changes",
+    "selectTask": "Task to edit",
+    "startDate": "Start date",
+    "state": "State",
+    "title": "Title"
+  },
+  "IN_PROGRESS": "Task in progress",
+  "NOT_STARTED": "Task not started",
+  "REJECTED": "Task is rejected",
+  "SUSPENDED": "Task is suspended",
+  "SearchBar": {
+    "searchTasks": "Search tasks"
+  },
+  "SideNavigation": {
+    "addTask": "Add task",
+    "deleteTask": "Delete task",
+    "editTask": "Edit task",
+    "tableView": "Table view",
+    "timelineView": "Timeline view"
+  },
+  "SignInModal": {
+    "modalTitle": "Sign in",
+    "password": "Password",
+    "signIn": "Sign in",
+    "username": "Username"
+  },
+  "Table": {
+    "creationDate": "Creation date",
+    "description": "Description",
+    "endDate": "End date",
+    "id": "ID",
+    "paginatorLabel": "Select page of tasks",
+    "startDate": "Start date",
+    "state": "State",
+    "title": "Title"
+  },
+  "Timeline": {
+    "nextMonth": "Next month",
+    "previousMonth": "Previous month"
+  },
+  "Toolbar": {
+    "githubIcon": "Github iton",
+    "menuIcon": "Menu icon"
+  }
+}

@@ -1,0 +1,36 @@
+@import '../../../shared/styles/variables.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.table-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.mat-mdc-paginator {
+  box-sizing: border-box;
+  border-top: $border;
+}
+
+th.cdk-header-cell {
+  box-sizing: border-box;
+  height: $unit;
+  border-bottom: $border;
+}
+
+.mat-mdc-table .mdc-data-table__row {
+  height: $unit;
+}
+
+.searchbar-wrapper {
+  padding: $unit / 4 $unit / 4 0 $unit / 4;
+}

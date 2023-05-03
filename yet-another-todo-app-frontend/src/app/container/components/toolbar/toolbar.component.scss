@@ -1,0 +1,10 @@
+@import '../../../shared/styles/variables.scss';
+
+mat-toolbar {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: $border;
+  width: 100%;
+  height: $unit;
+}

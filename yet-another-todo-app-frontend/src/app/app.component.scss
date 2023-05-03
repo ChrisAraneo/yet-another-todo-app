@@ -1,0 +1,23 @@
+@import './shared/styles/variables.scss';
+
+main {
+  width: 100%;
+  background-color: $theme-background-color;
+  height: calc(100vh - $unit * 2 - 30px);
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+}
+
+yata-side-navigation {
+  height: 100%;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.table-wrapper {
+  width: 100%;
+}

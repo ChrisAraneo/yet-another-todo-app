@@ -1,0 +1,12 @@
+<yata-title class="modal-title">{{ 'SignInModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form">
+  <yata-text-input
+    [formControlName]="'username'"
+    [label]="'SignInModal.username' | translate"></yata-text-input>
+  <yata-password-input
+    [formControlName]="'password'"
+    [label]="'SignInModal.password' | translate"></yata-password-input>
+  <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">
+    {{ 'SignInModal.signIn' | translate }}
+  </button>
+</form>

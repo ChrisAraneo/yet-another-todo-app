@@ -1,0 +1,9 @@
+<div>
+  <label>{{ label }}</label>
+  <textarea
+    [value]="value"
+    [rows]="rows"
+    [placeholder]="label"
+    [maxLength]="maxLength"
+    (input)="onChange($event)"></textarea>
+</div>

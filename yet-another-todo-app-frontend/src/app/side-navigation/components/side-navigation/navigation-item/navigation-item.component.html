@@ -1,0 +1,4 @@
+<button mat-button (click)="click($event)">
+  <mat-icon class="navigation-item-icon" *ngIf="!!icon">{{ icon }}</mat-icon>
+  <yata-title *ngIf="!!label">{{ label }}</yata-title>
+</button>

@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button [attr.aria-label]="'Toolbar.menuIcon' | translate" (click)="onMenuClick()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <yata-title>{{ title }}</yata-title>
+  <button mat-icon-button [attr.aria-label]="'Toolbar.githubIcon' | translate" (click)="onGitClick()">
+    <img src="assets/images/github-mark.svg" style="width: 24px; height: 24px" />
+  </button>
+</mat-toolbar>

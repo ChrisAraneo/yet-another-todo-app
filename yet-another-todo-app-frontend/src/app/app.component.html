@@ -1,1 +1,19 @@
-<h1>{{ title }}</h1>
+<yata-app-wrapper>
+  <yata-toolbar [title]="'App.title' | translate " (menuClick)="onMenuClick()"></yata-toolbar>
+  <main>
+    <yata-side-navigation
+      [isOpened]="isMenuOpened"
+      [mode]="appMode"
+      (modeChange)="changeAppMode($event)"></yata-side-navigation>
+    <yata-timeline
+      *ngIf="appMode === timelineMode"
+      [startDate]="timelineStartDate"
+      [endDate]="timelineEndDate"
+      (changeStartDate)="changeStartDate($event)"
+      (changeEndDate)="changeEndDate($event)"></yata-timeline>
+    <div class="table-wrapper" *ngIf="appMode === tableMode">
+      <yata-table></yata-table>
+    </div>
+  </main>
+  <yata-footer></yata-footer>
+</yata-app-wrapper>

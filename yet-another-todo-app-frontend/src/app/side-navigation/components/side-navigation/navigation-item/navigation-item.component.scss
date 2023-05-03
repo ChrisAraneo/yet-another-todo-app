@@ -1,0 +1,34 @@
+@import '../../../../shared/styles/variables.scss';
+
+:host {
+  box-sizing: border-box;
+  width: 100%;
+  height: $unit;
+
+  .mdc-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 24px;
+    margin: 0;
+    width: 100%;
+    height: $unit;
+    border-radius: 0;
+    text-align: left;
+  }
+
+  .navigation-item-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    margin-right: $unit * 0.25;
+    font-size: 24px;
+    height: 24px;
+    width: auto;
+  }
+
+  yata-title {
+    display: block;
+  }
+}

@@ -1,0 +1,33 @@
+<yata-title class="modal-title">{{ 'EditTaskModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="taskForm" *ngIf="!!taskForm && (isAnyTaskDefined | async); else empty">
+  <yata-select
+    [formControlName]="'task'"
+    [label]="'EditTaskModal.selectTask' | translate"
+    [options]="(tasks | async) || []"></yata-select>
+  <ng-container *ngIf="taskForm.value.task">
+    <yata-text-input [formControlName]="'title'" [label]="'EditTaskModal.title' | translate"></yata-text-input>
+    <yata-textarea
+      [formControlName]="'description'"
+      [label]="'EditTaskModal.description' | translate"
+      [rows]="2"
+      [maxLength]="200"></yata-textarea>
+    <yata-select [formControlName]="'state'" [label]="'EditTaskModal.state' | translate" [options]="states"></yata-select>
+    <yata-date-picker
+      *ngIf="!!showStartDateControl && (showStartDateControl | async)"
+      [formControlName]="'startDate'"
+      [label]="'EditTaskModal.startDate' | translate"></yata-date-picker>
+    <yata-date-picker
+      *ngIf="!!showEndDateControl && (showEndDateControl | async)"
+      [formControlName]="'endDate'"
+      [label]="'EditTaskModal.endDate' | translate"></yata-date-picker>
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="taskForm.invalid">
+      {{ 'EditTaskModal.saveChanges' | translate }}
+    </button>
+  </ng-container>
+</form>
+
+<ng-template #empty
+  ><yata-empty-info-box
+    [caption]="'EditTaskModal.emptyCaption' | translate"
+    [hint]="'EditTaskModal.emptyHint' | translate"></yata-empty-info-box
+></ng-template>

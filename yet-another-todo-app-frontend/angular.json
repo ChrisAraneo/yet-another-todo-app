@@ -32,7 +32,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.scss"
+              "src/app/shared/styles/theme.scss"
             ],
             "scripts": []
           },
@@ -98,13 +98,12 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
-              "src/styles.scss"
+              "src/app/shared/styles/theme.scss"
             ],
             "scripts": []
           }
         }
       }
     }
-  },
-  "defaultProject": "yet-another-todo-app-frontend"
+  }
 }

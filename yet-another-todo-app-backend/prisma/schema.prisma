@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  username     String   @unique
+  password     String
+  creationDate DateTime @default(now())
+  updateDate   DateTime @updatedAt
+  Task         Task[]
+}
+
+model TaskState {
+  id          String @id @default(uuid())
+  value       String @unique
+  iconName    String
+  color       String
+  Task        Task[]
+}
+
+model Task {
+  id           String    @id @default(uuid())
+  title        String
+  description  String
+  state        TaskState @relation(fields: [stateId], references: [id])
+  isHidden     Boolean
+  creationDate DateTime  @default(now())
+  updateDate   DateTime  @updatedAt
+  startDate    DateTime?
+  endDate      DateTime?
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String
+  stateId      String
+}

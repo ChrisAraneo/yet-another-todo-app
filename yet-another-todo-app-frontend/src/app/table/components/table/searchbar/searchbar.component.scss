@@ -1,0 +1,44 @@
+@import '../../../../shared/styles/variables.scss';
+
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+input,
+input:focus {
+  box-sizing: border-box;
+  width: 100%;
+  padding: $unit / 6 $unit / 6;
+  font-size: 16px;
+  border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
+  outline: none;
+  margin: 0;
+  border-left-width: 0px;
+}
+
+input:not(:focus) {
+  border: $form-input-border;
+  border-left-width: 0px;
+  background-color: $form-input-background;
+}
+
+input:focus {
+  border: $form-input-focus-border;
+  border-left-width: 0px !important;
+  background-color: $form-input-focus-background;
+}
+
+.seachbar-icon {
+  padding: $unit / 6 $unit / 6;
+  border: $form-input-border;
+  border-right-width: 0px !important;
+  border-radius: $form-input-border-radius 0 0 $form-input-border-radius;
+  background-color: $form-input-background;
+}
+
+.is-focused {
+  border: $form-input-focus-border;
+  border-right-width: 0px !important;
+  background-color: $form-input-focus-background;
+}
