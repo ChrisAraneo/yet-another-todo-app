@@ -6,6 +6,7 @@
       [mode]="appMode"
       (modeChange)="changeAppMode($event)"></yata-side-navigation>
     <yata-timeline
+      #timeline
       *ngIf="appMode === timelineMode"
       [startDate]="timelineStartDate"
       [endDate]="timelineEndDate"

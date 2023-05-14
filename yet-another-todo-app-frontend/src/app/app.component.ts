@@ -1,17 +1,20 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, debounceTime, filter } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
+import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnDestroy, AfterViewInit {
+  @ViewChild('timeline') timelineElementRef!: ElementRef;
+
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
@@ -32,6 +35,10 @@ export class AppComponent implements OnDestroy {
     this.initializeTimelineStartDate();
     this.initializeTimelineEndDate();
     this.subscribeToUserChanges();
+  }
+
+  ngAfterViewInit(): void {
+    this.centerTimelineScrollOnTodayColumn();
   }
 
   ngOnDestroy(): void {
@@ -82,5 +89,19 @@ export class AppComponent implements OnDestroy {
       .subscribe(() => {
         this.dialogService.openSignInModal();
       });
+  }
+
+  private centerTimelineScrollOnTodayColumn(): void {
+    const element = (this.timelineElementRef as any).elementRef.nativeElement; // TODO Fix type and remove any
+
+    const offset = this.dateUtilsService.getDifferenceInDays(new Date(), this.timelineStartDate);
+    const timelineContentMargin = 6 * UNIT;
+    const elementClientWidth = element.clientWidth;
+    const columnsInView = elementClientWidth / COLUMN_WIDTH;
+
+    const scrollLeft =
+      offset * COLUMN_WIDTH + timelineContentMargin - (Math.ceil(columnsInView) / 2) * COLUMN_WIDTH;
+
+    (this.timelineElementRef as any).elementRef.nativeElement.scrollLeft = scrollLeft; // TODO Fix type and remove any
   }
 }
