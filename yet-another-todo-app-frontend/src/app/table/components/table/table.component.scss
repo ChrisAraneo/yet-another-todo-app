@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 :host {
@@ -32,5 +33,5 @@ th.cdk-header-cell {
 }
 
 .searchbar-wrapper {
-  padding: $unit / 4 $unit / 4 0 $unit / 4;
+  padding: math.div($unit, 4) math.div($unit, 4) 0 math.div($unit, 4);
 }

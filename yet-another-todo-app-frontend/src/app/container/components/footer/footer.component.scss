@@ -1,9 +1,10 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 :host {
   box-sizing: border-box;
   border-top: $border;
-  padding: $unit / 12 $unit / 8;
+  padding: math.div($unit, 12) math.div($unit, 8);
   margin: 0;
 
   span,

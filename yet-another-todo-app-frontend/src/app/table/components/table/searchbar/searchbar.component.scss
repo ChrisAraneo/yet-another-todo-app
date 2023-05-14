@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../../shared/styles/variables.scss';
 
 form {
@@ -9,7 +10,7 @@ input,
 input:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: $unit / 6 $unit / 6;
+  padding: math.div($unit, 6) math.div($unit, 6);
   font-size: 16px;
   border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
   outline: none;
@@ -30,7 +31,7 @@ input:focus {
 }
 
 .seachbar-icon {
-  padding: $unit / 6 $unit / 6;
+  padding: math.div($unit, 6) math.div($unit, 6);
   border: $form-input-border;
   border-right-width: 0px !important;
   border-radius: $form-input-border-radius 0 0 $form-input-border-radius;

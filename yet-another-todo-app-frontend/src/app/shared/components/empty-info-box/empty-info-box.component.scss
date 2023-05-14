@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../styles/variables.scss';
 
 :host {
@@ -7,12 +8,12 @@
   flex-direction: column;
   max-width: 100%;
   margin: $unit;
-  padding: $unit / 8;
+  padding: math.div($unit, 8);
 
   .empty-image {
     box-sizing: border-box;
     margin: 0;
-    margin-bottom: $unit / 4;
+    margin-bottom: math.div($unit, 4);
     padding: 0;
     width: 190px;
     height: 150px;

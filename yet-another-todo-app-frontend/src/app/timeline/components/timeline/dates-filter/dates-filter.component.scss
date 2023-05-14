@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../../shared/styles/variables.scss';
 
 :host {
@@ -10,7 +11,7 @@
     border-bottom: $border;
     height: $unit;
     width: 5 * $unit;
-    padding: $unit / 8;
+    padding: math.div($unit, 8);
   }
 
   yata-date-picker:first-of-type {
@@ -20,9 +21,9 @@
 
 ::ng-deep yata-date-picker.custom-date-picker {
   input {
-    padding: $unit / 16 !important;
-    margin-top: $unit / 16 - 1 !important;
-    width: (5 * $unit - (3 * $unit / 8)) / 2 !important;
+    padding: math.div($unit, 16) !important;
+    margin-top: math.div($unit, 16) - 1 !important;
+    width: math.div((5 * $unit - (3 * math.div($unit, 8))), 2) !important;
   }
 
   label {

@@ -1,10 +1,11 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 input,
 input:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: $unit / 6 $unit / 6;
+  padding: math.div($unit, 6) math.div($unit, 6);
   font-size: 16px;
   border-radius: $form-input-border-radius;
   outline: none;

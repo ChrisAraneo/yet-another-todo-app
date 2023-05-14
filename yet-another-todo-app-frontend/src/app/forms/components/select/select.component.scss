@@ -1,10 +1,11 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 select,
 select:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: $unit / 6 $unit / 6;
+  padding: math.div($unit, 6) math.div($unit, 6);
   font-size: 16px;
   border-radius: $form-input-border-radius;
   outline: none;
@@ -13,7 +14,7 @@ select:focus {
   background: url('../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat right
     #ddd;
   -webkit-appearance: none;
-  background-position-x: calc(100% - $unit / 8);
+  background-position-x: calc(100% - math.div($unit, 8));
 }
 
 select:not(:focus) {
