@@ -38,10 +38,9 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   private observer!: ResizeObserver;
 
   constructor(
-    private elementRef: ElementRef,
     private tasksService: TasksService,
     private dateUtils: DateUtilsService,
-    private host: ElementRef,
+    private elementRef: ElementRef,
     private zone: NgZone,
   ) {
     this.initializeButtons();
@@ -83,7 +82,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   ngOnDestroy(): void {
-    this.observer && this.observer.unobserve(this.host.nativeElement);
+    this.observer && this.observer.unobserve(this.elementRef.nativeElement);
   }
 
   changeStartDateToPreviousMonth(): void {
@@ -128,7 +127,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       });
     });
 
-    this.observer.observe(this.host.nativeElement);
+    this.observer.observe(this.elementRef.nativeElement);
   }
 
   private addWindowResizeListener(): void {
