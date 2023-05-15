@@ -10,8 +10,15 @@
   overflow-x: scroll;
 }
 
-.timeline-headers-row {
+.timeline-headers-buttons {
   display: flex;
+}
+
+.timeline-headers-row {
+  position: sticky;
+  top: 0;
+  display: flex;
+  z-index: 999;
 }
 
 .timeline-header-button {
@@ -19,6 +26,14 @@
   width: $unit;
   min-width: $unit;
   z-index: 1000;
+}
+
+.timeline-header-date {
+  background-color: white;
+
+  &:last-of-type {
+    padding-right: $unit;
+  }
 }
 
 .arrow-back {
@@ -40,10 +55,6 @@ yata-timeline-header {
   min-width: $unit * 3;
   height: $unit;
   border-bottom: $border;
-}
-
-yata-timeline-header:last-of-type {
-  padding-right: $unit;
 }
 
 yata-timeline-content {
