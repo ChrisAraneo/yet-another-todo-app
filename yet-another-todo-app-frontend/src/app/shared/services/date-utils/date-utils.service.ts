@@ -59,7 +59,8 @@ export class DateUtilsService {
     return format(date, pattern, { locale: this.getUsersLocale() });
   }
 
-  getDifferenceInDays(firstDate: Date, secondDate: Date): number { // TODO Add unit tests
+  getDifferenceInDays(firstDate: Date, secondDate: Date): number {
+    // TODO Add unit tests
     return differenceInDays(firstDate, secondDate);
   }
 
