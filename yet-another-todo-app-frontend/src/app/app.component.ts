@@ -94,7 +94,10 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   private centerTimelineScrollOnTodayColumn(): void {
     const element = (this.timelineElementRef as any).elementRef.nativeElement; // TODO Fix type and remove any
 
-    const offset = this.dateUtilsService.getDifferenceInDays(new Date(), this.timelineStartDate);
+    const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(
+      new Date(),
+      this.timelineStartDate,
+    );
     const timelineContentMargin = 6 * UNIT;
     const elementClientWidth = element.clientWidth;
     const columnsInView = elementClientWidth / COLUMN_WIDTH;

@@ -59,11 +59,6 @@ export class DateUtilsService {
     return format(date, pattern, { locale: this.getUsersLocale() });
   }
 
-  getDifferenceInDays(firstDate: Date, secondDate: Date): number {
-    // TODO Add unit tests
-    return differenceInDays(firstDate, secondDate);
-  }
-
   private getDateAtNoon(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
   }
