@@ -18,6 +18,12 @@ import { UNIT } from 'src/app/shared/styles/theme';
 import { StartedTask } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
+type Highlight = {
+  // TODO Move to types file
+  date: string;
+  height: string;
+} | null;
+
 @Component({
   selector: 'yata-timeline',
   templateUrl: './timeline.component.html',
@@ -34,6 +40,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   headers: TimelineHeader[] = [];
   previousMonthButtonPosition!: ElementPosition;
   nextMonthButtonPosition!: ElementPosition;
+  highlight: Highlight = null;
 
   private observer!: ResizeObserver;
 
@@ -72,6 +79,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
       this.updateTasks(currentStartDate, currentEndDate);
       this.updateTimelineHeaders(currentStartDate, currentEndDate);
+      this.updateHighlightedColumn(new Date());
     }
   }
 
@@ -112,6 +120,21 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
     };
   }
 
+  private updateHighlightedColumn(date: Date): void {
+    if (this.startDate && this.endDate && +date >= +this.startDate && +date <= +this.endDate) {
+      const height = this.elementRef?.nativeElement
+        ? `${this.elementRef.nativeElement.clientHeight - UNIT}px`
+        : '0';
+
+      this.highlight = {
+        date: this.dateUtils.formatDate(date, 'dd-MM-yyyy'),
+        height,
+      };
+    } else {
+      this.highlight = null;
+    }
+  }
+
   private initializeResizeObserver(): void {
     this.observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
       this.zone.run(() => {
@@ -124,6 +147,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
           width: contentRect.width,
           height: contentRect.height,
         });
+        this.updateHighlightedColumn(new Date());
       });
     });
 
