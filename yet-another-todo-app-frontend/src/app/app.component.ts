@@ -62,9 +62,12 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   private initializeTranslateService(): void {
-    this.translateService.addLangs(['en']);
+    this.translateService.addLangs(['en', 'pl']);
     this.translateService.setDefaultLang('en');
-    this.translateService.use('en');
+
+    const browserCultureLang = this.translateService.getBrowserCultureLang();
+
+    this.translateService.use(browserCultureLang || 'en');
   }
 
   private initializeTimelineStartDate(): void {
