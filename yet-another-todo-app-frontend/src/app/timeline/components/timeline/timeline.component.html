@@ -1,26 +1,37 @@
-<div class="timeline-headers-row">
+<div class="timeline-headers-buttons-row">
   <yata-timeline-header
     class="timeline-header-button arrow-back"
     [ngStyle]="{ top: previousMonthButtonPosition.top, left: previousMonthButtonPosition.left }">
-    <button mat-icon-button [attr.aria-label]="'Timeline.previousMonth' | translate" (click)="changeStartDateToPreviousMonth()">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Timeline.previousMonth' | translate"
+      (click)="changeStartDateToPreviousMonth()">
       <mat-icon>arrow_back</mat-icon>
     </button>
   </yata-timeline-header>
   <yata-timeline-header
     class="timeline-header-button arrow-forward"
     [ngStyle]="{ top: nextMonthButtonPosition.top, left: nextMonthButtonPosition.left }">
-    <button mat-icon-button [attr.aria-label]="'Timeline.nextMonth' | translate" (click)="changeStartDateToNextMonth()">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Timeline.nextMonth' | translate"
+      (click)="changeStartDateToNextMonth()">
       <mat-icon>arrow_forward</mat-icon>
     </button>
   </yata-timeline-header>
+</div>
+<div class="timeline-headers-row">
   <yata-dates-filter
     [startDate]="startDate"
     [endDate]="endDate"
     (changeStartDate)="changeStartDate.next($event)"
     (changeEndDate)="changeEndDate.next($event)"></yata-dates-filter>
-  <yata-timeline-header *ngFor="let header of headers">
+  <yata-timeline-header *ngFor="let header of headers" class="timeline-header-date">
     <yata-title>{{ header.dayOfWeek }}</yata-title>
     <yata-subtitle>{{ header.date }}</yata-subtitle>
+    <div *ngIf="highlight?.date === header.date" class="highlighted-date-wrapper">
+      <div class="highlighted-date" [ngStyle]="{ height: highlight?.height }"></div>
+    </div>
   </yata-timeline-header>
 </div>
 <yata-timeline-content
