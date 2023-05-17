@@ -1,0 +1,79 @@
+{
+  "AddTaskModal": {
+    "description": "Opis",
+    "endDate": "Data zakończenia",
+    "modalTitle": "Dodaj nowe zadanie",
+    "startDate": "Data rozpoczęcia",
+    "state": "Stan",
+    "submit": "Zapisz",
+    "title": "Tytuł"
+  },
+  "App": {
+    "title": "ヤタ YATA - Yet Another Todo App"
+  },
+  "AppFooter": {
+    "madeBy": "Autor aplikacji: Krzysztof Pająk \"Chris Araneo\""
+  },
+  "COMPLETED": "Zadanie wykonane",
+  "DatesFilter": {
+    "endDate": "Data zakończenia",
+    "startDate": "Data rozpoczęcia"
+  },
+  "DeleteTaskModal": {
+    "delete": "Usuń",
+    "emptyCaption": "Brak zadań do usunięcia",
+    "emptyHint": "Najpierw utwórz zadania, aby móc je później usunąć",
+    "modalTitle": "Usuń zadanie",
+    "selectTask": "Zadanie do usunięcia"
+  },
+  "EditTaskModal": {
+    "description": "Opis",
+    "emptyCaption": "Brak zadań do edycji",
+    "emptyHint": "Najpierw utwórz zadania, aby móc je później edytować",
+    "endDate": "Data zakończenia",
+    "modalTitle": "Edytuj zadanie",
+    "saveChanges": "Zapisz zmiany",
+    "selectTask": "Zadanie do edycji",
+    "startDate": "Data rozpoczęcia",
+    "state": "Stan",
+    "title": "Tytuł"
+  },
+  "IN_PROGRESS": "Zadanie w toku",
+  "NOT_STARTED": "Zadanie nierozpoczęte",
+  "REJECTED": "Zadanie odrzucone",
+  "SUSPENDED": "Zadanie zawieszone",
+  "SearchBar": {
+    "searchTasks": "Wyszukaj zadania"
+  },
+  "SideNavigation": {
+    "addTask": "Dodaj zadanie",
+    "deleteTask": "Usuń zadanie",
+    "editTask": "Edytuj zadanie",
+    "tableView": "Widok tabeli",
+    "timelineView": "Widok osi czasu"
+  },
+  "SignInModal": {
+    "modalTitle": "Zaloguj się",
+    "password": "Hasło",
+    "signIn": "Zaloguj się",
+    "username": "Nazwa użytkownika"
+  },
+  "Table": {
+    "creationDate": "Data utworzenia",
+    "description": "Opis",
+    "endDate": "Data zakończenia",
+    "id": "ID",
+    "paginatorLabel": "Wybierz stronę z zadaniami",
+    "startDate": "Data rozpoczecia",
+    "state": "Stan",
+    "title": "Tytuł"
+  },
+  "Timeline": {
+    "nextMonth": "Następny miesiąc",
+    "previousMonth": "Poprzedni miesiąc"
+  },
+  "Toolbar": {
+    "githubIcon": "Ikona Github",
+    "menuIcon": "Ikona menu"
+  }
+}
