@@ -29,10 +29,12 @@
   <yata-timeline-header *ngFor="let header of headers" class="timeline-header-date">
     <yata-title>{{ header.dayOfWeek }}</yata-title>
     <yata-subtitle>{{ header.date }}</yata-subtitle>
-    <div *ngIf="highlight?.date === header.date" class="highlighted-date-wrapper">
-      <div class="highlighted-date" [ngStyle]="{ height: highlight?.height }"></div>
-    </div>
   </yata-timeline-header>
+</div>
+<div *ngIf="highlight" class="highlighted-date-wrapper">
+  <div
+    class="highlighted-date"
+    [ngStyle]="{ left: highlight?.left, height: highlight?.height }"></div>
 </div>
 <yata-timeline-content
   *ngIf="startDate && endDate"

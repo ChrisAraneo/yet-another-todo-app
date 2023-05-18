@@ -20,7 +20,7 @@ import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 type Highlight = {
   // TODO Move to types file
-  date: string;
+  left: string;
   height: string;
 } | null;
 
@@ -122,12 +122,15 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
   private updateHighlightedColumn(date: Date): void {
     if (this.startDate && this.endDate && +date >= +this.startDate && +date <= +this.endDate) {
+      const left = `${
+        (this.dateUtils.getNumberOfDaysBetweenDates(date, this.startDate) + 1) * UNIT * 3
+      }px`;
       const height = this.elementRef?.nativeElement
-        ? `${this.elementRef.nativeElement.clientHeight - UNIT}px`
+        ? `${this.elementRef.nativeElement.clientHeight}px`
         : '0';
 
       this.highlight = {
-        date: this.dateUtils.formatDate(date, 'dd-MM-yyyy'),
+        left,
         height,
       };
     } else {

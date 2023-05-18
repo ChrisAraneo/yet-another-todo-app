@@ -37,15 +37,20 @@
 }
 
 .highlighted-date-wrapper {
-  width: 100%;
+  position: sticky;
+  top: 0;
+  width: 0;
   height: 0;
   overflow-y: visible;
+  overflow-x: visible;
 }
 
 .highlighted-date {
-  margin-top: 11px;
+  position: relative;
+  width: 3 * $unit;
+  margin-top: 0;
   background-color: $primary-color;
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 .arrow-back {
