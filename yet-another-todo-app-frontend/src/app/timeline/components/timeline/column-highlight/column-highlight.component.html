@@ -1,1 +1,3 @@
-<p>column-highlight works!</p>
+<div
+  *ngIf="highlightedDate && startDate && endDate && left && height"
+  [ngStyle]="{ left: left, height: height }"></div>

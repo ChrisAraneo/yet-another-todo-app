@@ -18,12 +18,6 @@ import { UNIT } from 'src/app/shared/styles/theme';
 import { StartedTask } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
-type Highlight = {
-  // TODO Move to types file
-  left: string;
-  height: string;
-} | null;
-
 @Component({
   selector: 'yata-timeline',
   templateUrl: './timeline.component.html',
@@ -36,11 +30,13 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   @Output() changeStartDate = new EventEmitter<Date>();
   @Output() changeEndDate = new EventEmitter<Date>();
 
+  readonly today = new Date();
+
   tasks!: Observable<StartedTask[]>;
   headers: TimelineHeader[] = [];
   previousMonthButtonPosition!: ElementPosition;
   nextMonthButtonPosition!: ElementPosition;
-  highlight: Highlight = null;
+  columnHighlightHeight: string = '0px';
 
   private observer!: ResizeObserver;
 
@@ -79,7 +75,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
       this.updateTasks(currentStartDate, currentEndDate);
       this.updateTimelineHeaders(currentStartDate, currentEndDate);
-      this.updateHighlightedColumn(new Date());
+      this.updateColumnHighlightHeight();
     }
   }
 
@@ -120,22 +116,10 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
     };
   }
 
-  private updateHighlightedColumn(date: Date): void {
-    if (this.startDate && this.endDate && +date >= +this.startDate && +date <= +this.endDate) {
-      const left = `${
-        (this.dateUtils.getNumberOfDaysBetweenDates(date, this.startDate) + 1) * UNIT * 3
-      }px`;
-      const height = this.elementRef?.nativeElement
-        ? `${this.elementRef.nativeElement.clientHeight}px`
-        : '0';
-
-      this.highlight = {
-        left,
-        height,
-      };
-    } else {
-      this.highlight = null;
-    }
+  private updateColumnHighlightHeight(): void {
+    this.columnHighlightHeight = this.elementRef?.nativeElement
+      ? `${this.elementRef.nativeElement.clientHeight}px`
+      : '0';
   }
 
   private initializeResizeObserver(): void {
@@ -150,7 +134,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
           width: contentRect.width,
           height: contentRect.height,
         });
-        this.updateHighlightedColumn(new Date());
+        this.updateColumnHighlightHeight();
       });
     });
 

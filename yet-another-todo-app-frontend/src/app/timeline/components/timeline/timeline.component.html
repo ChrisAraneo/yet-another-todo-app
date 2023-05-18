@@ -31,11 +31,12 @@
     <yata-subtitle>{{ header.date }}</yata-subtitle>
   </yata-timeline-header>
 </div>
-<div *ngIf="highlight" class="highlighted-date-wrapper">
-  <div
-    class="highlighted-date"
-    [ngStyle]="{ left: highlight?.left, height: highlight?.height }"></div>
-</div>
+<yata-column-highlight
+  [startDate]="startDate"
+  [endDate]="endDate"
+  [highlightedDate]="today"
+  [height]="columnHighlightHeight">
+</yata-column-highlight>
 <yata-timeline-content
   *ngIf="startDate && endDate"
   [startDate]="startDate"

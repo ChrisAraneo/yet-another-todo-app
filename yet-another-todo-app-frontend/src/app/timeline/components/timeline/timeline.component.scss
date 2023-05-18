@@ -36,23 +36,6 @@
   }
 }
 
-.highlighted-date-wrapper {
-  position: sticky;
-  top: 0;
-  width: 0;
-  height: 0;
-  overflow-y: visible;
-  overflow-x: visible;
-}
-
-.highlighted-date {
-  position: relative;
-  width: 3 * $unit;
-  margin-top: 0;
-  background-color: $primary-color;
-  opacity: 0.25;
-}
-
 .arrow-back {
   background: url('../../../../assets/images/timeline-arrow-button-back.png');
 }
