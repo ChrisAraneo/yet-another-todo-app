@@ -5,25 +5,25 @@
   <table mat-table [dataSource]="filteredData">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.id' | translate }}</yata-title>
+        <span>{{ 'Table.id' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.shortId }}</td>
     </ng-container>
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.title' | translate }}</yata-title>
+        <span>{{ 'Table.title' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.title }}</td>
     </ng-container>
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.description' | translate }}</yata-title>
+        <span>{{ 'Table.description' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.description }}</td>
     </ng-container>
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.state' | translate }}</yata-title>
+        <span>{{ 'Table.state' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">
         <yata-task-state-icon
@@ -34,13 +34,13 @@
     </ng-container>
     <ng-container matColumnDef="creationDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.creationDate' | translate }}</yata-title>
+        <span>{{ 'Table.creationDate' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">{{ element.creationDate }}</td>
     </ng-container>
     <ng-container matColumnDef="startDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.startDate' | translate }}</yata-title>
+        <span>{{ 'Table.startDate' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.startDate }}
@@ -48,7 +48,7 @@
     </ng-container>
     <ng-container matColumnDef="endDate">
       <th mat-header-cell *matHeaderCellDef>
-        <yata-title>{{ 'Table.endDate' | translate }}</yata-title>
+        <span>{{ 'Table.endDate' | translate }}</span>
       </th>
       <td mat-cell *matCellDef="let element">
         {{ element.endDate }}

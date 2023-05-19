@@ -26,6 +26,10 @@ th.cdk-header-cell {
   box-sizing: border-box;
   height: $unit;
   border-bottom: $border;
+
+  span {
+    font-weight: 500;
+  }
 }
 
 .mat-mdc-table .mdc-data-table__row {
