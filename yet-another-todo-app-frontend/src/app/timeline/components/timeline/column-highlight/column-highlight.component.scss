@@ -11,7 +11,7 @@
 
 div {
   position: relative;
-  width: 3 * $unit;
+  width: $column-width;
   margin-top: 0;
   background-color: $primary-color;
   opacity: 0.25;

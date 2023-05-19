@@ -2,7 +2,7 @@
 
 :host {
   box-sizing: border-box;
-  width: $unit * 3;
+  width: $column-width;
   height: $unit;
   display: flex;
   flex-direction: column;
