@@ -39,3 +39,33 @@ th.cdk-header-cell {
 .searchbar-wrapper {
   padding: math.div($unit, 4) math.div($unit, 4) 0 math.div($unit, 4);
 }
+
+.mat-column-id {
+  min-width: 85px;
+  max-width: 85px;
+}
+
+.mat-column-title {
+  min-width: 200px;
+}
+
+.mat-column-description {
+  min-width: 400px;
+}
+
+.mat-column-state {
+  min-width: 64px;
+  max-width: 64px;
+}
+
+.mat-column-creationDate,
+.mat-column-startDate,
+.mat-column-endDate {
+  min-width: 110px;
+  max-width: 110px;
+}
+
+.mat-column-actions {
+  min-width: 132px;
+  max-width: 132px;
+}
