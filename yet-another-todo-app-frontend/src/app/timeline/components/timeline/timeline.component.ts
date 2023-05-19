@@ -118,7 +118,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
   private updateColumnHighlightHeight(): void {
     this.columnHighlightHeight = this.elementRef?.nativeElement
-      ? `${this.elementRef.nativeElement.clientHeight}px`
+      ? `${this.elementRef.nativeElement.clientHeight + 1}px`
       : '0';
   }
 
