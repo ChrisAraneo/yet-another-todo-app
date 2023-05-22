@@ -64,6 +64,7 @@
     "endDate": "End date",
     "id": "ID",
     "paginatorLabel": "Select page of tasks",
+    "sortById": "Sort by ID",
     "startDate": "Start date",
     "state": "State",
     "title": "Title"

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Subscription, map } from 'rxjs';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
@@ -28,10 +29,11 @@ export class TableComponent implements OnInit, OnDestroy {
     'actions',
   ];
 
-  data: MatTableDataSource<TasksDataSource> | undefined;
-  filteredData: MatTableDataSource<TasksDataSource> | undefined; // TODO Refactor searching into observables
-  search = new BehaviorSubject<string>('');
+  data: MatTableDataSource<TasksDataSource> | undefined; // TODO Refactor searching into observables
 
+  private _data = new BehaviorSubject<MatTableDataSource<TasksDataSource> | undefined>(undefined);
+  private search = new BehaviorSubject<string>('');
+  private sort = new BehaviorSubject<Sort>({ active: '', direction: 'asc' });
   private subscription!: Subscription;
 
   constructor(
@@ -41,44 +43,26 @@ export class TableComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.tasksService
+    const tasks = this.tasksService
       .getTasks()
-      .pipe(map((tasks) => this.mapToTasksDataSource(tasks)))
-      .subscribe((tasks) => {
-        this.data = new MatTableDataSource<TasksDataSource>(tasks);
-        this.filteredData = this.data;
+      .pipe(map((tasks) => this.mapToTasksDataSource(tasks)));
 
-        if (!!this.paginator) {
-          this.data.paginator = this.paginator;
-          this.filteredData.paginator = this.paginator;
-        }
-      });
+    const tasksSubscription = tasks.subscribe((tasks) => {
+      this.updateTableDataSource(this.search.getValue(), this.sort.getValue(), tasks);
+    });
 
-    this.subscription.add(
-      this.search.subscribe((text) => {
-        if (text === '' && this.data) {
-          this.filteredData = this.data;
+    const sortingSubscription = this.sort.subscribe((sort: Sort) => {
+      this.updateTableDataSource(this.search.getValue(), sort);
+    });
 
-          if (!!this.paginator) {
-            this.filteredData.paginator = this.paginator;
-          }
+    const searchSubscription = this.search.subscribe((search: string) => {
+      this.updateTableDataSource(search, this.sort.getValue());
+    });
 
-          return;
-        }
-
-        this.filteredData = new MatTableDataSource<TasksDataSource>(
-          this.data?.data.filter((item) => {
-            const stringified = this.taskToString(item);
-
-            return stringified.includes(text.toLocaleLowerCase());
-          }),
-        );
-
-        if (!!this.paginator) {
-          this.filteredData.paginator = this.paginator;
-        }
-      }),
-    );
+    this.subscription = new Subscription();
+    this.subscription.add(tasksSubscription);
+    this.subscription.add(sortingSubscription);
+    this.subscription.add(searchSubscription);
   }
 
   ngOnDestroy(): void {
@@ -103,6 +87,10 @@ export class TableComponent implements OnInit, OnDestroy {
     this.search.next(text);
   }
 
+  changeSort(sort: Sort): void {
+    this.sort.next(sort);
+  }
+
   private mapToTasksDataSource(tasks: Task[]): TasksDataSource[] {
     return tasks.map((task: Task) => {
       return {
@@ -116,6 +104,30 @@ export class TableComponent implements OnInit, OnDestroy {
         endDate: task instanceof EndedTask ? this.formatDate(task.getEndDate()) : '-',
       };
     });
+  }
+
+  private updateTableDataSource(search: string, sorting: Sort, tasks?: TasksDataSource[]): void {
+    const array: TasksDataSource[] = tasks ? tasks : this._data.getValue()?.data || [];
+
+    const filteredArray: TasksDataSource[] = array.filter((item) => {
+      const stringified = this.taskToString(item);
+
+      return stringified.includes(search.toLocaleLowerCase());
+    });
+
+    const filteredAndSortedArray: TasksDataSource[] = filteredArray.sort((a, b) => {
+      // return `${a[sortKey]}`.localeCompare(b[sortKey] as string);
+
+      return 0; // TODO FInish sorting implementation
+    });
+
+    this.data = new MatTableDataSource<TasksDataSource>(filteredAndSortedArray);
+
+    if (!!this.paginator) {
+      this.data.paginator = this.paginator;
+    }
+
+    this._data.next(this.data);
   }
 
   private formatDate(date: Date): string {

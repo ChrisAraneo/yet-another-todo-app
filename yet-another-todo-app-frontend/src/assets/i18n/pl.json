@@ -64,6 +64,7 @@
     "endDate": "Data zakończenia",
     "id": "ID",
     "paginatorLabel": "Wybierz stronę z zadaniami",
+    "sortById": "Sortuj po ID",
     "startDate": "Data rozpoczecia",
     "state": "Stan",
     "title": "Tytuł"
