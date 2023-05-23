@@ -82,6 +82,8 @@ export class DateUtilsService {
         return enGB;
       case 'pl-PL':
         return pl;
+      case 'pl':
+        return pl;
       default:
         console.error(`Date utils service doesn't support users locale: ${resolvedLanguage}`);
 
