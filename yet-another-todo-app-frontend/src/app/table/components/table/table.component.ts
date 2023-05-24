@@ -58,8 +58,8 @@ export class TableComponent implements OnInit, OnDestroy {
       this.updateTableDataSource(this.search.getValue(), sort);
     });
 
-    const searchSubscription = this.search.subscribe((search: string) => {
-      this.updateTableDataSource(search, this.sort.getValue());
+    const searchSubscription = this.search.subscribe((text: string) => {
+      this.updateTableDataSource(text, this.sort.getValue());
     });
 
     this.subscription = new Subscription();
@@ -86,8 +86,10 @@ export class TableComponent implements OnInit, OnDestroy {
     this.tasksService.hideTask(taskId);
   }
 
-  onSearch(text: string): void {
-    this.search.next(text);
+  onSearch(event: unknown): void {
+    if (typeof event === 'string') {
+      this.search.next(event);
+    }
   }
 
   changeSort(sort: Sort): void {
