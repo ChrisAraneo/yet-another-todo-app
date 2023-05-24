@@ -7,7 +7,9 @@ import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
-import { TasksDataSource } from './table.types';
+import { TasksSorterService } from '../../services/tasks-sorter/tasks-sorter.service';
+import { SortActive } from '../../services/tasks-sorter/tasks-sorter.types';
+import { TasksDataSource } from '../../table.types';
 
 @Component({
   selector: 'yata-table',
@@ -40,6 +42,7 @@ export class TableComponent implements OnInit, OnDestroy {
     private tasksService: TasksService,
     private dateUtilsService: DateUtilsService,
     private dialogService: DialogService,
+    private tasksSorterService: TasksSorterService,
   ) {}
 
   ngOnInit(): void {
@@ -110,15 +113,12 @@ export class TableComponent implements OnInit, OnDestroy {
     const array: TasksDataSource[] = tasks ? tasks : this._data.getValue()?.data || [];
 
     const filteredArray: TasksDataSource[] = array.filter((item) => {
-      const stringified = this.taskToString(item);
-
-      return stringified.includes(search.toLocaleLowerCase());
+      return this.taskToString(item).includes(search.toLocaleLowerCase());
     });
 
-    const filteredAndSortedArray: TasksDataSource[] = filteredArray.sort((a, b) => {
-      // return `${a[sortKey]}`.localeCompare(b[sortKey] as string);
-
-      return 0; // TODO FInish sorting implementation
+    const filteredAndSortedArray: TasksDataSource[] = this.tasksSorterService.sort(filteredArray, {
+      active: sorting.active as SortActive,
+      direction: sorting.direction,
     });
 
     this.data = new MatTableDataSource<TasksDataSource>(filteredAndSortedArray);

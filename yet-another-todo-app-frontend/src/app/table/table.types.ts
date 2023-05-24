@@ -1,4 +1,4 @@
-import { TaskState } from '../../../shared/models/task-state.model';
+import { TaskState } from '../shared/models/task-state.model';
 
 export type TasksDataSource = {
   id: string;
