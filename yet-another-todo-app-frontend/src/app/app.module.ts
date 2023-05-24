@@ -30,6 +30,7 @@ import { TaskEffects } from './shared/store/effects/task.effects';
 import { tasksReducer } from './shared/store/reducers/task.reducer';
 import { userReducer } from './shared/store/reducers/user.reducer';
 import { SideNavigationModule } from './side-navigation/side-navigation.module';
+import { TasksSorterService } from './table/services/tasks-sorter/tasks-sorter.service';
 import { TableModule } from './table/table.module';
 import { TimelineModule } from './timeline/timeline.module';
 
@@ -81,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AuthService,
     TaskStateTranslatorService,
     TaskCreatorService,
+    TasksSorterService,
   ],
   bootstrap: [AppComponent],
 })
