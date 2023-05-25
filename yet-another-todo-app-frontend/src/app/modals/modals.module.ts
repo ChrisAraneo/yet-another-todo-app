@@ -17,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
+import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     DeleteTaskModalComponent,
     EditTaskModalComponent,
     SignInModalComponent,
+    ExportTasksModalComponent,
   ],
   imports: [
     SharedModule,
