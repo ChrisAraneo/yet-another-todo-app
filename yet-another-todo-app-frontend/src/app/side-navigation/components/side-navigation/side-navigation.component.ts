@@ -94,7 +94,7 @@ export class SideNavigationComponent implements OnChanges {
       icon: 'folder_zip',
       label: 'SideNavigation.exportTasks',
       click: (): void => {
-        alert('TODO');
+        this.dialogService.openExportTasksModal();
       },
     };
 
