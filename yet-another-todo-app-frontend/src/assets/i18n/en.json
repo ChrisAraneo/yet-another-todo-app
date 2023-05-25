@@ -49,6 +49,8 @@
     "addTask": "Add task",
     "deleteTask": "Delete task",
     "editTask": "Edit task",
+    "exportTasks": "Export tasks",
+    "importTasks": "Import tasks",
     "tableView": "Table view",
     "timelineView": "Timeline view"
   },

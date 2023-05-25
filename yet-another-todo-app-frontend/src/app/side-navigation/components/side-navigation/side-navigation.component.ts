@@ -90,10 +90,26 @@ export class SideNavigationComponent implements OnChanges {
       },
     };
 
+    const exportTasks = {
+      icon: 'folder_zip',
+      label: 'SideNavigation.exportTasks',
+      click: (): void => {
+        alert('TODO');
+      },
+    };
+
+    const importTasks = {
+      icon: 'drive_folder_upload',
+      label: 'SideNavigation.importTasks',
+      click: (): void => {
+        alert('TODO');
+      },
+    };
+
     if (mode === AppMode.Timeline) {
-      this.items = [showTable, addTask, editTask, deleteTask];
+      this.items = [showTable, addTask, editTask, deleteTask, exportTasks, importTasks];
     } else if (mode === AppMode.Table) {
-      this.items = [showTimeline, addTask, editTask, deleteTask];
+      this.items = [showTimeline, addTask, editTask, deleteTask, exportTasks, importTasks];
     } else {
       throw Error(`Cannot set side navigation items, the app mode is invalid: ${mode}`);
     }

@@ -49,6 +49,8 @@
     "addTask": "Dodaj zadanie",
     "deleteTask": "Usuń zadanie",
     "editTask": "Edytuj zadanie",
+    "exportTasks": "Eksportuj zadania",
+    "importTasks": "Importuj zadania",
     "tableView": "Widok tabeli",
     "timelineView": "Widok osi czasu"
   },
