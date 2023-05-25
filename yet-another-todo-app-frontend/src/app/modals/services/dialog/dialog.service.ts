@@ -6,6 +6,7 @@ import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +28,10 @@ export class DialogService {
 
   openSignInModal(): void {
     this.openDialog(SignInModalComponent);
+  }
+
+  openExportTasksModal(): void {
+    this.openDialog(ExportTasksModalComponent);
   }
 
   private openDialog(component: ComponentType<any>, data?: object): void {

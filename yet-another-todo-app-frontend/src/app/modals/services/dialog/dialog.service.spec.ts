@@ -18,6 +18,7 @@ import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/si
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
+import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
@@ -104,6 +105,17 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(SignInModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: SignInModalComponent.PANEL_CLASS,
+    });
+  });
+
+  it('#openExportTasksModal should open dialog with ExportTasksModalComponent', () => {
+    spyOn(matDialog, 'open').and.callThrough();
+
+    service.openExportTasksModal();
+
+    expect(matDialog.open).toHaveBeenCalledWith(ExportTasksModalComponent, {
+      width: DIALOG_WIDTH,
+      panelClass: ExportTasksModalComponent.PANEL_CLASS,
     });
   });
 });
