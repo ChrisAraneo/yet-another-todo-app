@@ -1,6 +1,10 @@
 <yata-title class="modal-title">{{ 'ExportTasksModal.modalTitle' | translate }}</yata-title>
-<form>
-  <button mat-flat-button color="primary">
+<form *ngIf="(tasks | async) || [] as _tasks" (submit)="$event.preventDefault()">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="$event.preventDefault(); export(_tasks)"
+    [disabled]="isLoading">
     {{ 'ExportTasksModal.submit' | translate }}
   </button>
 </form>
