@@ -38,6 +38,10 @@
     "state": "State",
     "title": "Title"
   },
+  "ExportTasksModal": {
+    "modalTitle": "Export tasks",
+    "submit": "Export"
+  },
   "IN_PROGRESS": "Task in progress",
   "NOT_STARTED": "Task not started",
   "REJECTED": "Task is rejected",
