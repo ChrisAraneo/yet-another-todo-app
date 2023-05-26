@@ -14,6 +14,7 @@ import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TasksService } from './services/tasks/tasks.service';
+import { UnzipTasksService } from './services/unzip-tasks/unzip-tasks.service';
 import { UserService } from './services/user/user.service';
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TasksService,
     UserService,
     ZipTasksService,
+    UnzipTasksService,
   ],
   exports: [EmptyInfoBoxComponent, TaskStateIconComponent, TitleComponent, SubtitleComponent],
 })
