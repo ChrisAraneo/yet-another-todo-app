@@ -17,7 +17,7 @@ type FileContent = {
 export class ZipTasksService {
   constructor(private dateUtilsService: DateUtilsService) {}
 
-  async zip(tasks: Task[], password: string): Promise<any> {
+  async zip(tasks: Task[], password: string): Promise<void> {
     const zip = new JSZip();
 
     const creationDate = new Date();
@@ -29,7 +29,7 @@ export class ZipTasksService {
 
     zip.file('tasks.txt', this.encrypt(JSON.stringify(fileContent), password));
 
-    return zip.generateAsync({ type: 'blob' }).then((blob) => {
+    return zip.generateAsync({ type: 'blob' }).then((blob: Blob) => {
       FileSaver.saveAs(
         blob,
         `yata-tasks-${this.dateUtilsService.formatDate(creationDate, 'yyyy-MM-dd-kkmmss')}.zip`,
