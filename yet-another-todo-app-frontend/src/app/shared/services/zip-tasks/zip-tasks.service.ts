@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
-import CryptoJS from 'crypto-js';
+import CryptoAES from 'crypto-js/aes';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import { Task } from '../../models/task.model';
+import { ZipFileContent } from '../../models/zip-file-content.model';
 import { DateUtilsService } from '../date-utils/date-utils.service';
-
-// TODO Move to separate file
-type FileContent = {
-  creationDate: Date;
-  tasks: Task[];
-};
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +17,7 @@ export class ZipTasksService {
 
     const creationDate = new Date();
 
-    const fileContent: FileContent = {
+    const fileContent: ZipFileContent = {
       creationDate,
       tasks,
     };
@@ -39,6 +34,6 @@ export class ZipTasksService {
 
   // TODO Extract to new service
   private encrypt(text: string, password: string): string {
-    return CryptoJS.AES.encrypt(text, password).toString();
+    return CryptoAES.encrypt(text, password).toString();
   }
 }
