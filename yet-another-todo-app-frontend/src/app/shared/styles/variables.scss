@@ -24,6 +24,7 @@ $theme: mat.define-light-theme(
 );
 
 $primary-color: mat.get-color-from-palette($theme-primary, 600);
+$warn-color: mat.get-color-from-palette($theme-warn, 600);
 
 $border-color: black;
 $border: 1px solid $border-color;
