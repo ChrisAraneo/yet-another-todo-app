@@ -1,1 +1,12 @@
-<p>import-tasks-modal works!</p>
+<yata-title class="modal-title">{{ 'ImportTasksModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form" (submit)="$event.preventDefault()">
+  <yata-file-input
+    [formControlName]="'file'"
+    [label]="'ImportTasksModal.file' | translate"></yata-file-input>
+  <yata-password-input
+    [formControlName]="'password'"
+    [label]="'ImportTasksModal.password' | translate"></yata-password-input>
+  <button mat-flat-button color="primary" (click)="submit($event)">
+    {{ 'ImportTasksModal.submit' | translate }}
+  </button>
+</form>

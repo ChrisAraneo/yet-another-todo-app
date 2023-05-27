@@ -19,6 +19,7 @@ import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
+import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
@@ -116,6 +117,17 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ExportTasksModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ExportTasksModalComponent.PANEL_CLASS,
+    });
+  });
+
+  it('#openImportTasksModal should open dialog with ImportTasksModalComponent', () => {
+    spyOn(matDialog, 'open').and.callThrough();
+
+    service.openImportTasksModal();
+
+    expect(matDialog.open).toHaveBeenCalledWith(ImportTasksModalComponent, {
+      width: DIALOG_WIDTH,
+      panelClass: ImportTasksModalComponent.PANEL_CLASS,
     });
   });
 });
