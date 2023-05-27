@@ -102,7 +102,7 @@ export class SideNavigationComponent implements OnChanges {
       icon: 'drive_folder_upload',
       label: 'SideNavigation.importTasks',
       click: (): void => {
-        alert('TODO');
+        this.dialogService.openImportTasksModal();
       },
     };
 
