@@ -1,0 +1,16 @@
+@use 'sass:math';
+@import '../../../shared/styles/variables.scss';
+
+label {
+  display: block;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  padding: 0 2px;
+  margin: 0;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  background-color: transparent;
+  color: black;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
