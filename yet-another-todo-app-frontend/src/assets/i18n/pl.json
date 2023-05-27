@@ -39,7 +39,11 @@
     "title": "Tytuł"
   },
   "ExportTasksModal": {
+    "matchOtherError": "Wprowadzono różne hasła.",
+    "minLengthError": "Hasło musi mieć długość przynajmniej {{ 0 }} znaków.",
     "modalTitle": "Eksportuj zadania",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło",
     "submit": "Eksportuj"
   },
   "IN_PROGRESS": "Zadanie w toku",

@@ -1,10 +1,25 @@
 <yata-title class="modal-title">{{ 'ExportTasksModal.modalTitle' | translate }}</yata-title>
-<form *ngIf="(tasks | async) || [] as _tasks" (submit)="$event.preventDefault()">
+<form
+  [formGroup]="form"
+  *ngIf="(!!form && (tasks | async)) || [] as _tasks"
+  (submit)="$event.preventDefault()">
+  <yata-password-input
+    [formControlName]="'password'"
+    [label]="'ExportTasksModal.password' | translate"></yata-password-input>
+  <span class="error-label" *ngIf="getError('password', 'minlength') as minLength">
+    {{ 'ExportTasksModal.minLengthError' | translate : { '0': MIN_LENGTH } }}
+  </span>
+  <yata-password-input
+    [formControlName]="'repeatPassword'"
+    [label]="'ExportTasksModal.repeatPassword' | translate"></yata-password-input>
+  <span class="error-label" *ngIf="getError('repeatPassword', 'matchOther') as matchOther">
+    {{ 'ExportTasksModal.matchOtherError' | translate }}
+  </span>
   <button
     mat-flat-button
     color="primary"
-    (click)="$event.preventDefault(); export(_tasks)"
-    [disabled]="isLoading">
+    (click)="submit($event, _tasks)"
+    [disabled]="isLoading || form.invalid">
     {{ 'ExportTasksModal.submit' | translate }}
   </button>
 </form>

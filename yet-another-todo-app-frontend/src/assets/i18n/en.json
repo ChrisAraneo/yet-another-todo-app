@@ -39,7 +39,11 @@
     "title": "Title"
   },
   "ExportTasksModal": {
+    "matchOtherError": "Passwords do not match.",
+    "minLengthError": "Password must be at least {{ 0 }} symbols long.",
     "modalTitle": "Export tasks",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
     "submit": "Export"
   },
   "IN_PROGRESS": "Task in progress",
