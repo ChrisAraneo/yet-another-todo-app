@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
@@ -16,7 +17,7 @@ import { TextareaComponent } from './components/textarea/textarea.component';
     PasswordInputComponent,
     FileInputComponent,
   ],
-  imports: [BrowserModule],
+  imports: [BrowserModule, MatButtonModule],
   providers: [],
   exports: [
     DatePickerComponent,
@@ -24,6 +25,7 @@ import { TextareaComponent } from './components/textarea/textarea.component';
     TextInputComponent,
     TextareaComponent,
     PasswordInputComponent,
+    FileInputComponent,
   ],
 })
 export class FormsModule {}
