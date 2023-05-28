@@ -47,6 +47,13 @@
     "submit": "Export"
   },
   "IN_PROGRESS": "Task in progress",
+  "ImportTasksModal": {
+    "file": "Select zip file",
+    "modalTitle": "Import tasks",
+    "password": "Password",
+    "submit": "Import",
+    "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and matching password."
+  },
   "NOT_STARTED": "Task not started",
   "REJECTED": "Task is rejected",
   "SUSPENDED": "Task is suspended",

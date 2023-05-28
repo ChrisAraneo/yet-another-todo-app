@@ -47,6 +47,13 @@
     "submit": "Eksportuj"
   },
   "IN_PROGRESS": "Zadanie w toku",
+  "ImportTasksModal": {
+    "file": "Wybierz plik zip",
+    "modalTitle": "Importuj zadania",
+    "password": "Hasło",
+    "submit": "Importuj",
+    "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i pasujące hasło."
+  },
   "NOT_STARTED": "Zadanie nierozpoczęte",
   "REJECTED": "Zadanie odrzucone",
   "SUSPENDED": "Zadanie zawieszone",
