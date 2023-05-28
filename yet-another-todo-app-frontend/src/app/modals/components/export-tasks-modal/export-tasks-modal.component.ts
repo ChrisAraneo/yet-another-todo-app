@@ -67,11 +67,11 @@ export class ExportTasksModalComponent {
       repeatPassword: new FormControl('', { nonNullable: true }),
     });
 
-    this.form.controls.password.addValidators([
+    this.form.controls['password'].addValidators([
       Validators.required,
       Validators.minLength(this.MIN_LENGTH),
     ]);
-    this.form.controls.repeatPassword.addValidators([
+    this.form.controls['repeatPassword'].addValidators([
       Validators.required,
       matchOtherValidator('password'),
     ]);
