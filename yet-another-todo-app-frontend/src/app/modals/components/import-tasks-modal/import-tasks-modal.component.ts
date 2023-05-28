@@ -13,6 +13,7 @@ export class ImportTasksModalComponent {
   static readonly PANEL_CLASS = 'import-tasks-modal';
 
   form!: FormGroup<ImportTasksForm>;
+  unzipError?: Error;
 
   constructor(
     public dialogRef: MatDialogRef<ImportTasksModalComponent>,
@@ -30,13 +31,19 @@ export class ImportTasksModalComponent {
     if (this.form.valid) {
       const { file, password } = this.form.value;
 
-      this.unzipTasksService.unzip(file as ArrayBuffer, password || '').then((result) => {
-        console.log('UNZIP RESULT', result);
+      this.unzipTasksService
+        .unzip(file as ArrayBuffer, password || '')
+        .then((result) => {
+          console.log('UNZIP RESULT', result);
 
-        // TODO Store unzipped content
+          // TODO Store unzipped content
 
-        this.dialogRef.close();
-      });
+          this.dialogRef.close();
+        })
+        .catch((error: Error) => {
+          this.unzipError = error;
+          console.error(error);
+        });
     }
   }
 

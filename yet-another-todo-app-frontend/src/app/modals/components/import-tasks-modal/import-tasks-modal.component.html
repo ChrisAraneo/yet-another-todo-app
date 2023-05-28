@@ -6,6 +6,9 @@
   <yata-password-input
     [formControlName]="'password'"
     [label]="'ImportTasksModal.password' | translate"></yata-password-input>
+  <span class="error-label" *ngIf="unzipError">
+    {{ 'ImportTasksModal.unzipError' | translate }}
+  </span>
   <button mat-flat-button color="primary" (click)="submit($event)">
     {{ 'ImportTasksModal.submit' | translate }}
   </button>
