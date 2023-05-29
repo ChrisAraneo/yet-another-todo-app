@@ -1,6 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable, first } from 'rxjs';
 import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/add-task-modal.component';
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
@@ -36,14 +37,20 @@ export class DialogService {
   }
 
   openImportTasksModal(): void {
-    this.openDialog(ImportTasksModalComponent);
+    this.openDialog(ImportTasksModalComponent)
+      .pipe(first())
+      .subscribe((result) => {
+        console.log('TODO Handle result', result);
+      });
   }
 
-  private openDialog(component: ComponentType<any>, data?: object): void {
-    this.dialog.open(component, {
-      width: DIALOG_WIDTH,
-      panelClass: (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
-      ...(data ? { data: { ...data } } : {}),
-    });
+  private openDialog(component: ComponentType<any>, data?: object): Observable<any> {
+    return this.dialog
+      .open(component, {
+        width: DIALOG_WIDTH,
+        panelClass: (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
+        ...(data ? { data: { ...data } } : {}),
+      })
+      .afterClosed();
   }
 }

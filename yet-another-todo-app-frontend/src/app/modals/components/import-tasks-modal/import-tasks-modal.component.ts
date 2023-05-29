@@ -34,11 +34,7 @@ export class ImportTasksModalComponent {
       this.unzipTasksService
         .unzip(file as ArrayBuffer, password || '')
         .then((result) => {
-          console.log('UNZIP RESULT', result);
-
-          // TODO Store unzipped content
-
-          this.dialogRef.close();
+          this.dialogRef.close(result);
         })
         .catch((error: Error) => {
           this.unzipError = error;
