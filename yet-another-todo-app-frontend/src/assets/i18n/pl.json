@@ -60,6 +60,13 @@
   "SearchBar": {
     "searchTasks": "Wyszukaj zadania"
   },
+  "SelectImportActionModal": {
+    "ADD_NEW_AND_SKIP_EXISTING": "Dodaj nowe zadania do listy. Pomiń te, które już są na liście.",
+    "ADD_NEW_AND_UPDATE_EXISTING": "Dodaj nowe zadania do listy i zaktualizuj te zadania, które już są na liście.",
+    "REPLACE_DATA_SET": "Usuń wszystkie zapisane do tej pory zadania, a następnie dodaj wszystkie zadania z pliku.",
+    "modalTitle": "Wybierz akcję",
+    "submit": "Kontynuuj"
+  },
   "SideNavigation": {
     "addTask": "Dodaj zadanie",
     "deleteTask": "Usuń zadanie",

@@ -60,6 +60,13 @@
   "SearchBar": {
     "searchTasks": "Search tasks"
   },
+  "SelectImportActionModal": {
+    "ADD_NEW_AND_SKIP_EXISTING": "Add new tasks to the list. If some of them already exist then skip them.",
+    "ADD_NEW_AND_UPDATE_EXISTING": "Add new tasks to the list and update existing ones.",
+    "REPLACE_DATA_SET": "Delete all tasks saved so far and then add all tasks from the file.",
+    "modalTitle": "Select action",
+    "submit": "Continue"
+  },
   "SideNavigation": {
     "addTask": "Add task",
     "deleteTask": "Delete task",
