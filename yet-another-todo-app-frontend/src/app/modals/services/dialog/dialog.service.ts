@@ -9,6 +9,7 @@ import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/si
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
+import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class DialogService {
     this.openDialog(ImportTasksModalComponent)
       .pipe(first())
       .subscribe((result) => {
-        console.log('TODO Handle result', result);
+        this.openDialog(SelectImportActionModalComponent, result);
       });
   }
 
