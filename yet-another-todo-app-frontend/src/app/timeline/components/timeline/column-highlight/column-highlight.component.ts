@@ -14,6 +14,7 @@ export class ColumnHighlightComponent implements OnChanges {
   @Input() height: string = '0';
 
   left: string = '0';
+  isHidden: boolean = false;
 
   constructor(private dateUtils: DateUtilsService) {}
 
@@ -29,12 +30,15 @@ export class ColumnHighlightComponent implements OnChanges {
       this.startDate &&
       this.endDate &&
       +date >= +this.startDate &&
-      +date <= +this.endDate
+      +date < +this.dateUtils.getNextDay(this.endDate)
     ) {
-      this.left = `${
-        (this.dateUtils.getNumberOfDaysBetweenDates(date, this.startDate) + 1) * UNIT * 3
-      }px`;
+      const numberOfDays = this.dateUtils.getNumberOfDaysBetweenDates(date, this.startDate);
+
+      this.left = `${(numberOfDays + 1) * UNIT * 3}px`;
+      this.isHidden = false;
     } else {
+      this.left = `0`;
+      this.isHidden = true;
     }
   }
 }

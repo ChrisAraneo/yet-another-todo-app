@@ -116,4 +116,19 @@ describe('DateUtilsService', () => {
     const result = service.getLastDayOfTheMonth(new Date(2020, 1, 20, 0, 0, 0, 0));
     expect(+result).toBe(+new Date(2020, 1, 29, 0, 0, 0, 0));
   });
+
+  it('#getNextDay should return 2023-01-01', () => {
+    const result = service.getNextDay(new Date(2022, 11, 31, 10, 0, 0, 0));
+    expect(+result).toBe(+new Date(2023, 0, 1, 0, 0, 0, 0));
+  });
+
+  it('#getNextDay should return 2020-02-29', () => {
+    const result = service.getNextDay(new Date(2020, 1, 28, 5, 4, 3, 2));
+    expect(+result).toBe(+new Date(2020, 1, 29, 0, 0, 0, 0));
+  });
+
+  it('#getNextDay should return 2023-03-01', () => {
+    const result = service.getNextDay(new Date(2023, 1, 28, 10, 12, 3, 0));
+    expect(+result).toBe(+new Date(2023, 2, 1, 0, 0, 0, 0));
+  });
 });

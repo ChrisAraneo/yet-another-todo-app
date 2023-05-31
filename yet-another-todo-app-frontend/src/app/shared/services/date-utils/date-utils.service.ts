@@ -23,6 +23,10 @@ export class DateUtilsService {
   }
 
   getNumberOfDaysBetweenDates(startDate: Date, endDate: Date): number {
+    if (+startDate > +endDate) {
+      return this.getNumberOfDaysBetweenDates(endDate, startDate);
+    }
+
     return (
       Math.abs(differenceInDays(this.getDateAtNoon(endDate), this.getDateAtNoon(startDate))) + 1
     );
@@ -53,6 +57,10 @@ export class DateUtilsService {
     const numberOfDaysInMonth = getDaysInMonth(today);
 
     return new Date(today.getFullYear(), today.getMonth(), numberOfDaysInMonth, 0, 0, 0, 0);
+  }
+
+  getNextDay(date: Date): Date {
+    return this.getDateAtNoon(add(date, { days: 1 }));
   }
 
   formatDate(date: Date, pattern: string): string {
