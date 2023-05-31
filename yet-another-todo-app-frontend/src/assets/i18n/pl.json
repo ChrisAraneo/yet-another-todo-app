@@ -52,7 +52,7 @@
     "modalTitle": "Importuj zadania",
     "password": "Hasło",
     "submit": "Importuj",
-    "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i pasujące hasło."
+    "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i wpisałeś pasujące hasło."
   },
   "NOT_STARTED": "Zadanie nierozpoczęte",
   "REJECTED": "Zadanie odrzucone",

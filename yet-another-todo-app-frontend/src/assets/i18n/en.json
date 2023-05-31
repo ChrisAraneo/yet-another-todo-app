@@ -52,7 +52,7 @@
     "modalTitle": "Import tasks",
     "password": "Password",
     "submit": "Import",
-    "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and matching password."
+    "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and entered matching password."
   },
   "NOT_STARTED": "Task not started",
   "REJECTED": "Task is rejected",
