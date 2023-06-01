@@ -33,6 +33,8 @@ describe('DialogService', () => {
         MockComponent(EditTaskModalComponent),
         MockComponent(DeleteTaskModalComponent),
         MockComponent(SignInModalComponent),
+        MockComponent(ExportTasksModalComponent),
+        MockComponent(ImportTasksModalComponent),
       ],
       imports: [
         MatDialogModule,
