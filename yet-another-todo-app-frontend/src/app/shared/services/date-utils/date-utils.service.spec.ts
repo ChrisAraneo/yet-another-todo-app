@@ -131,4 +131,9 @@ describe('DateUtilsService', () => {
     const result = service.getNextDay(new Date(2023, 1, 28, 10, 12, 3, 0));
     expect(+result).toBe(+new Date(2023, 2, 1, 0, 0, 0, 0));
   });
+
+  it('#getNextDay should return 2023-07-01', () => {
+    const result = service.getNextDay(new Date(2023, 5, 30, 22, 12, 3, 0));
+    expect(+result).toBe(+new Date(2023, 6, 1, 0, 0, 0, 0));
+  });
 });
