@@ -50,6 +50,21 @@ export class ApiClientService {
     );
   }
 
+  postTasksToApi(tasks: Task[]): Observable<Task[] | undefined> {
+    return this.http.post<ApiResponse<TaskData[]>>(this.taskEndpoint, tasks).pipe(
+      first(),
+      map((response: ApiResponse<TaskData[]>) => {
+        if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
+          this.printError(response);
+
+          return;
+        }
+
+        return this.mapTasks(response.data);
+      }),
+    );
+  }
+
   private mapTasks(data: TaskData[]): Task[] {
     return data.map((item) => this.mapTask(item));
   }
