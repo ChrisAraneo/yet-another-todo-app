@@ -77,6 +77,29 @@ export class AppController {
       });
   }
 
+  // TODO Unit tests, e2e tests, testing
+  @UseGuards(JwtAuthGuard)
+  @Post('tasks')
+  @Header('content-type', 'application/json')
+  async setTasks(@Request() request: any): Promise<Response<Task[]>> {
+    const username = request && request.user && request.user.username;
+    const tasks = request && request.body;
+
+    return await this.tasksService
+      .createOrUpdateTasks(username, tasks)
+      .then((result) => ({
+        status: Status.Success,
+        data: result,
+      }))
+      .catch((error: Error) => {
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post('task')
   @Header('content-type', 'application/json')
