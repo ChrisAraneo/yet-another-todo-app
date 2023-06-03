@@ -2,12 +2,14 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription, first, map, tap } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
 import { CompletedTaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
+  sendUpdateTasksRequest,
   setTasks,
 } from '../../store/actions/task.actions';
 import { ApiClientService } from '../api-client/api-client.service';
@@ -65,6 +67,39 @@ export class TasksService implements OnDestroy {
     this.store.dispatch(sendHideTaskRequest({ id: taskId }));
   }
 
+  // TODO Unit tests
+  importTasks(importedTasks: Task[], action: ImportAction): Observable<void> {
+    return this.store.select('tasks').pipe(
+      first(),
+      map((currentTasks: Task[]) => {
+        let updatedTasks: Task[];
+
+        switch (action) {
+          case ImportAction.AddNewAndSkipExisting:
+            updatedTasks = this.addNewTasks(currentTasks, importedTasks);
+            break;
+          case ImportAction.AddNewAndUpdateExisting:
+            updatedTasks = this.updateExistingTasks(currentTasks, importedTasks);
+            updatedTasks = this.addNewTasks(updatedTasks, importedTasks);
+            break;
+          case ImportAction.ReplaceDataSet:
+            updatedTasks = this.hideAllTasks(currentTasks);
+            updatedTasks = this.updateExistingTasks(updatedTasks, importedTasks);
+            updatedTasks = this.addNewTasks(updatedTasks, importedTasks);
+            break;
+        }
+
+        return updatedTasks;
+      }),
+      tap((updatedTasks) => {
+        this.store.dispatch(sendUpdateTasksRequest({ tasks: updatedTasks }));
+      }),
+      map(() => {
+        return undefined;
+      }),
+    );
+  }
+
   private subscribeToUserLoggedIn(): void {
     this.subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
       if (isLogged) {
@@ -87,5 +122,37 @@ export class TasksService implements OnDestroy {
 
   private setTasks(tasks: Task[]): void {
     return this.store.dispatch(setTasks({ tasks: tasks }));
+  }
+
+  private addNewTasks(currentTasks: Task[], importedTasks: Task[]): Task[] {
+    const result = [...currentTasks];
+
+    importedTasks.forEach((importedTask) => {
+      if (!currentTasks.find((item) => item.getId() === importedTask.getId())) {
+        result.push(importedTask);
+      }
+    });
+
+    return result;
+  }
+
+  private updateExistingTasks(currentTasks: Task[], importedTasks: Task[]): Task[] {
+    const result: Task[] = [];
+
+    currentTasks.forEach((currentTask) => {
+      const updatedTask = importedTasks.find((item) => item.getId() === currentTask.getId());
+
+      if (updatedTask) {
+        result.push(updatedTask);
+      } else {
+        result.push(currentTask);
+      }
+    });
+
+    return result;
+  }
+
+  private hideAllTasks(tasks: Task[]): Task[] {
+    return tasks.map((task) => TaskTransformer.transform(task, { isHidden: true }));
   }
 }
