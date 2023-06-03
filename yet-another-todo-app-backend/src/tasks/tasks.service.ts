@@ -80,6 +80,17 @@ export class TasksService {
     };
   }
 
+  // TODO Unit tests, e2e tests, testing
+  async createOrUpdateTasks(username: string, tasks: Task[]): Promise<Task[]> {
+    const result: Task[] = [];
+
+    for (const task of tasks) {
+      result.push(await this.createOrUpdateTask(username, task));
+    }
+
+    return result;
+  }
+
   async removeTask(username: string, task: Task): Promise<Task> {
     return this.prismaService.removeTask(username, task.id).then(() => {
       return task;
