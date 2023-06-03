@@ -9,9 +9,11 @@ import { Task } from '../../models/task.model';
 import {
   CREATE_TASK_API,
   HIDE_TASK_API,
+  UPDATE_TASKS_API,
   UPDATE_TASK_API,
   createTask,
   hideTask,
+  setTasks,
   updateTask,
 } from '../actions/task.actions';
 
@@ -68,6 +70,22 @@ export class TaskEffects {
         ),
       ),
       map((result) => (result ? hideTask({ id: result }) : createAction('')())),
+    ),
+  );
+
+  updateTasksEffect = createEffect(() =>
+    this.actions.pipe(
+      ofType(UPDATE_TASKS_API),
+      map((action: any) => action && action?.tasks),
+      mergeMap((tasks: Task[]) =>
+        this.apiClientService
+          .postTasksToApi(tasks)
+          .pipe(
+            map((result: Task[] | undefined) =>
+              result ? setTasks({ tasks: result }) : createAction('')(),
+            ),
+          ),
+      ),
     ),
   );
 
