@@ -52,10 +52,10 @@ export class PrismaService extends PrismaClient {
     return await this.taskState.findMany();
   }
 
-  async getTaskState(id: string): Promise<TaskStateSchema> {
+  async getTaskState(value: string): Promise<TaskStateSchema> {
     return await this.taskState.findUnique({
       where: {
-        id: id,
+        value: value,
       },
     });
   }
