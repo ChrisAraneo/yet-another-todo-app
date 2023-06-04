@@ -51,7 +51,7 @@ export class ApiClientService {
   }
 
   postTasksToApi(tasks: Task[]): Observable<Task[] | undefined> {
-    return this.http.post<ApiResponse<TaskData[]>>(this.taskEndpoint, tasks).pipe(
+    return this.http.post<ApiResponse<TaskData[]>>(this.tasksEndpoint, tasks).pipe(
       first(),
       map((response: ApiResponse<TaskData[]>) => {
         if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
