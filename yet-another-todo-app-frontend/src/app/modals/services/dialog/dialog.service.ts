@@ -6,6 +6,7 @@ import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
+import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
@@ -43,7 +44,7 @@ export class DialogService {
         first(),
         filter((result: any) => !!result),
       )
-      .subscribe((result) => {
+      .subscribe((result: ZipFileContent) => {
         this.openDialog(SelectImportActionModalComponent, result);
       });
   }

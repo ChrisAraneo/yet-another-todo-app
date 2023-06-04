@@ -1,6 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../../../shared/models/task.model';
 import { ImportAction } from './select-import-action-modal.types';
@@ -20,7 +21,7 @@ export class SelectImportActionModalComponent implements OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: ZipFileContent,
     public dialogRef: MatDialogRef<SelectImportActionModalComponent>,
     private tasksService: TasksService,
   ) {}
@@ -30,10 +31,12 @@ export class SelectImportActionModalComponent implements OnDestroy {
   }
 
   submit(): void {
-    this.subscription = this.tasksService
-      .importTasks(this.data as Task[], this.action)
-      .subscribe(() => {
-        this.dialogRef.close();
-      });
+    if (this.data?.tasks) {
+      this.subscription = this.tasksService
+        .importTasks(this.data?.tasks as Task[], this.action)
+        .subscribe(() => {
+          this.dialogRef.close();
+        });
+    }
   }
 }
