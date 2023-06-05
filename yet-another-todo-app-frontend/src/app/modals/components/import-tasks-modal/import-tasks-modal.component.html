@@ -5,7 +5,8 @@
     [label]="'ImportTasksModal.file' | translate"></yata-file-input>
   <yata-password-input
     [formControlName]="'password'"
-    [label]="'ImportTasksModal.password' | translate"></yata-password-input>
+    [label]="'ImportTasksModal.password' | translate"
+    [parentForm]="form"></yata-password-input>
   <span class="error-label" *ngIf="unzipError">
     {{ 'ImportTasksModal.unzipError' | translate }}
   </span>

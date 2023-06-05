@@ -5,13 +5,15 @@
   (submit)="$event.preventDefault()">
   <yata-password-input
     [formControlName]="'password'"
-    [label]="'ExportTasksModal.password' | translate"></yata-password-input>
+    [label]="'ExportTasksModal.password' | translate"
+    [parentForm]="form"></yata-password-input>
   <span class="error-label" *ngIf="getError('password', 'minlength') as minLength">
     {{ 'ExportTasksModal.minLengthError' | translate : { '0': MIN_LENGTH } }}
   </span>
   <yata-password-input
     [formControlName]="'repeatPassword'"
-    [label]="'ExportTasksModal.repeatPassword' | translate"></yata-password-input>
+    [label]="'ExportTasksModal.repeatPassword' | translate"
+    [parentForm]="form"></yata-password-input>
   <span class="error-label" *ngIf="getError('repeatPassword', 'matchOther') as matchOther">
     {{ 'ExportTasksModal.matchOtherError' | translate }}
   </span>
