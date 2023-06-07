@@ -41,9 +41,9 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   private observer!: ResizeObserver;
 
   constructor(
+    public elementRef: ElementRef,
     private tasksService: TasksService,
     private dateUtils: DateUtilsService,
-    private elementRef: ElementRef,
     private zone: NgZone,
   ) {
     this.initializeButtons();

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription, debounceTime, filter } from 'rxjs';
 import { AppMode } from './app.types';
@@ -6,6 +6,7 @@ import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
+import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy, AfterViewInit {
-  @ViewChild('timeline') timelineElementRef!: ElementRef;
+  @ViewChild('timeline') timelineElementRef!: TimelineComponent;
 
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
@@ -95,7 +96,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   private centerTimelineScrollOnTodayColumn(): void {
-    const element = (this.timelineElementRef as any).elementRef.nativeElement; // TODO Fix type and remove any
+    const element = this.timelineElementRef.elementRef.nativeElement;
 
     const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(
       new Date(),
@@ -108,6 +109,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     const scrollLeft =
       offset * COLUMN_WIDTH + timelineContentMargin - (Math.ceil(columnsInView) / 2) * COLUMN_WIDTH;
 
-    (this.timelineElementRef as any).elementRef.nativeElement.scrollLeft = scrollLeft; // TODO Fix type and remove any
+    element.scrollLeft = scrollLeft;
   }
 }
