@@ -39,12 +39,11 @@
     "title": "Title"
   },
   "Error": {
+    "matchOther": "Passwords do not match.",
     "minlength": "{{ label }} must be at least {{ requiredLength }} symbols long.",
     "required": "This is required."
   },
   "ExportTasksModal": {
-    "matchOtherError": "Passwords do not match.",
-    "minLengthError": "Password must be at least {{ 0 }} symbols long.",
     "modalTitle": "Export tasks",
     "password": "Password",
     "repeatPassword": "Repeat password",
