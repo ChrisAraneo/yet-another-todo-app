@@ -7,11 +7,10 @@ import { PasswordInputComponent } from './components/password-input/password-inp
 import { SelectComponent } from './components/select/select.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
-import { ErrorTooltipDirective } from './directives/error-tooltip/error-tooltip.directive';
+import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
-    ErrorTooltipDirective,
     TextInputComponent,
     TextareaComponent,
     SelectComponent,
@@ -19,7 +18,7 @@ import { ErrorTooltipDirective } from './directives/error-tooltip/error-tooltip.
     PasswordInputComponent,
     FileInputComponent,
   ],
-  imports: [BrowserModule, MatButtonModule],
+  imports: [BrowserModule, MatButtonModule, DirectivesModule],
   providers: [],
   exports: [
     DatePickerComponent,

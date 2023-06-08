@@ -4,9 +4,9 @@ import { Directive, OnInit, TemplateRef, ViewContainerRef } from '@angular/core'
   selector: '[yataErrorTooltip]',
 })
 export class ErrorTooltipDirective implements OnInit {
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+  constructor(private templateRef: TemplateRef<any>, private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit(): void {
-    this.viewContainer.createEmbeddedView(this.templateRef);
+    this.viewContainerRef.createEmbeddedView(this.templateRef);
   }
 }
