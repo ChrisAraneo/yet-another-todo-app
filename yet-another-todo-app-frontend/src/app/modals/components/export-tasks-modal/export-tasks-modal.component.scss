@@ -33,16 +33,11 @@
   yata-textarea,
   yata-select,
   yata-date-picker,
-  yata-password-input,
-  .error-label {
+  yata-password-input {
     margin-bottom: math.div($unit, 4);
   }
 
   button {
     margin-top: math.div($unit, 2);
-  }
-
-  .error-label {
-    color: $warn-color;
   }
 }
