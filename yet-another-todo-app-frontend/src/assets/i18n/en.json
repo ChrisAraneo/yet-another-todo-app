@@ -38,6 +38,10 @@
     "state": "State",
     "title": "Title"
   },
+  "Error": {
+    "minlength": "{{ label }} must be at least {{ requiredLength }} symbols long.",
+    "required": "This is required."
+  },
   "ExportTasksModal": {
     "matchOtherError": "Passwords do not match.",
     "minLengthError": "Password must be at least {{ 0 }} symbols long.",

@@ -1,1 +1,3 @@
-<p>error-tooltip works!</p>
+<span *ngFor="let item of list">
+  {{ 'Error.' + item.key | translate : item.value }}
+</span>
