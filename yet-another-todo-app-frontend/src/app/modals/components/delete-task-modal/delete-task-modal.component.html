@@ -5,7 +5,11 @@
     [label]="'DeleteTaskModal.selectTask' | translate"
     [options]="(tasks | async) || []"></yata-select>
   <ng-container *ngIf="taskForm.value.task">
-    <button mat-flat-button color="danger" (click)="submit()" [disabled]="taskForm.invalid">
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="submit()"
+      [disabled]="taskForm.invalid || taskForm.pending">
       {{ 'DeleteTaskModal.delete' | translate }}
     </button>
   </ng-container>
