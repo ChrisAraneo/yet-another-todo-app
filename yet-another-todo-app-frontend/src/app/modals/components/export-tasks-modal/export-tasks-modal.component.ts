@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { matchOtherValidator } from 'src/app/forms/validators/match-other.validator';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ZipTasksService } from 'src/app/shared/services/zip-tasks/zip-tasks.service';
@@ -20,7 +20,7 @@ export class ExportTasksModalComponent {
 
   form!: FormGroup<ExportTasksForm>;
   tasks!: Observable<Task[]>;
-  isLoading: boolean = false;
+  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     public dialogRef: MatDialogRef<ExportTasksModalComponent>,
@@ -37,23 +37,12 @@ export class ExportTasksModalComponent {
     this.form.updateValueAndValidity();
 
     if (this.form.valid && this.form.value.password) {
-      this.isLoading = true;
+      this.isLoading.next(true);
 
       this.zipTasksService.zip(tasks, this.form.value.password).then(() => {
-        this.isLoading = false;
+        this.isLoading.next(false);
         this.dialogRef.close();
       });
-    }
-  }
-
-  // TODO Refactor
-  getError(controlName: string, validatorErrorName: string): string | null {
-    const errors = this.form.get(controlName)?.errors;
-
-    if (!!errors) {
-      return errors[validatorErrorName];
-    } else {
-      return null;
     }
   }
 
@@ -63,17 +52,14 @@ export class ExportTasksModalComponent {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<ExportTasksForm>({
-      password: new FormControl('', { nonNullable: true }),
-      repeatPassword: new FormControl('', { nonNullable: true }),
+      password: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(this.MIN_LENGTH)],
+        nonNullable: true,
+      }),
+      repeatPassword: new FormControl('', {
+        validators: [Validators.required, matchOtherValidator('password')],
+        nonNullable: true,
+      }),
     });
-
-    this.form.controls['password'].addValidators([
-      Validators.required,
-      Validators.minLength(this.MIN_LENGTH),
-    ]);
-    this.form.controls['repeatPassword'].addValidators([
-      Validators.required,
-      matchOtherValidator('password'),
-    ]);
   }
 }

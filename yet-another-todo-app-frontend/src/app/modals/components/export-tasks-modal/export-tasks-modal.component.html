@@ -15,7 +15,7 @@
     mat-flat-button
     color="primary"
     (click)="submit($event, _tasks)"
-    [disabled]="isLoading || form.invalid">
+    [disabled]="(isLoading | async) || form.invalid || form.pending">
     {{ 'ExportTasksModal.submit' | translate }}
   </button>
 </form>
