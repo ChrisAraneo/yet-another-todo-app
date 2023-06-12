@@ -113,9 +113,14 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
   }
 
   private initializeTasksObservable(): void {
-    this.tasks = this.tasksService
-      .getTasks()
-      .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
+    this.tasks = this.tasksService.getTasks().pipe(
+      map((tasks) =>
+        tasks.map((task) => ({
+          label: `${task.getTitle()} (${task.getShortId()})`,
+          value: task,
+        })),
+      ),
+    );
   }
 
   private updateFormValues(form: FormGroup<TaskForm>, task: Task | null): void {
