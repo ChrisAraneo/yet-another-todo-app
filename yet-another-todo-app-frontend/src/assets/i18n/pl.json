@@ -38,9 +38,12 @@
     "state": "Stan",
     "title": "Tytuł"
   },
+  "Error": {
+    "matchOther": "Hasła są różne.",
+    "minlength": "{{ label }} musi być długości co najmniej {{ requiredLength }} znaków.",
+    "required": "To pole jest wymagane."
+  },
   "ExportTasksModal": {
-    "matchOtherError": "Wprowadzono różne hasła.",
-    "minLengthError": "Hasło musi mieć długość przynajmniej {{ 0 }} znaków.",
     "modalTitle": "Eksportuj zadania",
     "password": "Hasło",
     "repeatPassword": "Powtórz hasło",
