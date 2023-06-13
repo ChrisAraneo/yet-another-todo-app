@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SignInForm } from './sign-in-modal.types';
@@ -35,8 +35,8 @@ export class SignInModalComponent {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<SignInForm>({
-      username: new FormControl('', { nonNullable: true }),
-      password: new FormControl('', { nonNullable: true }),
+      username: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+      password: new FormControl('', { validators: [Validators.required], nonNullable: true }),
     });
   }
 }
