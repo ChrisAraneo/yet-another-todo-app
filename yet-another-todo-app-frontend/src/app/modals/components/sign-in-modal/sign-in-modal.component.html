@@ -7,7 +7,11 @@
     [formControlName]="'password'"
     [label]="'SignInModal.password' | translate"
     [parentForm]="form"></yata-password-input>
-  <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="submit()"
+    [disabled]="form.invalid || form.pending">
     {{ 'SignInModal.signIn' | translate }}
   </button>
 </form>
