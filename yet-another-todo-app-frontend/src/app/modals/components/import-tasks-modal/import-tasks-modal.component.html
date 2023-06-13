@@ -10,7 +10,11 @@
   <span class="error-label" *ngIf="unzipError">
     {{ 'ImportTasksModal.unzipError' | translate }}
   </span>
-  <button mat-flat-button color="primary" (click)="submit($event)">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="submit($event)"
+    [disabled]="form.invalid || (isLoading | async)">
     {{ 'ImportTasksModal.submit' | translate }}
   </button>
 </form>
