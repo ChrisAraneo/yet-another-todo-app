@@ -12,17 +12,18 @@ model User {
   name         String
   username     String   @unique
   password     String
+  refreshToken String
   creationDate DateTime @default(now())
   updateDate   DateTime @updatedAt
   Task         Task[]
 }
 
 model TaskState {
-  id          String @id @default(uuid())
-  value       String @unique
-  iconName    String
-  color       String
-  Task        Task[]
+  id       String @id @default(uuid())
+  value    String @unique
+  iconName String
+  color    String
+  Task     Task[]
 }
 
 model Task {
