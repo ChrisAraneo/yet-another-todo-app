@@ -8,7 +8,8 @@ const bodyParser = require("body-parser");
 
 let data = null;
 
-const TOKEN = "M0CK_TOKEN";
+const ACCESS_TOKEN = "M0CK_TOKEN";
+const REFRESH_TOKEN = "REFRESH_TOKEN";
 const SUCCESS = "success";
 const ERROR = "error";
 const DIFF = "diff";
@@ -46,12 +47,29 @@ server.post("/signup", (request, response) => {
 });
 
 server.post("/login", (_, response) => {
-  logger.debug("Received POST /login request. Responding with example token.");
+  logger.debug("Received POST /login request. Responding with example access token and refresh token.");
 
   response.set(responseHeaders).send(
     JSON.stringify({
       status: SUCCESS,
-      data: TOKEN,
+      data: {
+        accessToken: ACCESS_TOKEN,
+        refreshToken: REFRESH_TOKEN,
+      }
+    })
+  );
+});
+
+server.post("/refresh", (_, response) => {
+  logger.debug("Received POST /refresh request. Responding with example access token and refresh token.");
+
+  response.set(responseHeaders).send(
+    JSON.stringify({
+      status: SUCCESS,
+      data: {
+        accessToken: ACCESS_TOKEN,
+        refreshToken: REFRESH_TOKEN,
+      },
     })
   );
 });
