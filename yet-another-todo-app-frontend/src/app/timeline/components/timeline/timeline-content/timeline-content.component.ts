@@ -3,12 +3,7 @@ import differenceInDays from 'date-fns/differenceInDays';
 import { StartedTask } from 'src/app/shared/models/task.model';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
-
-// TODO Move to separate types file
-type Column = {
-  tasks: StartedTask[];
-  left: string;
-};
+import { Column } from './timeline-content.types';
 
 @Component({
   selector: 'yata-timeline-content',
