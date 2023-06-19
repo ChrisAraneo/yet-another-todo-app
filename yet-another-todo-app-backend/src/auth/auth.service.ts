@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Tokens } from '../models/tokens.type';
 import { UserDetails } from '../models/user-details.type';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
+  private accessTokenOptions: JwtSignOptions;
+  private refreshTokenOptions: JwtSignOptions;
+
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
-  ) {}
+    private configService: ConfigService,
+  ) {
+    this.initializeAccessTokenOptions();
+    this.initializeRefreshTokenOptions();
+  }
 
   async validateUser(
     username: string,
@@ -34,9 +43,79 @@ export class AuthService {
     return null;
   }
 
-  async login(user: UserDetails): Promise<string> {
-    const payload = { id: user.id, username: user.username, name: user.name };
+  async login(user: UserDetails): Promise<Tokens> {
+    const { accessToken, refreshToken } = this.generateTokens(
+      user.id,
+      user.username,
+      user.name,
+    );
 
-    return this.jwtService.sign(payload);
+    await this.updateRefreshToken(user.username, refreshToken);
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  async refreshTokens(user: UserDetails): Promise<Tokens> {
+    const refreshToken = user.refreshToken;
+    const hash = (await this.userService.findUser(user.username)).refreshToken;
+
+    if (!(await bcrypt.compare(refreshToken, hash))) {
+      throw Error('Invalid refresh token.');
+    }
+
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+      this.generateTokens(user.id, user.username, user.name);
+
+    await this.updateRefreshToken(user.username, newRefreshToken);
+
+    return {
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    };
+  }
+
+  private initializeAccessTokenOptions(): void {
+    this.accessTokenOptions = {
+      secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_ACCESS_EXPIRATION'),
+    };
+  }
+
+  private initializeRefreshTokenOptions(): void {
+    this.refreshTokenOptions = {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRATION'),
+    };
+  }
+
+  private generateTokens(
+    userId: string,
+    username: string,
+    name: string,
+  ): Tokens {
+    const payload = { id: userId, username: username, name: name };
+    const accessToken = this.jwtService.sign(payload, this.accessTokenOptions);
+    const refreshToken = this.jwtService.sign(
+      payload,
+      this.refreshTokenOptions,
+    );
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  private async updateRefreshToken(
+    username: string,
+    refreshToken: string,
+  ): Promise<UserDetails | null> {
+    return this.userService.updateRefreshToken(
+      username,
+      await bcrypt.hash(refreshToken, 10),
+    );
   }
 }

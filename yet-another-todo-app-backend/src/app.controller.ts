@@ -10,10 +10,12 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { JwtRefreshAuthGuard } from './auth/jwt-refresh.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
 import { Task } from './models/tasks.type';
+import { Tokens } from './models/tokens.type';
 import { UserDetails } from './models/user-details.type';
 import { TasksService } from './tasks/tasks.service';
 import { UsersService } from './users/users.service';
@@ -29,6 +31,7 @@ export class AppController {
   @Post('signup')
   @Header('content-type', 'application/json')
   async signup(@Body() body: any): Promise<Response<UserDetails | null>> {
+    // TODO Fix refresh token in response, right now its hashed
     return await this.usersService
       .createUser({ name: body.name, username: body.username }, body.password)
       .then((result) => ({
@@ -47,12 +50,25 @@ export class AppController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @Header('content-type', 'application/json')
-  async login(@Request() request: any): Promise<Response<string>> {
+  async login(@Request() request: any): Promise<Response<Tokens>> {
     const user = request.user;
 
     return {
       status: Status.Success,
       data: await this.authService.login(user),
+    };
+  }
+
+  // TODO Unit tests, e2e tests, testing
+  @UseGuards(JwtRefreshAuthGuard)
+  @Post('refresh')
+  @Header('content-type', 'application/json')
+  async refreshAccessToken(@Request() request: any): Promise<Response<Tokens>> {
+    const user = request.user;
+
+    return {
+      status: Status.Success,
+      data: await this.authService.refreshTokens(user),
     };
   }
 
