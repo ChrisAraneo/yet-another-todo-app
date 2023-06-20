@@ -32,9 +32,10 @@ export class UsersService {
       });
   }
 
-  async findUser(
-    username: string,
-  ): Promise<(UserDetails & { passwordHash: string }) | undefined> {
+  async findUser(username: string): Promise<
+    | (UserDetails & { passwordHash: string; refreshTokenHash: string }) // TODO Type
+    | undefined
+  > {
     const user = await this.prismaService.getUser(username);
 
     if (!user) {
@@ -46,6 +47,7 @@ export class UsersService {
       name: user.name,
       username: user.username,
       passwordHash: user.password,
+      refreshTokenHash: user.refreshToken,
     };
   }
 
