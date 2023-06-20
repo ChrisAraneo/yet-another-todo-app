@@ -58,11 +58,12 @@ export class AuthService {
     };
   }
 
-  async refreshTokens(user: UserDetails): Promise<Tokens> {
-    const refreshToken = user.refreshToken;
-    const hash = (await this.userService.findUser(user.username)).refreshToken;
+  async refreshTokens(refreshToken: string): Promise<Tokens> {
+    const payload: any = this.jwtService.decode(refreshToken);
 
-    if (!(await bcrypt.compare(refreshToken, hash))) {
+    const user = await this.userService.findUser(payload?.username); // TODO Try, catch
+
+    if (!(await bcrypt.compare(refreshToken, user?.refreshTokenHash))) {
       throw Error('Invalid refresh token.');
     }
 

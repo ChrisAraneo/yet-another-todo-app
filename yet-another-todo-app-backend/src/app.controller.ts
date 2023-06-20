@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { JwtRefreshAuthGuard } from './auth/jwt-refresh.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Response } from './models/response.type';
 import { Status } from './models/status.enum';
@@ -60,16 +59,26 @@ export class AppController {
   }
 
   // TODO Unit tests, e2e tests, testing
-  @UseGuards(JwtRefreshAuthGuard)
+  // @UseGuards(JwtRefreshAuthGuard) // TODO Fix or refactor
   @Post('refresh')
   @Header('content-type', 'application/json')
-  async refreshAccessToken(@Request() request: any): Promise<Response<Tokens>> {
-    const user = request.user;
-
-    return {
-      status: Status.Success,
-      data: await this.authService.refreshTokens(user),
-    };
+  async refreshAccessToken(@Body() body: any): Promise<Response<Tokens>> {
+    return this.authService
+      .refreshTokens(body.refreshToken)
+      .then((tokens: Tokens) => {
+        return {
+          status: Status.Success,
+          data: tokens,
+        };
+      })
+      .catch((error: Error) => {
+        // TODO Fix return code
+        return {
+          status: Status.Error,
+          data: null,
+          message: error.stack,
+        };
+      });
   }
 
   @UseGuards(JwtAuthGuard)
