@@ -1,19 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, filter, first, map, mergeMap, tap } from 'rxjs';
-import { SignInData } from 'src/app/shared/models/sign-in-data.model';
+import { BehaviorSubject, Observable, Subscription, first, map, tap } from 'rxjs';
 import { ApiResponse, ApiResponseStatus } from '../api-client/api-client.types';
 import { UserService } from '../user/user.service';
+import { LoginResponse, RefreshResponse } from './auth.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
   private readonly loginEndpoint;
+  private readonly refreshEndpoint;
 
-  private username = new BehaviorSubject<string>('');
-  private password = new BehaviorSubject<string | null>(null);
-  private token = new BehaviorSubject<string | null>(null);
+  private username = new BehaviorSubject<string | null>(null);
+  private accessToken = new BehaviorSubject<string | null>(null);
+  private refreshToken = new BehaviorSubject<string | null>(null);
   private subscription = new Subscription();
 
   constructor(
@@ -22,88 +23,87 @@ export class AuthService implements OnDestroy {
     private userService: UserService,
   ) {
     this.loginEndpoint = `${this.api.origin}/login`;
+    this.refreshEndpoint = `${this.api.origin}/refresh`;
 
-    this.subscribeToUserChanges();
+    this.userService.getUsername().subscribe((username) => {
+      this.username.next(username);
+    });
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  refreshToken(): Observable<any> {
-    return this.fetchNewToken(this.username.getValue(), this.password.getValue()).pipe(
-      tap((token: string | null) => {
-        this.update(token);
-      }),
-    );
-  }
-
-  signIn(username: string, password: string): void {
-    this.userService.setUser(username, password);
-  }
-
-  getToken(): string | null {
-    return this.token.getValue();
-  }
-
-  private subscribeToUserChanges(): void {
-    const filterByExistingUsernameAndPassword = filter(
-      (user: SignInData) => !!user.username && !!user.password,
-    );
-
-    const emitUsername = tap((user: SignInData) => {
-      this.username.next(user.username);
-    });
-
-    const emitPassword = tap((user: SignInData) => {
-      this.password.next(user.password);
-    });
-
-    const fetchNewTokenOnUserChange = mergeMap((user: SignInData) => {
-      return this.fetchNewToken(user.username, user.password);
-    });
-
-    this.subscription = this.userService
-      .getUser()
+  signIn(username: string, password: string): Observable<LoginResponse | null> {
+    return this.http
+      .post<ApiResponse<LoginResponse>>(this.loginEndpoint, { username, password })
       .pipe(
-        filterByExistingUsernameAndPassword,
-        emitUsername,
-        emitPassword,
-        fetchNewTokenOnUserChange,
-      )
-      .subscribe((token: string | null) => {
-        this.update(token);
-      });
+        first(),
+        tap((response) => {
+          const accessToken = response?.data?.accessToken;
+          const refreshToken = response?.data?.refreshToken;
+
+          this.setUsername(username);
+          accessToken && this.setAccessToken(accessToken);
+          refreshToken && this.setRefreshToken(refreshToken);
+          this.setUserAsLoggedIfTokenExists(accessToken);
+        }),
+        map((response) => {
+          return response.data || null;
+        }),
+      );
   }
 
-  private fetchNewToken(username: string, password: string | null): Observable<string | null> {
-    return this.http.post<ApiResponse<string>>(this.loginEndpoint, { username, password }).pipe(
-      first(),
-      map((response: ApiResponse<string | null>) => {
-        if (response && response.status === ApiResponseStatus.Success) {
-          return response.data || null;
-        }
+  refresh(): Observable<RefreshResponse | null> {
+    return this.refreshAccessToken(this.refreshToken.getValue() || '').pipe(
+      tap((response) => {
+        const accessToken = response?.accessToken;
 
-        return null;
+        accessToken && this.setAccessToken(accessToken);
+      }),
+      map((response) => {
+        return response || null;
       }),
     );
   }
 
-  private update(token: string | null): void {
-    this.setToken(token);
-    this.setUserAsLoggedIfTokenExists(token);
-    this.removePassword();
+  getAccessToken(): string | null {
+    return this.accessToken.getValue();
   }
 
-  private setToken(token: string | null): void {
-    this.token.next(token);
+  getRefreshEndpoint(): string {
+    return this.refreshEndpoint;
   }
 
-  private removePassword(): void {
-    this.userService.removePassword();
+  private refreshAccessToken(refreshToken: string): Observable<RefreshResponse | null> {
+    return this.http
+      .post<ApiResponse<RefreshResponse>>(this.refreshEndpoint, { refreshToken })
+      .pipe(
+        first(),
+        map((response: ApiResponse<RefreshResponse | null>) => {
+          if (response && response.status === ApiResponseStatus.Success) {
+            return response.data || null;
+          }
+
+          return null;
+        }),
+      );
   }
 
-  private setUserAsLoggedIfTokenExists(token: string | null): void {
+  private setUsername(username: string): void {
+    this.userService.setUsername(username);
+  }
+
+  private setAccessToken(token: string): void {
+    this.accessToken.next(token);
+  }
+
+  private setRefreshToken(refreshToken: string): void {
+    this.refreshToken.next(refreshToken);
+  }
+
+  private setUserAsLoggedIfTokenExists(token: string | undefined): void {
+    // TODO Rename method, ambigous name
     this.userService.setIsUserLogged(!!token);
   }
 }

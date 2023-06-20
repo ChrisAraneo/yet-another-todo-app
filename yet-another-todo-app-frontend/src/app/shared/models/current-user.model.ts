@@ -1,6 +1,4 @@
-import { SignInData } from './sign-in-data.model';
-
 export type CurrentUser = {
-  user: SignInData;
+  username: string | null;
   isLogged: boolean;
 };

@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { CurrentUser } from 'src/app/shared/models/current-user.model';
-import { SignInData } from 'src/app/shared/models/sign-in-data.model';
-import {
-  removePassword,
-  setIsLogged,
-  setPassword,
-  setUsername,
-} from '../../store/actions/user.actions';
+import { setIsLogged, setUsername } from '../../store/actions/user.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +10,12 @@ import {
 export class UserService {
   constructor(public store: Store<{ user: CurrentUser }>) {}
 
-  getUser(): Observable<SignInData> {
-    return this.store.select('user').pipe(map((data) => data.user));
+  getUsername(): Observable<string | null> {
+    return this.store.select('user').pipe(map((data) => data.username));
   }
 
-  setUser(username: string, password: string): void {
+  setUsername(username: string): void {
     this.store.dispatch(setUsername({ username }));
-    this.store.dispatch(setPassword({ password }));
-  }
-
-  removePassword(): void {
-    this.store.dispatch(removePassword());
   }
 
   getIsUserLogged(): Observable<boolean> {

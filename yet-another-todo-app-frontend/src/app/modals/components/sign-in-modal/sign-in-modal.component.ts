@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SignInForm } from './sign-in-modal.types';
 
@@ -9,10 +10,12 @@ import { SignInForm } from './sign-in-modal.types';
   templateUrl: './sign-in-modal.component.html',
   styleUrls: ['./sign-in-modal.component.scss'],
 })
-export class SignInModalComponent {
+export class SignInModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'sign-in-modal';
 
   form!: FormGroup<SignInForm>;
+
+  private subscription?: Subscription;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -23,14 +26,20 @@ export class SignInModalComponent {
     this.initializeForm();
   }
 
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
+  }
+
   submit(): void {
     if (!this.form || this.form.invalid) {
       return;
     }
 
-    this.authService.signIn(this.form.value.username || '', this.form.value.password || '');
+    const { username, password } = this.form.value;
 
-    this.dialogRef.close();
+    this.subscription = this.authService.signIn(username || '', password || '').subscribe(() => {
+      this.dialogRef.close();
+    });
   }
 
   private initializeForm(): void {
