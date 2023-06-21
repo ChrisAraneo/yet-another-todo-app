@@ -46,7 +46,7 @@ export class AuthService implements OnDestroy {
           this.setUsername(username);
           accessToken && this.setAccessToken(accessToken);
           refreshToken && this.setRefreshToken(refreshToken);
-          this.setUserAsLoggedIfTokenExists(accessToken);
+          this.setIsLoggedBasedOnTokenValue(accessToken);
         }),
         map((response) => {
           return response.data || null;
@@ -102,8 +102,7 @@ export class AuthService implements OnDestroy {
     this.refreshToken.next(refreshToken);
   }
 
-  private setUserAsLoggedIfTokenExists(token: string | undefined): void {
-    // TODO Rename method, ambigous name
+  private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
   }
 }
