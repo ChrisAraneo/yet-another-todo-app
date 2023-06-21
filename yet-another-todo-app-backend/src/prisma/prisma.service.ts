@@ -61,10 +61,7 @@ export class PrismaService extends PrismaClient {
       this.refreshTokenOptions,
     );
 
-    return this.updateUserRefreshToken(
-      createdUser.username,
-      await bcrypt.hash(refreshToken, 10),
-    );
+    return this.updateUserRefreshToken(createdUser.username, refreshToken);
   }
 
   async deleteUser(username: string): Promise<UserSchema> {

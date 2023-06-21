@@ -60,8 +60,15 @@ export class AuthService {
 
   async refreshTokens(refreshToken: string): Promise<Tokens> {
     const payload: any = this.jwtService.decode(refreshToken);
+    let user:
+      | (UserDetails & { passwordHash: string; refreshTokenHash: string }) // TODO Type
+      | undefined;
 
-    const user = await this.userService.findUser(payload?.username); // TODO Try, catch
+    try {
+      user = await this.userService.findUser(payload?.username);
+    } catch (error: any) {
+      throw error;
+    }
 
     if (!(await bcrypt.compare(refreshToken, user?.refreshTokenHash))) {
       throw Error('Invalid refresh token.');
@@ -114,9 +121,6 @@ export class AuthService {
     username: string,
     refreshToken: string,
   ): Promise<UserDetails | null> {
-    return this.userService.updateRefreshToken(
-      username,
-      await bcrypt.hash(refreshToken, 10),
-    );
+    return this.userService.updateRefreshToken(username, refreshToken);
   }
 }
