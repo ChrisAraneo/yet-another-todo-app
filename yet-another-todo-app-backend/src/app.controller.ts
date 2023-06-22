@@ -2,10 +2,13 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Header,
+  InternalServerErrorException,
   Post,
   Request,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
@@ -30,7 +33,6 @@ export class AppController {
   @Post('signup')
   @Header('content-type', 'application/json')
   async signup(@Body() body: any): Promise<Response<UserDetails | null>> {
-    // TODO Fix refresh token in response, right now its hashed
     return await this.usersService
       .createUser({ name: body.name, username: body.username }, body.password)
       .then((result) => ({
@@ -38,11 +40,11 @@ export class AppController {
         data: result,
       }))
       .catch((error: Error) => {
-        return {
+        throw new ForbiddenException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -51,10 +53,21 @@ export class AppController {
   @Header('content-type', 'application/json')
   async login(@Request() request: any): Promise<Response<Tokens>> {
     const user = request.user;
+    let data: Tokens | null = null;
+
+    try {
+      data = await this.authService.login(user);
+    } catch (error: unknown) {
+      throw new UnauthorizedException({
+        status: Status.Error,
+        data: null,
+        message: error,
+      });
+    }
 
     return {
       status: Status.Success,
-      data: await this.authService.login(user),
+      data,
     };
   }
 
@@ -63,7 +76,7 @@ export class AppController {
   @Post('refresh')
   @Header('content-type', 'application/json')
   async refreshAccessToken(@Body() body: any): Promise<Response<Tokens>> {
-    return this.authService
+    return await this.authService
       .refreshTokens(body.refreshToken)
       .then((tokens: Tokens) => {
         return {
@@ -72,12 +85,11 @@ export class AppController {
         };
       })
       .catch((error: Error) => {
-        // TODO Fix return code
-        return {
+        throw new InternalServerErrorException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -85,7 +97,7 @@ export class AppController {
   @Get('tasks')
   @Header('content-type', 'application/json')
   async getTasks(@Request() request: any): Promise<Response<Task[]>> {
-    const username = request && request.user && request.user.username;
+    const username = request?.user?.username;
 
     return await this.tasksService
       .getTasksOfUser(username)
@@ -94,11 +106,11 @@ export class AppController {
         data: result,
       }))
       .catch((error: Error) => {
-        return {
+        throw new InternalServerErrorException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -117,11 +129,11 @@ export class AppController {
         data: result,
       }))
       .catch((error: Error) => {
-        return {
+        throw new InternalServerErrorException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -129,8 +141,8 @@ export class AppController {
   @Post('task')
   @Header('content-type', 'application/json')
   async createOrUpdateTask(@Request() request: any): Promise<Response<Task>> {
-    const username = request && request.user && request.user.username;
-    const task = request && request.body;
+    const username = request?.user?.username;
+    const task = request?.body;
 
     return await this.tasksService
       .createOrUpdateTask(username, task)
@@ -139,11 +151,11 @@ export class AppController {
         data: result,
       }))
       .catch((error: Error) => {
-        return {
+        throw new InternalServerErrorException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -151,8 +163,8 @@ export class AppController {
   @Delete('task')
   @Header('content-type', 'application/json')
   async removeTask(@Request() request: any): Promise<Response<Task>> {
-    const username = request && request.user && request.user.username;
-    const task = request && request.body;
+    const username = request?.user?.username;
+    const task = request?.body;
 
     return await this.tasksService
       .removeTask(username, task)
@@ -161,11 +173,11 @@ export class AppController {
         data: result,
       }))
       .catch((error: Error) => {
-        return {
+        throw new InternalServerErrorException({
           status: Status.Error,
           data: null,
           message: error.stack,
-        };
+        });
       });
   }
 
@@ -173,11 +185,22 @@ export class AppController {
   @Delete('user')
   @Header('content-type', 'application/json')
   async deleteUser(@Request() request: any): Promise<Response<UserDetails>> {
-    const user = request.user;
+    const user = request?.user;
+    let data: UserDetails | null = null;
+
+    try {
+      data = await this.usersService.deleteUser(user.username);
+    } catch (error: any) {
+      throw new ForbiddenException({
+        status: Status.Error,
+        data: null,
+        message: error?.stack,
+      });
+    }
 
     return {
       status: Status.Success,
-      data: await this.usersService.deleteUser(user.username),
+      data,
     };
   }
 }
