@@ -1,10 +1,22 @@
 @import '../../../shared/styles/variables.scss';
 
-mat-toolbar {
+:host {
+  height: $_64unit;
+}
+
+::ng-deep mat-toolbar {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   border-bottom: $border;
   width: 100%;
-  height: $_64unit;
+  max-height: $_64unit;
+
+  .mdc-icon-button {
+    mat-icon {
+      width: $_24unit;
+      height: $_24unit;
+      font-size: $_24unit;
+    }
+  }
 }
