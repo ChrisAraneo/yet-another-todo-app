@@ -1,1 +1,3 @@
-<p>submit-button works!</p>
+<button mat-flat-button color="primary" (click)="submit()" [disabled]="invalid || pending">
+  <ng-content></ng-content>
+</button>
