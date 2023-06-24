@@ -23,6 +23,7 @@ import { DirectivesModule } from './directives/directives.module';
   imports: [BrowserModule, MatButtonModule, DirectivesModule],
   providers: [],
   exports: [
+    SubmitButtonComponent,
     DatePickerComponent,
     SelectComponent,
     TextInputComponent,
