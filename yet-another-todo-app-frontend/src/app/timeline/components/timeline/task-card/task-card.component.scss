@@ -13,7 +13,7 @@ mat-card {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 0 $unit * 0.125 0;
+  margin: 0 0 $_8unit;
   padding: 0;
 }
 
@@ -22,12 +22,12 @@ mat-card {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin: 24px 0 0 0;
+  margin: $_24unit 0 0 0;
   padding: 0;
-  margin-bottom: -9px;
+  margin-bottom: -($_8unit + $_2unit * 0.5);
 
   .mat-mdc-button {
-    line-height: $unit * 0.5;
+    line-height: $_32unit;
   }
 }
 
@@ -44,10 +44,10 @@ mat-card {
 .mat-mdc-icon-button {
   padding: 0;
   min-width: 0;
-  width: $unit * 0.5;
-  height: $unit * 0.5;
+  width: $_32unit;
+  height: $_32unit;
   flex-shrink: 0;
-  line-height: 22px;
+  line-height: $_22unit;
   border-radius: 50%;
 }
 
@@ -57,5 +57,5 @@ mat-card {
 }
 
 yata-task-state-icon {
-  padding: 10px 12px;
+  padding: $_10unit $_12unit;
 }

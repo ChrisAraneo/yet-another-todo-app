@@ -7,16 +7,16 @@
   align-items: center;
   flex-direction: column;
   max-width: 100%;
-  margin: $unit;
-  padding: math.div($unit, 8);
+  margin: $_64unit;
+  padding: $_8unit;
 
   .empty-image {
     box-sizing: border-box;
     margin: 0;
-    margin-bottom: math.div($unit, 4);
+    margin-bottom: $_16unit;
     padding: 0;
-    width: 190px;
-    height: 150px;
+    width: 190px; // TODO Refactor into units too
+    height: 150px; // TODO Refactor into units too
     background-image: url('../../../../assets/images/empty.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -32,8 +32,8 @@
 
   .hint {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
-    font-size: 14px;
+    font-size: $_14unit;
     text-align: center;
-    margin-top: math.div($unit, 8);
+    margin-top: $_8unit;
   }
 }

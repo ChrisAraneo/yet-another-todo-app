@@ -3,7 +3,7 @@
 
 h1 {
   font-family: 'Spectral', serif;
-  font-size: math.div($unit, 3.2);
-  line-height: math.div($unit, math.div(8, 3));
+  font-size: $_20unit;
+  line-height: $_24unit;
   font-weight: 500;
 }

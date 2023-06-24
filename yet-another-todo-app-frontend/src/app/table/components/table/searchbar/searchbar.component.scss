@@ -10,8 +10,8 @@ input,
 input:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: math.div($unit, 6) math.div($unit, 6);
-  font-size: 16px;
+  padding: $_6unit $_6unit;
+  font-size: $_14unit;
   border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
   outline: none;
   margin: 0;
@@ -31,11 +31,12 @@ input:focus {
 }
 
 .seachbar-icon {
-  padding: math.div($unit, 6) math.div($unit, 6);
+  padding: $_6unit $_6unit;
   border: $form-input-border;
   border-right-width: 0px !important;
   border-radius: $form-input-border-radius 0 0 $form-input-border-radius;
   background-color: $form-input-background;
+  height: $_32unit;
 }
 
 .is-focused {

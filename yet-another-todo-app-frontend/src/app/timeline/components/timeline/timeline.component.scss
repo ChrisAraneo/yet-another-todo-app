@@ -23,8 +23,8 @@
 
 .timeline-header-button {
   position: absolute;
-  width: $unit;
-  min-width: $unit;
+  width: $_64unit;
+  min-width: $_64unit;
   z-index: 1000;
 }
 
@@ -32,7 +32,7 @@
   background-color: white;
 
   &:last-of-type {
-    padding-right: $unit;
+    padding-right: $_64unit;
   }
 }
 
@@ -48,16 +48,16 @@ yata-dates-filter {
   box-sizing: border-box;
   border-right: $border;
   border-left: $border;
-  margin-left: $unit;
+  margin-left: $_64unit;
 }
 
 yata-timeline-header {
   min-width: $column-width;
-  height: $unit;
+  height: $_64unit;
   border-bottom: $border;
 }
 
 yata-timeline-content {
-  margin-left: 6 * $unit;
-  min-height: calc(100% - $unit);
+  margin-left: 6 * $_64unit;
+  min-height: calc(100% - $_64unit);
 }

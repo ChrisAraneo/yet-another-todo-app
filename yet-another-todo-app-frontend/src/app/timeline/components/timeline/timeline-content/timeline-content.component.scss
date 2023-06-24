@@ -8,8 +8,8 @@
 
 yata-task-card {
   position: relative;
-  width: calc($column-width - $unit * 0.25);
-  margin: $unit * 0.125;
+  width: calc($column-width - $_16unit);
+  margin: $_8unit;
 }
 
 .column {
@@ -18,6 +18,6 @@ yata-task-card {
   min-width: $column-width;
   width: $column-width;
   min-height: 100%;
-  padding-left: $unit * 0.125;
-  padding-right: $unit * 0.125;
+  padding-left: $_8unit;
+  padding-right: $_8unit;
 }

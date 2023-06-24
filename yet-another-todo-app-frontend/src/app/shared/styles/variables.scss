@@ -1,10 +1,25 @@
+@use 'sass:math';
 @use '@angular/material' as mat;
 
 @include mat.all-component-typographies();
 @include mat.core();
 
-$unit: 64px;
-$column-width: $unit * 3;
+$_64unit: 64px;
+
+$_2unit: math.div($_64unit, math.div(64, 2));
+$_4unit: math.div($_64unit, math.div(64, 4));
+$_6unit: math.div($_64unit, math.div(64, 6));
+$_8unit: math.div($_64unit, math.div(64, 8));
+$_10unit: math.div($_64unit, math.div(64, 10));
+$_12unit: math.div($_64unit, math.div(64, 12));
+$_14unit: math.div($_64unit, math.div(64, 14));
+$_16unit: math.div($_64unit, math.div(64, 16));
+$_20unit: math.div($_64unit, math.div(64, 20));
+$_22unit: math.div($_64unit, math.div(64, 22));
+$_24unit: math.div($_64unit, math.div(64, 24));
+$_32unit: math.div($_64unit, math.div(64, 32));
+
+$column-width: $_64unit * 3;
 
 $theme-background-color: white;
 
@@ -32,7 +47,7 @@ $border-radius: 0;
 
 $form-input-border-color: lighten($border-color, 37.5%);
 $form-input-border: 1px solid $form-input-border-color;
-$form-input-border-radius: 4px;
+$form-input-border-radius: $_4unit;
 $form-input-focus-border: 1px solid !important;
 $form-input-background: darken($theme-background-color, 2%) $primary-color !important;
 $form-input-focus-background: lighten(

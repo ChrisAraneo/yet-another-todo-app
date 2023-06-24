@@ -24,7 +24,7 @@
 
 th.cdk-header-cell {
   box-sizing: border-box;
-  height: $unit;
+  height: $_64unit;
   border-bottom: $border;
 
   span {
@@ -33,11 +33,11 @@ th.cdk-header-cell {
 }
 
 .mat-mdc-table .mdc-data-table__row {
-  height: $unit;
+  height: $_64unit;
 }
 
 .searchbar-wrapper {
-  padding: math.div($unit, 4) math.div($unit, 4) 0 math.div($unit, 4);
+  padding: $_16unit $_16unit 0 $_16unit;
 }
 
 .mat-column-id {
@@ -54,8 +54,8 @@ th.cdk-header-cell {
 }
 
 .mat-column-state {
-  min-width: 64px;
-  max-width: 64px;
+  min-width: $_64unit;
+  max-width: $_64unit;
 }
 
 .mat-column-creationDate,

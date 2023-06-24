@@ -19,12 +19,12 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: math.div($unit, 2);
+    padding: $_32unit;
   }
 
   .modal-title {
     h1 {
-      padding: math.div($unit, 4) math.div($unit, 2);
+      padding: $_16unit $_32unit;
       border-bottom: $border;
     }
   }
@@ -36,11 +36,11 @@
   yata-password-input,
   yata-file-input,
   .error-label {
-    margin-bottom: math.div($unit, 4);
+    margin-bottom: $_16unit;
   }
 
   button {
-    margin-top: math.div($unit, 2);
+    margin-top: $_32unit;
   }
 
   .error-label {

@@ -9,25 +9,25 @@
     justify-content: flex-start;
     align-items: center;
     border-bottom: $border;
-    height: $unit;
-    width: 5 * $unit;
-    padding: math.div($unit, 8);
+    height: $_64unit;
+    width: 5 * $_64unit;
+    padding: $_8unit;
   }
 
   yata-date-picker:first-of-type {
-    margin-right: 8px;
+    margin-right: $_8unit;
   }
 }
 
 ::ng-deep yata-date-picker.custom-date-picker {
   input {
-    padding: math.div($unit, 16) !important;
-    margin-top: math.div($unit, 16) - 1 !important;
-    width: math.div((5 * $unit - (3 * math.div($unit, 8))), 2) !important;
+    padding: $_4unit !important;
+    margin-top: $_4unit - ($_2unit * 0.5) !important;
+    width: math.div((5 * $_64unit - (3 * $_8unit)), 2) !important;
   }
 
   label {
     margin-top: 0 !important;
-    font-size: 12px !important;
+    font-size: $_12unit !important;
   }
 }

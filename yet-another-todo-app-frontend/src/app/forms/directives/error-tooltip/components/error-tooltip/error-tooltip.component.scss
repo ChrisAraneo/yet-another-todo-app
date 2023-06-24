@@ -3,8 +3,8 @@
 
 :host {
   .error-container {
-    margin-top: 6px;
-    padding: 0 2px;
+    margin-top: $_6unit;
+    padding: 0 $_2unit;
   }
 
   .error {
@@ -12,7 +12,7 @@
     font-family: Roboto, 'Helvetica Neue', sans-serif;
     background-color: none;
     margin: 0;
-    font-size: 12px;
+    font-size: $_12unit;
     font-weight: 400;
     background-color: transparent;
     color: $warn-color;

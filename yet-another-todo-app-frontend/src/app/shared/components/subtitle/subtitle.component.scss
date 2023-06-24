@@ -3,7 +3,7 @@
 
 span {
   font-family: 'Spectral', serif;
-  font-size: math.div($unit, math.div(64, 14));
-  line-height: math.div($unit, 4);
+  font-size: $_14unit;
+  line-height: $_16unit;
   font-weight: 500;
 }

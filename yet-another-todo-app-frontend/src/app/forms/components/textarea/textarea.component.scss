@@ -5,12 +5,12 @@ textarea,
 textarea:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: math.div($unit, 6) math.div($unit, 6);
-  font-size: 16px;
+  padding: $_10unit $_10unit;
+  font-size: $_16unit;
   border-radius: $form-input-border-radius;
   outline: none;
   margin: 0;
-  margin-top: 6px;
+  margin-top: $_6unit;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
   resize: vertical;
 }
@@ -28,10 +28,10 @@ textarea:focus {
 label {
   display: block;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
-  padding: 0 2px;
+  padding: 0 $_2unit;
   margin: 0;
-  margin-top: 6px;
-  font-size: 14px;
+  margin-top: $_6unit;
+  font-size: $_14unit;
   font-weight: 400;
   background-color: transparent;
   color: black;
