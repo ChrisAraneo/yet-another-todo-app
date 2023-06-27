@@ -9,20 +9,14 @@ import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
   providedIn: 'root',
 })
 export class ApiClientService {
-  private readonly tasksEndpoint;
-  private readonly taskEndpoint;
-
   constructor(
     @Inject('API') public api: any,
     private http: HttpClient,
     private taskCreator: TaskCreatorService,
-  ) {
-    this.tasksEndpoint = `${this.api.origin}/tasks`;
-    this.taskEndpoint = `${this.api.origin}/task`;
-  }
+  ) {}
 
   fetchTasksFromApi(): Observable<Task[] | undefined> {
-    return this.http.get<ApiResponse<TaskData[]>>(this.tasksEndpoint).pipe(
+    return this.http.get<ApiResponse<TaskData[]>>(this.api.tasksEndpoint).pipe(
       map((response: ApiResponse<TaskData[]>) => {
         if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
           this.printError(response);
@@ -36,7 +30,7 @@ export class ApiClientService {
   }
 
   postTaskToApi(task: Task): Observable<Task | undefined> {
-    return this.http.post<ApiResponse<TaskData>>(this.taskEndpoint, task).pipe(
+    return this.http.post<ApiResponse<TaskData>>(this.api.taskEndpoint, task).pipe(
       first(),
       map((response: ApiResponse<TaskData>) => {
         if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
@@ -51,7 +45,7 @@ export class ApiClientService {
   }
 
   postTasksToApi(tasks: Task[]): Observable<Task[] | undefined> {
-    return this.http.post<ApiResponse<TaskData[]>>(this.tasksEndpoint, tasks).pipe(
+    return this.http.post<ApiResponse<TaskData[]>>(this.api.tasksEndpoint, tasks).pipe(
       first(),
       map((response: ApiResponse<TaskData[]>) => {
         if (!response || response.status !== ApiResponseStatus.Success || !response.data) {
