@@ -25,6 +25,8 @@ export class TokenInterceptor implements HttpInterceptor {
         catchError((error) => {
           console.error(error);
 
+          // TODO Add to httpLog ??
+
           return this.handleResponseError(request, next);
         }),
       );
