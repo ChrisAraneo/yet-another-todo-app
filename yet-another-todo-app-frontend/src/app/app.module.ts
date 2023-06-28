@@ -16,6 +16,8 @@ import { ContainerModule } from './container/container.module';
 import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
+import { LoggingInterceptor } from './shared/interceptors/logging/logging.interceptor';
+import { OperationIdInterceptor } from './shared/interceptors/operation-id/operation-id.interceptor';
 import { TokenInterceptor } from './shared/interceptors/token/token.interceptor';
 import { MaterialModule } from './shared/material.module';
 import { ApiClientService } from './shared/services/api-client/api-client.service';
@@ -27,6 +29,7 @@ import { TasksService } from './shared/services/tasks/tasks.service';
 import { UserService } from './shared/services/user/user.service';
 import { SharedModule } from './shared/shared.module';
 import { TaskEffects } from './shared/store/effects/task.effects';
+import { httpLogReducer } from './shared/store/reducers/http-log.reducer';
 import { tasksReducer } from './shared/store/reducers/task.reducer';
 import { userReducer } from './shared/store/reducers/user.reducer';
 import { SideNavigationModule } from './side-navigation/side-navigation.module';
@@ -48,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TimelineModule,
     TableModule,
     ContainerModule,
-    StoreModule.forRoot({ tasks: tasksReducer, user: userReducer }),
+    StoreModule.forRoot({ tasks: tasksReducer, user: userReducer, httpLog: httpLogReducer }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -72,12 +75,14 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ReactiveFormsModule,
   ],
   providers: [
+    { provide: 'API', useValue: environment.api },
+    { provide: HTTP_INTERCEPTORS, useClass: OperationIdInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
     DateUtilsService,
     DialogService,
     ApiClientService,
     TasksService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: 'API', useValue: environment.api },
     UserService,
     AuthService,
     TaskStateTranslatorService,
