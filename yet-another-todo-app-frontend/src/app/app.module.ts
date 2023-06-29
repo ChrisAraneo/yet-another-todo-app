@@ -17,7 +17,6 @@ import { FormsModule } from './forms/forms.module';
 import { ModalsModule } from './modals/modals.module';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { LoggingInterceptor } from './shared/interceptors/logging/logging.interceptor';
-import { OperationIdInterceptor } from './shared/interceptors/operation-id/operation-id.interceptor';
 import { TokenInterceptor } from './shared/interceptors/token/token.interceptor';
 import { MaterialModule } from './shared/material.module';
 import { ApiClientService } from './shared/services/api-client/api-client.service';
@@ -76,7 +75,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   providers: [
     { provide: 'API', useValue: environment.api },
-    { provide: HTTP_INTERCEPTORS, useClass: OperationIdInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
     DateUtilsService,

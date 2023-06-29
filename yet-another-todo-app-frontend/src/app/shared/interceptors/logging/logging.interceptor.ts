@@ -15,7 +15,8 @@ import {
   pushToPostTaskHttpLog,
   pushToPostTasksHttpLog,
 } from '../../store/actions/http-log.actions';
-import { OperationIdHeaderName } from '../operation-id/operation-id.types';
+
+const OperationIdHeaderName = 'YATAOperationId'; // TODO Move to separate types file
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
