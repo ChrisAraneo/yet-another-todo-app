@@ -10,7 +10,7 @@ import {
   pushToPostTasksHttpLog,
 } from '../actions/http-log.actions';
 
-type HttpLogState = {
+export type HttpLogState = {
   // TODO Move the type to a separate file and improve the type by specifying the keys
   get: {
     tasks: any[];
