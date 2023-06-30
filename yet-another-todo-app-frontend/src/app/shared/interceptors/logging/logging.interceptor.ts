@@ -5,6 +5,7 @@ import { TypedAction } from '@ngrx/store/src/models';
 import { Observable, tap } from 'rxjs';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
+import { OPERATION_ID_HEADER_NAME } from '../../models/operation-id-header-name.const';
 import {
   pushToDeleteTaskHttpLog,
   pushToDeleteUserHttpLog,
@@ -15,8 +16,6 @@ import {
   pushToPostTaskHttpLog,
   pushToPostTasksHttpLog,
 } from '../../store/actions/http-log.actions';
-
-const OperationIdHeaderName = 'YATAOperationId'; // TODO Move to separate types file
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
@@ -85,14 +84,14 @@ export class LoggingInterceptor implements HttpInterceptor {
   }
 
   private getId(request: HttpRequest<unknown>): string {
-    return request.headers.get(OperationIdHeaderName) || '';
+    return request.headers.get(OPERATION_ID_HEADER_NAME) || '';
   }
 
   private dispatchLogRequestAction(
     actionCreator: ActionCreator<any, (props: HttpLogItem) => HttpLogItem & TypedAction<any>>,
     request: HttpRequest<unknown>,
   ): void {
-    const id = request.headers.get(OperationIdHeaderName) || '';
+    const id = request.headers.get(OPERATION_ID_HEADER_NAME) || '';
     const data = request.body;
 
     this.store.dispatch(
