@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, first, map, tap } from 'rxjs';
-import { ApiResponse, ApiResponseStatus } from '../api-client/api-client.types';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
+import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 import { LoginResponse, RefreshResponse } from './auth.types';
 
@@ -9,9 +8,6 @@ import { LoginResponse, RefreshResponse } from './auth.types';
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  private readonly loginEndpoint;
-  private readonly refreshEndpoint;
-
   private username = new BehaviorSubject<string | null>(null);
   private accessToken = new BehaviorSubject<string | null>(null);
   private refreshToken = new BehaviorSubject<string | null>(null);
@@ -19,15 +15,10 @@ export class AuthService implements OnDestroy {
 
   constructor(
     @Inject('API') public api: any,
-    private http: HttpClient,
+    private apiClientService: ApiClientService,
     private userService: UserService,
   ) {
-    this.loginEndpoint = `${this.api.origin}/login`;
-    this.refreshEndpoint = `${this.api.origin}/refresh`;
-
-    this.userService.getUsername().subscribe((username) => {
-      this.username.next(username);
-    });
+    this.subscribeToUsernameChanges();
   }
 
   ngOnDestroy(): void {
@@ -35,34 +26,25 @@ export class AuthService implements OnDestroy {
   }
 
   signIn(username: string, password: string): Observable<LoginResponse | null> {
-    return this.http
-      .post<ApiResponse<LoginResponse>>(this.loginEndpoint, { username, password })
-      .pipe(
-        first(),
-        tap((response) => {
-          const accessToken = response?.data?.accessToken;
-          const refreshToken = response?.data?.refreshToken;
+    return this.apiClientService.signIn(username, password).pipe(
+      tap((response) => {
+        const accessToken = response?.accessToken;
+        const refreshToken = response?.refreshToken;
 
-          this.setUsername(username);
-          accessToken && this.setAccessToken(accessToken);
-          refreshToken && this.setRefreshToken(refreshToken);
-          this.setIsLoggedBasedOnTokenValue(accessToken);
-        }),
-        map((response) => {
-          return response.data || null;
-        }),
-      );
+        this.setUsername(username);
+        accessToken && this.setAccessToken(accessToken);
+        refreshToken && this.setRefreshToken(refreshToken);
+        this.setIsLoggedBasedOnTokenValue(accessToken);
+      }),
+    );
   }
 
   refresh(): Observable<RefreshResponse | null> {
-    return this.refreshAccessToken(this.refreshToken.getValue() || '').pipe(
+    return this.apiClientService.refreshAccessToken(this.refreshToken.getValue() || '').pipe(
       tap((response) => {
         const accessToken = response?.accessToken;
 
         accessToken && this.setAccessToken(accessToken);
-      }),
-      map((response) => {
-        return response || null;
       }),
     );
   }
@@ -72,22 +54,7 @@ export class AuthService implements OnDestroy {
   }
 
   getRefreshEndpoint(): string {
-    return this.refreshEndpoint;
-  }
-
-  private refreshAccessToken(refreshToken: string): Observable<RefreshResponse | null> {
-    return this.http
-      .post<ApiResponse<RefreshResponse>>(this.refreshEndpoint, { refreshToken })
-      .pipe(
-        first(),
-        map((response: ApiResponse<RefreshResponse | null>) => {
-          if (response && response.status === ApiResponseStatus.Success) {
-            return response.data || null;
-          }
-
-          return null;
-        }),
-      );
+    return this.api.refreshEndpoint;
   }
 
   private setUsername(username: string): void {
@@ -104,5 +71,11 @@ export class AuthService implements OnDestroy {
 
   private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
+  }
+
+  private subscribeToUsernameChanges(): void {
+    this.userService.getUsername().subscribe((username) => {
+      this.username.next(username);
+    });
   }
 }
