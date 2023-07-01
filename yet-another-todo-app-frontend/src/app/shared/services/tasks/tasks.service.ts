@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, first, map, tap } from 'rxjs';
+import { Observable, Subscription, first, from, map, tap } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
 import { CompletedTaskState } from '../../models/task-state.model';
@@ -103,8 +103,7 @@ export class TasksService implements OnDestroy {
   private subscribeToUserLoggedIn(): void {
     this.subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
       if (isLogged) {
-        this.apiClientService
-          .fetchTasksFromApi()
+        from(this.apiClientService.fetchTasksFromApi())
           .pipe(
             first(),
             tap((tasks: Task[] | undefined) => {

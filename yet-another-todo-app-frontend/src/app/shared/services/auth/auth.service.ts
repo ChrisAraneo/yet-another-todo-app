@@ -1,5 +1,5 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, from, tap } from 'rxjs';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 import { LoginResponse, RefreshResponse } from './auth.types';
@@ -26,7 +26,7 @@ export class AuthService implements OnDestroy {
   }
 
   signIn(username: string, password: string): Observable<LoginResponse | null> {
-    return this.apiClientService.signIn(username, password).pipe(
+    return from(this.apiClientService.signIn(username, password)).pipe(
       tap((response) => {
         const accessToken = response?.accessToken;
         const refreshToken = response?.refreshToken;
@@ -40,7 +40,7 @@ export class AuthService implements OnDestroy {
   }
 
   refresh(): Observable<RefreshResponse | null> {
-    return this.apiClientService.refreshAccessToken(this.refreshToken.getValue() || '').pipe(
+    return from(this.apiClientService.refreshAccessToken(this.refreshToken.getValue() || '')).pipe(
       tap((response) => {
         const accessToken = response?.accessToken;
 
@@ -57,6 +57,12 @@ export class AuthService implements OnDestroy {
     return this.api.refreshEndpoint;
   }
 
+  private subscribeToUsernameChanges(): void {
+    this.userService.getUsername().subscribe((username) => {
+      this.username.next(username);
+    });
+  }
+
   private setUsername(username: string): void {
     this.userService.setUsername(username);
   }
@@ -71,11 +77,5 @@ export class AuthService implements OnDestroy {
 
   private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
-  }
-
-  private subscribeToUsernameChanges(): void {
-    this.userService.getUsername().subscribe((username) => {
-      this.username.next(username);
-    });
   }
 }
