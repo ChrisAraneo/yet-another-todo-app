@@ -39,4 +39,15 @@
   button {
     margin-top: $_32unit;
   }
+
+  .actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
+
+  .cancel-link {
+    margin-top: $_32unit;
+    margin-right: $_16unit;
+  }
 }

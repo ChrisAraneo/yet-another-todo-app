@@ -20,11 +20,12 @@
     *ngIf="!!showEndDateControl && (showEndDateControl | async)"
     [formControlName]="'endDate'"
     [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
-  <button
-    mat-flat-button
-    color="primary"
-    (click)="submit()"
-    [disabled]="taskForm.invalid || taskForm.pending">
-    {{ 'AddTaskModal.submit' | translate }}
-  </button>
+  <div class="actions">
+    <a class="cancel-link" mat-button (click)="cancel()">
+      {{ 'AddTaskModal.cancel' | translate }}
+    </a>
+    <yata-submit-button [invalid]="taskForm.invalid" [pending]="taskForm.pending" [submit]="submit">
+      {{ 'AddTaskModal.submit' | translate }}
+    </yata-submit-button>
+  </div>
 </form>
