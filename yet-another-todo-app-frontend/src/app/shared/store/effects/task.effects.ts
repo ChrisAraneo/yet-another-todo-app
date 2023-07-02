@@ -22,9 +22,8 @@ export class TaskEffects {
   createTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(CREATE_TASK_API),
-      map((action: any) => action && action?.task),
-      mergeMap((task: Task) =>
-        from(this.apiClientService.postTaskToApi(task)).pipe(
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTaskToApi(action.task, action.operationId)).pipe(
           map((result: Task | undefined) =>
             result ? createTask({ task: result }) : createAction('')(),
           ),
@@ -36,9 +35,8 @@ export class TaskEffects {
   updateTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(UPDATE_TASK_API),
-      map((action: any) => action && action?.task),
-      mergeMap((task: Task) =>
-        from(this.apiClientService.postTaskToApi(task)).pipe(
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTaskToApi(action.task, action.operationId)).pipe(
           map((result: Task | undefined) =>
             result ? updateTask({ task: result }) : createAction('')(),
           ),
@@ -50,15 +48,16 @@ export class TaskEffects {
   hideTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(HIDE_TASK_API),
-      map((action: any) => action && action?.id),
-      mergeMap((id: string) =>
+      mergeMap((action: any) =>
         this.tasksService.getTasks().pipe(
-          map((tasks) => tasks.find((item) => item.getId() === id)),
+          map((tasks) => tasks.find((item) => item.getId() === action.id)),
           mergeMap((task: Task | undefined) => {
             if (!!task) {
               const hiddenTask = TaskTransformer.transform(task, { isHidden: true }); // TODO Transformer to service
 
-              return from(this.apiClientService.postTaskToApi(hiddenTask)).pipe(map(() => id));
+              return from(this.apiClientService.postTaskToApi(hiddenTask, action.operationId)).pipe(
+                map(() => action.id),
+              );
             } else {
               return of(undefined);
             }
@@ -72,9 +71,8 @@ export class TaskEffects {
   updateTasksEffect = createEffect(() =>
     this.actions.pipe(
       ofType(UPDATE_TASKS_API),
-      map((action: any) => action && action?.tasks),
-      mergeMap((tasks: Task[]) =>
-        from(this.apiClientService.postTasksToApi(tasks)).pipe(
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTasksToApi(action.tasks, action.operationId)).pipe(
           map((result: Task[] | undefined) =>
             result ? setTasks({ tasks: result }) : createAction('')(),
           ),

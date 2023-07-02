@@ -1,5 +1,6 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, from, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, from, of, tap } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 import { LoginResponse, RefreshResponse } from './auth.types';
@@ -26,7 +27,9 @@ export class AuthService implements OnDestroy {
   }
 
   signIn(username: string, password: string): Observable<LoginResponse | null> {
-    return from(this.apiClientService.signIn(username, password)).pipe(
+    const operationId = this.generateOperationId();
+
+    return from(this.apiClientService.signIn(username, password, operationId)).pipe(
       tap((response) => {
         const accessToken = response?.accessToken;
         const refreshToken = response?.refreshToken;
@@ -40,7 +43,14 @@ export class AuthService implements OnDestroy {
   }
 
   refresh(): Observable<RefreshResponse | null> {
-    return from(this.apiClientService.refreshAccessToken(this.refreshToken.getValue() || '')).pipe(
+    const operationId = this.generateOperationId();
+    const currentRefreshToken = this.refreshToken.getValue();
+
+    if (typeof currentRefreshToken !== 'string' || currentRefreshToken === '') {
+      return of(null);
+    }
+
+    return from(this.apiClientService.refreshAccessToken(currentRefreshToken, operationId)).pipe(
       tap((response) => {
         const accessToken = response?.accessToken;
 
@@ -77,5 +87,10 @@ export class AuthService implements OnDestroy {
 
   private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
+  }
+
+  // TODO Move to separate service
+  private generateOperationId(): string {
+    return uuidv4();
   }
 }

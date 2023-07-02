@@ -1,8 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, first, from, map, tap } from 'rxjs';
+import { Observable, Subscription, filter, first, from, map, tap } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { v4 as uuidv4 } from 'uuid';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
+import { HttpLogItem } from '../../models/http-log-item.type';
+import { HttpLogType } from '../../models/http-log-type.enum';
 import { CompletedTaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
@@ -12,9 +15,11 @@ import {
   sendUpdateTasksRequest,
   setTasks,
 } from '../../store/actions/task.actions';
+import { HttpLogState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 
+// TODO Response observables
 @Injectable({
   providedIn: 'root',
 })
@@ -22,7 +27,7 @@ export class TasksService implements OnDestroy {
   private subscription!: Subscription;
 
   constructor(
-    public store: Store<{ tasks: Task[] }>,
+    public store: Store<{ tasks: Task[]; httpLog: HttpLogState }>,
     private apiClientService: ApiClientService,
     private userService: UserService,
   ) {
@@ -45,14 +50,31 @@ export class TasksService implements OnDestroy {
       .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
-  addTask(task: Task): void {
-    this.store.dispatch(sendCreateTaskRequest({ task }));
+  addTask(task: Task): Observable<HttpLogItem | undefined> {
+    const operationId = this.generateOperationId();
+
+    const responseObservable = this.store.select('httpLog').pipe(
+      map((state) => state.post.task.filter((item) => item.id === operationId)),
+      map((logs) => logs.find((item) => item.logType === HttpLogType.Response)),
+      filter((log) => !!log),
+      first(),
+    );
+
+    this.store.dispatch(sendCreateTaskRequest({ task, operationId }));
+
+    return responseObservable;
   }
 
-  updateTask(task: Task): void {
-    this.store.dispatch(sendUpdateTaskRequest({ task }));
+  // TODO Return response observable
+  updateTask(task: Task): string {
+    const operationId = this.generateOperationId();
+
+    this.store.dispatch(sendUpdateTaskRequest({ task, operationId }));
+
+    return operationId;
   }
 
+  // TODO Return response observable
   completeTask(task: Task, endDate: Date = new Date()): void {
     const updatedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
@@ -63,12 +85,19 @@ export class TasksService implements OnDestroy {
     this.updateTask(updatedTask);
   }
 
-  hideTask(taskId: string): void {
-    this.store.dispatch(sendHideTaskRequest({ id: taskId }));
+  // TODO Return response observable
+  hideTask(taskId: string): string {
+    const operationId = this.generateOperationId();
+
+    this.store.dispatch(sendHideTaskRequest({ id: taskId, operationId }));
+
+    return operationId;
   }
 
   // TODO Unit tests
   importTasks(importedTasks: Task[], action: ImportAction): Observable<void> {
+    const operationId = this.generateOperationId();
+
     return this.store.select('tasks').pipe(
       first(),
       map((currentTasks: Task[]) => {
@@ -92,7 +121,7 @@ export class TasksService implements OnDestroy {
         return updatedTasks;
       }),
       tap((updatedTasks) => {
-        this.store.dispatch(sendUpdateTasksRequest({ tasks: updatedTasks }));
+        this.store.dispatch(sendUpdateTasksRequest({ tasks: updatedTasks, operationId }));
       }),
       map(() => {
         return undefined;
@@ -100,10 +129,15 @@ export class TasksService implements OnDestroy {
     );
   }
 
+  // TODO Move to separate service
+  private generateOperationId(): string {
+    return uuidv4();
+  }
+
   private subscribeToUserLoggedIn(): void {
     this.subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
       if (isLogged) {
-        from(this.apiClientService.fetchTasksFromApi())
+        from(this.apiClientService.fetchTasksFromApi(this.generateOperationId()))
           .pipe(
             first(),
             tap((tasks: Task[] | undefined) => {
