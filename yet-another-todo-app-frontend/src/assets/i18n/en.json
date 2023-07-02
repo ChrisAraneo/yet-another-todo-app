@@ -1,5 +1,6 @@
 {
   "AddTaskModal": {
+    "cancel": "Cancel",
     "description": "Description",
     "endDate": "End date",
     "modalTitle": "Add new task",

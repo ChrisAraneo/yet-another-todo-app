@@ -1,5 +1,6 @@
 {
   "AddTaskModal": {
+    "cancel": "Anuluj",
     "description": "Opis",
     "endDate": "Data zakończenia",
     "modalTitle": "Dodaj nowe zadanie",
