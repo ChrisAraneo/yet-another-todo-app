@@ -1,4 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
+import { HttpLogItem } from '../../models/http-log-item.type';
 import {
   pushToDeleteTaskHttpLog,
   pushToDeleteUserHttpLog,
@@ -13,18 +14,18 @@ import {
 export type HttpLogState = {
   // TODO Move the type to a separate file and improve the type by specifying the keys
   get: {
-    tasks: any[];
+    tasks: HttpLogItem[];
   };
   post: {
-    signUp: any[];
-    login: any[];
-    refresh: any[];
-    tasks: any[];
-    task: any[];
+    signUp: HttpLogItem[];
+    login: HttpLogItem[];
+    refresh: HttpLogItem[];
+    tasks: HttpLogItem[];
+    task: HttpLogItem[];
   };
   delete: {
-    task: any[];
-    user: any[];
+    task: HttpLogItem[];
+    user: HttpLogItem[];
   };
 };
 
