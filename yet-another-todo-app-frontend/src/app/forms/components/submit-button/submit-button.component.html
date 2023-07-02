@@ -1,3 +1,15 @@
-<button mat-flat-button color="primary" (click)="submit()" [disabled]="invalid || pending">
-  <ng-content></ng-content>
-</button>
+<div class="submit-button-wrapper">
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="onButtonClick()"
+    [disabled]="invalid || pending || isLoading">
+    <div class="button-content">
+      <div class="spacer"></div>
+      <ng-content></ng-content>
+      <div class="spinner-wrapper">
+        <mat-spinner [diameter]="22" *ngIf="isLoading"></mat-spinner>
+      </div>
+    </div>
+  </button>
+</div>

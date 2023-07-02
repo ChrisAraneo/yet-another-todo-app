@@ -18,6 +18,8 @@ $_20unit: math.div($_64unit, math.div(64, 20));
 $_22unit: math.div($_64unit, math.div(64, 22));
 $_24unit: math.div($_64unit, math.div(64, 24));
 $_32unit: math.div($_64unit, math.div(64, 32));
+$_128unit: $_64unit * 2;
+$_192unit: $_64unit * 3;
 
 $column-width: $_64unit * 3;
 
