@@ -20,6 +20,7 @@ import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-m
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
+import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
@@ -29,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
+    ModalActionButtonsComponent,
     AddTaskModalComponent,
     DeleteTaskModalComponent,
     EditTaskModalComponent,
