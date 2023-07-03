@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
+import { CancelButtonComponent } from './components/cancel-button/cancel-button.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
@@ -14,6 +15,7 @@ import { DirectivesModule } from './directives/directives.module';
 @NgModule({
   declarations: [
     SubmitButtonComponent,
+    CancelButtonComponent,
     TextInputComponent,
     TextareaComponent,
     SelectComponent,
