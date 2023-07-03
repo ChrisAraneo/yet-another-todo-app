@@ -20,12 +20,11 @@
     *ngIf="!!showEndDateControl && (showEndDateControl | async)"
     [formControlName]="'endDate'"
     [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
-  <div class="actions">
-    <yata-cancel-button [disabled]="taskForm.pending" [cancel]="cancel">
-      {{ 'AddTaskModal.cancel' | translate }}
-    </yata-cancel-button>
-    <yata-submit-button [invalid]="taskForm.invalid" [pending]="taskForm.pending" [submit]="submit">
-      {{ 'AddTaskModal.submit' | translate }}
-    </yata-submit-button>
-  </div>
+  <yata-modal-action-buttons
+    [form]="taskForm"
+    [submit]="submit"
+    [submitLabel]="'AddTaskModal.submit'"
+    [cancel]="cancel"
+    [cancelLabel]="'AddTaskModal.cancel'">
+  </yata-modal-action-buttons>
 </form>
