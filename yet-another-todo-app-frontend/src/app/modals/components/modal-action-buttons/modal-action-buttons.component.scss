@@ -1,0 +1,11 @@
+@import '../../../shared/styles/variables.scss';
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+yata-cancel-button {
+  margin-right: $_16unit;
+}

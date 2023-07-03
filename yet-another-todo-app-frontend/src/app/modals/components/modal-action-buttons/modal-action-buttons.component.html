@@ -1,1 +1,8 @@
-<p>modal-action-buttons works!</p>
+<div class="actions" *ngIf="form">
+  <yata-cancel-button [disabled]="form.pending" [cancel]="cancel">
+    {{ cancelLabel | translate }}
+  </yata-cancel-button>
+  <yata-submit-button [invalid]="form.invalid" [pending]="form.pending" [submit]="submit">
+    {{ submitLabel | translate }}
+  </yata-submit-button>
+</div>
