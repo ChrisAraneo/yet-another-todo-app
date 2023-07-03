@@ -27,6 +27,7 @@ import { DirectivesModule } from './directives/directives.module';
   providers: [],
   exports: [
     SubmitButtonComponent,
+    CancelButtonComponent,
     DatePickerComponent,
     SelectComponent,
     TextInputComponent,
