@@ -72,9 +72,9 @@ export class AddTaskModalComponent implements OnDestroy {
     });
   };
 
-  cancel(): void {
+  cancel = (): void => {
     this.dialogRef.close();
-  }
+  };
 
   private initializeStates(): void {
     this.states = this.taskStateTranslatorService.getTranslatedTaskStateSelectOptions();

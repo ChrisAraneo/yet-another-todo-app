@@ -21,9 +21,9 @@
     [formControlName]="'endDate'"
     [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
   <div class="actions">
-    <a class="cancel-link" mat-button (click)="cancel()">
+    <yata-cancel-button [disabled]="taskForm.pending" [cancel]="cancel">
       {{ 'AddTaskModal.cancel' | translate }}
-    </a>
+    </yata-cancel-button>
     <yata-submit-button [invalid]="taskForm.invalid" [pending]="taskForm.pending" [submit]="submit">
       {{ 'AddTaskModal.submit' | translate }}
     </yata-submit-button>
