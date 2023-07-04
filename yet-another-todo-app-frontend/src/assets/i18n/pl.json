@@ -21,6 +21,7 @@
     "startDate": "Data rozpoczęcia"
   },
   "DeleteTaskModal": {
+    "cancel": "Anuluj",
     "delete": "Usuń",
     "emptyCaption": "Brak zadań do usunięcia",
     "emptyHint": "Najpierw utwórz zadania, aby móc je później usunąć",

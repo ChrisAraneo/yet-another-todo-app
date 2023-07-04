@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription, first, map } from 'rxjs';
+import { Observable, Subscription, delay, first, map } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../../shared/models/task.model';
 import { TaskForm, TaskOption } from './delete-task-modal.types';
@@ -33,18 +33,32 @@ export class DeleteTaskModalComponent implements OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  submit(): void {
+  submit: () => Promise<void> = async () => {
     if (!this.taskForm || this.taskForm.invalid) {
       return;
     }
 
     const task = this.taskForm.controls.task.value;
 
-    if (task) {
-      this.tasksService.hideTask(task.getId());
-      this.dialogRef.close();
-    }
-  }
+    return new Promise((resolve, reject) => {
+      if (task) {
+        this.tasksService
+          .hideTask(task.getId())
+          .pipe(delay(350))
+          .subscribe(() => {
+            resolve();
+
+            this.dialogRef.close();
+          });
+      } else {
+        reject();
+      }
+    });
+  };
+
+  cancel: () => void = () => {
+    this.dialogRef.close();
+  };
 
   private initializeTasksObservable(): void {
     this.tasks = this.tasksService.getTasks().pipe(

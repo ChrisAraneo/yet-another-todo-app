@@ -52,13 +52,7 @@ export class TasksService implements OnDestroy {
 
   addTask(task: Task): Observable<HttpLogItem | undefined> {
     const operationId = this.generateOperationId();
-
-    const responseObservable = this.store.select('httpLog').pipe(
-      map((state) => state.post.task.filter((item) => item.id === operationId)),
-      map((logs) => logs.find((item) => item.logType === HttpLogType.Response)),
-      filter((log) => !!log),
-      first(),
-    );
+    const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendCreateTaskRequest({ task, operationId }));
 
@@ -85,13 +79,13 @@ export class TasksService implements OnDestroy {
     this.updateTask(updatedTask);
   }
 
-  // TODO Return response observable
-  hideTask(taskId: string): string {
+  hideTask(taskId: string): Observable<HttpLogItem | undefined> {
     const operationId = this.generateOperationId();
+    const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendHideTaskRequest({ id: taskId, operationId }));
 
-    return operationId;
+    return responseObservable;
   }
 
   // TODO Unit tests
@@ -187,5 +181,22 @@ export class TasksService implements OnDestroy {
 
   private hideAllTasks(tasks: Task[]): Task[] {
     return tasks.map((task) => TaskTransformer.transform(task, { isHidden: true }));
+  }
+
+  private getResponseObservable(
+    operationId: string,
+    method: string,
+    collection: string,
+  ): Observable<HttpLogItem | undefined> {
+    return this.store.select('httpLog').pipe(
+      map((state) =>
+        ((state as any)[method][collection] as HttpLogItem[]).filter(
+          (item) => item.id === operationId,
+        ),
+      ),
+      map((logs) => logs.find((item) => item.logType === HttpLogType.Response)),
+      filter((log) => !!log),
+      first(),
+    );
   }
 }
