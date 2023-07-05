@@ -59,13 +59,13 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  // TODO Return response observable
-  updateTask(task: Task): string {
+  updateTask(task: Task): Observable<HttpLogItem | undefined> {
     const operationId = this.generateOperationId();
+    const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendUpdateTaskRequest({ task, operationId }));
 
-    return operationId;
+    return responseObservable;
   }
 
   // TODO Return response observable
@@ -76,7 +76,7 @@ export class TasksService implements OnDestroy {
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
     });
 
-    this.updateTask(updatedTask);
+    this.updateTask(updatedTask).pipe(first()).subscribe();
   }
 
   hideTask(taskId: string): Observable<HttpLogItem | undefined> {

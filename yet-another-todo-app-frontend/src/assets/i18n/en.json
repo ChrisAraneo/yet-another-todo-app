@@ -29,6 +29,7 @@
     "selectTask": "Task to delete"
   },
   "EditTaskModal": {
+    "cancel": "Cancel",
     "description": "Description",
     "emptyCaption": "There are no defined tasks to edit",
     "emptyHint": "Create tasks first so you can edit them later",

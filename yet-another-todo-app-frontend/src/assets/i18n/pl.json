@@ -29,6 +29,7 @@
     "selectTask": "Zadanie do usunięcia"
   },
   "EditTaskModal": {
+    "cancel": "Anuluj",
     "description": "Opis",
     "emptyCaption": "Brak zadań do edycji",
     "emptyHint": "Najpierw utwórz zadania, aby móc je później edytować",
