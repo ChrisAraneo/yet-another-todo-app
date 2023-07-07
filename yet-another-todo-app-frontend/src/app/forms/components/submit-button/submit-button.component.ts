@@ -12,14 +12,14 @@ const NOOP = async (): Promise<void> => {
 export class SubmitButtonComponent {
   @Input() invalid: boolean = false;
   @Input() pending: boolean = false;
-  @Input() submit: () => Promise<void> = NOOP;
+  @Input() submit: (event?: any) => Promise<void> = NOOP;
 
   isLoading: boolean = false;
 
-  onButtonClick(): void {
+  onButtonClick(event?: any): void {
     this.isLoading = true;
 
-    this.submit()
+    this.submit(event)
       .then(() => {
         this.isLoading = false;
       })

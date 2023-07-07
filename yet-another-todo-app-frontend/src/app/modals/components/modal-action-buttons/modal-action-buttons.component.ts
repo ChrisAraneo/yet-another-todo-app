@@ -12,7 +12,7 @@ const NOOP = async (): Promise<void> => {
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup<any>;
-  @Input() submit: () => Promise<void> = NOOP;
+  @Input() submit: (event?: any) => Promise<void> = NOOP;
   @Input() cancel: (() => Promise<void>) | (() => void) = NOOP;
   @Input() cancelLabel: string = '';
   @Input() submitLabel: string = '';
