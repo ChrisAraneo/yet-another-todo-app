@@ -2,7 +2,7 @@
   <button
     mat-flat-button
     color="primary"
-    (click)="onButtonClick()"
+    (click)="onButtonClick($event)"
     [disabled]="invalid || pending || isLoading">
     <div class="button-content">
       <div class="spacer"></div>
