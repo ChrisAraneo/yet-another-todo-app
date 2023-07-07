@@ -11,11 +11,11 @@
     [formControlName]="'repeatPassword'"
     [label]="'ExportTasksModal.repeatPassword' | translate"
     [parentForm]="form"></yata-password-input>
-  <button
-    mat-flat-button
-    color="primary"
-    (click)="submit($event, _tasks)"
-    [disabled]="(isLoading | async) || form.invalid || form.pending">
-    {{ 'ExportTasksModal.submit' | translate }}
-  </button>
+  <yata-modal-action-buttons
+    [form]="form"
+    [submit]="submit(_tasks)"
+    [submitLabel]="'ExportTasksModal.submit'"
+    [cancel]="cancel"
+    [cancelLabel]="'ExportTasksModal.cancel'">
+  </yata-modal-action-buttons>
 </form>

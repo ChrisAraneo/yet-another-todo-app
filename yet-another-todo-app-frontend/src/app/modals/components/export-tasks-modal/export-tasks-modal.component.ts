@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { matchOtherValidator } from 'src/app/forms/validators/match-other.validator';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ZipTasksService } from 'src/app/shared/services/zip-tasks/zip-tasks.service';
@@ -20,7 +20,6 @@ export class ExportTasksModalComponent {
 
   form!: FormGroup<ExportTasksForm>;
   tasks!: Observable<Task[]>;
-  isLoading: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     public dialogRef: MatDialogRef<ExportTasksModalComponent>,
@@ -32,19 +31,22 @@ export class ExportTasksModalComponent {
     this.initializeForm();
   }
 
-  submit(event: any, tasks: Task[]): void {
-    event.preventDefault();
-    this.form.updateValueAndValidity();
+  submit = (tasks: Task[]) => {
+    return async (event: any): Promise<void> => {
+      event.preventDefault();
+      this.form.updateValueAndValidity();
 
-    if (this.form.valid && this.form.value.password) {
-      this.isLoading.next(true);
+      if (this.form.valid && this.form.value.password) {
+        await this.zipTasksService.zip(tasks, this.form.value.password);
 
-      this.zipTasksService.zip(tasks, this.form.value.password).then(() => {
-        this.isLoading.next(false);
         this.dialogRef.close();
-      });
-    }
-  }
+      }
+    };
+  };
+
+  cancel = (): void => {
+    this.dialogRef.close();
+  };
 
   private initializeTasksObservable(): void {
     this.tasks = this.tasksService.getTasks();

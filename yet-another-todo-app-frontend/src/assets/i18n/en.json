@@ -47,6 +47,7 @@
     "required": "This is required."
   },
   "ExportTasksModal": {
+    "cancel": "Cancel",
     "modalTitle": "Export tasks",
     "password": "Password",
     "repeatPassword": "Repeat password",

@@ -47,6 +47,7 @@
     "required": "To pole jest wymagane."
   },
   "ExportTasksModal": {
+    "cancel": "Anuluj",
     "modalTitle": "Eksportuj zadania",
     "password": "Hasło",
     "repeatPassword": "Powtórz hasło",
