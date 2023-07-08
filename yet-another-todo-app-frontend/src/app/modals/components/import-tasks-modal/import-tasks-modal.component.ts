@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
 import { UnzipTasksService } from 'src/app/shared/services/unzip-tasks/unzip-tasks.service';
 import { ImportTasksForm } from './import-tasks-modal.types';
 
@@ -15,7 +14,6 @@ export class ImportTasksModalComponent {
 
   form!: FormGroup<ImportTasksForm>;
   unzipError?: Error;
-  isLoading = new BehaviorSubject<boolean>(false);
 
   constructor(
     public dialogRef: MatDialogRef<ImportTasksModalComponent>,
@@ -25,29 +23,33 @@ export class ImportTasksModalComponent {
     this.initializeForm();
   }
 
-  submit(event: any): void {
-    event.preventDefault();
+  submit = async (event: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      event.preventDefault();
 
-    this.form.updateValueAndValidity();
+      this.form.updateValueAndValidity();
 
-    if (this.form.valid) {
-      const { file, password } = this.form.value;
+      if (this.form.valid) {
+        const { file, password } = this.form.value;
 
-      this.isLoading.next(true);
+        this.unzipTasksService
+          .unzip(file as ArrayBuffer, password || '')
+          .then((result) => {
+            resolve();
+            this.dialogRef.close(result);
+          })
+          .catch((error: Error) => {
+            this.unzipError = error;
+            console.error(error);
+            reject();
+          });
+      }
+    });
+  };
 
-      this.unzipTasksService
-        .unzip(file as ArrayBuffer, password || '')
-        .then((result) => {
-          this.isLoading.next(false);
-          this.dialogRef.close(result);
-        })
-        .catch((error: Error) => {
-          this.isLoading.next(false);
-          this.unzipError = error;
-          console.error(error);
-        });
-    }
-  }
+  cancel = (): void => {
+    this.dialogRef.close();
+  };
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<ImportTasksForm>({

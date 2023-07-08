@@ -10,11 +10,11 @@
   <span class="error-label" *ngIf="unzipError">
     {{ 'ImportTasksModal.unzipError' | translate }}
   </span>
-  <button
-    mat-flat-button
-    color="primary"
-    (click)="submit($event)"
-    [disabled]="form.invalid || (isLoading | async)">
-    {{ 'ImportTasksModal.submit' | translate }}
-  </button>
+  <yata-modal-action-buttons
+    [form]="form"
+    [submit]="submit"
+    [submitLabel]="'ImportTasksModal.submit'"
+    [cancel]="cancel"
+    [cancelLabel]="'ImportTasksModal.cancel'">
+  </yata-modal-action-buttons>
 </form>

@@ -55,6 +55,7 @@
   },
   "IN_PROGRESS": "Zadanie w toku",
   "ImportTasksModal": {
+    "cancel": "Anuluj",
     "file": "Wybierz plik zip",
     "modalTitle": "Importuj zadania",
     "password": "Hasło",

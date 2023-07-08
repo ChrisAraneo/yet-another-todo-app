@@ -55,6 +55,7 @@
   },
   "IN_PROGRESS": "Task in progress",
   "ImportTasksModal": {
+    "cancel": "Cancel",
     "file": "Select zip file",
     "modalTitle": "Import tasks",
     "password": "Password",
