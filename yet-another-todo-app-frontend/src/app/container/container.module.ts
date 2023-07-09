@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -15,6 +16,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [AppWrapperComponent, ToolbarComponent, FooterComponent],
   imports: [
+    CommonModule,
     SharedModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
