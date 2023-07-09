@@ -85,6 +85,7 @@
     "timelineView": "Widok osi czasu"
   },
   "SignInModal": {
+    "dontSignIn": "Nie loguj się",
     "modalTitle": "Zaloguj się",
     "password": "Hasło",
     "signIn": "Zaloguj się",

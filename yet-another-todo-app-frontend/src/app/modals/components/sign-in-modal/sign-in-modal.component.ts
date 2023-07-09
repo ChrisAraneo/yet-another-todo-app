@@ -30,17 +30,26 @@ export class SignInModalComponent implements OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  submit(): void {
-    if (!this.form || this.form.invalid) {
-      return;
-    }
+  submit = async (): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      if (!this.form || this.form.invalid) {
+        reject();
 
-    const { username, password } = this.form.value;
+        return;
+      }
 
-    this.subscription = this.authService.signIn(username || '', password || '').subscribe(() => {
-      this.dialogRef.close();
+      const { username, password } = this.form.value;
+
+      this.subscription = this.authService.signIn(username || '', password || '').subscribe(() => {
+        resolve();
+        this.dialogRef.close();
+      });
     });
-  }
+  };
+
+  cancel = (): void => {
+    this.dialogRef.close();
+  };
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<SignInForm>({
