@@ -10,8 +10,12 @@ import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/
 export class UserService {
   constructor(public store: Store<{ user: CurrentUser }>) {}
 
+  getUserData(): Observable<CurrentUser> {
+    return this.store.select('user');
+  }
+
   getUsername(): Observable<string | null> {
-    return this.store.select('user').pipe(map((data) => data.username));
+    return this.getUserData().pipe(map((data) => data.username));
   }
 
   setUsername(username: string): void {
@@ -19,7 +23,7 @@ export class UserService {
   }
 
   getIsUserLogged(): Observable<boolean> {
-    return this.store.select('user').pipe(map((data) => !!(data && data.isLogged)));
+    return this.getUserData().pipe(map((data) => !!(data && data.isLogged)));
   }
 
   setIsUserLogged(value: boolean): void {
@@ -27,7 +31,7 @@ export class UserService {
   }
 
   getIsOfflineMode(): Observable<boolean> {
-    return this.store.select('user').pipe(map((data) => !!(data && data.isOfflineMode)));
+    return this.getUserData().pipe(map((data) => !!(data && data.isOfflineMode)));
   }
 
   setIsOfflineMode(value: boolean): void {
