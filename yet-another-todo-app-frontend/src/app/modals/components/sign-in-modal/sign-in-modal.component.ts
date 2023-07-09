@@ -48,6 +48,7 @@ export class SignInModalComponent implements OnDestroy {
   };
 
   cancel = (): void => {
+    this.authService.signOut();
     this.dialogRef.close();
   };
 
