@@ -5,7 +5,7 @@ import { setIsLogged, setIsOfflineMode, setUsername } from '../actions/user.acti
 export const initialState: CurrentUser = {
   username: '',
   isLogged: false,
-  isOfflineMode: true,
+  isOfflineMode: false,
 };
 
 export const userReducer = createReducer(
