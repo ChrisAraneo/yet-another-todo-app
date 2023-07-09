@@ -24,3 +24,15 @@
   height: calc(100vh - $_64unit + $_2unit);
   background-color: $theme-background-color;
 }
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1s, visibility 0s;
+}
+
+*:not(.hidden) {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s, visibility 0s;
+}
