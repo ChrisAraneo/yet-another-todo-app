@@ -27,6 +27,8 @@ export class AuthService implements OnDestroy {
   }
 
   signIn(username: string, password: string): Observable<LoginResponse | null> {
+    this.setIsOfflineMode(false);
+
     const operationId = this.generateOperationId();
 
     return from(this.apiClientService.signIn(username, password, operationId)).pipe(
@@ -59,6 +61,14 @@ export class AuthService implements OnDestroy {
     );
   }
 
+  signOut(): void {
+    this.setIsOfflineMode(true);
+    this.setUsername('');
+    this.setAccessToken('');
+    this.setRefreshToken('');
+    this.setIsLoggedBasedOnTokenValue('');
+  }
+
   getAccessToken(): string | null {
     return this.accessToken.getValue();
   }
@@ -87,6 +97,10 @@ export class AuthService implements OnDestroy {
 
   private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
+  }
+
+  private setIsOfflineMode(value: boolean): void {
+    this.userService.setIsOfflineMode(value);
   }
 
   // TODO Move to separate service
