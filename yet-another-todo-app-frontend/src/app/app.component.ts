@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, debounceTime, filter } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
@@ -19,6 +19,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
+  isAppVisible: boolean = false;
   isMenuOpened: boolean = true;
   timelineStartDate!: Date;
   timelineEndDate!: Date;
@@ -85,13 +86,15 @@ export class AppComponent implements OnDestroy, AfterViewInit {
 
   private subscribeToUserChanges(): void {
     this.subscription = this.userService
-      .getIsUserLogged()
-      .pipe(
-        debounceTime(2000),
-        filter((isLogged) => !isLogged),
-      )
-      .subscribe(() => {
-        this.dialogService.openSignInModal();
+      .getUserData()
+      .pipe(debounceTime(200))
+      .subscribe((state) => {
+        if (!state.isLogged && !state.isOfflineMode) {
+          this.isAppVisible = false;
+          this.dialogService.openSignInModal();
+        } else {
+          this.isAppVisible = true;
+        }
       });
   }
 

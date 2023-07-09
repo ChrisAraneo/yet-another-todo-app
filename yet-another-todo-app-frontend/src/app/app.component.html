@@ -1,5 +1,5 @@
-<yata-app-wrapper>
-  <yata-toolbar [title]="'App.title' | translate " (menuClick)="onMenuClick()"></yata-toolbar>
+<yata-app-wrapper [isAppVisible]="isAppVisible">
+  <yata-toolbar [title]="'App.title' | translate" (menuClick)="onMenuClick()"></yata-toolbar>
   <main>
     <yata-side-navigation
       [isOpened]="isMenuOpened"
