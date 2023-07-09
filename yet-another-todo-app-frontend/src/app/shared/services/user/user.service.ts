@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { CurrentUser } from 'src/app/shared/models/current-user.model';
-import { setIsLogged, setUsername } from '../../store/actions/user.actions';
+import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/user.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,13 @@ export class UserService {
 
   setIsUserLogged(value: boolean): void {
     this.store.dispatch(setIsLogged({ isLogged: value }));
+  }
+
+  getIsOfflineMode(): Observable<boolean> {
+    return this.store.select('user').pipe(map((data) => !!(data && data.isOfflineMode)));
+  }
+
+  setIsOfflineMode(value: boolean): void {
+    this.store.dispatch(setIsOfflineMode({ isOfflineMode: value }));
   }
 }
