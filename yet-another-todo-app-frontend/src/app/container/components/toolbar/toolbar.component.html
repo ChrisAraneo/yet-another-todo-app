@@ -1,9 +1,25 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button [attr.aria-label]="'Toolbar.menuIcon' | translate" (click)="onMenuClick()">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'Toolbar.menuIcon' | translate"
+    (click)="onMenuClick()">
     <mat-icon>menu</mat-icon>
   </button>
   <yata-title>{{ title }}</yata-title>
-  <button mat-icon-button [attr.aria-label]="'Toolbar.githubIcon' | translate" (click)="onGitClick()">
-    <img src="assets/images/github-mark.svg" style="width: 24px; height: 24px" />
-  </button>
+  <div class="logged-as" *ngIf="!isOfflineMode; else offlineMode">
+    <span class="label">{{ 'Toolbar.loggedAs' | translate }}</span>
+    <span class="username">{{ username || '' }}</span>
+  </div>
+  <ng-template #offlineMode>
+    <div
+      class="offline-mode"
+      [matTooltip]="'Toolbar.offlineModeHint' | translate"
+      [matTooltipPosition]="'below'"
+      [matTooltipShowDelay]="250">
+      <mat-icon aria-hidden="false" [attr.aria-label]="'Toolbar.offlineModeHint' | translate">
+        wifi_off
+      </mat-icon>
+      <span class="label">{{ 'Toolbar.offlineMode' | translate }}</span>
+    </div>
+  </ng-template>
 </mat-toolbar>

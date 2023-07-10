@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, debounceTime } from 'rxjs';
+import { Observable, Subscription, debounceTime } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
@@ -19,11 +19,13 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
+  appMode: AppMode = AppMode.Timeline;
   isAppVisible: boolean = false;
   isMenuOpened: boolean = true;
   timelineStartDate!: Date;
   timelineEndDate!: Date;
-  appMode: AppMode = AppMode.Timeline;
+  username!: Observable<string | null>;
+  isOfflineMode!: Observable<boolean>;
 
   private subscription!: Subscription;
 
@@ -36,6 +38,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.initializeTranslateService();
     this.initializeTimelineStartDate();
     this.initializeTimelineEndDate();
+    this.initializeUsernameObservable();
+    this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
   }
 
@@ -82,6 +86,14 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     const today = new Date();
 
     this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(today);
+  }
+
+  private initializeUsernameObservable(): void {
+    this.username = this.userService.getUsername();
+  }
+
+  private initializeIsOfflineModeObservable(): void {
+    this.isOfflineMode = this.userService.getIsOfflineMode();
   }
 
   private subscribeToUserChanges(): void {

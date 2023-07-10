@@ -13,6 +13,7 @@
     "title": "ヤタ YATA - Yet Another Todo App"
   },
   "AppFooter": {
+    "githubRepo": "Repozytorium Github",
     "madeBy": "Autor aplikacji: Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Zadanie wykonane",
@@ -108,6 +109,9 @@
   },
   "Toolbar": {
     "githubIcon": "Ikona Github",
-    "menuIcon": "Ikona menu"
+    "loggedAs": "Jesteś zalogowany jako",
+    "menuIcon": "Ikona menu",
+    "offlineMode": "Tryb offline",
+    "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
   }
 }

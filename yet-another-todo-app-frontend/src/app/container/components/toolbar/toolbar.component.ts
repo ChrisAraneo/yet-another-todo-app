@@ -7,14 +7,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ToolbarComponent {
   @Input() title: string = '';
+  @Input() username: string | null = null;
+  @Input() isOfflineMode: boolean = false;
 
   @Output() menuClick = new EventEmitter();
 
   onMenuClick(): void {
     this.menuClick.emit();
-  }
-
-  onGitClick(): void {
-    window.open('https://github.com/ChrisAraneo/yet-another-todo-app', '_blank');
   }
 }

@@ -13,6 +13,7 @@
     "title": "ヤタ YATA - Yet Another Todo App"
   },
   "AppFooter": {
+    "githubRepo": "Github repository",
     "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Task completed",
@@ -108,6 +109,9 @@
   },
   "Toolbar": {
     "githubIcon": "Github icon",
-    "menuIcon": "Menu icon"
+    "loggedAs": "Logged as",
+    "menuIcon": "Menu icon",
+    "offlineMode": "Offline mode",
+    "offlineModeHint": "You are offline and data will not be synchronized with the server."
   }
 }

@@ -20,3 +20,62 @@
     }
   }
 }
+
+.logged-as {
+  display: flex;
+  flex-direction: column;
+}
+
+.offline-mode {
+  display: flex;
+  flex-direction: row;
+  opacity: 0.7;
+
+  span {
+    display: block;
+  }
+
+  .label {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    padding: 0;
+    margin: 0;
+    margin-left: $_8unit;
+    font-size: $_12unit;
+    line-height: $_24unit;
+    font-weight: 400;
+    background-color: transparent;
+    text-transform: uppercase;
+  }
+}
+
+.logged-as {
+  span {
+    display: block;
+  }
+
+  .label {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    padding: 0;
+    margin: 0;
+    font-size: $_12unit;
+    line-height: $_14unit;
+    font-weight: 400;
+    background-color: transparent;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+}
+
+.logged-as {
+  .username {
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    padding: 0;
+    margin: 0;
+    margin-top: $_4unit;
+    font-size: $_14unit;
+    line-height: $_14unit;
+    font-weight: 400;
+    background-color: transparent;
+    text-transform: uppercase;
+  }
+}
