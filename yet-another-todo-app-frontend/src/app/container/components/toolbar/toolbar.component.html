@@ -5,6 +5,7 @@
     (click)="onMenuClick()">
     <mat-icon>menu</mat-icon>
   </button>
+  <!-- TODO Position title in the center! It's off center now -->
   <yata-title>{{ title }}</yata-title>
   <div class="logged-as" *ngIf="!isOfflineMode; else offlineMode">
     <span class="label">{{ 'Toolbar.loggedAs' | translate }}</span>
