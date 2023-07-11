@@ -1,11 +1,12 @@
 <mat-toolbar color="primary">
-  <button
-    mat-icon-button
-    [attr.aria-label]="'Toolbar.menuIcon' | translate"
-    (click)="onMenuClick()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <!-- TODO Position title in the center! It's off center now -->
+  <div class="menu-button-wrapper">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Toolbar.menuIcon' | translate"
+      (click)="onMenuClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <yata-title>{{ title }}</yata-title>
   <div class="logged-as" *ngIf="!isOfflineMode; else offlineMode">
     <span class="label">{{ 'Toolbar.loggedAs' | translate }}</span>

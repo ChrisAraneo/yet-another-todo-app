@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 :host {
@@ -21,14 +22,27 @@
   }
 }
 
+.menu-button-wrapper,
+yata-title,
+.offline-mode,
+.logged-as {
+  width: math.div(100%, 3);
+}
+
+yata-title {
+  text-align: center;
+}
+
 .logged-as {
   display: flex;
   flex-direction: column;
+  align-items: end;
 }
 
 .offline-mode {
   display: flex;
   flex-direction: row;
+  justify-content: end;
   opacity: 0.7;
 
   span {
