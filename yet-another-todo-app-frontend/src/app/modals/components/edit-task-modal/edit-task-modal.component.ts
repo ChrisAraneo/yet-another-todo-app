@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Subscription, delay, first, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, first, map } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
@@ -81,14 +81,11 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     });
 
     return new Promise((resolve) => {
-      this.tasksService
-        .updateTask(task)
-        .pipe(delay(350))
-        .subscribe(() => {
-          resolve();
+      this.tasksService.updateTask(task).subscribe(() => {
+        resolve();
 
-          this.dialogRef.close();
-        });
+        this.dialogRef.close();
+      });
     });
   };
 

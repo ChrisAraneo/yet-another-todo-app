@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription, delay, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
@@ -61,14 +61,11 @@ export class AddTaskModalComponent implements OnDestroy {
     });
 
     return new Promise((resolve) => {
-      this.tasksService
-        .addTask(task)
-        .pipe(delay(350))
-        .subscribe(() => {
-          resolve();
+      this.tasksService.addTask(task).subscribe(() => {
+        resolve();
 
-          this.dialogRef.close();
-        });
+        this.dialogRef.close();
+      });
     });
   };
 
