@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription, filter, first, from, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, filter, first, from, map, of, tap } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { v4 as uuidv4 } from 'uuid';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
@@ -9,6 +9,7 @@ import { HttpLogType } from '../../models/http-log-type.enum';
 import { CompletedTaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
+  createTask,
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
@@ -19,18 +20,19 @@ import { HttpLogState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
 import { UserService } from '../user/user.service';
 
-// TODO Response observables
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService implements OnDestroy {
   private subscription!: Subscription;
+  private isOfflineMode!: BehaviorSubject<boolean>;
 
   constructor(
     public store: Store<{ tasks: Task[]; httpLog: HttpLogState }>,
     private apiClientService: ApiClientService,
     private userService: UserService,
   ) {
+    this.initializeIsOfflineMode();
     this.subscribeToUserLoggedIn();
   }
 
@@ -51,6 +53,12 @@ export class TasksService implements OnDestroy {
   }
 
   addTask(task: Task): Observable<HttpLogItem | undefined> {
+    if (this.isOfflineMode.getValue()) {
+      this.store.dispatch(createTask({ task }));
+
+      return of(undefined);
+    }
+
     const operationId = this.generateOperationId();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
@@ -128,8 +136,22 @@ export class TasksService implements OnDestroy {
     return uuidv4();
   }
 
+  private initializeIsOfflineMode(): void {
+    this.isOfflineMode = new BehaviorSubject(false);
+
+    const subscription = this.userService.getIsOfflineMode().subscribe((value) => {
+      this.isOfflineMode.next(value);
+    });
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.add(subscription);
+    }
+  }
+
   private subscribeToUserLoggedIn(): void {
-    this.subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
+    const subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
       if (isLogged) {
         from(this.apiClientService.fetchTasksFromApi(this.generateOperationId()))
           .pipe(
@@ -145,6 +167,12 @@ export class TasksService implements OnDestroy {
         this.setTasks([]);
       }
     });
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.add(subscription);
+    }
   }
 
   private setTasks(tasks: Task[]): void {
