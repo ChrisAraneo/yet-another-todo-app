@@ -15,6 +15,7 @@ import {
   sendUpdateTaskRequest,
   sendUpdateTasksRequest,
   setTasks,
+  updateTask,
 } from '../../store/actions/task.actions';
 import { HttpLogState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
@@ -68,6 +69,12 @@ export class TasksService implements OnDestroy {
   }
 
   updateTask(task: Task): Observable<HttpLogItem | undefined> {
+    if (this.isOfflineMode.getValue()) {
+      this.store.dispatch(updateTask({ task }));
+
+      return of(undefined);
+    }
+
     const operationId = this.generateOperationId();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
@@ -76,15 +83,14 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  // TODO Return response observable
-  completeTask(task: Task, endDate: Date = new Date()): void {
+  completeTask(task: Task, endDate: Date = new Date()): Observable<HttpLogItem | undefined> {
     const updatedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
     });
 
-    this.updateTask(updatedTask).pipe(first()).subscribe();
+    return this.updateTask(updatedTask);
   }
 
   hideTask(taskId: string): Observable<HttpLogItem | undefined> {
