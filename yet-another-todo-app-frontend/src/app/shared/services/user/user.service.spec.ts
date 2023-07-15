@@ -4,23 +4,16 @@ import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { CurrentUser } from 'src/app/shared/models/current-user.model';
-import {
-  removePassword,
-  setIsLogged,
-  setPassword,
-  setUsername,
-} from '../../store/actions/user.actions';
+import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/user.actions';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
   let service: UserService;
   let store: Store;
   const dummyCurrentUser: CurrentUser = {
-    user: {
-      username: 'lorem',
-      password: 'ipsum',
-    },
+    username: 'lorem',
     isLogged: true,
+    isOfflineMode: false,
   };
 
   beforeEach(() => {
@@ -47,30 +40,25 @@ describe('UserService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#getUser should return current user', () => {
-    service.getUser().subscribe((user) => {
-      expect(user).toEqual(dummyCurrentUser.user);
+  it('#getUserData should return current user data', () => {
+    service.getUserData().subscribe((user) => {
+      expect(user).toEqual(dummyCurrentUser);
     });
   });
 
-  it('#setUser should dispatch set username action and set password action', () => {
-    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    const usernameAction = setUsername({ username: 'test-username' });
-    const passwordAction = setPassword({ password: 'test-password' });
-
-    service.setUser('test-username', 'test-password');
-
-    expect(dispatchSpy).toHaveBeenCalledWith(usernameAction);
-    expect(dispatchSpy).toHaveBeenCalledWith(passwordAction);
+  it('#getUsername should return current user username', () => {
+    service.getUsername().subscribe((username) => {
+      expect(username).toEqual(dummyCurrentUser.username);
+    });
   });
 
-  it('#removePassword should dispatch remove password action', () => {
+  it('#setUsername should dispatch set username action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    const action = removePassword();
+    const usernameAction = setUsername({ username: 'test-username' });
 
-    service.removePassword();
+    service.setUsername('test-username');
 
-    expect(dispatchSpy).toHaveBeenCalledWith(action);
+    expect(dispatchSpy).toHaveBeenCalledWith(usernameAction);
   });
 
   it('#getIsUserLogged should return whether the user is logged in', () => {
@@ -84,6 +72,21 @@ describe('UserService', () => {
     const action = setIsLogged({ isLogged: false });
 
     service.setIsUserLogged(false);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  it('#getIsOfflineMode should return whether the user is in offline mode', () => {
+    service.getIsOfflineMode().subscribe((isOfflineMode) => {
+      expect(isOfflineMode).toEqual(dummyCurrentUser.isOfflineMode);
+    });
+  });
+
+  it('#setIsOfflineMode should dispatch set is offline mode action', () => {
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+    const action = setIsOfflineMode({ isOfflineMode: true });
+
+    service.setIsOfflineMode(true);
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
