@@ -14,10 +14,12 @@ import {
 } from '../../store/actions/task.actions';
 import { initialState as httpLogInitialState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
+import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 import { TasksService } from './tasks.service';
 
 describe('TasksService', () => {
+  const dummyOperationId = '-';
   const dummyTasks: Task[] = [
     {
       id: 'fa722506-6b8b-4842-a6fe-b5fe65d7468b',
@@ -79,6 +81,9 @@ describe('TasksService', () => {
           getIsUserLogged: () => of(true),
           getIsOfflineMode: () => of(false),
         }),
+        MockProvider(OperationIdGeneratorService, {
+          generate: () => dummyOperationId,
+        }),
         MockProvider(Store, {
           select: (key: any) => {
             if (key === 'tasks') {
@@ -124,9 +129,9 @@ describe('TasksService', () => {
   it('#addTask should dispatch create task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendCreateTaskRequest({ task, operationId: '-' });
+    const action = sendCreateTaskRequest({ task, operationId: dummyOperationId });
 
-    service.addTask(task, '-').subscribe().unsubscribe();
+    service.addTask(task).subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -134,9 +139,9 @@ describe('TasksService', () => {
   it('#updateTask should dispatch update task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendUpdateTaskRequest({ task, operationId: '-' });
+    const action = sendUpdateTaskRequest({ task, operationId: dummyOperationId });
 
-    service.updateTask(task, '-').subscribe().unsubscribe();
+    service.updateTask(task).subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -151,9 +156,9 @@ describe('TasksService', () => {
       state: new CompletedTaskState(),
       endDate: now,
     }) as EndedTask;
-    const action = sendUpdateTaskRequest({ task: updatedTask, operationId: '-' });
+    const action = sendUpdateTaskRequest({ task: updatedTask, operationId: dummyOperationId });
 
-    service.completeTask(task, now, '-').subscribe().unsubscribe();
+    service.completeTask(task, now).subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -161,9 +166,9 @@ describe('TasksService', () => {
   it('#hideTask should dispatch hide task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendHideTaskRequest({ id: task.getId(), operationId: '-' });
+    const action = sendHideTaskRequest({ id: task.getId(), operationId: dummyOperationId });
 
-    service.hideTask(task.getId(), '-').subscribe().unsubscribe();
+    service.hideTask(task.getId()).subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });

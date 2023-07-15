@@ -13,7 +13,6 @@ import {
   tap,
 } from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
-import { v4 as uuidv4 } from 'uuid';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
@@ -30,6 +29,7 @@ import {
 } from '../../store/actions/task.actions';
 import { HttpLogState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
+import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -43,6 +43,7 @@ export class TasksService implements OnDestroy {
     public store: Store<{ tasks: Task[]; httpLog: HttpLogState }>,
     private apiClientService: ApiClientService,
     private userService: UserService,
+    private operationIdGeneratorService: OperationIdGeneratorService,
   ) {
     this.initializeIsOfflineMode();
     this.subscribeToUserLoggedIn();
@@ -64,16 +65,14 @@ export class TasksService implements OnDestroy {
       .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
-  addTask(
-    task: Task,
-    operationId: string = this.generateOperationId(),
-  ): Observable<HttpLogItem | undefined> {
+  addTask(task: Task): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(createTask({ task }));
 
       return of(undefined);
     }
 
+    const operationId = this.operationIdGeneratorService.generate();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendCreateTaskRequest({ task, operationId }));
@@ -81,16 +80,14 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  updateTask(
-    task: Task,
-    operationId: string = this.generateOperationId(),
-  ): Observable<HttpLogItem | undefined> {
+  updateTask(task: Task): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(updateTask({ task }));
 
       return of(undefined);
     }
 
+    const operationId = this.operationIdGeneratorService.generate();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendUpdateTaskRequest({ task, operationId }));
@@ -98,24 +95,18 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  completeTask(
-    task: Task,
-    endDate: Date = new Date(),
-    operationId: string = this.generateOperationId(),
-  ): Observable<HttpLogItem | undefined> {
+  completeTask(task: Task, endDate: Date = new Date()): Observable<HttpLogItem | undefined> {
     const updatedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
     });
 
-    return this.updateTask(updatedTask, operationId);
+    return this.updateTask(updatedTask);
   }
 
-  hideTask(
-    taskId: string,
-    operationId: string = this.generateOperationId(),
-  ): Observable<HttpLogItem | undefined> {
+  hideTask(taskId: string): Observable<HttpLogItem | undefined> {
+    const operationId = this.operationIdGeneratorService.generate();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendHideTaskRequest({ id: taskId, operationId }));
@@ -125,7 +116,7 @@ export class TasksService implements OnDestroy {
 
   // TODO Unit tests
   importTasks(importedTasks: Task[], action: ImportAction): Observable<void> {
-    const operationId = this.generateOperationId();
+    const operationId = this.operationIdGeneratorService.generate();
 
     return this.store.select('tasks').pipe(
       first(),
@@ -158,11 +149,6 @@ export class TasksService implements OnDestroy {
     );
   }
 
-  // TODO Move to separate service
-  private generateOperationId(): string {
-    return uuidv4();
-  }
-
   private initializeIsOfflineMode(): void {
     this.isOfflineMode = new BehaviorSubject(false);
 
@@ -180,7 +166,7 @@ export class TasksService implements OnDestroy {
   private subscribeToUserLoggedIn(): void {
     const subscription = this.userService.getIsUserLogged().subscribe((isLogged) => {
       if (isLogged) {
-        from(this.apiClientService.fetchTasksFromApi(this.generateOperationId()))
+        from(this.apiClientService.fetchTasksFromApi(this.operationIdGeneratorService.generate()))
           .pipe(
             first(),
             tap((tasks: Task[] | undefined) => {
