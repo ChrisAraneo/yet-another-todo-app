@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { TaskCardComponent } from './task-card.component';
 
@@ -24,7 +25,7 @@ describe('TaskCardComponent', () => {
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(TasksService, {
-          completeTask: () => undefined,
+          completeTask: () => of(undefined),
         }),
       ],
     }).compileComponents();

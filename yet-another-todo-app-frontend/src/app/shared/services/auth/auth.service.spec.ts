@@ -17,8 +17,7 @@ describe('AuthService', () => {
       providers: [
         { provide: 'API', useValue: environment.api },
         MockProvider(UserService, {
-          getUser: () => of({ username: 'test', password: 'testpassword' }),
-          setUser: () => undefined,
+          getUserData: () => of({ username: 'test', isLogged: true, isOfflineMode: false }),
         }),
       ],
     });
@@ -43,20 +42,20 @@ describe('AuthService', () => {
     req.flush(response);
   });
 
-  it('#refreshToken should trigger sending a login request', () => {
+  it('#refresh should trigger sending a login request', () => {
     const response: any = {
       status: 'success',
       data: 'thisistoken',
     };
 
-    service.refreshToken();
+    service.refresh();
 
     const req = httpMock.expectOne(`${environment.api.origin}/login`);
     expect(req.request.method).toBe('POST');
     req.flush(response);
   });
 
-  it('#getToken should return the last stored token after the last successful login', () => {
+  it('#getAccessToken should return the last stored token after the last successful login', () => {
     const dummyToken = 'thisistoken';
 
     service.signIn('lorem', 'ipsum');
@@ -68,10 +67,10 @@ describe('AuthService', () => {
       data: dummyToken,
     });
 
-    expect(service.getToken()).toBe(dummyToken);
+    expect(service.getAccessToken()).toBe(dummyToken);
   });
 
-  it('#getToken should return null when the last login attempt failed', () => {
+  it('#getAccessToken should return null when the last login attempt failed', () => {
     service.signIn('lorem', 'thisiswrongpassword');
 
     const req = httpMock.expectOne(`${environment.api.origin}/login`);
@@ -82,10 +81,10 @@ describe('AuthService', () => {
       message: 'lorem ipsum',
     });
 
-    expect(service.getToken()).toBe(null);
+    expect(service.getAccessToken()).toBe(null);
   });
 
   it('#getToken should return null when user has not logged in yet', () => {
-    expect(service.getToken()).toBe(null);
+    expect(service.getAccessToken()).toBe(null);
   });
 });

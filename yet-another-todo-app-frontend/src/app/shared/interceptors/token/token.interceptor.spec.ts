@@ -10,8 +10,8 @@ describe('TokenInterceptor', () => {
       imports: [],
       providers: [
         MockProvider(AuthService, {
-          getToken: () => '1010',
-          refreshToken: () => of(undefined),
+          getAccessToken: () => '1010',
+          refresh: () => of({ accessToken: '10101', refreshToken: '22022' }),
         }),
         TokenInterceptor,
       ],

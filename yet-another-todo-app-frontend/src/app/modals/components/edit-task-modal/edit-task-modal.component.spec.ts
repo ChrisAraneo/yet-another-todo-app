@@ -29,7 +29,7 @@ describe('EditTaskModalComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: [] },
         FormBuilder,
         MockProvider(TasksService, {
-          updateTask: () => undefined,
+          updateTask: () => of(undefined),
           getTasks: () => of([]),
         }),
         MockProvider(TaskStateTranslatorService, {}),

@@ -108,9 +108,9 @@ describe('TasksService', () => {
   it('#addTask should dispatch create task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendCreateTaskRequest({ task });
+    const action = sendCreateTaskRequest({ task, operationId: '-' });
 
-    service.addTask(task);
+    service.addTask(task, '-');
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -118,9 +118,9 @@ describe('TasksService', () => {
   it('#updateTask should dispatch update task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendUpdateTaskRequest({ task });
+    const action = sendUpdateTaskRequest({ task, operationId: '-' });
 
-    service.updateTask(task);
+    service.updateTask(task, '-');
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -135,7 +135,7 @@ describe('TasksService', () => {
       state: new CompletedTaskState(),
       endDate: now,
     }) as EndedTask;
-    const action = sendUpdateTaskRequest({ task: updatedTask });
+    const action = sendUpdateTaskRequest({ task: updatedTask, operationId: '-' });
 
     service.completeTask(task, now);
 
@@ -145,9 +145,9 @@ describe('TasksService', () => {
   it('#hideTask should dispatch hide task request action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const task = dummyTasks[0];
-    const action = sendHideTaskRequest({ id: task.getId() });
+    const action = sendHideTaskRequest({ id: task.getId(), operationId: '-' });
 
-    service.hideTask(task.getId());
+    service.hideTask(task.getId(), '-');
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });

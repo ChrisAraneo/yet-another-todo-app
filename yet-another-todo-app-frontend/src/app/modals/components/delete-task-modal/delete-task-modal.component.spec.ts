@@ -28,7 +28,7 @@ describe('DeleteTaskModalComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: [] },
         FormBuilder,
         MockProvider(TasksService, {
-          hideTask: () => undefined,
+          hideTask: () => of(undefined),
           getTasks: () => of([]),
         }),
       ],

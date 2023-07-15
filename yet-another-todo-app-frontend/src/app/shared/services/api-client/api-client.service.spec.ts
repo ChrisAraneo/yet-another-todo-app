@@ -62,7 +62,7 @@ describe('ApiClientService', () => {
       data: dummyResponseData,
     };
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
+    service.fetchTasksFromApi('-').then((tasks) => {
       expect(tasks?.length).toBe(2);
       expect(tasks).toEqual(dummyTasks);
     });
@@ -79,7 +79,7 @@ describe('ApiClientService', () => {
       message: 'Error message',
     };
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
+    service.fetchTasksFromApi('-').then((tasks) => {
       expect(tasks).toEqual(undefined);
     });
 
@@ -91,7 +91,7 @@ describe('ApiClientService', () => {
   it('#fetchTasksFromApi should return an Observable<undefined> on invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
+    service.fetchTasksFromApi('-').then((tasks) => {
       expect(tasks).toEqual(undefined);
     });
 
@@ -106,7 +106,7 @@ describe('ApiClientService', () => {
       data: dummyResponseData[0],
     };
 
-    service.postTaskToApi(dummyTask).subscribe((task) => {
+    service.postTaskToApi(dummyTask, '-').then((task) => {
       expect(task).toEqual(dummyTask);
     });
 
@@ -116,7 +116,7 @@ describe('ApiClientService', () => {
   });
 
   it('#postTaskToApi should handle error response', () => {
-    service.postTaskToApi(dummyTask).subscribe((task) => {
+    service.postTaskToApi(dummyTask, '-').then((task) => {
       expect(task).toEqual(undefined);
     });
 
@@ -131,7 +131,7 @@ describe('ApiClientService', () => {
   it('#postTaskToApi should handle invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.postTaskToApi(dummyTask).subscribe((task) => {
+    service.postTaskToApi(dummyTask, '-').then((task) => {
       expect(task).toEqual(undefined);
     });
 
