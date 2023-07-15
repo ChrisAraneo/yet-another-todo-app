@@ -233,6 +233,14 @@ export class TasksService implements OnDestroy {
     collection: string,
   ): Observable<HttpLogItem | undefined> {
     return this.store.select('httpLog').pipe(
+      tap((state) => {
+        if (!(state as any)[method]) {
+          throw Error(`HttpLog state unknown method: ${method}`);
+        }
+        if (!(state as any)[method][collection]) {
+          throw Error(`HttpLog state unknown collection: ${method}.${collection}`);
+        }
+      }),
       map((state) =>
         ((state as any)[method][collection] as HttpLogItem[]).filter(
           (item) => item.id === operationId,
