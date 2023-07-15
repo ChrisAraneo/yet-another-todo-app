@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription, from, of, tap } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 import { ApiClientService } from '../api-client/api-client.service';
+import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 import { LoginResponse, RefreshResponse } from './auth.types';
 
@@ -16,8 +16,9 @@ export class AuthService implements OnDestroy {
 
   constructor(
     @Inject('API') public api: any,
-    private apiClientService: ApiClientService,
+    public apiClientService: ApiClientService,
     private userService: UserService,
+    private operationIdGeneratorService: OperationIdGeneratorService,
   ) {
     this.subscribeToUsernameChanges();
   }
@@ -29,7 +30,7 @@ export class AuthService implements OnDestroy {
   signIn(username: string, password: string): Observable<LoginResponse | null> {
     this.setIsOfflineMode(false);
 
-    const operationId = this.generateOperationId();
+    const operationId = this.operationIdGeneratorService.generate();
 
     return from(this.apiClientService.signIn(username, password, operationId)).pipe(
       tap((response) => {
@@ -45,7 +46,7 @@ export class AuthService implements OnDestroy {
   }
 
   refresh(): Observable<RefreshResponse | null> {
-    const operationId = this.generateOperationId();
+    const operationId = this.operationIdGeneratorService.generate();
     const currentRefreshToken = this.refreshToken.getValue();
 
     if (typeof currentRefreshToken !== 'string' || currentRefreshToken === '') {
@@ -101,10 +102,5 @@ export class AuthService implements OnDestroy {
 
   private setIsOfflineMode(value: boolean): void {
     this.userService.setIsOfflineMode(value);
-  }
-
-  // TODO Move to separate service
-  private generateOperationId(): string {
-    return uuidv4();
   }
 }
