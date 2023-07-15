@@ -4,15 +4,17 @@ import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
-import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { CompletedTaskState } from '../../models/task-state.model';
+import { TaskTransformer } from '../../models/task-transformer';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
 } from '../../store/actions/task.actions';
+import { initialState as httpLogInitialState } from '../../store/reducers/http-log.reducer';
 import { ApiClientService } from '../api-client/api-client.service';
+import { UserService } from '../user/user.service';
 import { TasksService } from './tasks.service';
 
 describe('TasksService', () => {
@@ -70,11 +72,19 @@ describe('TasksService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
-        MockProvider(ApiClientService, {}),
+        MockProvider(ApiClientService, {
+          fetchTasksFromApi: () => new Promise((resolve) => resolve([])),
+        }),
+        MockProvider(UserService, {
+          getIsUserLogged: () => of(true),
+          getIsOfflineMode: () => of(false),
+        }),
         MockProvider(Store, {
           select: (key: any) => {
             if (key === 'tasks') {
               return of([...dummyTasks]);
+            } else if (key === 'httpLog') {
+              return of({ ...httpLogInitialState });
             }
             return of(undefined);
           },
@@ -94,15 +104,21 @@ describe('TasksService', () => {
   });
 
   it('#getTasks should return array of unhidden Tasks', () => {
-    service.getTasks().subscribe((tasks) => {
-      expect(tasks).toEqual(unhiddenDummyTasks);
-    });
+    service
+      .getTasks()
+      .subscribe((tasks) => {
+        expect(tasks).toEqual(unhiddenDummyTasks);
+      })
+      .unsubscribe();
   });
 
   it('#getHiddenTasks should return array of hidden Tasks', () => {
-    service.getHiddenTasks().subscribe((tasks) => {
-      expect(tasks).toEqual(hiddenDummyTasks);
-    });
+    service
+      .getHiddenTasks()
+      .subscribe((tasks) => {
+        expect(tasks).toEqual(hiddenDummyTasks);
+      })
+      .unsubscribe();
   });
 
   it('#addTask should dispatch create task request action', () => {
@@ -110,7 +126,7 @@ describe('TasksService', () => {
     const task = dummyTasks[0];
     const action = sendCreateTaskRequest({ task, operationId: '-' });
 
-    service.addTask(task, '-');
+    service.addTask(task, '-').subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -120,7 +136,7 @@ describe('TasksService', () => {
     const task = dummyTasks[0];
     const action = sendUpdateTaskRequest({ task, operationId: '-' });
 
-    service.updateTask(task, '-');
+    service.updateTask(task, '-').subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -137,7 +153,7 @@ describe('TasksService', () => {
     }) as EndedTask;
     const action = sendUpdateTaskRequest({ task: updatedTask, operationId: '-' });
 
-    service.completeTask(task, now);
+    service.completeTask(task, now, '-').subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
@@ -147,7 +163,7 @@ describe('TasksService', () => {
     const task = dummyTasks[0];
     const action = sendHideTaskRequest({ id: task.getId(), operationId: '-' });
 
-    service.hideTask(task.getId(), '-');
+    service.hideTask(task.getId(), '-').subscribe().unsubscribe();
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
