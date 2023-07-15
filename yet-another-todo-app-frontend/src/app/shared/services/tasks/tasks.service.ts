@@ -1,6 +1,17 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, Subscription, filter, first, from, map, of, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  filter,
+  first,
+  from,
+  map,
+  of,
+  take,
+  tap,
+} from 'rxjs';
 import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { v4 as uuidv4 } from 'uuid';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
@@ -248,7 +259,7 @@ export class TasksService implements OnDestroy {
       ),
       map((logs) => logs.find((item) => item.logType === HttpLogType.Response)),
       filter((log) => !!log),
-      first(),
+      take(1),
     );
   }
 }
