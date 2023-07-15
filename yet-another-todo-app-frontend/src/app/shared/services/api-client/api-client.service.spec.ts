@@ -57,7 +57,7 @@ describe('ApiClientService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#fetchTasksFromApi should return an Observable<Task[]> on successful response', () => {
+  it('#fetchTasksFromApi should return tasks on successful response', () => {
     const dummySuccessResponse: ApiResponse<TaskData[]> = {
       status: ApiResponseStatus.Success,
       data: dummyResponseData,
