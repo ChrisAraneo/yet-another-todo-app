@@ -53,14 +53,16 @@ export class TasksService implements OnDestroy {
       .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
   }
 
-  addTask(task: Task): Observable<HttpLogItem | undefined> {
+  addTask(
+    task: Task,
+    operationId: string = this.generateOperationId(),
+  ): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(createTask({ task }));
 
       return of(undefined);
     }
 
-    const operationId = this.generateOperationId();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendCreateTaskRequest({ task, operationId }));
@@ -68,14 +70,16 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  updateTask(task: Task): Observable<HttpLogItem | undefined> {
+  updateTask(
+    task: Task,
+    operationId: string = this.generateOperationId(),
+  ): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(updateTask({ task }));
 
       return of(undefined);
     }
 
-    const operationId = this.generateOperationId();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendUpdateTaskRequest({ task, operationId }));
@@ -83,18 +87,24 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  completeTask(task: Task, endDate: Date = new Date()): Observable<HttpLogItem | undefined> {
+  completeTask(
+    task: Task,
+    endDate: Date = new Date(),
+    operationId: string = this.generateOperationId(),
+  ): Observable<HttpLogItem | undefined> {
     const updatedTask = TaskTransformer.transform(task, {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
     });
 
-    return this.updateTask(updatedTask);
+    return this.updateTask(updatedTask, operationId);
   }
 
-  hideTask(taskId: string): Observable<HttpLogItem | undefined> {
-    const operationId = this.generateOperationId();
+  hideTask(
+    taskId: string,
+    operationId: string = this.generateOperationId(),
+  ): Observable<HttpLogItem | undefined> {
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
     this.store.dispatch(sendHideTaskRequest({ id: taskId, operationId }));
