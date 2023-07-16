@@ -20,6 +20,7 @@ import { CompletedTaskState } from '../../models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   createTask,
+  hideTask,
   sendCreateTaskRequest,
   sendHideTaskRequest,
   sendUpdateTaskRequest,
@@ -106,6 +107,12 @@ export class TasksService implements OnDestroy {
   }
 
   hideTask(taskId: string): Observable<HttpLogItem | undefined> {
+    if (this.isOfflineMode.getValue()) {
+      this.store.dispatch(hideTask({ id: taskId }));
+
+      return of(undefined);
+    }
+
     const operationId = this.operationIdGeneratorService.generate();
     const responseObservable = this.getResponseObservable(operationId, 'post', 'task');
 
@@ -141,7 +148,11 @@ export class TasksService implements OnDestroy {
         return updatedTasks;
       }),
       tap((updatedTasks) => {
-        this.store.dispatch(sendUpdateTasksRequest({ tasks: updatedTasks, operationId }));
+        if (this.isOfflineMode.getValue()) {
+          this.setTasks(updatedTasks);
+        } else {
+          this.store.dispatch(sendUpdateTasksRequest({ tasks: updatedTasks, operationId }));
+        }
       }),
       map(() => {
         return undefined;
