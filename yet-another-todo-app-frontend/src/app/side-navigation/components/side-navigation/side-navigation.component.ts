@@ -66,6 +66,22 @@ export class SideNavigationComponent implements OnChanges {
       },
     };
 
+    const configureTable = {
+      icon: 'settings',
+      label: 'SideNavigation.configureTable',
+      click: (): void => {
+        throw Error('Configure table: Not implemented yet');
+      },
+    };
+
+    const configureTimeline = {
+      icon: 'settings',
+      label: 'SideNavigation.configureTimeline',
+      click: (): void => {
+        throw Error('Configure timeline: Not implemented yet');
+      },
+    };
+
     const addTask = {
       icon: 'add',
       label: 'SideNavigation.addTask',
@@ -107,9 +123,25 @@ export class SideNavigationComponent implements OnChanges {
     };
 
     if (mode === AppMode.Timeline) {
-      this.items = [showTable, addTask, editTask, deleteTask, exportTasks, importTasks];
+      this.items = [
+        showTable,
+        configureTimeline,
+        addTask,
+        editTask,
+        deleteTask,
+        exportTasks,
+        importTasks,
+      ];
     } else if (mode === AppMode.Table) {
-      this.items = [showTimeline, addTask, editTask, deleteTask, exportTasks, importTasks];
+      this.items = [
+        showTimeline,
+        configureTable,
+        addTask,
+        editTask,
+        deleteTask,
+        exportTasks,
+        importTasks,
+      ];
     } else {
       throw Error(`Cannot set side navigation items, the app mode is invalid: ${mode}`);
     }

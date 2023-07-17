@@ -78,6 +78,8 @@
   },
   "SideNavigation": {
     "addTask": "Dodaj zadanie",
+    "configureTable": "Konfiguruj tabelę",
+    "configureTimeline": "Konfiguruj oś czasu",
     "deleteTask": "Usuń zadanie",
     "editTask": "Edytuj zadanie",
     "exportTasks": "Eksportuj zadania",
