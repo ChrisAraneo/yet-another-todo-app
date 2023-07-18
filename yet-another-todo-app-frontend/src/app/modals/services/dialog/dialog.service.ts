@@ -8,6 +8,7 @@ import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-moda
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
 import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
@@ -47,6 +48,10 @@ export class DialogService {
       .subscribe((result: ZipFileContent) => {
         this.openDialog(SelectImportActionModalComponent, result);
       });
+  }
+
+  openConfigureTimelineModal(): void {
+    this.openDialog(ConfigureTimelineModalComponent);
   }
 
   private openDialog(component: ComponentType<any>, data?: object): Observable<any> {

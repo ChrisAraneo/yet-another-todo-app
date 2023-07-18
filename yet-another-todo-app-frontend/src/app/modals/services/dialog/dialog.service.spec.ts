@@ -18,6 +18,7 @@ import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/si
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
+import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { DialogService } from './dialog.service';
@@ -130,6 +131,17 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ImportTasksModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ImportTasksModalComponent.PANEL_CLASS,
+    });
+  });
+
+  it('#openConfigureTimelineModal should open dialog with ConfigureTimelineModalComponent', () => {
+    spyOn(matDialog, 'open').and.callThrough();
+
+    service.openConfigureTimelineModal();
+
+    expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
+      width: DIALOG_WIDTH,
+      panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
     });
   });
 });
