@@ -78,7 +78,7 @@ export class SideNavigationComponent implements OnChanges {
       icon: 'settings',
       label: 'SideNavigation.configureTimeline',
       click: (): void => {
-        throw Error('Configure timeline: Not implemented yet');
+        this.dialogService.openConfigureTimelineModal();
       },
     };
 
