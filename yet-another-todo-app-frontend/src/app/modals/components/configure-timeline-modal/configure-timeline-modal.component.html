@@ -1,1 +1,10 @@
-<p>configure-timeline-modal works!</p>
+<yata-title class="modal-title">{{ 'ConfigureTimelineModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form">
+  <yata-modal-action-buttons
+    [form]="form"
+    [submit]="submit"
+    [submitLabel]="'ConfigureTimelineModal.save'"
+    [cancel]="cancel"
+    [cancelLabel]="'ConfigureTimelineModal.cancel'">
+  </yata-modal-action-buttons>
+</form>
