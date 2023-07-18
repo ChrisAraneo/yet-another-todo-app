@@ -17,6 +17,11 @@
     "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Task completed",
+  "ConfigureTimelineModal": {
+    "cancel": "Cancel",
+    "modalTitle": "Configure timeline view",
+    "save": "Save changes"
+  },
   "DatesFilter": {
     "endDate": "End date",
     "startDate": "Start date"

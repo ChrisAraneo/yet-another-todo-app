@@ -17,6 +17,11 @@
     "madeBy": "Autor aplikacji: Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Zadanie wykonane",
+  "ConfigureTimelineModal": {
+    "cancel": "Anuluj",
+    "modalTitle": "Konfiguruj widok osi czasu",
+    "save": "Zapisz zmiany"
+  },
   "DatesFilter": {
     "endDate": "Data zakończenia",
     "startDate": "Data rozpoczęcia"
