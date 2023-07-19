@@ -28,6 +28,7 @@ import { TasksService } from './shared/services/tasks/tasks.service';
 import { UserService } from './shared/services/user/user.service';
 import { SharedModule } from './shared/shared.module';
 import { TaskEffects } from './shared/store/effects/task.effects';
+import { viewConfigurationReducer } from './shared/store/reducers/configuration.reducer';
 import { httpLogReducer } from './shared/store/reducers/http-log.reducer';
 import { tasksReducer } from './shared/store/reducers/task.reducer';
 import { userReducer } from './shared/store/reducers/user.reducer';
@@ -50,7 +51,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TimelineModule,
     TableModule,
     ContainerModule,
-    StoreModule.forRoot({ tasks: tasksReducer, user: userReducer, httpLog: httpLogReducer }),
+    StoreModule.forRoot({
+      viewConfiguration: viewConfigurationReducer,
+      tasks: tasksReducer,
+      user: userReducer,
+      httpLog: httpLogReducer,
+    }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
