@@ -2,7 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 import { setTimelineEndDate, setTimelineStartDate } from '../actions/configuration.actions';
 
-type ViewConfiguration = {
+// TODO Move to separate file
+export type ViewConfiguration = {
   timeline: {
     startDate: Date;
     endDate: Date;
