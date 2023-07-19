@@ -4,7 +4,7 @@ import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { ViewConfigurationService } from './view-configuration.service';
 
-// TODO Unit tests for #setTimelineStartDate and #setTimelineEndDate
+// TODO Unit tests for #setTimelineStartDate, #setTimelineEndDate and #getTimelineConfiguration
 describe('ViewConfigurationService', () => {
   let service: ViewConfigurationService;
   let store: Store;

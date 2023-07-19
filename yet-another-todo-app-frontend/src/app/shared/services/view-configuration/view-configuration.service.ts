@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable, map } from 'rxjs';
 import {
   setTimelineEndDate,
   setTimelineStartDate,
@@ -11,6 +12,10 @@ import { ViewConfiguration } from '../../store/reducers/configuration.reducer';
 })
 export class ViewConfigurationService {
   constructor(public store: Store<{ viewConfigurations: ViewConfiguration }>) {}
+
+  getTimelineConfiguration(): Observable<{ startDate: Date; endDate: Date }> {
+    return this.store.select('viewConfigurations').pipe(map((config) => config.timeline));
+  }
 
   changeTimelineStartDate(date: Date): void {
     this.store.dispatch(setTimelineStartDate({ startDate: date }));
