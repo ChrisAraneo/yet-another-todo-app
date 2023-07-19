@@ -11,10 +11,10 @@ import { ViewConfiguration } from '../../store/reducers/configuration.reducer';
   providedIn: 'root',
 })
 export class ViewConfigurationService {
-  constructor(public store: Store<{ viewConfigurations: ViewConfiguration }>) {}
+  constructor(public store: Store<{ viewConfiguration: ViewConfiguration }>) {}
 
   getTimelineConfiguration(): Observable<{ startDate: Date; endDate: Date }> {
-    return this.store.select('viewConfigurations').pipe(map((config) => config.timeline));
+    return this.store.select('viewConfiguration').pipe(map((config) => config.timeline));
   }
 
   changeTimelineStartDate(date: Date): void {
