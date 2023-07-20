@@ -8,9 +8,9 @@ import { UNIT } from 'src/app/shared/styles/theme';
   styleUrls: ['./column-highlight.component.scss'],
 })
 export class ColumnHighlightComponent implements OnChanges {
-  @Input() highlightedDate?: Date;
-  @Input() startDate?: Date;
-  @Input() endDate?: Date;
+  @Input() highlightedDate: Date | null = null;
+  @Input() startDate: Date | null = null;
+  @Input() endDate: Date | null = null;
   @Input() height: string = '0';
 
   left: string = '0';

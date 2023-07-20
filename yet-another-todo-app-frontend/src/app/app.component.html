@@ -12,8 +12,8 @@
     <yata-timeline
       #timeline
       *ngIf="appMode === timelineMode"
-      [startDate]="timelineStartDate"
-      [endDate]="timelineEndDate"
+      [startDate]="timelineStartDate | async"
+      [endDate]="timelineEndDate | async"
       (changeStartDate)="changeStartDate($event)"
       (changeEndDate)="changeEndDate($event)"></yata-timeline>
     <div class="table-wrapper" *ngIf="appMode === tableMode">

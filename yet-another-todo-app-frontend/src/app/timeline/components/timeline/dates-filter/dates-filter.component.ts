@@ -18,8 +18,8 @@ import { DatesFilterForm } from './dates-filter.types';
   styleUrls: ['./dates-filter.component.scss'],
 })
 export class DatesFilterComponent implements OnChanges, OnDestroy {
-  @Input() startDate?: Date;
-  @Input() endDate?: Date;
+  @Input() startDate: Date | null = null;
+  @Input() endDate: Date | null = null;
 
   @Output() changeStartDate = new EventEmitter<Date>();
   @Output() changeEndDate = new EventEmitter<Date>();

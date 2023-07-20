@@ -1,10 +1,11 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, debounceTime } from 'rxjs';
+import { Observable, Subscription, debounceTime, first, map } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
+import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
 import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
@@ -22,8 +23,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   appMode: AppMode = AppMode.Timeline;
   isAppVisible: boolean = false;
   isMenuOpened: boolean = true;
-  timelineStartDate!: Date;
-  timelineEndDate!: Date;
+  timelineStartDate!: Observable<Date>;
+  timelineEndDate!: Observable<Date>;
   username!: Observable<string | null>;
   isOfflineMode!: Observable<boolean>;
 
@@ -34,10 +35,10 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
     private dialogService: DialogService,
+    private viewConfigurationService: ViewConfigurationService,
   ) {
     this.initializeTranslateService();
-    this.initializeTimelineStartDate();
-    this.initializeTimelineEndDate();
+    this.initializeTimelineConfigurationObservables();
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
@@ -60,11 +61,11 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   changeStartDate(startDate: Date): void {
-    this.timelineStartDate = startDate;
+    this.viewConfigurationService.changeTimelineStartDate(startDate);
   }
 
   changeEndDate(endDate: Date): void {
-    this.timelineEndDate = endDate;
+    this.viewConfigurationService.changeTimelineStartDate(endDate);
   }
 
   private initializeTranslateService(): void {
@@ -76,16 +77,14 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.translateService.use(browserCultureLang || 'en');
   }
 
-  private initializeTimelineStartDate(): void {
-    const today = new Date();
+  private initializeTimelineConfigurationObservables(): void {
+    this.timelineStartDate = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.startDate));
 
-    this.timelineStartDate = this.dateUtilsService.getFirstDayOfTheMonth(today);
-  }
-
-  private initializeTimelineEndDate(): void {
-    const today = new Date();
-
-    this.timelineEndDate = this.dateUtilsService.getLastDayOfTheMonth(today);
+    this.timelineEndDate = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.endDate));
   }
 
   private initializeUsernameObservable(): void {
@@ -111,19 +110,20 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   private centerTimelineScrollOnTodayColumn(): void {
-    const element = this.timelineElementRef.elementRef.nativeElement;
+    this.timelineStartDate?.pipe(first()).subscribe((startDate) => {
+      const element = this.timelineElementRef.elementRef.nativeElement;
 
-    const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(
-      new Date(),
-      this.timelineStartDate,
-    );
-    const timelineContentMargin = 6 * UNIT;
-    const elementClientWidth = element.clientWidth;
-    const columnsInView = elementClientWidth / COLUMN_WIDTH;
+      const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
+      const timelineContentMargin = 6 * UNIT;
+      const elementClientWidth = element.clientWidth;
+      const columnsInView = elementClientWidth / COLUMN_WIDTH;
 
-    const scrollLeft =
-      offset * COLUMN_WIDTH + timelineContentMargin - (Math.ceil(columnsInView) / 2) * COLUMN_WIDTH;
+      const scrollLeft =
+        offset * COLUMN_WIDTH +
+        timelineContentMargin -
+        (Math.ceil(columnsInView) / 2) * COLUMN_WIDTH;
 
-    element.scrollLeft = scrollLeft;
+      element.scrollLeft = scrollLeft;
+    });
   }
 }
