@@ -65,7 +65,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   changeEndDate(endDate: Date): void {
-    this.viewConfigurationService.changeTimelineStartDate(endDate);
+    this.viewConfigurationService.changeTimelineEndDate(endDate);
   }
 
   private initializeTranslateService(): void {
