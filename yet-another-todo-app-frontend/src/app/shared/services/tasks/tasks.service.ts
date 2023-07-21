@@ -37,7 +37,8 @@ import { UserService } from '../user/user.service';
   providedIn: 'root',
 })
 export class TasksService implements OnDestroy {
-  private subscription!: Subscription;
+  private subscription: Subscription = new Subscription();
+  private tasks!: BehaviorSubject<Task[]>;
   private isOfflineMode!: BehaviorSubject<boolean>;
 
   constructor(
@@ -46,7 +47,8 @@ export class TasksService implements OnDestroy {
     private userService: UserService,
     private operationIdGeneratorService: OperationIdGeneratorService,
   ) {
-    this.initializeIsOfflineMode();
+    this.initializeTasksBehaviorSubject();
+    this.initializeIsOfflineModeBehaviorSubject();
     this.subscribeToUserLoggedIn();
   }
 
@@ -55,15 +57,17 @@ export class TasksService implements OnDestroy {
   }
 
   getTasks(): Observable<Task[]> {
-    return this.store
-      .select('tasks')
-      .pipe(map((tasks) => (tasks || []).filter((task) => !task.getIsHidden())));
+    const notHiddenTasksFilter = map((tasks: Task[]) =>
+      tasks.filter((task) => !task.getIsHidden()),
+    );
+
+    return this.tasks.asObservable().pipe(notHiddenTasksFilter);
   }
 
   getHiddenTasks(): Observable<Task[]> {
-    return this.store
-      .select('tasks')
-      .pipe(map((tasks) => (tasks || []).filter((task) => task.getIsHidden())));
+    const hiddenTasksFilter = map((tasks: Task[]) => tasks.filter((task) => task.getIsHidden()));
+
+    return this.tasks.asObservable().pipe(hiddenTasksFilter);
   }
 
   addTask(task: Task): Observable<HttpLogItem | undefined> {
@@ -160,18 +164,26 @@ export class TasksService implements OnDestroy {
     );
   }
 
-  private initializeIsOfflineMode(): void {
+  private initializeTasksBehaviorSubject(): void {
+    const subscription = this.store.select('tasks').subscribe((tasks) => {
+      if (!this.tasks) {
+        this.tasks = new BehaviorSubject(tasks || []);
+      } else {
+        this.tasks.next(tasks || []);
+      }
+    });
+
+    this.subscription.add(subscription);
+  }
+
+  private initializeIsOfflineModeBehaviorSubject(): void {
     this.isOfflineMode = new BehaviorSubject(false);
 
     const subscription = this.userService.getIsOfflineMode().subscribe((value) => {
       this.isOfflineMode.next(value);
     });
 
-    if (!this.subscription) {
-      this.subscription = subscription;
-    } else {
-      this.subscription.add(subscription);
-    }
+    this.subscription.add(subscription);
   }
 
   private subscribeToUserLoggedIn(): void {
@@ -192,11 +204,7 @@ export class TasksService implements OnDestroy {
       }
     });
 
-    if (!this.subscription) {
-      this.subscription = subscription;
-    } else {
-      this.subscription.add(subscription);
-    }
+    this.subscription.add(subscription);
   }
 
   private setTasks(tasks: Task[]): void {
