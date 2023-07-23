@@ -7,6 +7,7 @@ import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
 import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
@@ -17,7 +18,10 @@ import { SelectImportActionModalComponent } from '../../components/import-tasks-
   providedIn: 'root',
 })
 export class DialogService {
-  constructor(public dialog: MatDialog) {}
+  constructor(
+    public dialog: MatDialog,
+    private viewConfigurationService: ViewConfigurationService,
+  ) {}
 
   openAddTaskModal(): void {
     this.openDialog(AddTaskModalComponent);
@@ -51,7 +55,12 @@ export class DialogService {
   }
 
   openConfigureTimelineModal(): void {
-    this.openDialog(ConfigureTimelineModalComponent);
+    this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(first())
+      .subscribe(({ startDate, endDate }) => {
+        this.openDialog(ConfigureTimelineModalComponent, { startDate, endDate });
+      });
   }
 
   private openDialog(component: ComponentType<any>, data?: object): Observable<any> {
