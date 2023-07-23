@@ -19,8 +19,10 @@
   "COMPLETED": "Zadanie wykonane",
   "ConfigureTimelineModal": {
     "cancel": "Anuluj",
+    "endDate": "Data zakończenia",
     "modalTitle": "Konfiguruj widok osi czasu",
-    "save": "Zapisz zmiany"
+    "save": "Zapisz zmiany",
+    "startDate": "Data rozpoczecia"
   },
   "DatesFilter": {
     "endDate": "Data zakończenia",

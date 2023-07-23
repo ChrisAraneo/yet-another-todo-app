@@ -19,8 +19,10 @@
   "COMPLETED": "Task completed",
   "ConfigureTimelineModal": {
     "cancel": "Cancel",
+    "endDate": "End date",
     "modalTitle": "Configure timeline view",
-    "save": "Save changes"
+    "save": "Save changes",
+    "startDate": "Start date"
   },
   "DatesFilter": {
     "endDate": "End date",
