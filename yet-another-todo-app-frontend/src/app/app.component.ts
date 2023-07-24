@@ -114,14 +114,12 @@ export class AppComponent implements OnDestroy, AfterViewInit {
       const element = this.timelineElementRef.elementRef.nativeElement;
 
       const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
-      const timelineContentMargin = 6 * UNIT;
+      const timelineContentMargin = UNIT;
       const elementClientWidth = element.clientWidth;
       const columnsInView = elementClientWidth / COLUMN_WIDTH;
 
       const scrollLeft =
-        offset * COLUMN_WIDTH +
-        timelineContentMargin -
-        (Math.ceil(columnsInView) / 2) * COLUMN_WIDTH;
+        offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
 
       element.scrollLeft = scrollLeft;
     });
