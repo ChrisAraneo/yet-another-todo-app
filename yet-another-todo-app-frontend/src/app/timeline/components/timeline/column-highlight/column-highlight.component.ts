@@ -34,7 +34,7 @@ export class ColumnHighlightComponent implements OnChanges {
     ) {
       const numberOfDays = this.dateUtils.getNumberOfDaysBetweenDates(date, this.startDate);
 
-      this.left = `${(numberOfDays + 1) * UNIT * 3}px`;
+      this.left = `${numberOfDays * 3 * UNIT - UNIT * 2}px`;
       this.isHidden = false;
     } else {
       this.left = `0`;
