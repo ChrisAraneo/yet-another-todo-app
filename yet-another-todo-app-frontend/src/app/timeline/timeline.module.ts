@@ -11,7 +11,6 @@ import { FormsModule } from '../forms/forms.module';
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { ColumnHighlightComponent } from './components/timeline/column-highlight/column-highlight.component';
-import { DatesFilterComponent } from './components/timeline/dates-filter/dates-filter.component';
 import { TaskCardComponent } from './components/timeline/task-card/task-card.component';
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
@@ -23,7 +22,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
-    DatesFilterComponent,
     TaskCardComponent,
     TimelineContentComponent,
     TimelineHeaderComponent,

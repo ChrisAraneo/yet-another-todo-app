@@ -19,6 +19,7 @@
   top: 0;
   display: flex;
   z-index: 999;
+  padding-left: $_64unit;
 }
 
 .timeline-header-button {
@@ -58,6 +59,6 @@ yata-timeline-header {
 }
 
 yata-timeline-content {
-  margin-left: 6 * $_64unit;
+  margin-left: $_64unit;
   min-height: calc(100% - $_64unit);
 }
