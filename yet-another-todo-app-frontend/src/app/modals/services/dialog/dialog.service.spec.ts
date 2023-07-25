@@ -20,6 +20,7 @@ import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
+import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
@@ -43,6 +44,7 @@ describe('DialogService', () => {
         MockComponent(ExportTasksModalComponent),
         MockComponent(ImportTasksModalComponent),
         MockComponent(ConfigureTimelineModalComponent),
+        MockComponent(ConfigureTableModalComponent),
       ],
       imports: [
         MatDialogModule,
@@ -158,6 +160,17 @@ describe('DialogService', () => {
       width: DIALOG_WIDTH,
       panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
       data: { ...dummyTimelineConfiguration },
+    });
+  });
+
+  it('#openConfigureTableModal should open dialog with ConfigureTableModalComponent', () => {
+    spyOn(matDialog, 'open').and.callThrough();
+
+    service.openConfigureTableModal();
+
+    expect(matDialog.open).toHaveBeenCalledWith(ConfigureTableModalComponent, {
+      width: DIALOG_WIDTH,
+      panelClass: ConfigureTableModalComponent.PANEL_CLASS,
     });
   });
 });

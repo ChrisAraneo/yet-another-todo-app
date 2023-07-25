@@ -9,6 +9,7 @@ import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/si
 import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
@@ -61,6 +62,10 @@ export class DialogService {
       .subscribe(({ startDate, endDate }) => {
         this.openDialog(ConfigureTimelineModalComponent, { startDate, endDate });
       });
+  }
+
+  openConfigureTableModal(): void {
+    this.openDialog(ConfigureTableModalComponent);
   }
 
   private openDialog(component: ComponentType<any>, data?: object): Observable<any> {
