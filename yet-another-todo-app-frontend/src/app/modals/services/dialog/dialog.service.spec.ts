@@ -8,14 +8,16 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { MockComponent, MockProvider } from 'ng-mocks';
+import { of } from 'rxjs';
 import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/add-task-modal.component';
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
@@ -26,6 +28,10 @@ import { DialogService } from './dialog.service';
 describe('DialogService', () => {
   let service: DialogService;
   let matDialog: MatDialog;
+  const dummyTimelineConfiguration = {
+    startDate: new Date('2023-01-02'),
+    endDate: new Date('2023-02-02'),
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -48,8 +54,16 @@ describe('DialogService', () => {
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         { provide: 'API', useValue: environment.api },
+        MockProvider(Store, {
+          select: () => {
+            return of({ ...dummyTimelineConfiguration });
+          },
+        }),
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),
+        MockProvider(ViewConfigurationService, {
+          getTimelineConfiguration: () => of({ ...dummyTimelineConfiguration }),
+        }),
         FormBuilder,
       ],
     });
@@ -143,6 +157,7 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
+      data: { ...dummyTimelineConfiguration },
     });
   });
 });
