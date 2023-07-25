@@ -17,6 +17,11 @@
     "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Task completed",
+  "ConfigureTableModal": {
+    "cancel": "Cancel",
+    "modalTitle": "Configure table view",
+    "save": "Save changes"
+  },
   "ConfigureTimelineModal": {
     "cancel": "Cancel",
     "endDate": "End date",

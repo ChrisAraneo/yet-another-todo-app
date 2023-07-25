@@ -17,6 +17,11 @@
     "madeBy": "Autor aplikacji: Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Zadanie wykonane",
+  "ConfigureTableModal": {
+    "cancel": "Anuluj",
+    "modalTitle": "Konfiguruj widok tabeli",
+    "save": "Zapisz zmiany"
+  },
   "ConfigureTimelineModal": {
     "cancel": "Anuluj",
     "endDate": "Data zakończenia",

@@ -1,1 +1,10 @@
-<p>configure-table-modal works!</p>
+<yata-title class="modal-title">{{ 'ConfigureTableModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form">
+  <yata-modal-action-buttons
+    [form]="form"
+    [submit]="submit"
+    [submitLabel]="'ConfigureTableModal.save'"
+    [cancel]="cancel"
+    [cancelLabel]="'ConfigureTableModal.cancel'">
+  </yata-modal-action-buttons>
+</form>
