@@ -15,6 +15,7 @@ import { TasksService } from '../shared/services/tasks/tasks.service';
 import { UserService } from '../shared/services/user/user.service';
 import { SharedModule } from '../shared/shared.module';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
+import { ConfigureTableModalComponent } from './components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from './components/configure-timeline-modal/configure-timeline-modal.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ImportTasksModalComponent,
     SelectImportActionModalComponent,
     ConfigureTimelineModalComponent,
+    ConfigureTableModalComponent,
   ],
   imports: [
     SharedModule,
