@@ -70,7 +70,7 @@ export class SideNavigationComponent implements OnChanges {
       icon: 'settings',
       label: 'SideNavigation.configureTable',
       click: (): void => {
-        throw Error('Configure table: Not implemented yet');
+        this.dialogService.openConfigureTableModal();
       },
     };
 
