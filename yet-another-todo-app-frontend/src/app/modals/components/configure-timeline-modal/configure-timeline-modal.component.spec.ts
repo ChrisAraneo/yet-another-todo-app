@@ -23,7 +23,10 @@ describe('ConfigureTimelineModalComponent', () => {
       ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: { startDate: new Date('2023-01-01'), endDate: new Date('2023-02-02') },
+        },
         FormBuilder,
       ],
     }).compileComponents();
