@@ -1,6 +1,11 @@
+import { MatSortable } from '@angular/material/sort';
 import { createReducer, on } from '@ngrx/store';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
-import { setTimelineEndDate, setTimelineStartDate } from '../actions/configuration.actions';
+import {
+  setTableSort,
+  setTimelineEndDate,
+  setTimelineStartDate,
+} from '../actions/configuration.actions';
 
 // TODO Move to separate file
 export type ViewConfiguration = {
@@ -8,12 +13,22 @@ export type ViewConfiguration = {
     startDate: Date;
     endDate: Date;
   };
+  table: {
+    sort: MatSortable;
+  };
 };
 
 export const initialState: ViewConfiguration = {
   timeline: {
     startDate: getInitialTimelineStartDate(),
     endDate: getInitialTimelineEndDate(),
+  },
+  table: {
+    sort: {
+      id: '',
+      start: '',
+      disableClear: true,
+    },
   },
 };
 
@@ -26,6 +41,10 @@ export const viewConfigurationReducer = createReducer(
   on(setTimelineEndDate, (state, { endDate }) => ({
     ...state,
     timeline: { ...state.timeline, endDate },
+  })),
+  on(setTableSort, (state, { sort }) => ({
+    ...state,
+    table: { ...state.table, sort: { ...sort } },
   })),
 );
 
