@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { MatSortable } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription, debounceTime, first, map } from 'rxjs';
 import { AppMode } from './app.types';
@@ -27,6 +28,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   timelineEndDate!: Observable<Date>;
   username!: Observable<string | null>;
   isOfflineMode!: Observable<boolean>;
+  tableSort!: Observable<MatSortable>;
 
   private subscription!: Subscription;
 
@@ -39,6 +41,7 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   ) {
     this.initializeTranslateService();
     this.initializeTimelineConfigurationObservables();
+    this.initializeTableConfigurationObservables();
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
@@ -85,6 +88,12 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.timelineEndDate = this.viewConfigurationService
       .getTimelineConfiguration()
       .pipe(map((config) => config.endDate));
+  }
+
+  private initializeTableConfigurationObservables(): void {
+    this.tableSort = this.viewConfigurationService
+      .getTableConfiguration()
+      .pipe(map((config) => config.sort));
   }
 
   private initializeUsernameObservable(): void {
