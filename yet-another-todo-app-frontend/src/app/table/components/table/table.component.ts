@@ -19,6 +19,7 @@ import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model'
 import { TasksSorterService } from '../../services/tasks-sorter/tasks-sorter.service';
 import { SortActive } from '../../services/tasks-sorter/tasks-sorter.types';
 import { TasksDataSource } from '../../table.types';
+import { TABLE_DISPLAYED_COLUMNS, TABLE_PAGE_SIZE_OPTIONS } from './table.config';
 
 @Component({
   selector: 'yata-table',
@@ -31,17 +32,8 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) matSortDirective?: MatSort;
 
-  readonly pageSizeOptions = [15, 30, 50];
-  readonly displayedColumns: string[] = [
-    'id',
-    'title',
-    'description',
-    'state',
-    'creationDate',
-    'startDate',
-    'endDate',
-    'actions',
-  ];
+  readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;
+  readonly displayedColumns = TABLE_DISPLAYED_COLUMNS;
 
   data: MatTableDataSource<TasksDataSource> | undefined; // TODO Refactor searching into observables
 
