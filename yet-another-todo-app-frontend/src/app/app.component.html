@@ -17,7 +17,7 @@
       (changeStartDate)="changeStartDate($event)"
       (changeEndDate)="changeEndDate($event)"></yata-timeline>
     <div class="table-wrapper" *ngIf="appMode === tableMode">
-      <yata-table></yata-table>
+      <yata-table [sort]="tableSort | async"></yata-table>
     </div>
   </main>
   <yata-footer></yata-footer>
