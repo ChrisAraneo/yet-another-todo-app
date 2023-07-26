@@ -1,6 +1,15 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { Sort } from '@angular/material/sort';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { BehaviorSubject, Subscription, map } from 'rxjs';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
@@ -16,8 +25,11 @@ import { TasksDataSource } from '../../table.types';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
+  @Input('sort') sort: MatSortable | null = null;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) matSortDirective?: MatSort;
 
   readonly pageSizeOptions = [15, 30, 50];
   readonly displayedColumns: string[] = [
@@ -35,7 +47,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private _data = new BehaviorSubject<MatTableDataSource<TasksDataSource> | undefined>(undefined);
   private search = new BehaviorSubject<string>('');
-  private sort = new BehaviorSubject<Sort>({ active: '', direction: 'asc' });
+  private _sort = new BehaviorSubject<Sort>({ active: '', direction: 'asc' });
   private subscription!: Subscription;
 
   constructor(
@@ -45,21 +57,29 @@ export class TableComponent implements OnInit, OnDestroy {
     private tasksSorterService: TasksSorterService,
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    const sort: MatSortable | null = changes['sort'].currentValue;
+
+    if (!!sort) {
+      this.changeSort({ active: sort.id, direction: sort.start });
+    }
+  }
+
   ngOnInit(): void {
     const tasks = this.tasksService
       .getTasks()
       .pipe(map((tasks) => this.mapToTasksDataSource(tasks)));
 
     const tasksSubscription = tasks.subscribe((tasks) => {
-      this.updateTableDataSource(this.search.getValue(), this.sort.getValue(), tasks);
+      this.updateTableDataSource(this.search.getValue(), this._sort.getValue(), tasks);
     });
 
-    const sortingSubscription = this.sort.subscribe((sort: Sort) => {
+    const sortingSubscription = this._sort.subscribe((sort: Sort) => {
       this.updateTableDataSource(this.search.getValue(), sort);
     });
 
     const searchSubscription = this.search.subscribe((text: string) => {
-      this.updateTableDataSource(text, this.sort.getValue());
+      this.updateTableDataSource(text, this._sort.getValue());
     });
 
     this.subscription = new Subscription();
@@ -75,6 +95,10 @@ export class TableComponent implements OnInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!!this.data) {
       this.data.paginator = this.paginator;
+    }
+
+    if (this.sort !== null) {
+      this.matSortDirective?.sort(this.sort);
     }
   }
 
@@ -93,7 +117,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   changeSort(sort: Sort): void {
-    this.sort.next(sort);
+    this._sort.next(sort);
   }
 
   private mapToTasksDataSource(tasks: Task[]): TasksDataSource[] {
