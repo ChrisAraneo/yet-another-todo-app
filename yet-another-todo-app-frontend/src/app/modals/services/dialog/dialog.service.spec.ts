@@ -7,6 +7,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatSortable } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
@@ -29,9 +30,18 @@ import { DialogService } from './dialog.service';
 describe('DialogService', () => {
   let service: DialogService;
   let matDialog: MatDialog;
-  const dummyTimelineConfiguration = {
-    startDate: new Date('2023-01-02'),
-    endDate: new Date('2023-02-02'),
+  const dummyConfiguration = {
+    timeline: {
+      startDate: new Date('2023-01-02'),
+      endDate: new Date('2023-02-02'),
+    },
+    table: {
+      sort: {
+        id: '',
+        start: '',
+        disableClear: false,
+      },
+    },
   };
 
   beforeEach(() => {
@@ -58,13 +68,18 @@ describe('DialogService', () => {
         { provide: 'API', useValue: environment.api },
         MockProvider(Store, {
           select: () => {
-            return of({ ...dummyTimelineConfiguration });
+            return of({ ...dummyConfiguration });
           },
         }),
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),
         MockProvider(ViewConfigurationService, {
-          getTimelineConfiguration: () => of({ ...dummyTimelineConfiguration }),
+          getTimelineConfiguration: () =>
+            of({
+              startDate: dummyConfiguration.timeline.startDate,
+              endDate: dummyConfiguration.timeline.endDate,
+            }),
+          getTableConfiguration: () => of({ ...dummyConfiguration.table } as { sort: MatSortable }),
         }),
         FormBuilder,
       ],
@@ -159,7 +174,7 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
-      data: { ...dummyTimelineConfiguration },
+      data: { ...dummyConfiguration.timeline },
     });
   });
 
@@ -171,6 +186,10 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ConfigureTableModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ConfigureTableModalComponent.PANEL_CLASS,
+      data: {
+        id: dummyConfiguration.table.sort.id,
+        direction: dummyConfiguration.table.sort.start,
+      },
     });
   });
 });
