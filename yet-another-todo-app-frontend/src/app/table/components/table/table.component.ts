@@ -54,6 +54,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
 
     if (!!sort) {
       this.changeSort({ active: sort.id, direction: sort.start });
+
+      if (this.sort !== null) {
+        this.matSortDirective?.sort(this.sort);
+      }
     }
   }
 
