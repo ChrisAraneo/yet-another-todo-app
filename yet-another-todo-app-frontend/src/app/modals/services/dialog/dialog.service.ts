@@ -65,7 +65,12 @@ export class DialogService {
   }
 
   openConfigureTableModal(): void {
-    this.openDialog(ConfigureTableModalComponent);
+    this.viewConfigurationService
+      .getTableConfiguration()
+      .pipe(first())
+      .subscribe(({ sort }) => {
+        this.openDialog(ConfigureTableModalComponent, { id: sort.id, direction: sort.start });
+      });
   }
 
   private openDialog(component: ComponentType<any>, data?: object): Observable<any> {
