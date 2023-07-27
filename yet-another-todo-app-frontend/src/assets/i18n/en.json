@@ -18,9 +18,15 @@
   },
   "COMPLETED": "Task completed",
   "ConfigureTableModal": {
+    "asc": "Ascending order",
+    "blank": "Do not sort (default order)",
     "cancel": "Cancel",
+    "desc": "Descending order",
+    "direction": "Direction",
+    "id": "Order by column",
     "modalTitle": "Configure table view",
-    "save": "Save changes"
+    "save": "Save changes",
+    "sortConfiguration": "Sort data"
   },
   "ConfigureTimelineModal": {
     "cancel": "Cancel",

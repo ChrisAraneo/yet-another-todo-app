@@ -28,4 +28,11 @@
       border-bottom: $border;
     }
   }
+
+  yata-text-input,
+  yata-textarea,
+  yata-select,
+  yata-date-picker {
+    margin-bottom: $_16unit;
+  }
 }

@@ -1,6 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { SortDirection } from '@angular/material/sort';
+import { TranslateService } from '@ngx-translate/core';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
+import { TABLE_DISPLAYED_COLUMNS } from 'src/app/table/components/table/table.config';
+import { Option } from '../../../forms/components/select/select.types';
+import { ConfigureTableForm } from './configure-table-modal.types';
 
 @Component({
   selector: 'yata-configure-table-modal',
@@ -10,20 +16,38 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class ConfigureTableModalComponent {
   static readonly PANEL_CLASS = 'configure-table-modal';
 
-  form?: FormGroup<any>; // TODO Specify proper type
+  form?: FormGroup<ConfigureTableForm>;
+  ids: Option<string>[] = [];
+  directions: Option<SortDirection>[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<ConfigureTableModalComponent>,
     private formBuilder: FormBuilder,
+    private translateService: TranslateService,
+    private viewConfigurationService: ViewConfigurationService,
   ) {
-    this.initializeForm();
+    const id = this.getIdFromData(this.data);
+    const direction = this.getDirectionFromData(this.data);
+
+    this.initializeIds();
+    this.initializeDirections();
+    this.initializeForm(id, direction);
   }
 
   submit: () => Promise<void> = async () => {
     if (this.form === undefined || this.form?.invalid) {
       return;
     }
+
+    const id = this.form.value.id || '';
+    const direction = this.form.value.direction || '';
+
+    this.viewConfigurationService.changeTableSorting({
+      id: id,
+      start: direction,
+      disableClear: false,
+    });
 
     this.dialogRef.close();
   };
@@ -32,7 +56,51 @@ export class ConfigureTableModalComponent {
     this.dialogRef.close();
   };
 
-  private initializeForm(): void {
-    this.form = this.formBuilder.group<any>({});
+  private getIdFromData(data: any): string {
+    return data?.id || '';
+  }
+
+  private getDirectionFromData(data: any): SortDirection {
+    const direction = data?.direction;
+
+    if (direction !== '' && direction !== 'asc' && direction !== 'desc') {
+      throw Error(`Incorrect date object direction: ${direction}`);
+    }
+
+    return direction;
+  }
+
+  private initializeIds(): void {
+    this.ids = TABLE_DISPLAYED_COLUMNS.filter((name) => name !== 'actions').map((name) => ({
+      label: this.translateService.instant(`Table.${name}`.toString()),
+      value: name,
+    }));
+  }
+
+  private initializeDirections(): void {
+    this.directions = [
+      {
+        label: this.translateService.instant(`ConfigureTableModal.asc`.toString()),
+        value: 'asc',
+      },
+      {
+        label: this.translateService.instant(`ConfigureTableModal.desc`.toString()),
+        value: 'desc',
+      },
+      {
+        label: this.translateService.instant(`ConfigureTableModal.blank`.toString()),
+        value: '',
+      },
+    ];
+  }
+
+  private initializeForm(id: string, direction: SortDirection): void {
+    this.form = this.formBuilder.group<ConfigureTableForm>({
+      id: new FormControl(id, {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      direction: new FormControl(direction),
+    });
   }
 }

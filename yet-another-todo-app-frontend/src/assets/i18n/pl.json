@@ -18,9 +18,15 @@
   },
   "COMPLETED": "Zadanie wykonane",
   "ConfigureTableModal": {
+    "asc": "Kolejność rosnąca",
+    "blank": "Nie sortuj (domyślna kolejność)",
     "cancel": "Anuluj",
+    "desc": "Kolejność malejąca",
+    "direction": "Kolejność sortowania",
+    "id": "Sortuj według kolumny",
     "modalTitle": "Konfiguruj widok tabeli",
-    "save": "Zapisz zmiany"
+    "save": "Zapisz zmiany",
+    "sortConfiguration": "Sortuj dane"
   },
   "ConfigureTimelineModal": {
     "cancel": "Anuluj",
