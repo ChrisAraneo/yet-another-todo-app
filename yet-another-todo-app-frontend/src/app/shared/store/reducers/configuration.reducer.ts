@@ -27,7 +27,7 @@ export const initialState: ViewConfiguration = {
     sort: {
       id: '',
       start: '',
-      disableClear: true,
+      disableClear: false,
     },
   },
 };
