@@ -28,6 +28,9 @@
     "save": "Save changes",
     "sortConfiguration": "Sort data"
   },
+  "SignOutButton": {
+    "tooltip": "Sign out"
+  },
   "ConfigureTimelineModal": {
     "cancel": "Cancel",
     "endDate": "End date",
