@@ -28,9 +28,6 @@
     "save": "Save changes",
     "sortConfiguration": "Sort data"
   },
-  "SignOutButton": {
-    "tooltip": "Sign out"
-  },
   "ConfigureTimelineModal": {
     "cancel": "Cancel",
     "endDate": "End date",
@@ -84,6 +81,9 @@
     "submit": "Import",
     "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and entered matching password."
   },
+  "LoggedUserInformation": {
+    "loggedAs": "Logged as"
+  },
   "NOT_STARTED": "Task not started",
   "REJECTED": "Task is rejected",
   "SUSPENDED": "Task is suspended",
@@ -115,6 +115,9 @@
     "signIn": "Sign in",
     "username": "Username"
   },
+  "SignOutButton": {
+    "tooltip": "Sign out"
+  },
   "Table": {
     "creationDate": "Creation date",
     "description": "Description",
@@ -132,7 +135,6 @@
   },
   "Toolbar": {
     "githubIcon": "Github icon",
-    "loggedAs": "Logged as",
     "menuIcon": "Menu icon",
     "offlineMode": "Offline mode",
     "offlineModeHint": "You are offline and data will not be synchronized with the server."

@@ -28,9 +28,6 @@
     "save": "Zapisz zmiany",
     "sortConfiguration": "Sortuj dane"
   },
-  "SignOutButton": {
-    "tooltip": "Wyloguj się"
-  },
   "ConfigureTimelineModal": {
     "cancel": "Anuluj",
     "endDate": "Data zakończenia",
@@ -84,6 +81,9 @@
     "submit": "Importuj",
     "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i wpisałeś pasujące hasło."
   },
+  "LoggedUserInformation": {
+    "loggedAs": "Jesteś zalogowany jako"
+  },
   "NOT_STARTED": "Zadanie nierozpoczęte",
   "REJECTED": "Zadanie odrzucone",
   "SUSPENDED": "Zadanie zawieszone",
@@ -115,6 +115,9 @@
     "signIn": "Zaloguj się",
     "username": "Nazwa użytkownika"
   },
+  "SignOutButton": {
+    "tooltip": "Wyloguj się"
+  },
   "Table": {
     "creationDate": "Data utworzenia",
     "description": "Opis",
@@ -132,7 +135,6 @@
   },
   "Toolbar": {
     "githubIcon": "Ikona Github",
-    "loggedAs": "Jesteś zalogowany jako",
     "menuIcon": "Ikona menu",
     "offlineMode": "Tryb offline",
     "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
