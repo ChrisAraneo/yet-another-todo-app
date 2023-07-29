@@ -8,13 +8,10 @@
     </button>
   </div>
   <yata-title>{{ title }}</yata-title>
-  <ng-container *ngIf="!isOfflineMode; else offlineMode">
-    <div class="logged-as">
-      <span class="label">{{ 'Toolbar.loggedAs' | translate }}</span>
-      <span class="username">{{ username || '' }}</span>
-    </div>
+  <div class="logged-user-information-wrapper" *ngIf="!isOfflineMode; else offlineMode">
+    <yata-logged-user-information [username]="username"></yata-logged-user-information>
     <yata-sign-out-button *ngIf="!isOfflineMode"></yata-sign-out-button>
-  </ng-container>
+  </div>
   <ng-template #offlineMode>
     <div
       class="offline-mode"

@@ -25,22 +25,22 @@
 .menu-button-wrapper,
 yata-title,
 .offline-mode,
-.logged-as {
+.logged-user-information-wrapper {
   width: math.div(100%, 3);
-}
-
-.logged-as {
-  margin-right: $_16unit;
 }
 
 yata-title {
   text-align: center;
 }
 
-.logged-as {
+.logged-user-information-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: end;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+yata-logged-user-information {
+  margin-right: $_16unit;
 }
 
 .offline-mode {
@@ -60,38 +60,6 @@ yata-title {
     margin-left: $_8unit;
     font-size: $_12unit;
     line-height: $_24unit;
-    font-weight: 400;
-    background-color: transparent;
-    text-transform: uppercase;
-  }
-}
-
-.logged-as {
-  span {
-    display: block;
-  }
-
-  .label {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    padding: 0;
-    margin: 0;
-    font-size: $_12unit;
-    line-height: $_14unit;
-    font-weight: 400;
-    background-color: transparent;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-}
-
-.logged-as {
-  .username {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    padding: 0;
-    margin: 0;
-    margin-top: $_4unit;
-    font-size: $_14unit;
-    line-height: $_14unit;
     font-weight: 400;
     background-color: transparent;
     text-transform: uppercase;
