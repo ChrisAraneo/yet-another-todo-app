@@ -15,6 +15,7 @@ import { TaskCardComponent } from './components/timeline/task-card/task-card.com
 import { TimelineContentComponent } from './components/timeline/timeline-content/timeline-content.component';
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { TimelineTaskManagerService } from './services/timeline-task-manager.service';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -49,7 +50,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [TimelineTaskManagerService],
   exports: [TimelineComponent],
 })
 export class TimelineModule {}
