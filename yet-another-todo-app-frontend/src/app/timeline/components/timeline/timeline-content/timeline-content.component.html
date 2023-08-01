@@ -1,3 +1,6 @@
-<div class="column" *ngFor="let column of columns" [ngStyle]="{ left: column.left }">
+<div
+  class="column"
+  *ngFor="let column of columns"
+  [ngStyle]="{ 'margin-left': column.leftMargin * columnWidth + 'px' }">
   <yata-task-card *ngFor="let task of column.tasks" [task]="task"></yata-task-card>
 </div>

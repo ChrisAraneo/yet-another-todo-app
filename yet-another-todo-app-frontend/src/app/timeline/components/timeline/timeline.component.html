@@ -34,6 +34,7 @@
 </yata-column-highlight>
 <yata-timeline-content
   *ngIf="startDate && endDate"
+  [today]="today"
   [startDate]="startDate"
   [endDate]="endDate"
   [tasks]="(tasks | async) || []">

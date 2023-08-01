@@ -11,11 +11,11 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme';
-import { StartedTask } from '../../../shared/models/task.model';
+import { Task } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 @Component({
@@ -32,7 +32,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
   readonly today = new Date();
 
-  tasks!: Observable<StartedTask[]>;
+  tasks!: Observable<Task[]>;
   headers: TimelineHeader[] = [];
   previousMonthButtonPosition!: ElementPosition;
   nextMonthButtonPosition!: ElementPosition;
@@ -153,19 +153,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
 
-    this.tasks = this.tasksService.getTasks().pipe(
-      map((tasks) => {
-        const startedTasks: StartedTask[] = tasks.filter(
-          (task) => task instanceof StartedTask,
-        ) as StartedTask[];
-        const tasksInSelectedPeriod = startedTasks.filter(
-          (task) =>
-            +task.getStartDate() >= +(startDate || 0) && +task.getStartDate() <= +(endDate || -1),
-        );
-
-        return tasksInSelectedPeriod;
-      }),
-    );
+    this.tasks = this.tasksService.getTasks();
   }
 
   private updateTimelineHeaders(startDate?: Date, endDate?: Date): void {
