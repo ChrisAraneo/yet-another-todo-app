@@ -85,6 +85,10 @@
     "loggedAs": "Logged as"
   },
   "NOT_STARTED": "Task not started",
+  "OfflineIndicator": {
+    "offlineMode": "Offline mode",
+    "offlineModeHint": "You are offline and data will not be synchronized with the server."
+  },
   "REJECTED": "Task is rejected",
   "SUSPENDED": "Task is suspended",
   "SearchBar": {
@@ -135,8 +139,6 @@
   },
   "Toolbar": {
     "githubIcon": "Github icon",
-    "menuIcon": "Menu icon",
-    "offlineMode": "Offline mode",
-    "offlineModeHint": "You are offline and data will not be synchronized with the server."
+    "menuIcon": "Menu icon"
   }
 }

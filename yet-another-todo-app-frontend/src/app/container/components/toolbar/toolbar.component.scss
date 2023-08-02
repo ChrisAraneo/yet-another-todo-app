@@ -24,8 +24,8 @@
 
 .menu-button-wrapper,
 yata-title,
-.offline-mode,
-.logged-user-information-wrapper {
+.logged-user-information-wrapper,
+.offline-mode-wrapper {
   width: math.div(100%, 3);
 }
 
@@ -39,29 +39,13 @@ yata-title {
   justify-content: flex-end;
 }
 
-yata-logged-user-information {
-  margin-right: $_16unit;
-}
-
-.offline-mode {
+.offline-mode-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: end;
-  opacity: 0.7;
+  justify-content: flex-end;
+  align-items: center;
+}
 
-  span {
-    display: block;
-  }
-
-  .label {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    padding: 0;
-    margin: 0;
-    margin-left: $_8unit;
-    font-size: $_12unit;
-    line-height: $_24unit;
-    font-weight: 400;
-    background-color: transparent;
-    text-transform: uppercase;
-  }
+yata-logged-user-information {
+  margin-right: $_16unit;
 }

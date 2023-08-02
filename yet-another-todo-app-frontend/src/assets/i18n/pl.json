@@ -85,6 +85,10 @@
     "loggedAs": "Jesteś zalogowany jako"
   },
   "NOT_STARTED": "Zadanie nierozpoczęte",
+  "OfflineIndicator": {
+    "offlineMode": "Tryb offline",
+    "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
+  },
   "REJECTED": "Zadanie odrzucone",
   "SUSPENDED": "Zadanie zawieszone",
   "SearchBar": {
@@ -135,8 +139,6 @@
   },
   "Toolbar": {
     "githubIcon": "Ikona Github",
-    "menuIcon": "Ikona menu",
-    "offlineMode": "Tryb offline",
-    "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
+    "menuIcon": "Ikona menu"
   }
 }

@@ -13,15 +13,8 @@
     <yata-sign-out-button *ngIf="!isOfflineMode"></yata-sign-out-button>
   </div>
   <ng-template #offlineMode>
-    <div
-      class="offline-mode"
-      [matTooltip]="'Toolbar.offlineModeHint' | translate"
-      [matTooltipPosition]="'below'"
-      [matTooltipShowDelay]="250">
-      <mat-icon aria-hidden="false" [attr.aria-label]="'Toolbar.offlineModeHint' | translate">
-        wifi_off
-      </mat-icon>
-      <span class="label">{{ 'Toolbar.offlineMode' | translate }}</span>
+    <div class="offline-mode-wrapper">
+      <yata-offline-indicator></yata-offline-indicator>
     </div>
   </ng-template>
 </mat-toolbar>
