@@ -6,6 +6,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MaterialModule } from '../../../shared/material.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
+import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
 import { ToolbarComponent } from './toolbar.component';
 
@@ -14,7 +15,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [LoggedUserInformationComponent, SignOutButtonComponent, ToolbarComponent],
+  declarations: [
+    LoggedUserInformationComponent,
+    OfflineIndicatorComponent,
+    SignOutButtonComponent,
+    ToolbarComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
