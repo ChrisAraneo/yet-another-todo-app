@@ -4,6 +4,8 @@ import { TaskState } from '../../shared/models/task-state.model';
 import { EndedTask, PendingTask, StartedTask, Task } from '../../shared/models/task.model';
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.types';
 
+type Column = { tasks: Task[]; position: number };
+
 @Injectable({
   providedIn: 'root',
 })
@@ -18,35 +20,60 @@ export class TimelineTaskManagerService {
     statesFilter: TaskState[],
     statesOrder: TaskState[],
   ): TimelineColumn[] {
-    const tasksInSelectedPeriod = tasks.filter((task: Task) => {
-      if (
-        task instanceof EndedTask &&
-        task.getStartDate().valueOf() >= timelineStartDate.valueOf() &&
-        task.getStartDate().valueOf() <= timelineEndDate.valueOf() &&
-        task.getEndDate().valueOf() >= timelineStartDate.valueOf() &&
-        task.getEndDate().valueOf() <= timelineEndDate.valueOf()
-      ) {
-        return true;
-      } else if (
-        task instanceof StartedTask &&
-        task.getStartDate().valueOf() >= timelineStartDate.valueOf() &&
-        task.getStartDate().valueOf() <= timelineEndDate.valueOf()
-      ) {
-        return true;
-      } else if (task instanceof PendingTask) {
-        return true;
-      }
-
-      return false;
-    });
+    const tasksInSelectedPeriod = tasks.filter((task: Task) =>
+      this.isTaskInSelectedPeriod(task, timelineStartDate, timelineEndDate, today),
+    );
 
     const filteredTasks: Task[] = tasksInSelectedPeriod.filter((task: Task) =>
       this.includesState(statesFilter, task.getState()),
     );
 
-    const map = new Map<number, any>();
+    const columns = this.organizeTasksIntoColumns(
+      filteredTasks,
+      timelineStartDate,
+      timelineEndDate,
+      today,
+    );
 
-    filteredTasks.forEach((task) => {
+    this.sortTasksInColumns(columns, statesOrder);
+
+    return this.mapColumnsToTimelineColumns(columns);
+  }
+
+  private isTaskInSelectedPeriod(
+    task: Task,
+    timelineStartDate: Date,
+    timelineEndDate: Date,
+    today: Date,
+  ): boolean {
+    if (task instanceof PendingTask) {
+      return true;
+    }
+
+    const startDate = task instanceof StartedTask ? task.getStartDate() : today;
+    const endDate = task instanceof EndedTask ? task.getEndDate() : today;
+
+    return (
+      startDate.valueOf() >= timelineStartDate.valueOf() &&
+      startDate.valueOf() <= timelineEndDate.valueOf() &&
+      endDate.valueOf() >= timelineStartDate.valueOf() &&
+      endDate.valueOf() <= timelineEndDate.valueOf()
+    );
+  }
+
+  private includesState(array: TaskState[], state: TaskState): boolean {
+    return array.findIndex((item) => item.toString() === state.toString()) > -1;
+  }
+
+  private organizeTasksIntoColumns(
+    tasks: Task[],
+    timelineStartDate: Date,
+    timelineEndDate: Date,
+    today: Date,
+  ): Column[] {
+    const columnTasksMap = new Map<number, { tasks: Task[]; position: number }>();
+
+    tasks.forEach((task) => {
       const placementDate: Date = task instanceof StartedTask ? task.getStartDate() : today;
 
       if (placementDate.valueOf() >= this.dateUtilsService.getNextDay(timelineEndDate).valueOf()) {
@@ -56,42 +83,53 @@ export class TimelineTaskManagerService {
       const key =
         this.dateUtilsService.getNumberOfDaysBetweenDates(timelineStartDate, placementDate) - 1;
 
-      if (map.has(key)) {
-        map.set(key, {
-          tasks: [...(map.get(key)?.tasks || []), task],
+      if (columnTasksMap.has(key)) {
+        columnTasksMap.set(key, {
+          tasks: [...(columnTasksMap.get(key)?.tasks || []), task],
           position: key,
         });
       } else {
-        map.set(key, {
+        columnTasksMap.set(key, {
           tasks: [task],
           position: key,
         });
       }
     });
 
-    const columns = [...map.values()].sort((a, b) => a.position - b.position);
+    return [...columnTasksMap.values()].sort((a, b) => a.position - b.position);
+  }
 
-    const stateNumber = new Map<string, number>();
+  private sortTasksInColumns(columns: Column[], statesOrder: TaskState[]): void {
+    const statesPriorities = new Map<string, number>();
 
     statesOrder.forEach((value: TaskState, index: number) => {
-      stateNumber.set(value.toString(), index);
+      statesPriorities.set(value.toString(), index);
     });
 
     columns.forEach((column: any) => {
       column.tasks.sort((a: Task, b: Task) => {
-        const n = stateNumber.get(a.getState().toString());
-        const m = stateNumber.get(b.getState().toString());
+        const stateA = a.getState().toString();
+        const stateB = b.getState().toString();
+        const priorityA = statesPriorities.get(stateA);
+        const priorityB = statesPriorities.get(stateB);
 
-        if (this.isUndefined(n)) {
+        if (this.isUndefined(priorityA)) {
           return 1;
-        } else if (this.isUndefined(m)) {
+        }
+        if (this.isUndefined(priorityB)) {
           return -1;
         }
 
-        return Number(n) - Number(m);
+        return (priorityA as number) - (priorityB as number);
       });
     });
+  }
 
+  private isUndefined(x: unknown): boolean {
+    return typeof x === 'undefined';
+  }
+
+  private mapColumnsToTimelineColumns(columns: Column[]): TimelineColumn[] {
     return columns.map((column: any, index: number, array: any[]) => {
       if (index === 0) {
         return {
@@ -105,13 +143,5 @@ export class TimelineTaskManagerService {
         };
       }
     });
-  }
-
-  private includesState(array: TaskState[], state: TaskState): boolean {
-    return array.findIndex((item) => item.toString() === state.toString()) > -1;
-  }
-
-  private isUndefined(x: unknown): boolean {
-    return typeof x === 'undefined';
   }
 }
