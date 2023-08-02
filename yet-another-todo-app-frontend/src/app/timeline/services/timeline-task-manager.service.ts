@@ -106,7 +106,7 @@ export class TimelineTaskManagerService {
       statesPriorities.set(value.toString(), index);
     });
 
-    columns.forEach((column: any) => {
+    columns.forEach((column: Column) => {
       column.tasks.sort((a: Task, b: Task) => {
         const stateA = a.getState().toString();
         const stateB = b.getState().toString();
@@ -130,7 +130,7 @@ export class TimelineTaskManagerService {
   }
 
   private mapColumnsToTimelineColumns(columns: Column[]): TimelineColumn[] {
-    return columns.map((column: any, index: number, array: any[]) => {
+    return columns.map((column: Column, index: number, array: Column[]) => {
       if (index === 0) {
         return {
           tasks: column.tasks,
