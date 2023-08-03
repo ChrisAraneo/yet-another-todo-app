@@ -17,6 +17,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from './components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from './components/configure-timeline-modal/configure-timeline-modal.component';
+import { DragDropTaskOrderListComponent } from './components/configure-timeline-modal/drag-drop-task-order-list/drag-drop-task-order-list.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ExportTasksModalComponent,
     ImportTasksModalComponent,
     SelectImportActionModalComponent,
+    DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
     ConfigureTableModalComponent,
   ],
