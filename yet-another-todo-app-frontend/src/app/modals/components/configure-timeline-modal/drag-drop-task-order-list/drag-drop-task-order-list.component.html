@@ -1,1 +1,9 @@
-<p>drag-drop-task-order-list works!</p>
+<span class="label">{{ 'DragDropTaskOrderList.label' | translate }}</span>
+<span class="hint">{{ 'DragDropTaskOrderList.hint' | translate }}</span>
+<div cdkDropList class="drag-drop-task-order-list" (cdkDropListDropped)="drop($event)">
+  <mat-card class="row" *ngFor="let item of values; let index = index" cdkDrag>
+    <mat-checkbox [(ngModel)]="checked[index]" (ngModelChange)="emitValues()">{{
+      item | translate
+    }}</mat-checkbox>
+  </mat-card>
+</div>

@@ -47,6 +47,10 @@
     "modalTitle": "Usuń zadanie",
     "selectTask": "Zadanie do usunięcia"
   },
+  "DragDropTaskOrderList": {
+    "hint": "Możesz ukryć lub pokazać zadania określonego typu na osi czasu, konfigurując poniższe pola wyboru. Możesz także zmienić kolejność, w jakiej zadania określonego typu są wyświetlane w kolumnie, reorganizując stany zadań poniżej. Aby to zrobić, przeciągnij i upuść elementy na liście.",
+    "label": "Sortuj i filtruj zadania wyświetlane w kolumnach"
+  },
   "EditTaskModal": {
     "cancel": "Anuluj",
     "description": "Opis",

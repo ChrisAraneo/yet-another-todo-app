@@ -47,6 +47,10 @@
     "modalTitle": "Delete task",
     "selectTask": "Task to delete"
   },
+  "DragDropTaskOrderList": {
+    "hint": "You can hide or show tasks of a certain type on the timeline by configuring the checkboxes below. You can also change the order in which tasks of a certain type are displayed in the column by reorganizing task states below. To do this, drag and drop the elements on the list.",
+    "label": "Sort and filter tasks displayed in columns"
+  },
   "EditTaskModal": {
     "cancel": "Cancel",
     "description": "Description",
