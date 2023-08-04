@@ -6,6 +6,10 @@
   <yata-date-picker
     [formControlName]="'endDate'"
     [label]="'ConfigureTimelineModal.endDate' | translate"></yata-date-picker>
+  <yata-drag-drop-task-order-list
+    [states]="states"
+    (changeStatesOrder)="changeStatesOrder($event)"
+    (changeStatesFilter)="changeStatesFilter($event)"></yata-drag-drop-task-order-list>
   <yata-modal-action-buttons
     [form]="form"
     [submit]="submit"
