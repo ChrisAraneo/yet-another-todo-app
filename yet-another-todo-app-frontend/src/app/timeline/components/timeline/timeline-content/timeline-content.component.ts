@@ -30,16 +30,16 @@ export class TimelineContentComponent implements OnChanges {
       this.today &&
       this.startDate &&
       this.endDate &&
-      this.tasksStateSortOrder &&
-      this.tasksStateFilter
+      this.tasksStateFilter &&
+      this.tasksStateSortOrder
     ) {
       this.updateColumns(
         this.tasks,
         this.today,
         this.startDate,
         this.endDate,
-        this.tasksStateSortOrder,
         this.tasksStateFilter,
+        this.tasksStateSortOrder,
       );
     }
   }
@@ -49,16 +49,16 @@ export class TimelineContentComponent implements OnChanges {
     today: Date,
     startDate: Date,
     endDate: Date,
-    tasksStateSortOrder: TaskState[],
     tasksStateFilter: TaskState[],
+    tasksStateSortOrder: TaskState[],
   ): void {
     this.columns = this.timelineTaskManager.mapTasksToTimelineColumns(
       tasks,
       today,
       startDate,
       endDate,
-      tasksStateSortOrder,
       tasksStateFilter,
+      tasksStateSortOrder,
     );
   }
 }
