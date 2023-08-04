@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
+import { TaskState } from '../../models/task-state.model';
 import {
   setTableSort,
   setTimelineEndDate,
@@ -20,7 +21,12 @@ export class ViewConfigurationService {
     this.initializeConfigurationBehaviorSubject();
   }
 
-  getTimelineConfiguration(): Observable<{ startDate: Date; endDate: Date }> {
+  getTimelineConfiguration(): Observable<{
+    startDate: Date;
+    endDate: Date;
+    order: TaskState[];
+    filter: TaskState[];
+  }> {
     return this.configuration.asObservable().pipe(map((config) => config.timeline));
   }
 
