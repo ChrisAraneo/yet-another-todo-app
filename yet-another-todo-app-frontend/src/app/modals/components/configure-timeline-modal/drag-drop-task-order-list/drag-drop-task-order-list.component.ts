@@ -45,14 +45,16 @@ export class DragDropTaskOrderListComponent implements OnChanges {
   }
 
   emitValues(): void {
-    this.changeStatesOrder.next([...this.values].map((value) => TaskStateCreator.create(value)));
+    this.changeStatesOrder.next(
+      [...this.values].map((value) => TaskStateCreator.create({ value })),
+    );
 
     this.changeStatesFilter.next(
       [...this.values]
         .filter((_: string, index: number) => {
           return this.checked[index] === true;
         })
-        .map((value) => TaskStateCreator.create(value)),
+        .map((value) => TaskStateCreator.create({ value })),
     );
   }
 }
