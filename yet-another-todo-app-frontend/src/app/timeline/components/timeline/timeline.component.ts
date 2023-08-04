@@ -12,6 +12,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { TaskState } from 'src/app/shared/models/task-state.model';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme';
@@ -26,6 +27,8 @@ import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   @Input() startDate: Date | null = null;
   @Input() endDate: Date | null = null;
+  @Input() tasksStateSortOrder: TaskState[] = [];
+  @Input() tasksStateFilter: TaskState[] = [];
 
   @Output() changeStartDate = new EventEmitter<Date>();
   @Output() changeEndDate = new EventEmitter<Date>();

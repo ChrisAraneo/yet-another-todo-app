@@ -11,6 +11,7 @@ import { ViewConfigurationService } from 'src/app/shared/services/view-configura
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
+import { ConfigureTimelineModalData } from '../../components/configure-timeline-modal/configure-timeline-modal.types';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
@@ -59,8 +60,13 @@ export class DialogService {
     this.viewConfigurationService
       .getTimelineConfiguration()
       .pipe(first())
-      .subscribe(({ startDate, endDate }) => {
-        this.openDialog(ConfigureTimelineModalComponent, { startDate, endDate });
+      .subscribe(({ startDate, endDate, order, filter }) => {
+        this.openDialog<ConfigureTimelineModalData>(ConfigureTimelineModalComponent, {
+          startDate,
+          endDate,
+          statesOrder: order,
+          statesFilter: filter,
+        });
       });
   }
 
@@ -73,7 +79,7 @@ export class DialogService {
       });
   }
 
-  private openDialog(component: ComponentType<any>, data?: object): Observable<any> {
+  private openDialog<T>(component: ComponentType<any>, data?: T): Observable<any> {
     return this.dialog
       .open(component, {
         width: DIALOG_WIDTH,

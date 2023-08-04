@@ -1,10 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import {
-  CompletedTaskState,
-  InProgressTaskState,
-  NotStartedTaskState,
-  RejectedTaskState,
-} from 'src/app/shared/models/task-state.model';
+import { TaskState } from 'src/app/shared/models/task-state.model';
 import { Task } from 'src/app/shared/models/task.model';
 import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
 import { TimelineTaskManagerService } from 'src/app/timeline/services/timeline-task-manager.service';
@@ -20,6 +15,8 @@ export class TimelineContentComponent implements OnChanges {
   @Input() startDate!: Date;
   @Input() endDate!: Date;
   @Input() tasks: Task[] = [];
+  @Input() tasksStateSortOrder: TaskState[] = [];
+  @Input() tasksStateFilter: TaskState[] = [];
 
   columns: TimelineColumn[] = [];
 
@@ -28,24 +25,40 @@ export class TimelineContentComponent implements OnChanges {
   constructor(private timelineTaskManager: TimelineTaskManagerService) {}
 
   ngOnChanges(): void {
-    if (this.tasks && this.today && this.startDate && this.endDate) {
-      this.updateColumns(this.tasks, this.today, this.startDate, this.endDate);
+    if (
+      this.tasks &&
+      this.today &&
+      this.startDate &&
+      this.endDate &&
+      this.tasksStateSortOrder &&
+      this.tasksStateFilter
+    ) {
+      this.updateColumns(
+        this.tasks,
+        this.today,
+        this.startDate,
+        this.endDate,
+        this.tasksStateSortOrder,
+        this.tasksStateFilter,
+      );
     }
   }
 
-  private updateColumns(tasks: Task[], today: Date, startDate: Date, endDate: Date): void {
+  private updateColumns(
+    tasks: Task[],
+    today: Date,
+    startDate: Date,
+    endDate: Date,
+    tasksStateSortOrder: TaskState[],
+    tasksStateFilter: TaskState[],
+  ): void {
     this.columns = this.timelineTaskManager.mapTasksToTimelineColumns(
       tasks,
       today,
       startDate,
       endDate,
-      [
-        new NotStartedTaskState(),
-        new InProgressTaskState(),
-        new CompletedTaskState(),
-        new RejectedTaskState(),
-      ],
-      [new InProgressTaskState()],
+      tasksStateSortOrder,
+      tasksStateFilter,
     );
   }
 }

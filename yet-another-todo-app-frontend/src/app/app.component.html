@@ -14,6 +14,8 @@
       *ngIf="appMode === timelineMode"
       [startDate]="timelineStartDate | async"
       [endDate]="timelineEndDate | async"
+      [tasksStateSortOrder]="(timelineTasksStateSortOrder | async) || []"
+      [tasksStateFilter]="(timelineTasksStateFilter | async) || []"
       (changeStartDate)="changeStartDate($event)"
       (changeEndDate)="changeEndDate($event)"></yata-timeline>
     <div class="table-wrapper" *ngIf="appMode === tableMode">

@@ -7,6 +7,8 @@ import {
   setTableSort,
   setTimelineEndDate,
   setTimelineStartDate,
+  setTimelineTaskStateFilter,
+  setTimelineTaskStateOrder,
 } from '../../store/actions/configuration.actions';
 import { ViewConfiguration } from '../../store/reducers/configuration.reducer';
 
@@ -40,6 +42,14 @@ export class ViewConfigurationService {
 
   changeTimelineEndDate(date: Date): void {
     this.store.dispatch(setTimelineEndDate({ endDate: date }));
+  }
+
+  changeTimelineColumnSorting(taskStatesInOrder: TaskState[]): void {
+    this.store.dispatch(setTimelineTaskStateOrder({ states: taskStatesInOrder }));
+  }
+
+  changeTimelineFiltering(taskStatesToDisplay: TaskState[]): void {
+    this.store.dispatch(setTimelineTaskStateFilter({ states: taskStatesToDisplay }));
   }
 
   changeTableSorting(sort: MatSortable): void {

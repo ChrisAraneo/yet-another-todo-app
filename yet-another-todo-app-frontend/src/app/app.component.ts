@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription, debounceTime, first, map } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
+import { TaskState } from './shared/models/task-state.model';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
@@ -26,6 +27,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   isMenuOpened: boolean = true;
   timelineStartDate!: Observable<Date>;
   timelineEndDate!: Observable<Date>;
+  timelineTasksStateSortOrder!: Observable<TaskState[]>;
+  timelineTasksStateFilter!: Observable<TaskState[]>;
   username!: Observable<string | null>;
   isOfflineMode!: Observable<boolean>;
   tableSort!: Observable<MatSortable>;
@@ -88,6 +91,14 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.timelineEndDate = this.viewConfigurationService
       .getTimelineConfiguration()
       .pipe(map((config) => config.endDate));
+
+    this.timelineTasksStateSortOrder = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.order));
+
+    this.timelineTasksStateFilter = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.filter));
   }
 
   private initializeTableConfigurationObservables(): void {
