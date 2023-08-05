@@ -134,7 +134,7 @@ export class TimelineTaskManagerService {
       if (index === 0) {
         return {
           tasks: column.tasks,
-          leftMargin: 0,
+          leftMargin: column.position,
         };
       } else {
         return {
