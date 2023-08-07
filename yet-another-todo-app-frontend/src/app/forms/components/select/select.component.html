@@ -3,10 +3,12 @@
   <select
     #select
     [name]="label"
-    [value]="value && value.label"
+    [value]="selectedIndex"
     [disabled]="isDisabled"
     (input)="onChange($event)"
     (blur)="onBlur()">
-    <option *ngFor="let option of options; let i = index" [value]="i">{{ option.label }}</option>
+    <option *ngFor="let option of options; let index = index" [value]="index">
+      {{ option.label }}
+    </option>
   </select>
 </div>

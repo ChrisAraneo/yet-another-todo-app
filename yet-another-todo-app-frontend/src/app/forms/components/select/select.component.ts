@@ -21,30 +21,45 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label: string = '';
   @Input() options: Option<any>[] = [];
 
-  value: any;
+  value?: any;
+  selectedIndex: number;
   isDisabled: boolean;
 
   changed?: (value: any) => void;
   touched?: () => void;
 
   constructor() {
+    this.selectedIndex = 0;
     this.isDisabled = false;
   }
 
   ngAfterViewInit(): void {
     const index: number = this.options
       .map((option) => option.value)
-      .findIndex((value) => !diff(value, this.value).length);
+      .findIndex((value) => {
+        if (typeof value === 'object') {
+          return !diff(value, this.value || {}).length;
+        } else {
+          return value === this.value;
+        }
+      });
+    const nonNegativeIndex = index >= 0 ? index : 0;
 
-    this.selectElementRef.nativeElement.value = index >= 0 ? index : 0;
+    setTimeout(() => {
+      this.selectedIndex = nonNegativeIndex;
+      this.selectElementRef.nativeElement.value = nonNegativeIndex;
+    });
   }
 
   onChange(event: Event): void {
-    const selectedIndex: string = (<HTMLInputElement>event.target).value;
-    const selectedOption = this.options[+selectedIndex];
+    const selectedIndex: number = +(<HTMLInputElement>event.target).value;
+    const selectedOption = this.options[selectedIndex];
+    const selectedValue = selectedOption.value;
 
-    this.value = selectedOption.value;
-    this.changed && this.changed(selectedOption.value);
+    this.value = selectedValue;
+    this.selectedIndex = selectedIndex;
+
+    this.changed && this.changed(selectedValue);
   }
 
   onBlur(): void {
