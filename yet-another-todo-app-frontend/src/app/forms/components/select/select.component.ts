@@ -36,13 +36,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   ngAfterViewInit(): void {
     const index: number = this.options
       .map((option) => option.value)
-      .findIndex((value) => {
-        if (typeof value === 'object') {
-          return !diff(value, this.value || {}).length;
-        } else {
-          return value === this.value;
-        }
-      });
+      .findIndex((value) => this.isEqual(value, this.value || {}));
     const nonNegativeIndex = index >= 0 ? index : 0;
 
     setTimeout(() => {
@@ -67,7 +61,19 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    const selectedIndex: number = this.options
+      .map((option) => option.value)
+      .findIndex((item) => this.isEqual(item, value));
+
+    if (selectedIndex >= 0) {
+      const selectedOption = this.options[selectedIndex];
+      this.value = selectedOption.value;
+
+      const nonNegativeIndex = selectedIndex >= 0 ? selectedIndex : 0;
+      this.selectedIndex = nonNegativeIndex;
+    } else {
+      console.error('Selected value not found in available options', value);
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -80,5 +86,13 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+  }
+
+  private isEqual(a: any, b: any): boolean {
+    if (typeof a === 'object' && typeof b === 'object') {
+      return !diff(a, b).length;
+    } else {
+      return a === b;
+    }
   }
 }
