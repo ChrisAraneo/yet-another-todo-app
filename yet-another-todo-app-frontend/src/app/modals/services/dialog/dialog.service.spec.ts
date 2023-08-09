@@ -17,6 +17,13 @@ import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
+import {
+  CompletedTaskState,
+  InProgressTaskState,
+  NotStartedTaskState,
+  RejectedTaskState,
+  SuspendedTaskState,
+} from 'src/app/shared/models/task-state.model';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
@@ -34,6 +41,14 @@ describe('DialogService', () => {
     timeline: {
       startDate: new Date('2023-01-02'),
       endDate: new Date('2023-02-02'),
+      order: [
+        new NotStartedTaskState(),
+        new InProgressTaskState(),
+        new CompletedTaskState(),
+        new SuspendedTaskState(),
+        new RejectedTaskState(),
+      ],
+      filter: [new InProgressTaskState(), new CompletedTaskState()],
     },
     table: {
       sort: {
@@ -74,11 +89,7 @@ describe('DialogService', () => {
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),
         MockProvider(ViewConfigurationService, {
-          getTimelineConfiguration: () =>
-            of({
-              startDate: dummyConfiguration.timeline.startDate,
-              endDate: dummyConfiguration.timeline.endDate,
-            }),
+          getTimelineConfiguration: () => of(dummyConfiguration.timeline),
           getTableConfiguration: () => of({ ...dummyConfiguration.table } as { sort: MatSortable }),
         }),
         FormBuilder,
@@ -174,7 +185,12 @@ describe('DialogService', () => {
     expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
       width: DIALOG_WIDTH,
       panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
-      data: { ...dummyConfiguration.timeline },
+      data: {
+        startDate: dummyConfiguration.timeline.startDate,
+        endDate: dummyConfiguration.timeline.endDate,
+        statesOrder: dummyConfiguration.timeline.order,
+        statesFilter: dummyConfiguration.timeline.filter,
+      },
     });
   });
 
