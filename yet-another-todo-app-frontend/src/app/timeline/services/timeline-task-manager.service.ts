@@ -106,21 +106,27 @@ export class TimelineTaskManagerService {
       statesPriorities.set(value.toString(), index);
     });
 
+    const priorityMultiplier = 10;
+    const dayDiff = new Date(1980, 2, 2).valueOf() - new Date(1980, 2, 1).valueOf();
+
     columns.forEach((column: Column) => {
       column.tasks.sort((a: Task, b: Task) => {
         const stateA = a.getState().toString();
         const stateB = b.getState().toString();
-        const priorityA = statesPriorities.get(stateA);
-        const priorityB = statesPriorities.get(stateB);
+        const priorityA = (statesPriorities.get(stateA) || 0) * priorityMultiplier;
+        const priorityB = (statesPriorities.get(stateB) || 0) * priorityMultiplier;
 
         if (this.isUndefined(priorityA)) {
-          return 1;
+          return 1 * priorityMultiplier;
         }
         if (this.isUndefined(priorityB)) {
-          return -1;
+          return -1 * priorityMultiplier;
         }
 
-        return (priorityA as number) - (priorityB as number);
+        const creationDateDiff =
+          (b.getCreationDate().valueOf() - a.getCreationDate().valueOf()) / dayDiff;
+
+        return (priorityA as number) - (priorityB as number) + creationDateDiff;
       });
     });
   }
