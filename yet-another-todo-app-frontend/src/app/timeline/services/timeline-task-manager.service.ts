@@ -12,7 +12,6 @@ type Column = { tasks: Task[]; position: number };
 export class TimelineTaskManagerService {
   constructor(private dateUtilsService: DateUtilsService) {}
 
-  // TODO Throw error when start date is after end date
   mapTasksToTimelineColumns(
     tasks: Task[],
     today: Date,
@@ -21,6 +20,8 @@ export class TimelineTaskManagerService {
     statesFilter: TaskState[],
     statesOrder: TaskState[],
   ): TimelineColumn[] {
+    this.throwErrorWhenStartDateIsAfterEndDate(timelineStartDate, timelineEndDate);
+
     const tasksInSelectedPeriod = tasks.filter((task: Task) =>
       this.isTaskInSelectedPeriod(task, timelineStartDate, timelineEndDate, today),
     );
@@ -167,5 +168,11 @@ export class TimelineTaskManagerService {
         };
       }
     });
+  }
+
+  private throwErrorWhenStartDateIsAfterEndDate(startDate: Date, endDate: Date): void {
+    if (+startDate > +endDate) {
+      throw Error('The start date is after the end date');
+    }
   }
 }
