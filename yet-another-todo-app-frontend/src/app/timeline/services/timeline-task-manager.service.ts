@@ -75,9 +75,23 @@ export class TimelineTaskManagerService {
     const columnTasksMap = new Map<number, { tasks: Task[]; position: number }>();
 
     tasks.forEach((task) => {
-      const placementDate: Date = task instanceof StartedTask ? task.getStartDate() : today;
+      let placementDate: Date | undefined;
 
-      if (placementDate.valueOf() >= this.dateUtilsService.getNextDay(timelineEndDate).valueOf()) {
+      if (task instanceof EndedTask) {
+        placementDate = task.getEndDate();
+      } else if (task instanceof StartedTask && +today >= +task.getStartDate()) {
+        placementDate = today;
+      } else if (task instanceof StartedTask && +today < +task.getStartDate()) {
+        placementDate = task.getStartDate();
+      } else {
+        placementDate = today;
+      }
+
+      if (
+        (placementDate instanceof Date &&
+          +placementDate >= +this.dateUtilsService.getNextDay(timelineEndDate)) ||
+        placementDate === undefined
+      ) {
         return;
       }
 
@@ -107,8 +121,7 @@ export class TimelineTaskManagerService {
       statesPriorities.set(value.toString(), index);
     });
 
-    const priorityMultiplier = 10;
-    const dayDiff = new Date(1980, 2, 2).valueOf() - new Date(1980, 2, 1).valueOf();
+    const priorityMultiplier = 365 * 10000; // TODO Explain the multiplier
 
     columns.forEach((column: Column) => {
       column.tasks.sort((a: Task, b: Task) => {
@@ -124,13 +137,13 @@ export class TimelineTaskManagerService {
           return -1 * priorityMultiplier;
         }
 
-        const creationDateDiff =
-          (b.getCreationDate().valueOf() - a.getCreationDate().valueOf()) / dayDiff;
+        const creationDateDiff = this.dateUtilsService.getNumberOfDaysBetweenDates(
+          a.getCreationDate(),
+          b.getCreationDate(),
+        );
 
         return (
-          (priorityA as number) * priorityMultiplier -
-          (priorityB as number) * priorityMultiplier +
-          creationDateDiff
+          ((priorityA as number) - (priorityB as number)) * priorityMultiplier + creationDateDiff
         );
       });
     });
