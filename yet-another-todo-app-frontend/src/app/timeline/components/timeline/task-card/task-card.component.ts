@@ -1,20 +1,34 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
+import { CompletedTaskState } from 'src/app/shared/models/task-state.model';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../../../shared/models/task.model';
+import { EndedTask, Task } from '../../../../shared/models/task.model';
 
 @Component({
   selector: 'yata-task-card',
   templateUrl: './task-card.component.html',
   styleUrls: ['./task-card.component.scss'],
 })
-export class TaskCardComponent implements OnDestroy {
+export class TaskCardComponent implements OnChanges, OnDestroy {
   @Input() task!: Task;
+
+  isCompleted: boolean = false;
 
   private subscription?: Subscription;
 
   constructor(private dialogService: DialogService, private tasksService: TasksService) {}
+
+  ngOnChanges(): void {
+    if (
+      this.task instanceof EndedTask &&
+      this.task.getState().toString() === new CompletedTaskState().toString()
+    ) {
+      this.isCompleted = true;
+    } else {
+      this.isCompleted = false;
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
