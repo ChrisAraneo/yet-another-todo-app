@@ -12,6 +12,7 @@ type Column = { tasks: Task[]; position: number };
 export class TimelineTaskManagerService {
   constructor(private dateUtilsService: DateUtilsService) {}
 
+  // TODO Throw error when start date is after end date
   mapTasksToTimelineColumns(
     tasks: Task[],
     today: Date,
