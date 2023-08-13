@@ -27,10 +27,8 @@
       [label]="'EditTaskModal.endDate' | translate"></yata-date-picker>
     <yata-modal-action-buttons
       [form]="taskForm"
-      [submit]="submit"
-      [submitLabel]="'EditTaskModal.saveChanges'"
-      [cancel]="cancel"
-      [cancelLabel]="'EditTaskModal.cancel'">
+      [submitButton]="{ label: 'EditTaskModal.saveChanges', click: submit }"
+      [cancelButton]="{ label: 'EditTaskModal.cancel', click: cancel }">
     </yata-modal-action-buttons>
   </ng-container>
 </form>

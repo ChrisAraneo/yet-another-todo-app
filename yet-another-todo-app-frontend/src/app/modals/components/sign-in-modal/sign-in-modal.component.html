@@ -9,9 +9,7 @@
     [parentForm]="form"></yata-password-input>
   <yata-modal-action-buttons
     [form]="form"
-    [submit]="submit"
-    [submitLabel]="'SignInModal.signIn'"
-    [cancel]="cancel"
-    [cancelLabel]="'SignInModal.dontSignIn'">
+    [submitButton]="{ label: 'SignInModal.signIn', click: submit }"
+    [cancelButton]="{ label: 'SignInModal.dontSignIn', click: cancel }">
   </yata-modal-action-buttons>
 </form>

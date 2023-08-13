@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { CancelButton, SubmitButton } from './modal-action-buttons.types';
 
 const NOOP = async (): Promise<void> => {
   return;
@@ -12,8 +13,13 @@ const NOOP = async (): Promise<void> => {
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup<any>;
-  @Input() submit: (event?: any) => Promise<void> = NOOP;
-  @Input() cancel: (() => Promise<void>) | (() => void) = NOOP;
-  @Input() cancelLabel: string = '';
-  @Input() submitLabel: string = '';
+  @Input() submitButton: SubmitButton = {
+    label: '',
+    color: 'primary',
+    click: NOOP,
+  };
+  @Input() cancelButton: CancelButton = {
+    label: '',
+    click: NOOP,
+  };
 }

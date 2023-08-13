@@ -13,9 +13,7 @@
     [options]="directions"></yata-select>
   <yata-modal-action-buttons
     [form]="form"
-    [submit]="submit"
-    [submitLabel]="'ConfigureTableModal.save'"
-    [cancel]="cancel"
-    [cancelLabel]="'ConfigureTableModal.cancel'">
+    [submitButton]="{ label: 'ConfigureTableModal.save', click: submit }"
+    [cancelButton]="{ label: 'ConfigureTableModal.cancel', click: cancel }">
   </yata-modal-action-buttons>
 </form>

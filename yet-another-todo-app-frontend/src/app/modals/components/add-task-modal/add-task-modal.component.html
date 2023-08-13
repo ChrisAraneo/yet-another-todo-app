@@ -22,9 +22,7 @@
     [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
   <yata-modal-action-buttons
     [form]="taskForm"
-    [submit]="submit"
-    [submitLabel]="'AddTaskModal.submit'"
-    [cancel]="cancel"
-    [cancelLabel]="'AddTaskModal.cancel'">
+    [submitButton]="{ label: 'AddTaskModal.submit', click: submit }"
+    [cancelButton]="{ label: 'AddTaskModal.cancel', click: cancel }">
   </yata-modal-action-buttons>
 </form>

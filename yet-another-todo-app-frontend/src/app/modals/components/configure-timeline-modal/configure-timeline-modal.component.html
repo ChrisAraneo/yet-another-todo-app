@@ -12,9 +12,7 @@
     (changeStatesFilter)="changeStatesFilter($event)"></yata-drag-drop-task-order-list>
   <yata-modal-action-buttons
     [form]="form"
-    [submit]="submit"
-    [submitLabel]="'ConfigureTimelineModal.save'"
-    [cancel]="cancel"
-    [cancelLabel]="'ConfigureTimelineModal.cancel'">
+    [submitButton]="{ label: 'ConfigureTimelineModal.save', click: submit }"
+    [cancelButton]="{ label: 'ConfigureTimelineModal.cancel', click: cancel }">
   </yata-modal-action-buttons>
 </form>

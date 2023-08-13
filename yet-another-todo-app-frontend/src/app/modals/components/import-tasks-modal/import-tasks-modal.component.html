@@ -12,9 +12,7 @@
   </span>
   <yata-modal-action-buttons
     [form]="form"
-    [submit]="submit"
-    [submitLabel]="'ImportTasksModal.submit'"
-    [cancel]="cancel"
-    [cancelLabel]="'ImportTasksModal.cancel'">
+    [submitButton]="{ label: 'ImportTasksModal.submit', click: submit }"
+    [cancelButton]="{ label: 'ImportTasksModal.cancel', click: cancel }">
   </yata-modal-action-buttons>
 </form>

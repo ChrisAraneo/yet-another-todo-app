@@ -13,9 +13,7 @@
     [parentForm]="form"></yata-password-input>
   <yata-modal-action-buttons
     [form]="form"
-    [submit]="submit(_tasks)"
-    [submitLabel]="'ExportTasksModal.submit'"
-    [cancel]="cancel"
-    [cancelLabel]="'ExportTasksModal.cancel'">
+    [submitButton]="{ label: 'ExportTasksModal.submit', click: submit(_tasks) }"
+    [cancelButton]="{ label: 'ExportTasksModal.cancel', click: cancel }">
   </yata-modal-action-buttons>
 </form>
