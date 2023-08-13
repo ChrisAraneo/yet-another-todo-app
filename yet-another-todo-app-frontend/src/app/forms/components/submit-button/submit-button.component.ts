@@ -13,6 +13,8 @@ export class SubmitButtonComponent {
   @Input() invalid: boolean = false;
   @Input() pending: boolean = false;
   @Input() submit: (event?: any) => Promise<void> = NOOP;
+  @Input() color: string = 'primary';
+  @Input() icon?: string;
 
   isLoading: boolean = false;
 
