@@ -7,7 +7,12 @@
   <ng-container *ngIf="taskForm.value.task">
     <yata-modal-action-buttons
       [form]="taskForm"
-      [submitButton]="{ label: 'DeleteTaskModal.delete', click: submit, color: 'warn' }"
+      [submitButton]="{
+        label: 'DeleteTaskModal.delete',
+        click: submit,
+        color: 'warn',
+        icon: 'delete'
+      }"
       [cancelButton]="{ label: 'DeleteTaskModal.cancel', click: cancel }">
     </yata-modal-action-buttons>
   </ng-container>
