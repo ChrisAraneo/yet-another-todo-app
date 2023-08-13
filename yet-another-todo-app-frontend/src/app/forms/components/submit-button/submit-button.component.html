@@ -1,21 +1,4 @@
 <div class="submit-button-wrapper">
-  <ng-container *ngIf="icon; else standardButton">
-    <ng-container [ngTemplateOutlet]="iconButton"> </ng-container>
-  </ng-container>
-</div>
-
-<ng-template #iconButton>
-  <button
-    mat-icon-button
-    [color]="color"
-    (click)="onButtonClick($event)"
-    [disabled]="invalid || pending || isLoading">
-    <mat-icon>{{ icon }}</mat-icon>
-    <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
-  </button>
-</ng-template>
-
-<ng-template #standardButton>
   <button
     mat-flat-button
     [color]="color"
@@ -23,11 +6,11 @@
     [disabled]="invalid || pending || isLoading">
     <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
   </button>
-</ng-template>
+</div>
 
 <ng-template #buttonContent>
   <div class="button-content">
-    <div class="spacer"></div>
+    <mat-icon>{{ icon }}</mat-icon>
     <ng-content></ng-content>
     <div class="spinner-wrapper">
       <mat-spinner [diameter]="22" *ngIf="isLoading"></mat-spinner>
