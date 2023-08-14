@@ -1,6 +1,7 @@
 <div>
-  <label>{{ label }}</label>
+  <yata-label [for]="label"></yata-label>
   <textarea
+    [name]="label"
     [value]="value"
     [rows]="rows"
     [placeholder]="label"
