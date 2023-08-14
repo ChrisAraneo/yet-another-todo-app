@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
+import { LabelComponent } from './components/label/label.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { TitleComponent } from './components/title/title.component';
@@ -25,7 +26,13 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [TaskStateIconComponent, TitleComponent, EmptyInfoBoxComponent, SubtitleComponent],
+  declarations: [
+    TaskStateIconComponent,
+    TitleComponent,
+    EmptyInfoBoxComponent,
+    SubtitleComponent,
+    LabelComponent,
+  ],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -51,6 +58,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     OperationIdGeneratorService,
     ViewConfigurationService,
   ],
-  exports: [EmptyInfoBoxComponent, TaskStateIconComponent, TitleComponent, SubtitleComponent],
+  exports: [
+    EmptyInfoBoxComponent,
+    TaskStateIconComponent,
+    TitleComponent,
+    SubtitleComponent,
+    LabelComponent,
+  ],
 })
 export class SharedModule {}
