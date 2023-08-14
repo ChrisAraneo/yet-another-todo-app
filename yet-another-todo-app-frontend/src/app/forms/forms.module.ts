@@ -4,6 +4,7 @@ import { MaterialModule } from '../shared/material.module';
 import { CancelButtonComponent } from './components/cancel-button/cancel-button.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
+import { LabelComponent } from './components/label/label.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { SelectComponent } from './components/select/select.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
@@ -13,6 +14,7 @@ import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
   declarations: [
+    LabelComponent,
     SubmitButtonComponent,
     CancelButtonComponent,
     TextInputComponent,
