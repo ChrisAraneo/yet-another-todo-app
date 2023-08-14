@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'yata-label',
   templateUrl: './label.component.html',
   styleUrls: ['./label.component.scss'],
 })
-export class LabelComponent {}
+export class LabelComponent {
+  @Input() for: string = '';
+}
