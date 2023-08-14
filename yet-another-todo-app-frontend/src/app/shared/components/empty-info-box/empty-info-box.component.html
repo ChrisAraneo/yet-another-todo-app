@@ -1,5 +1,5 @@
 <div class="empty-image"></div>
 <div class="wrapper" *ngIf="caption || hint">
   <yata-title>{{ caption }}</yata-title>
-  <p class="hint" *ngIf="hint">{{ hint }}</p>
+  <yata-label *ngIf="hint">{{ hint }}</yata-label>
 </div>

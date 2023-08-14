@@ -9,14 +9,6 @@
 
   .error {
     display: inline-block;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    background-color: none;
-    margin: 0;
-    font-size: $_12unit;
-    font-weight: 400;
-    background-color: transparent;
     color: $warn-color;
-    text-transform: uppercase;
-    opacity: 0.7;
   }
 }

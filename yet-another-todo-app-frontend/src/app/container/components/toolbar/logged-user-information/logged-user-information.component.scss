@@ -26,19 +26,12 @@
     font-size: $_14unit;
     line-height: $_14unit;
     font-weight: 400;
+    opacity: 1;
     background-color: transparent;
     text-transform: uppercase;
   }
 
-  .label {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
-    padding: 0;
-    margin: 0;
-    font-size: $_12unit;
+  yata-label {
     line-height: $_14unit;
-    font-weight: 400;
-    background-color: transparent;
-    text-transform: uppercase;
-    opacity: 0.7;
   }
 }

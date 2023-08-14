@@ -1,5 +1,5 @@
 <div class="error-container">
-  <span *ngFor="let item of list" class="error">
+  <yata-label class="error" *ngFor="let item of list">
     {{ 'Error.' + item.key | translate : item.value }}
-  </span>
+  </yata-label>
 </div>

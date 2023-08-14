@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { TaskStateCreator } from 'src/app/shared/models/task-state-creator.model';
 import { TaskState } from 'src/app/shared/models/task-state.model';
 
-// TODO Add @Input with filtered out states
 @Component({
   selector: 'yata-drag-drop-task-order-list',
   templateUrl: './drag-drop-task-order-list.component.html',
