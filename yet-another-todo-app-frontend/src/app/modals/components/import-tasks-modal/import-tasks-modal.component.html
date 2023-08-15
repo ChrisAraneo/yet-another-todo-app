@@ -2,7 +2,9 @@
 <form [formGroup]="form" *ngIf="!!form" (submit)="$event.preventDefault()">
   <yata-file-input
     [formControlName]="'file'"
-    [label]="'ImportTasksModal.file' | translate"></yata-file-input>
+    [label]="'ImportTasksModal.file' | translate"
+    [selectFileLabel]="'ImportTasksModal.selectFile' | translate"
+    [changeFileLabel]="'ImportTasksModal.changeFile' | translate"></yata-file-input>
   <yata-password-input
     [formControlName]="'password'"
     [label]="'ImportTasksModal.password' | translate"

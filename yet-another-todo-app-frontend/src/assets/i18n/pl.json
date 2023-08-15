@@ -76,12 +76,17 @@
     "repeatPassword": "Powtórz hasło",
     "submit": "Eksportuj"
   },
+  "FileInput": {
+    "selectedFile": "Wybrany plik"
+  },
   "IN_PROGRESS": "Zadanie w toku",
   "ImportTasksModal": {
     "cancel": "Anuluj",
-    "file": "Wybierz plik zip",
+    "changeFile": "Zmień plik zip",
+    "file": "Plik zip z zadaniami",
     "modalTitle": "Importuj zadania",
     "password": "Hasło",
+    "selectFile": "Wybierz plik zip",
     "submit": "Importuj",
     "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i wpisałeś pasujące hasło."
   },

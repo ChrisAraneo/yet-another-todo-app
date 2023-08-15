@@ -76,12 +76,17 @@
     "repeatPassword": "Repeat password",
     "submit": "Export"
   },
+  "FileInput": {
+    "selectedFile": "Selected file"
+  },
   "IN_PROGRESS": "Task in progress",
   "ImportTasksModal": {
     "cancel": "Cancel",
-    "file": "Select zip file",
+    "changeFile": "Change zip file",
+    "file": "Tasks zip file",
     "modalTitle": "Import tasks",
     "password": "Password",
+    "selectFile": "Select zip file",
     "submit": "Import",
     "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and entered matching password."
   },
