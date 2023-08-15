@@ -19,7 +19,7 @@ select:focus {
 
 select:not(:focus) {
   border: $form-input-border;
-  background-color: $form-input-background;
+  background-color: transparent;
 }
 
 select:focus {
