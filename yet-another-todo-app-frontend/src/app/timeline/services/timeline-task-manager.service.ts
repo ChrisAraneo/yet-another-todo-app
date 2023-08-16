@@ -122,8 +122,6 @@ export class TimelineTaskManagerService {
       statesPriorities.set(value.toString(), index);
     });
 
-    const priorityMultiplier = 365 * 10000; // TODO Explain the multiplier
-
     columns.forEach((column: Column) => {
       column.tasks.sort((a: Task, b: Task) => {
         const stateA = a.getState().toString();
@@ -132,20 +130,22 @@ export class TimelineTaskManagerService {
         const priorityB = statesPriorities.get(stateB);
 
         if (this.isUndefined(priorityA)) {
-          return 1 * priorityMultiplier;
+          return 1;
         }
+
         if (this.isUndefined(priorityB)) {
-          return -1 * priorityMultiplier;
+          return -1;
         }
 
-        const creationDateDiff = this.dateUtilsService.getNumberOfDaysBetweenDates(
-          a.getCreationDate(),
-          b.getCreationDate(),
-        );
+        const creationDateDiff = b.getCreationDate().valueOf() - a.getCreationDate().valueOf();
 
-        return (
-          ((priorityA as number) - (priorityB as number)) * priorityMultiplier + creationDateDiff
-        );
+        if (priorityA === priorityB && creationDateDiff !== 0) {
+          return creationDateDiff;
+        } else if (priorityA === priorityB && creationDateDiff === 0) {
+          return a.getId().localeCompare(b.getId());
+        }
+
+        return (priorityA as number) - (priorityB as number);
       });
     });
   }
