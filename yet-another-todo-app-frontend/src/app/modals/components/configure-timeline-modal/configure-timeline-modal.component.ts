@@ -17,7 +17,8 @@ import {
 export class ConfigureTimelineModalComponent {
   static readonly PANEL_CLASS = 'configure-timeline-modal';
 
-  readonly states;
+  readonly orderedStates: TaskState[];
+  readonly filteredStates: TaskState[];
 
   form?: FormGroup<ConfigureTimelineForm>;
 
@@ -30,7 +31,8 @@ export class ConfigureTimelineModalComponent {
   ) {
     const { startDate, endDate, statesOrder, statesFilter } = this.data;
 
-    this.states = statesOrder;
+    this.orderedStates = statesOrder;
+    this.filteredStates = statesFilter;
 
     this.initializeForm(startDate, endDate, statesOrder, statesFilter);
   }

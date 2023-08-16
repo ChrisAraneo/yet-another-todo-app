@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { TaskStateCreator } from 'src/app/shared/models/task-state-creator.model';
 import { TaskState } from 'src/app/shared/models/task-state.model';
 
@@ -9,7 +9,8 @@ import { TaskState } from 'src/app/shared/models/task-state.model';
   styleUrls: ['./drag-drop-task-order-list.component.scss'],
 })
 export class DragDropTaskOrderListComponent implements OnChanges {
-  @Input() states: TaskState[] = [];
+  @Input() orderedStates: TaskState[] = [];
+  @Input() filteredStates: TaskState[] = [];
 
   @Output() changeStatesOrder: EventEmitter<TaskState[]>;
   @Output() changeStatesFilter: EventEmitter<TaskState[]>;
@@ -24,18 +25,21 @@ export class DragDropTaskOrderListComponent implements OnChanges {
     this.changeStatesFilter = new EventEmitter<TaskState[]>();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const values = changes['states']?.currentValue.map((state: TaskState) => state.toString());
+  ngOnChanges(): void {
+    const values = this.orderedStates.map((state: TaskState) => state.toString());
 
     this.values = values;
+    this.checked = values.map(() => false);
 
-    while (this.checked.length > values.length) {
-      this.checked.pop();
-    }
+    this.filteredStates
+      .map((state: TaskState) => state.toString())
+      .forEach((value: string) => {
+        const index = values.indexOf(value);
 
-    while (this.checked.length < values.length) {
-      this.checked.push(true);
-    }
+        if (index >= 0) {
+          this.checked[index] = true;
+        }
+      });
   }
 
   drop(event: CdkDragDrop<string[]>): void {
