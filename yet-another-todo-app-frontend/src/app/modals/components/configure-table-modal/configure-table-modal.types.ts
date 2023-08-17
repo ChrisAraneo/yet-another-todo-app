@@ -1,7 +1,8 @@
 import { FormControl } from '@angular/forms';
-import { SortDirection } from '@angular/material/sort';
+
+export type SortDirection = 'asc' | 'desc';
 
 export type ConfigureTableForm = {
   id: FormControl<string>;
-  direction: FormControl<SortDirection | null>;
+  direction: FormControl<SortDirection>;
 };

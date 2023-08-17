@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SortDirection } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { TABLE_DISPLAYED_COLUMNS } from 'src/app/table/components/table/table.config';
 import { Option } from '../../../forms/components/select/select.types';
-import { ConfigureTableForm } from './configure-table-modal.types';
+import { ConfigureTableForm, SortDirection } from './configure-table-modal.types';
 
 @Component({
   selector: 'yata-configure-table-modal',
@@ -41,7 +40,7 @@ export class ConfigureTableModalComponent {
     }
 
     const id = this.form.value.id || '';
-    const direction = this.form.value.direction || '';
+    const direction = this.form.value.direction || 'asc';
 
     this.viewConfigurationService.changeTableSorting({
       id: id,
@@ -63,8 +62,8 @@ export class ConfigureTableModalComponent {
   private getDirectionFromData(data: any): SortDirection {
     const direction = data?.direction;
 
-    if (direction !== '' && direction !== 'asc' && direction !== 'desc') {
-      throw Error(`Incorrect date object direction: ${direction}`);
+    if (direction !== 'asc' && direction !== 'desc') {
+      throw Error(`Incorrect data object direction: ${direction}`);
     }
 
     return direction;
@@ -87,10 +86,6 @@ export class ConfigureTableModalComponent {
         label: this.translateService.instant(`ConfigureTableModal.desc`.toString()),
         value: 'desc',
       },
-      {
-        label: this.translateService.instant(`ConfigureTableModal.blank`.toString()),
-        value: '',
-      },
     ];
   }
 
@@ -100,7 +95,7 @@ export class ConfigureTableModalComponent {
         validators: [Validators.required],
         nonNullable: true,
       }),
-      direction: new FormControl(direction),
+      direction: new FormControl(direction, { nonNullable: true }),
     });
   }
 }

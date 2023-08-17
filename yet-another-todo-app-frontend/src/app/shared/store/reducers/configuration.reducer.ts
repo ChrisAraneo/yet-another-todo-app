@@ -51,8 +51,8 @@ export const initialState: ViewConfiguration = {
   },
   table: {
     sort: {
-      id: '',
-      start: '',
+      id: 'creationDate',
+      start: 'desc',
       disableClear: false,
     },
   },

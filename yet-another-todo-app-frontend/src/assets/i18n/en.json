@@ -19,7 +19,6 @@
   "COMPLETED": "Task completed",
   "ConfigureTableModal": {
     "asc": "Ascending order",
-    "blank": "Do not sort (default order)",
     "cancel": "Cancel",
     "desc": "Descending order",
     "direction": "Direction",

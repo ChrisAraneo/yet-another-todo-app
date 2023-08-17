@@ -19,7 +19,6 @@
   "COMPLETED": "Zadanie wykonane",
   "ConfigureTableModal": {
     "asc": "Kolejność rosnąca",
-    "blank": "Nie sortuj (domyślna kolejność)",
     "cancel": "Anuluj",
     "desc": "Kolejność malejąca",
     "direction": "Kolejność sortowania",
