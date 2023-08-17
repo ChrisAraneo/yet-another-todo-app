@@ -6,7 +6,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpLoaderFactory } from '../app.module';
 import { FormsModule } from '../forms/forms.module';
 import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared/shared.module';
@@ -16,10 +16,6 @@ import { TimelineContentComponent } from './components/timeline/timeline-content
 import { TimelineHeaderComponent } from './components/timeline/timeline-header/timeline-header.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineTaskManagerService } from './services/timeline-task-manager.service';
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   declarations: [

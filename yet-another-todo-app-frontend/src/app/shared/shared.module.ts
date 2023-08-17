@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { LabelComponent } from './components/label/label.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
@@ -20,10 +20,6 @@ import { UnzipTasksService } from './services/unzip-tasks/unzip-tasks.service';
 import { UserService } from './services/user/user.service';
 import { ViewConfigurationService } from './services/view-configuration/view-configuration.service';
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   declarations: [

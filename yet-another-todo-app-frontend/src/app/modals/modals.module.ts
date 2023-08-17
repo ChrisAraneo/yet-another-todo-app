@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpLoaderFactory } from '../app.module';
 import { FormsModule } from '../forms/forms.module';
 import { MaterialModule } from '../shared/material.module';
 import { ApiClientService } from '../shared/services/api-client/api-client.service';
@@ -26,10 +26,6 @@ import { SelectImportActionModalComponent } from './components/import-tasks-moda
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   declarations: [

@@ -2,17 +2,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpLoaderFactory } from 'src/app/app.module';
 import { MaterialModule } from '../../../shared/material.module';
 import { SharedModule } from '../../../shared/shared.module';
 import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
 import { ToolbarComponent } from './toolbar.component';
-
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
 
 @NgModule({
   declarations: [
