@@ -19,27 +19,44 @@ import {
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
+  private readonly requestMap = {
+    [this.api.signUpEndpoint]: {
+      POST: pushToPostSignupHttpLog,
+    },
+    [this.api.loginEndpoint]: {
+      POST: pushToPostLoginHttpLog,
+    },
+    [this.api.refreshEndpoint]: {
+      POST: pushToPostRefreshHttpLog,
+    },
+    [this.api.tasksEndpoint]: {
+      GET: pushToGetTasksHttpLog,
+      POST: pushToPostTasksHttpLog,
+    },
+    [this.api.taskEndpoint]: {
+      POST: pushToPostTaskHttpLog,
+      DELETE: pushToDeleteTaskHttpLog,
+    },
+    [this.api.userEndpoint]: {
+      DELETE: pushToDeleteUserHttpLog,
+    },
+  } as const;
+
   constructor(@Inject('API') public api: any, private store: Store<{ httpLog: any }>) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // TODO Refactor
-    if (this.isRequestMatching(request, this.api.signUpEndpoint, 'POST')) {
-      this.dispatchLogRequestAction(pushToPostSignupHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.loginEndpoint, 'POST')) {
-      this.dispatchLogRequestAction(pushToPostLoginHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.refreshEndpoint, 'POST')) {
-      this.dispatchLogRequestAction(pushToPostRefreshHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.tasksEndpoint, 'GET')) {
-      this.dispatchLogRequestAction(pushToGetTasksHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.tasksEndpoint, 'POST')) {
-      this.dispatchLogRequestAction(pushToPostTasksHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.taskEndpoint, 'POST')) {
-      this.dispatchLogRequestAction(pushToPostTaskHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.taskEndpoint, 'DELETE')) {
-      this.dispatchLogRequestAction(pushToDeleteTaskHttpLog, request);
-    } else if (this.isRequestMatching(request, this.api.userEndpoint, 'DELETE')) {
-      this.dispatchLogRequestAction(pushToDeleteUserHttpLog, request);
+    const endpoints: string[] = Object.keys(this.requestMap);
+    const method: string = request.method.toUpperCase();
+    const endpoint: string | undefined = endpoints.find((endpoint: string) =>
+      this.isRequestMatching(request, endpoint, method),
+    );
+
+    if (!endpoint) {
+      return next.handle(request);
     }
+
+    const actionCreator = (this.requestMap as any)[endpoint][method];
+    this.dispatchLogRequestAction(actionCreator, request);
 
     const id = this.getId(request);
 
@@ -49,34 +66,13 @@ export class LoggingInterceptor implements HttpInterceptor {
           return;
         }
 
-        // TODO Refactor
-        if (this.isResponseMatching(request, this.api.signUpEndpoint)) {
-          this.dispatchLogResponseAction(pushToPostSignupHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.loginEndpoint)) {
-          this.dispatchLogResponseAction(pushToPostLoginHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.refreshEndpoint)) {
-          this.dispatchLogResponseAction(pushToPostRefreshHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.tasksEndpoint)) {
-          this.dispatchLogResponseAction(pushToGetTasksHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.tasksEndpoint)) {
-          this.dispatchLogResponseAction(pushToPostTasksHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.taskEndpoint)) {
-          this.dispatchLogResponseAction(pushToPostTaskHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.taskEndpoint)) {
-          this.dispatchLogResponseAction(pushToDeleteTaskHttpLog, id, response);
-        } else if (this.isResponseMatching(request, this.api.userEndpoint)) {
-          this.dispatchLogResponseAction(pushToDeleteUserHttpLog, id, response);
-        }
+        this.dispatchLogResponseAction(actionCreator, id, response);
       }),
     );
   }
 
   private isRequestMatching(request: HttpRequest<unknown>, url: string, method: string): boolean {
     return !!request && request.url === url && request.method === method;
-  }
-
-  private isResponseMatching(request: HttpRequest<unknown>, url: string): boolean {
-    return !!request && request.url === url;
   }
 
   private isCorrectResponseType(response: any): boolean {
