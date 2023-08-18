@@ -3,7 +3,7 @@ import CryptoAES from 'crypto-js/aes';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 import { Task } from '../../models/task.model';
-import { ZipFileContent } from '../../models/zip-file-content.model';
+import { ZipFileContent } from '../../models/zip-file-content.type';
 import { DateUtilsService } from '../date-utils/date-utils.service';
 
 @Injectable({

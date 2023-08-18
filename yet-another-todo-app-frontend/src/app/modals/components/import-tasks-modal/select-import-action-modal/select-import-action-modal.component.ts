@@ -1,7 +1,7 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
+import { ZipFileContent } from 'src/app/shared/models/zip-file-content.type';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../../../shared/models/task.model';
 import { ImportAction } from './select-import-action-modal.types';

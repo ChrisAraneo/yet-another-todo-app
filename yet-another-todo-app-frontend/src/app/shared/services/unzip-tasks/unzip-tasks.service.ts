@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import CryptoJS from 'crypto-js';
 import CryptoAES from 'crypto-js/aes';
 import JSZip from 'jszip';
-import { ZipFileContent } from '../../models/zip-file-content.model';
+import { ZipFileContent } from '../../models/zip-file-content.type';
 import { TaskCreatorService } from '../task-creator/task-creator.service';
 
 @Injectable({

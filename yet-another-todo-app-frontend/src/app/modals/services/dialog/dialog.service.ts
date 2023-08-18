@@ -6,7 +6,7 @@ import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
-import { ZipFileContent } from 'src/app/shared/models/zip-file-content.model';
+import { ZipFileContent } from 'src/app/shared/models/zip-file-content.type';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
