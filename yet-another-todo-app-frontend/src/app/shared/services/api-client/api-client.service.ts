@@ -31,11 +31,11 @@ export class ApiClientService {
         )
         .pipe(
           first(),
-          map((response) => {
+          map((response: ApiResponse<LoginResponse>) => {
             if (response && response.status === ApiResponseStatus.Success) {
               resolve(response.data || null);
             } else {
-              reject(null); // TODO reject or resolve?
+              reject(response);
             }
           }),
         )
@@ -61,7 +61,7 @@ export class ApiClientService {
             if (response && response.status === ApiResponseStatus.Success) {
               resolve(response.data || null);
             } else {
-              reject(null); // TODO reject or resolve?
+              reject(null);
             }
           }),
         );

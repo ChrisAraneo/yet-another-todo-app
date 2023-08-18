@@ -12,11 +12,11 @@ import {
   take,
   tap,
 } from 'rxjs';
-import { TaskTransformer } from 'src/app/shared/models/task-transformer';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
 import { CompletedTaskState } from '../../models/task-state.model';
+import { TaskTransformer } from '../../models/task-transformer.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   createTask,
@@ -105,7 +105,7 @@ export class TasksService implements OnDestroy {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
-    });
+    }); // TODO Create and use TaskTransformer service
 
     return this.updateTask(updatedTask);
   }
@@ -240,7 +240,7 @@ export class TasksService implements OnDestroy {
   }
 
   private hideAllTasks(tasks: Task[]): Task[] {
-    return tasks.map((task) => TaskTransformer.transform(task, { isHidden: true }));
+    return tasks.map((task) => TaskTransformer.transform(task, { isHidden: true })); // TODO Create and use TaskTransformer service
   }
 
   private getResponseObservable(

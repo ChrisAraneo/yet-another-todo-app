@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { TaskTransformer } from '../../models/task-transformer.model';
 import { Task } from '../../models/task.model';
 import { createTask, hideTask, removeTask, setTasks, updateTask } from '../actions/task.actions';
 
