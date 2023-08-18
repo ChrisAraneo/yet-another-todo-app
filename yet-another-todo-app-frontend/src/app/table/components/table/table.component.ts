@@ -35,7 +35,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
   readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;
   readonly displayedColumns = TABLE_DISPLAYED_COLUMNS;
 
-  data: MatTableDataSource<TasksDataSource> | undefined; // TODO Refactor searching into observables
+  data: MatTableDataSource<TasksDataSource> | undefined;
 
   private _data = new BehaviorSubject<MatTableDataSource<TasksDataSource> | undefined>(undefined);
   private search = new BehaviorSubject<string>('');
