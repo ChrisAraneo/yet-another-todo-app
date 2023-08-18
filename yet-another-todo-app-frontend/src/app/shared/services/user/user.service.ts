@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { CurrentUser } from 'src/app/shared/models/current-user.type';
 import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/user.actions';
+import { CurrentUser } from '../../store/types/current-user.type';
 
 @Injectable({
   providedIn: 'root',

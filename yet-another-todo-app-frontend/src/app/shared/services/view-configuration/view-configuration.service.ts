@@ -10,7 +10,7 @@ import {
   setTimelineTaskStateFilter,
   setTimelineTaskStateOrder,
 } from '../../store/actions/configuration.actions';
-import { ViewConfiguration } from '../../store/reducers/configuration.reducer';
+import { ViewConfiguration } from '../../store/types/view-configuration.type';
 
 @Injectable({
   providedIn: 'root',

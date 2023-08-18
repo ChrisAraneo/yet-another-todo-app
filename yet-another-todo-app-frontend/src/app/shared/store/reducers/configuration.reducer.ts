@@ -1,4 +1,3 @@
-import { MatSortable } from '@angular/material/sort';
 import { createReducer, on } from '@ngrx/store';
 import {
   CompletedTaskState,
@@ -6,7 +5,6 @@ import {
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
-  TaskState,
 } from '../../models/task-state.model';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 import {
@@ -16,19 +14,7 @@ import {
   setTimelineTaskStateFilter,
   setTimelineTaskStateOrder,
 } from '../actions/configuration.actions';
-
-// TODO Move to separate file
-export type ViewConfiguration = {
-  timeline: {
-    startDate: Date;
-    endDate: Date;
-    order: TaskState[];
-    filter: TaskState[];
-  };
-  table: {
-    sort: MatSortable;
-  };
-};
+import { ViewConfiguration } from '../types/view-configuration.type';
 
 export const initialState: ViewConfiguration = {
   timeline: {

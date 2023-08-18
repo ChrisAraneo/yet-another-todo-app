@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentUser } from 'src/app/shared/models/current-user.type';
 import { setIsLogged, setIsOfflineMode, setUsername } from '../actions/user.actions';
+import { CurrentUser } from '../types/current-user.type';
 
 export const initialState: CurrentUser = {
   username: '',

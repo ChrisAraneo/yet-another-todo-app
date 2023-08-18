@@ -28,7 +28,7 @@ import {
   setTasks,
   updateTask,
 } from '../../store/actions/task.actions';
-import { HttpLogState } from '../../store/reducers/http-log.reducer';
+import { HttpLogState } from '../../store/types/http-log-state.type';
 import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
