@@ -5,7 +5,7 @@ import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { CompletedTaskState } from '../../models/task-state.model';
-import { TaskTransformer } from '../../models/task-transformer';
+import { TaskTransformer } from '../../models/task-transformer.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,

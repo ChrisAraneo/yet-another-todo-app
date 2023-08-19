@@ -3,8 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { CurrentUser } from 'src/app/shared/models/current-user.type';
 import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/user.actions';
+import { CurrentUser } from '../../store/types/current-user.type';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
