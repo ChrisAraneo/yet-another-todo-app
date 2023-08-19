@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
-import { TaskTransformerService } from '../task-transformer.service';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { LabelComponent } from './components/label/label.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
@@ -17,6 +16,7 @@ import { HttpLoggingService } from './services/http-logging/http-logging.service
 import { OperationIdGeneratorService } from './services/operation-id-generator/operation-id-generator.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
+import { TaskTransformerService } from './services/task-transformer/task-transformer.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { UnzipTasksService } from './services/unzip-tasks/unzip-tasks.service';
 import { UserService } from './services/user/user.service';
