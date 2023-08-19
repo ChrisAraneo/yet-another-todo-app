@@ -25,7 +25,7 @@ describe('ConfigureTableModalComponent', () => {
         { provide: MatDialogRef, useValue: {} },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { id: '', direction: '' },
+          useValue: { id: 'id', direction: 'asc' },
         },
         MockProvider(TranslateService),
         FormBuilder,
