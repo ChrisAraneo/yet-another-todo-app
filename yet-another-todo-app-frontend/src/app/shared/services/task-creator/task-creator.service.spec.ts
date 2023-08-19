@@ -196,6 +196,52 @@ describe('TaskCreatorService', () => {
     expect(() => service.create(data)).toThrowError(/[^]+/);
   });
 
+  it('#create with pending task data input having start date should throw an error', () => {
+    const data = {
+      id: '6cc2a9fa-dcdd-4e95-b5f9-d3681f3e9933',
+      title: 'lorem',
+      description: 'ipsum',
+      state: {
+        value: new NotStartedTaskState().toString(),
+      },
+      creationDate: new Date(2000, 1, 2).toISOString(),
+      startDate: new Date(2000, 1, 2).toISOString(),
+    };
+
+    expect(() => service.create(data)).toThrowError(/[^]+/);
+  });
+
+  it('#create with pending task data input having end date should throw an error', () => {
+    const data = {
+      id: '6cc2a9fa-dcdd-4e95-b5f9-d3681f3e9933',
+      title: 'lorem',
+      description: 'ipsum',
+      state: {
+        value: new NotStartedTaskState().toString(),
+      },
+      creationDate: new Date(2000, 1, 2).toISOString(),
+      endDate: new Date(2000, 1, 2).toISOString(),
+    };
+
+    expect(() => service.create(data)).toThrowError(/[^]+/);
+  });
+
+  it('#create with started task data input having end date should throw an error', () => {
+    const data = {
+      id: '6cc2a9fa-dcdd-4e95-b5f9-d3681f3e9933',
+      title: 'lorem',
+      description: 'ipsum',
+      state: {
+        value: new InProgressTaskState().toString(),
+      },
+      creationDate: new Date(2000, 1, 2).toISOString(),
+      startDate: new Date(2001, 1, 1).toISOString(),
+      endDate: new Date(2001, 1, 2).toISOString(),
+    };
+
+    expect(() => service.create(data)).toThrowError(/[^]+/);
+  });
+
   it('#create with started task data input having incorrect start date should throw an error', () => {
     const data = {
       id: '6cc2a9fa-dcdd-4e95-b5f9-d3681f3e9933',
