@@ -13,6 +13,7 @@ import { MaterialModule } from './material.module';
 import { ApiClientService } from './services/api-client/api-client.service';
 import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
+import { HttpLoggingService } from './services/http-logging/http-logging.service';
 import { OperationIdGeneratorService } from './services/operation-id-generator/operation-id-generator.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
@@ -55,6 +56,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     OperationIdGeneratorService,
     ViewConfigurationService,
     TaskTransformerService,
+    HttpLoggingService,
   ],
   exports: [
     EmptyInfoBoxComponent,
