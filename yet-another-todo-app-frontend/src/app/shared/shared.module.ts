@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
+import { TaskTransformerService } from '../task-transformer.service';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { LabelComponent } from './components/label/label.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
@@ -53,6 +54,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     UnzipTasksService,
     OperationIdGeneratorService,
     ViewConfigurationService,
+    TaskTransformerService,
   ],
   exports: [
     EmptyInfoBoxComponent,
