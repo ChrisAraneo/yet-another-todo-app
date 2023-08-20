@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { add, format, getDaysInMonth, sub } from 'date-fns';
 import differenceInDays from 'date-fns/differenceInDays';
-import { enGB, pl } from 'date-fns/locale';
+import { UserLocaleService } from '../user-locale/user-locale.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DateUtilsService {
+  constructor(private userLocaleService: UserLocaleService) {}
+
   getAllDaysInPeriodOfTime(startDate: Date, endDate: Date): Date[] {
     const difference = Math.abs(this.getNumberOfDaysBetweenDates(endDate, startDate));
 
@@ -64,38 +66,10 @@ export class DateUtilsService {
   }
 
   formatDate(date: Date, pattern: string): string {
-    return format(date, pattern, { locale: this.getUsersLocale() });
+    return format(date, pattern, { locale: this.userLocaleService.get() });
   }
 
   private getDateAtNoon(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
-  }
-
-  // TODO Refactor to service
-  private getUsersLocale(): Locale {
-    const defaultValue = enGB;
-
-    if (typeof window === 'undefined' || typeof window.navigator === 'undefined') {
-      return defaultValue;
-    }
-
-    const navigator = window.navigator as any;
-
-    const language = navigator.languages ? navigator.languages[0] : defaultValue;
-    const resolvedLanguage =
-      language || navigator.language || navigator.browserLanguage || navigator.userLanguage;
-
-    switch (resolvedLanguage) {
-      case 'en-GB':
-        return enGB;
-      case 'pl-PL':
-        return pl;
-      case 'pl':
-        return pl;
-      default:
-        console.error(`Date utils service doesn't support users locale: ${resolvedLanguage}`);
-
-        return defaultValue;
-    }
   }
 }
