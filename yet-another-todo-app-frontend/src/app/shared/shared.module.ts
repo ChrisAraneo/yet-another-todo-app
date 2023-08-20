@@ -19,6 +19,7 @@ import { TaskStateTranslatorService } from './services/task-state-translator/tas
 import { TaskTransformerService } from './services/task-transformer/task-transformer.service';
 import { TasksService } from './services/tasks/tasks.service';
 import { UnzipTasksService } from './services/unzip-tasks/unzip-tasks.service';
+import { UserLocaleService } from './services/user-locale/user-locale.service';
 import { UserService } from './services/user/user.service';
 import { ViewConfigurationService } from './services/view-configuration/view-configuration.service';
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
@@ -57,6 +58,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     ViewConfigurationService,
     TaskTransformerService,
     HttpLoggingService,
+    UserLocaleService,
   ],
   exports: [
     EmptyInfoBoxComponent,
