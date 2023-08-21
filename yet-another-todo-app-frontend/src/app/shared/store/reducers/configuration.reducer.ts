@@ -7,6 +7,7 @@ import {
   SuspendedTaskState,
 } from '../../models/task-state.model';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
+import { UserLocaleService } from '../../services/user-locale/user-locale.service';
 import {
   setTableSort,
   setTimelineEndDate,
@@ -71,11 +72,11 @@ export const viewConfigurationReducer = createReducer(
 function getInitialTimelineStartDate(): Date {
   const today = new Date();
 
-  return new DateUtilsService().getFirstDayOfTheMonth(today);
+  return new DateUtilsService(new UserLocaleService()).getFirstDayOfTheMonth(today);
 }
 
 function getInitialTimelineEndDate(): Date {
   const today = new Date();
 
-  return new DateUtilsService().getLastDayOfTheMonth(today);
+  return new DateUtilsService(new UserLocaleService()).getLastDayOfTheMonth(today);
 }
