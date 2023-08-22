@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { environment } from 'src/environments/environment';
 import { Task } from '../../models/task.model';
+import { LoginResponse } from '../auth/auth.types';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
@@ -22,6 +23,7 @@ describe('ApiClientService', () => {
     service = TestBed.inject(ApiClientService);
     httpMock = TestBed.inject(HttpTestingController);
     dummyResponseData = [
+      // TODO Update data structures, use class instances maybe?
       {
         title: 'Lorem ipsum',
         description: 'Description...',
@@ -68,7 +70,7 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(dummyTasks);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(dummySuccessResponse);
   });
@@ -84,7 +86,7 @@ describe('ApiClientService', () => {
       expect(error).toEqual(dummyErrorResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(dummyErrorResponse);
   });
@@ -96,7 +98,7 @@ describe('ApiClientService', () => {
       expect(error).toEqual(invalidResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(invalidResponse);
   });
@@ -111,7 +113,7 @@ describe('ApiClientService', () => {
       expect(task).toEqual(dummyTask);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(dummySuccessResponse);
   });
@@ -126,7 +128,7 @@ describe('ApiClientService', () => {
       expect(error).toEqual(errorResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(errorResponse);
   });
@@ -138,7 +140,53 @@ describe('ApiClientService', () => {
       expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#signIn should return tokens on successful response', () => {
+    const dummySuccessResponse: ApiResponse<LoginResponse> = {
+      status: ApiResponseStatus.Success,
+      data: {
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken',
+      },
+    };
+
+    service.signIn('test', 'password', '-').then((response) => {
+      expect(response?.accessToken).toBe('accessToken');
+      expect(response?.refreshToken).toEqual('refreshToken');
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#signIn should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.signIn('test', 'password', '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#signIn should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.signIn('test', 'password', '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(invalidResponse);
   });
