@@ -7,7 +7,6 @@ import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
-// TODO Add missing unit tests
 describe('ApiClientService', () => {
   let service: ApiClientService;
   let httpMock: HttpTestingController;
