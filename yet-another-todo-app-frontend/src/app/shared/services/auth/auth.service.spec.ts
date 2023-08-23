@@ -52,12 +52,14 @@ describe('AuthService', () => {
   });
 
   it('#signIn should update tokens and then #getAccessToken should return valid access token', () => {
+    // TODO Spec has no expectations, fix
     firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
       expect(service.getAccessToken()).toEqual('acc3sst0k3n');
     });
   });
 
   it('#getAccessToken call after #signIn then #refresh should return updated valid access token', () => {
+    // TODO Spec has no expectations, fix
     firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
       firstValueFrom(service.refresh()).then(() => {
         expect(service.getAccessToken()).toEqual('acc3sst0k3n_2');
@@ -66,6 +68,7 @@ describe('AuthService', () => {
   });
 
   it('#getAccessToken call after #signIn then #signOut should return null', () => {
+    // TODO Spec has no expectations, fix
     firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
       service.signOut();
 
