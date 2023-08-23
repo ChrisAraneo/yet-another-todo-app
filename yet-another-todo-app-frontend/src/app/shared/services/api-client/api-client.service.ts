@@ -64,7 +64,8 @@ export class ApiClientService {
               reject(null);
             }
           }),
-        );
+        )
+        .subscribe();
     });
   }
 
