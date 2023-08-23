@@ -23,7 +23,6 @@ describe('ApiClientService', () => {
     service = TestBed.inject(ApiClientService);
     httpMock = TestBed.inject(HttpTestingController);
     dummyResponseData = [
-      // TODO Update data structures, use class instances maybe?
       {
         title: 'Lorem ipsum',
         description: 'Description...',
@@ -141,6 +140,48 @@ describe('ApiClientService', () => {
     });
 
     const req = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#postTasksToApi should handle success response', () => {
+    const dummySuccessResponse: ApiResponse<TaskData[]> = {
+      status: ApiResponseStatus.Success,
+      data: dummyResponseData,
+    };
+
+    service.postTasksToApi(dummyTasks, '-').then((tasks) => {
+      expect(tasks).toEqual(dummyTasks);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#postTasksToApi should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.postTasksToApi(dummyTasks, '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#postTasksToApi should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.postTasksToApi(dummyTasks, '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(invalidResponse);
   });
