@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { environment } from 'src/environments/environment';
 import { Task } from '../../models/task.model';
-import { LoginResponse } from '../auth/auth.types';
+import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
@@ -187,6 +187,52 @@ describe('ApiClientService', () => {
     });
 
     const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#refreshAccessToken should return tokens on successful response', () => {
+    const dummySuccessResponse: ApiResponse<RefreshResponse> = {
+      status: ApiResponseStatus.Success,
+      data: {
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken',
+      },
+    };
+
+    service.refreshAccessToken('current-token', '-').then((response) => {
+      expect(response?.accessToken).toBe('accessToken');
+      expect(response?.refreshToken).toEqual('refreshToken');
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#refreshAccessToken should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.refreshAccessToken('current-token', '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#refreshAccessToken should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.refreshAccessToken('current-token', '-').catch((error) => {
+      expect(error).toBe(null);
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(invalidResponse);
   });
