@@ -217,7 +217,7 @@ describe('ApiClientService', () => {
     };
 
     service.refreshAccessToken('current-token', '-').catch((error) => {
-      expect(error).toEqual(errorResponse);
+      expect(error).toEqual(errorResponse.data);
     });
 
     const req = httpMock.expectOne(environment.api.refreshEndpoint);
