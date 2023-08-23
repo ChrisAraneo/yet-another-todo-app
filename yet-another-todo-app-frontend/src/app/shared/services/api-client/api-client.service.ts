@@ -61,7 +61,7 @@ export class ApiClientService {
             if (response && response.status === ApiResponseStatus.Success) {
               resolve(response.data || null);
             } else {
-              reject(null);
+              reject(response);
             }
           }),
         )

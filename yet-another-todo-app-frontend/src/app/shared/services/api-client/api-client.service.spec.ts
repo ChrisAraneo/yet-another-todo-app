@@ -217,7 +217,7 @@ describe('ApiClientService', () => {
     };
 
     service.refreshAccessToken('current-token', '-').catch((error) => {
-      expect(error).toEqual(errorResponse.data);
+      expect(error).toEqual(errorResponse);
     });
 
     const req = httpMock.expectOne(environment.api.refreshEndpoint);
@@ -229,7 +229,7 @@ describe('ApiClientService', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
     service.refreshAccessToken('current-token', '-').catch((error) => {
-      expect(error).toBe(null);
+      expect(error).toBe(invalidResponse);
     });
 
     const req = httpMock.expectOne(environment.api.refreshEndpoint);
