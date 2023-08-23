@@ -16,7 +16,7 @@ export class AuthService implements OnDestroy {
 
   constructor(
     @Inject('API') public api: any,
-    public apiClientService: ApiClientService,
+    private apiClientService: ApiClientService,
     private userService: UserService,
     private operationIdGeneratorService: OperationIdGeneratorService,
   ) {
@@ -65,8 +65,8 @@ export class AuthService implements OnDestroy {
   signOut(): void {
     this.setIsOfflineMode(true);
     this.setUsername('');
-    this.setAccessToken('');
-    this.setRefreshToken('');
+    this.setAccessToken(null);
+    this.setRefreshToken(null);
     this.setIsLoggedBasedOnTokenValue('');
   }
 
@@ -88,11 +88,11 @@ export class AuthService implements OnDestroy {
     this.userService.setUsername(username);
   }
 
-  private setAccessToken(token: string): void {
+  private setAccessToken(token: string | null): void {
     this.accessToken.next(token);
   }
 
-  private setRefreshToken(refreshToken: string): void {
+  private setRefreshToken(refreshToken: string | null): void {
     this.refreshToken.next(refreshToken);
   }
 
