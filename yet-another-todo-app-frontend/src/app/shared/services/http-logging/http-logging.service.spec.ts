@@ -37,7 +37,7 @@ describe('HttpLoggingService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#logRequestIfValid should dispatch action after POST /signUp request', async () => {
+  it('#logRequestIfValid should dispatch action after POST /signUp request', () => {
     const method = 'POST';
     const url = environment.api.signupEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -55,7 +55,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after POST /login request', async () => {
+  it('#logRequestIfValid should dispatch action after POST /login request', () => {
     const method = 'POST';
     const url = environment.api.loginEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -73,7 +73,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after POST /refresh request', async () => {
+  it('#logRequestIfValid should dispatch action after POST /refresh request', () => {
     const method = 'POST';
     const url = environment.api.refreshEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -91,7 +91,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after GET /tasks request', async () => {
+  it('#logRequestIfValid should dispatch action after GET /tasks request', () => {
     const method = 'GET';
     const url = environment.api.tasksEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -109,7 +109,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after POST /tasks request', async () => {
+  it('#logRequestIfValid should dispatch action after POST /tasks request', () => {
     const method = 'POST';
     const url = environment.api.tasksEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -127,7 +127,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after POST /task request', async () => {
+  it('#logRequestIfValid should dispatch action after POST /task request', () => {
     const method = 'POST';
     const url = environment.api.taskEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -145,7 +145,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after DELETE /task request', async () => {
+  it('#logRequestIfValid should dispatch action after DELETE /task request', () => {
     const method = 'DELETE';
     const url = environment.api.taskEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -163,7 +163,7 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  it('#logRequestIfValid should dispatch action after DELETE /user request', async () => {
+  it('#logRequestIfValid should dispatch action after DELETE /user request', () => {
     const method = 'DELETE';
     const url = environment.api.userEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
@@ -180,4 +180,38 @@ describe('HttpLoggingService', () => {
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
+
+  it('#logResponseIfValidRequestAndResponse should ignore Sent type HTTP event and not log it', () => {
+    const method = 'DELETE';
+    const url = environment.api.userEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const response = { type: 0 };
+
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logResponseIfValidRequestAndResponse(request, response);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('#logResponseIfValidRequestAndResponse should log response when request and response are valid', () => {
+    const method = 'DELETE';
+    const url = environment.api.userEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const response = { type: 1, test: 'OK' };
+
+    const action = pushToDeleteUserHttpLog({
+      id: '-',
+      logType: HttpLogType.Response,
+      data: { type: 1, test: 'OK' },
+      creationDate: creationDate,
+    } as any);
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logResponseIfValidRequestAndResponse(request, response, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  // TODO Add more unit tests in the future
 });
