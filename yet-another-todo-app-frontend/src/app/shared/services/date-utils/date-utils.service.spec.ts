@@ -77,11 +77,6 @@ describe('DateUtilsService', () => {
     expect(result).toBe(3);
   });
 
-  it('#formatDate should return yyyy-MM string', () => {
-    const result = service.formatDate(new Date(2020, 3, 15), 'yyyy-MM');
-    expect(result).toBe('2020-04');
-  });
-
   it('#getFirstDayOfTheMonth should return 2023-02-01', () => {
     const result = service.getFirstDayOfTheMonth(new Date(2023, 1, 15, 0, 0, 0, 0));
     expect(+result).toBe(+new Date(2023, 1, 1, 0, 0, 0, 0));
@@ -135,5 +130,10 @@ describe('DateUtilsService', () => {
   it('#getNextDay should return 2023-07-01', () => {
     const result = service.getNextDay(new Date(2023, 5, 30, 22, 12, 3, 0));
     expect(+result).toBe(+new Date(2023, 6, 1, 0, 0, 0, 0));
+  });
+
+  it('#formatDate should return yyyy-MM string', () => {
+    const result = service.formatDate(new Date(2020, 3, 15), 'yyyy-MM');
+    expect(result).toBe('2020-04');
   });
 });
