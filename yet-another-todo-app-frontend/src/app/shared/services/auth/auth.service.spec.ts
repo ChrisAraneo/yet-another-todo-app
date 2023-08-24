@@ -51,29 +51,26 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#signIn should update tokens and then #getAccessToken should return valid access token', () => {
-    // TODO Spec has no expectations, fix
-    firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
-      expect(service.getAccessToken()).toEqual('acc3sst0k3n');
-    });
+  it('#signIn should update tokens and then #getAccessToken should return valid access token', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
+
+    expect(service.getAccessToken()).toEqual('acc3sst0k3n');
   });
 
-  it('#getAccessToken call after #signIn then #refresh should return updated valid access token', () => {
-    // TODO Spec has no expectations, fix
-    firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
-      firstValueFrom(service.refresh()).then(() => {
-        expect(service.getAccessToken()).toEqual('acc3sst0k3n_2');
-      });
-    });
+  it('#getAccessToken call after #signIn then #refresh should return updated valid access token', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
+
+    await firstValueFrom(service.refresh());
+
+    expect(service.getAccessToken()).toEqual('acc3sst0k3n_2');
   });
 
-  it('#getAccessToken call after #signIn then #signOut should return null', () => {
-    // TODO Spec has no expectations, fix
-    firstValueFrom(service.signIn('lorem', 'ipsum')).then(() => {
-      service.signOut();
+  it('#getAccessToken call after #signIn then #signOut should return null', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
 
-      expect(service.getAccessToken()).toEqual(null);
-    });
+    service.signOut();
+
+    expect(service.getAccessToken()).toEqual(null);
   });
 
   it('#getRefreshEndpoint should return valid endpoint', () => {
