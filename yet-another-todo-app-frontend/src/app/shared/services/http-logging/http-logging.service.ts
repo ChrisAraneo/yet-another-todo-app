@@ -43,9 +43,9 @@ export class HttpLoggingService {
     },
   } as const;
 
-  constructor(@Inject('API') public api: any, private store: Store<{ httpLog: any }>) {}
+  constructor(@Inject('API') public api: any, public store: Store<{ httpLog: any }>) {}
 
-  logRequestIfValid(request: HttpRequest<unknown>): void {
+  logRequestIfValid(request: HttpRequest<unknown>, creationDate: Date = new Date()): void {
     const method: string = request.method.toUpperCase();
     const endpoint: string | undefined = Object.keys(this.requestMap).find((endpoint: string) =>
       this.isRequestMatching(request, endpoint, method),
@@ -53,13 +53,14 @@ export class HttpLoggingService {
 
     if (!!endpoint) {
       const actionCreator = (this.requestMap as any)[endpoint][method];
-      this.dispatchLogRequestAction(actionCreator, request);
+      this.dispatchLogRequestAction(actionCreator, request, creationDate);
     }
   }
 
   logResponseIfValidRequestAndResponse(
     request: HttpRequest<unknown>,
     response: HttpEvent<any>,
+    creationDate: Date = new Date(),
   ): void {
     if (!this.isCorrectResponseType(response)) {
       return;
@@ -74,7 +75,7 @@ export class HttpLoggingService {
       const actionCreator = (this.requestMap as any)[endpoint][method];
       const id = this.getId(request);
 
-      this.dispatchLogResponseAction(actionCreator, id, response);
+      this.dispatchLogResponseAction(actionCreator, id, response, creationDate);
     }
   }
 
@@ -95,6 +96,7 @@ export class HttpLoggingService {
   private dispatchLogRequestAction(
     actionCreator: ActionCreator<any, (props: HttpLogItem) => HttpLogItem & TypedAction<any>>,
     request: HttpRequest<unknown>,
+    creationDate: Date,
   ): void {
     const id = request.headers.get(OPERATION_ID_HEADER_NAME) || '';
     const data = request.body;
@@ -104,7 +106,7 @@ export class HttpLoggingService {
         id: id,
         logType: HttpLogType.Request,
         data: data,
-        creationDate: new Date(),
+        creationDate: creationDate,
       } as any),
     );
   }
@@ -113,13 +115,14 @@ export class HttpLoggingService {
     actionCreator: ActionCreator<any, (props: HttpLogItem) => HttpLogItem & TypedAction<any>>,
     operationId: string,
     response: HttpEvent<unknown>,
+    creationDate: Date,
   ): void {
     this.store.dispatch(
       actionCreator({
         id: operationId,
         logType: HttpLogType.Response,
         data: response,
-        creationDate: new Date(),
+        creationDate: creationDate,
       } as any),
     );
   }
