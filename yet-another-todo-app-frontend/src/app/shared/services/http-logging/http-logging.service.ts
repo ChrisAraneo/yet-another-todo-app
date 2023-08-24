@@ -1,4 +1,4 @@
-import { HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ActionCreator, Store } from '@ngrx/store';
 import { TypedAction } from '@ngrx/store/src/models';
@@ -84,9 +84,7 @@ export class HttpLoggingService {
   }
 
   private isCorrectResponseType(response: any): boolean {
-    console.warn(response);
-
-    return !!response && response.type !== 0;
+    return !!response && response.type !== HttpEventType.Sent;
   }
 
   private getId(request: HttpRequest<unknown>): string {
