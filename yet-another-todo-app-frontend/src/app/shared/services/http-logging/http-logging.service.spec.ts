@@ -40,7 +40,7 @@ describe('HttpLoggingService', () => {
   it('#logRequestIfValid should dispatch action after POST /signUp request', async () => {
     const method = 'POST';
     const url = environment.api.signupEndpoint;
-    const request = new HttpRequest(method, url, {}, { headers: dummyHeaders });
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
 
     const action = pushToPostSignupHttpLog({
       id: '-',
