@@ -21,7 +21,7 @@ import {
 })
 export class HttpLoggingService {
   private readonly requestMap = {
-    [this.api.signUpEndpoint]: {
+    [this.api.signupEndpoint]: {
       POST: pushToPostSignupHttpLog,
     },
     [this.api.loginEndpoint]: {
