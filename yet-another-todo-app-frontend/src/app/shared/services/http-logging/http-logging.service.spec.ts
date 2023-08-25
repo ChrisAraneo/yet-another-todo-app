@@ -37,11 +37,10 @@ describe('HttpLoggingService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#logRequestIfValid should dispatch action after POST /signUp request', () => {
+  it('#logRequestIfValid should dispatch action after POST /signup request', () => {
     const method = 'POST';
     const url = environment.api.signupEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToPostSignupHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -55,11 +54,21 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
+  it('#logRequestIfValid should ignore OPTIONS /signup request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.signupEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('#logRequestIfValid should dispatch action after POST /login request', () => {
     const method = 'POST';
     const url = environment.api.loginEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToPostLoginHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -73,11 +82,21 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
+  it('#logRequestIfValid should ignore OPTIONS /login request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.loginEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('#logRequestIfValid should dispatch action after POST /refresh request', () => {
     const method = 'POST';
     const url = environment.api.refreshEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToPostRefreshHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -91,11 +110,21 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
+  it('#logRequestIfValid should ignore OPTIONS /refresh request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.refreshEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('#logRequestIfValid should dispatch action after GET /tasks request', () => {
     const method = 'GET';
     const url = environment.api.tasksEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToGetTasksHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -113,7 +142,6 @@ describe('HttpLoggingService', () => {
     const method = 'POST';
     const url = environment.api.tasksEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToPostTasksHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -127,11 +155,21 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
+  it('#logRequestIfValid should ignore OPTIONS /tasks request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.tasksEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('#logRequestIfValid should dispatch action after POST /task request', () => {
     const method = 'POST';
     const url = environment.api.taskEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToPostTaskHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -149,7 +187,6 @@ describe('HttpLoggingService', () => {
     const method = 'DELETE';
     const url = environment.api.taskEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToDeleteTaskHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -163,11 +200,21 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
+  it('#logRequestIfValid should ignore OPTIONS /task request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.taskEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
+  });
+
   it('#logRequestIfValid should dispatch action after DELETE /user request', () => {
     const method = 'DELETE';
     const url = environment.api.userEndpoint;
     const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
-
     const action = pushToDeleteUserHttpLog({
       id: '-',
       logType: HttpLogType.Request,
@@ -179,6 +226,17 @@ describe('HttpLoggingService', () => {
     service.logRequestIfValid(request, creationDate);
 
     expect(dispatchSpy).toHaveBeenCalledWith(action);
+  });
+
+  it('#logRequestIfValid should ignore OPTIONS /user request', () => {
+    const method = 'OPTIONS';
+    const url = environment.api.userEndpoint;
+    const request = new HttpRequest(method, url, null, { headers: dummyHeaders });
+    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
+
+    service.logRequestIfValid(request, creationDate);
+
+    expect(dispatchSpy).toHaveBeenCalledTimes(0);
   });
 
   it('#logResponseIfValidRequestAndResponse should ignore Sent type HTTP event and not log it', () => {
@@ -213,5 +271,5 @@ describe('HttpLoggingService', () => {
     expect(dispatchSpy).toHaveBeenCalledWith(action);
   });
 
-  // TODO Add more unit tests in the future
+  // TODO Add more unit tests
 });
