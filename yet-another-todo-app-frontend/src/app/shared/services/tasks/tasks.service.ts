@@ -16,7 +16,6 @@ import { ImportAction } from '../../../modals/components/import-tasks-modal/sele
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
 import { CompletedTaskState } from '../../models/task-state.model';
-import { TaskTransformer } from '../../models/task-transformer.model';
 import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   createTask,
@@ -31,6 +30,7 @@ import {
 import { HttpLogState } from '../../store/types/http-log-state.type';
 import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
+import { TaskTransformerService } from '../task-transformer/task-transformer.service';
 import { UserService } from '../user/user.service';
 
 @Injectable({
@@ -46,6 +46,7 @@ export class TasksService implements OnDestroy {
     private apiClientService: ApiClientService,
     private userService: UserService,
     private operationIdGeneratorService: OperationIdGeneratorService,
+    private taskTransformerService: TaskTransformerService,
   ) {
     this.initializeTasksBehaviorSubject();
     this.initializeIsOfflineModeBehaviorSubject();
@@ -101,11 +102,11 @@ export class TasksService implements OnDestroy {
   }
 
   completeTask(task: Task, endDate: Date = new Date()): Observable<HttpLogItem | undefined> {
-    const updatedTask = TaskTransformer.transform(task, {
+    const updatedTask = this.taskTransformerService.transform(task, {
       state: new CompletedTaskState(),
       startDate: task instanceof StartedTask ? task.getStartDate() : endDate,
       endDate: task instanceof EndedTask ? task.getEndDate() : endDate,
-    }); // TODO Create and use TaskTransformer service
+    });
 
     return this.updateTask(updatedTask);
   }
@@ -240,7 +241,7 @@ export class TasksService implements OnDestroy {
   }
 
   private hideAllTasks(tasks: Task[]): Task[] {
-    return tasks.map((task) => TaskTransformer.transform(task, { isHidden: true })); // TODO Create and use TaskTransformer service
+    return tasks.map((task) => this.taskTransformerService.transform(task, { isHidden: true }));
   }
 
   private getResponseObservable(

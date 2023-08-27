@@ -4,8 +4,8 @@ import { createAction } from '@ngrx/store';
 import { from, map, mergeMap, of } from 'rxjs';
 import { ApiClientService } from 'src/app/shared/services/api-client/api-client.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { TaskTransformer } from '../../models/task-transformer.model';
 import { Task } from '../../models/task.model';
+import { TaskTransformerService } from '../../services/task-transformer/task-transformer.service';
 import {
   CREATE_TASK_API,
   HIDE_TASK_API,
@@ -53,7 +53,7 @@ export class TaskEffects {
           map((tasks) => tasks.find((item) => item.getId() === action.id)),
           mergeMap((task: Task | undefined) => {
             if (!!task) {
-              const hiddenTask = TaskTransformer.transform(task, { isHidden: true }); // TODO Transformer to service
+              const hiddenTask = this.taskTransformerService.transform(task, { isHidden: true });
 
               return from(this.apiClientService.postTaskToApi(hiddenTask, action.operationId)).pipe(
                 map(() => action.id),
@@ -85,5 +85,6 @@ export class TaskEffects {
     private actions: Actions,
     private apiClientService: ApiClientService,
     private tasksService: TasksService,
+    private taskTransformerService: TaskTransformerService,
   ) {}
 }
