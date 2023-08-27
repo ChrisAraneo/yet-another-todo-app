@@ -53,6 +53,11 @@ export class HttpLoggingService {
 
     if (!!endpoint) {
       const actionCreator = (this.requestMap as any)[endpoint][method];
+
+      if (typeof actionCreator !== 'function') {
+        return;
+      }
+
       this.dispatchLogRequestAction(actionCreator, request, creationDate);
     }
   }
@@ -74,6 +79,10 @@ export class HttpLoggingService {
     if (!!endpoint) {
       const actionCreator = (this.requestMap as any)[endpoint][method];
       const id = this.getId(request);
+
+      if (typeof actionCreator !== 'function') {
+        return;
+      }
 
       this.dispatchLogResponseAction(actionCreator, id, response, creationDate);
     }
