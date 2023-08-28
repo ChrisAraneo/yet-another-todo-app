@@ -10,13 +10,15 @@ import { UserService } from './user.service';
 describe('UserService', () => {
   let service: UserService;
   let store: Store;
-  const dummyCurrentUser: CurrentUser = {
-    username: 'lorem',
-    isLogged: true,
-    isOfflineMode: false,
-  };
+  let dummyCurrentUser: CurrentUser;
 
   beforeEach(() => {
+    dummyCurrentUser = {
+      username: 'lorem',
+      isLogged: true,
+      isOfflineMode: false,
+    };
+
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [
