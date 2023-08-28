@@ -126,7 +126,6 @@ export class TasksService implements OnDestroy {
     return responseObservable;
   }
 
-  // TODO Unit tests
   importTasks(importedTasks: Task[], action: ImportAction): Observable<void> {
     const operationId = this.operationIdGeneratorService.generate();
 
