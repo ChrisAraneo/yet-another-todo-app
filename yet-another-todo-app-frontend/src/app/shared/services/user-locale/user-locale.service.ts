@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { enGB, pl } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserLocaleService {
+  private window: Window | null;
+
+  constructor(@Inject(DOCUMENT) private document: Document) {
+    this.window = this.document.defaultView;
+  }
+
   get(): Locale {
     const defaultValue = enGB;
 
-    if (typeof window === 'undefined' || typeof window.navigator === 'undefined') {
+    if (!this.window || typeof this.window.navigator === 'undefined') {
       return defaultValue;
     }
 
-    const navigator = window.navigator as any;
+    const navigator = this.window.navigator as any;
     const localization =
       (navigator.languages ? navigator.languages[0] : defaultValue) ||
       navigator.language ||
