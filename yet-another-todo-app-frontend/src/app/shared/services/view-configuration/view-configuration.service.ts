@@ -10,7 +10,11 @@ import {
   setTimelineTaskStateFilter,
   setTimelineTaskStateOrder,
 } from '../../store/actions/configuration.actions';
-import { ViewConfiguration } from '../../store/types/view-configuration.type';
+import {
+  TableConfiguration,
+  TimelineConfiguration,
+  ViewConfiguration,
+} from '../../store/types/view-configuration.type';
 
 @Injectable({
   providedIn: 'root',
@@ -23,16 +27,11 @@ export class ViewConfigurationService {
     this.initializeConfigurationBehaviorSubject();
   }
 
-  getTimelineConfiguration(): Observable<{
-    startDate: Date;
-    endDate: Date;
-    order: TaskState[];
-    filter: TaskState[];
-  }> {
+  getTimelineConfiguration(): Observable<TimelineConfiguration> {
     return this.configuration.asObservable().pipe(map((config) => config.timeline));
   }
 
-  getTableConfiguration(): Observable<{ sort: MatSortable }> {
+  getTableConfiguration(): Observable<TableConfiguration> {
     return this.configuration.asObservable().pipe(map((config) => config.table));
   }
 
