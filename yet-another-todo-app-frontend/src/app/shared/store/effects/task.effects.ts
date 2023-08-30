@@ -19,7 +19,7 @@ import {
 
 @Injectable()
 export class TaskEffects {
-  createTaskEffect = createEffect(() =>
+  readonly createTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(CREATE_TASK_API),
       mergeMap((action: any) =>
@@ -32,7 +32,7 @@ export class TaskEffects {
     ),
   );
 
-  updateTaskEffect = createEffect(() =>
+  readonly updateTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(UPDATE_TASK_API),
       mergeMap((action: any) =>
@@ -45,7 +45,7 @@ export class TaskEffects {
     ),
   );
 
-  hideTaskEffect = createEffect(() =>
+  readonly hideTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(HIDE_TASK_API),
       mergeMap((action: any) =>
@@ -68,7 +68,7 @@ export class TaskEffects {
     ),
   );
 
-  updateTasksEffect = createEffect(() =>
+  readonly updateTasksEffect = createEffect(() =>
     this.actions.pipe(
       ofType(UPDATE_TASKS_API),
       mergeMap((action: any) =>
