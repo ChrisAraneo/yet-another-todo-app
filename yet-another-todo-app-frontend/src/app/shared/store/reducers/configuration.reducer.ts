@@ -7,6 +7,7 @@ import {
   SuspendedTaskState,
 } from '../../models/task-state.model';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
+import { NavigatorRefService } from '../../services/navigator-ref/navigator-ref.service';
 import { UserLocaleService } from '../../services/user-locale/user-locale.service';
 import {
   setTableSort,
@@ -69,14 +70,18 @@ export const viewConfigurationReducer = createReducer(
   })),
 );
 
+const dateUtilsService = new DateUtilsService(
+  new UserLocaleService(new NavigatorRefService(null as unknown as Document)),
+);
+
 function getInitialTimelineStartDate(): Date {
   const today = new Date();
 
-  return new DateUtilsService(new UserLocaleService()).getFirstDayOfTheMonth(today);
+  return dateUtilsService.getFirstDayOfTheMonth(today);
 }
 
 function getInitialTimelineEndDate(): Date {
   const today = new Date();
 
-  return new DateUtilsService(new UserLocaleService()).getLastDayOfTheMonth(today);
+  return dateUtilsService.getLastDayOfTheMonth(today);
 }
