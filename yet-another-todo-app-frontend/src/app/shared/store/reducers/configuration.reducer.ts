@@ -18,6 +18,10 @@ import {
 } from '../actions/configuration.actions';
 import { ViewConfiguration } from '../types/view-configuration.type';
 
+const dateUtilsService = new DateUtilsService(
+  new UserLocaleService(new NavigatorRefService(null as unknown as Document)),
+);
+
 export const initialState: ViewConfiguration = {
   timeline: {
     startDate: getInitialTimelineStartDate(),
@@ -68,10 +72,6 @@ export const viewConfigurationReducer = createReducer(
     ...state,
     table: { ...state.table, sort: { ...sort } },
   })),
-);
-
-const dateUtilsService = new DateUtilsService(
-  new UserLocaleService(new NavigatorRefService(null as unknown as Document)),
 );
 
 function getInitialTimelineStartDate(): Date {
