@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
+import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { LabelComponent } from './components/label/label.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
@@ -33,6 +34,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     EmptyInfoBoxComponent,
     SubtitleComponent,
     LabelComponent,
+    ErrorSnackbarComponent,
   ],
   imports: [
     TranslateModule.forRoot({
