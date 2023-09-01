@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -22,6 +22,7 @@ import { MaterialModule } from './shared/material.module';
 import { ApiClientService } from './shared/services/api-client/api-client.service';
 import { AuthService } from './shared/services/auth/auth.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
+import { GlobalErrorHandlerService } from './shared/services/global-error-handler/global-error-handler.service';
 import { TaskCreatorService } from './shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from './shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from './shared/services/tasks/tasks.service';
@@ -83,6 +84,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     { provide: 'API', useValue: environment.api },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
     DateUtilsService,
     DialogService,
     ApiClientService,
