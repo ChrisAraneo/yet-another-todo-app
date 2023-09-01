@@ -19,7 +19,7 @@ npm install
 
 ### Running the Angular web app
 
-Make sure database & backend and then start the UI:
+Make sure database & backend are ready and then start the UI:
 
 ```bash
 # development
