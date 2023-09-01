@@ -2,7 +2,7 @@
 
 ## What & why?
 
-Mock was created as a quick backend replacement when you need sample data and not all backend functionality.
+Mock was created as a quick backend replacement when you only need example data and not all backend functionality.
 
 Mock accepts HTTP requests on port 9339, can send example tasks. Every user has the same tasks. It also stores changes like adding and removing tasks. Tasks are stored in json file.
 
@@ -32,6 +32,7 @@ $ node mock.js store.json
 ## Generating example tasks
 
 You can generate example tasks using generate.js script and then serve them with mock backend.
+The data is generated using fakerjs.
 
 ```bash
 # Example:
