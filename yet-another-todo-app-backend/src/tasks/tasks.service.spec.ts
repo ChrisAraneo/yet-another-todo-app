@@ -1,9 +1,12 @@
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   Task as TaskSchema,
   TaskState as TaskStateSchema,
 } from '@prisma/client';
 import { DummyData } from '../../test/dummy-data';
+import { JwtStrategy } from '../auth/jwt.strategy';
 import { Task } from '../models/tasks.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
@@ -16,6 +19,27 @@ describe('TasksService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PrismaModule],
       providers: [
+        ConfigService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(async (payload: any) => {
+              return `notrealtoken${JSON.stringify(payload)}`;
+            }),
+          },
+        },
+        {
+          provide: JwtStrategy,
+          useValue: {
+            validate: jest.fn(async (payload: any) => {
+              return {
+                id: payload.id,
+                name: payload.name,
+                username: payload.username,
+              };
+            }),
+          },
+        },
         {
           provide: PrismaService,
           useValue: {

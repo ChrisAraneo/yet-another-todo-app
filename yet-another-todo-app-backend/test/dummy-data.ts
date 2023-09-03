@@ -11,6 +11,7 @@ export class DummyData {
     name: 'John Loremipsum',
     username: 'lorem_ipsum',
     password: 'Qwerty123/',
+    refreshToken: 'r3fr3sh_t0k3n',
     creationDate: undefined,
     updateDate: undefined,
   };

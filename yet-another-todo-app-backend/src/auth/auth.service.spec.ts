@@ -1,15 +1,15 @@
-import { JwtService } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
-import { UserDetails } from 'src/models/user-details.type';
 import { DummyData } from '../../test/dummy-data';
+import { UserDetails } from '../models/user-details.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersModule } from '../users/users.module';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
 
 describe('AuthService', () => {
@@ -17,27 +17,21 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [UsersModule, PassportModule, PrismaModule],
+      imports: [
+        UsersModule,
+        PassportModule,
+        JwtModule,
+        ConfigModule,
+        PrismaModule,
+      ],
       providers: [
         AuthService,
         LocalStrategy,
         {
           provide: JwtService,
           useValue: {
-            sign: jest.fn(async (payload: any) => {
-              return `notrealtoken${JSON.stringify(payload)}`;
-            }),
-          },
-        },
-        {
-          provide: JwtStrategy,
-          useValue: {
-            validate: jest.fn(async (payload: any) => {
-              return {
-                id: payload.id,
-                name: payload.name,
-                username: payload.username,
-              };
+            sign: jest.fn(() => {
+              return `notrealtoken`;
             }),
           },
         },
@@ -67,6 +61,14 @@ describe('AuthService', () => {
                   : null;
               },
             ),
+            updateRefreshToken: jest.fn(async (): Promise<UserDetails> => {
+              return {
+                id: DummyData.user.id,
+                username: DummyData.user.username,
+                name: DummyData.user.name,
+                refreshToken: DummyData.user.refreshToken,
+              };
+            }),
           },
         },
       ],
@@ -116,14 +118,17 @@ describe('AuthService', () => {
   });
 
   describe('login', () => {
-    it('should return string token', async () => {
+    it('should return new tokens', async () => {
       expect(
-        typeof (await service.login({
+        await service.login({
           id: DummyData.user.id,
           username: DummyData.user.username,
           name: DummyData.user.name,
-        })),
-      ).toBe('string');
+        }),
+      ).toEqual({
+        accessToken: 'notrealtoken',
+        refreshToken: 'notrealtoken',
+      });
     });
   });
 });

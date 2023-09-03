@@ -1,9 +1,11 @@
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User as UserSchema } from '@prisma/client';
 import { DummyData } from '../test/dummy-data';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
+import { JwtStrategy } from './auth/jwt.strategy';
 import { Status } from './models/status.enum';
 import { Task } from './models/tasks.type';
 import { UserDetails } from './models/user-details.type';
@@ -23,6 +25,26 @@ describe('AppController', () => {
       providers: [
         AppService,
         UsersService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(async (payload: any) => {
+              return `notrealtoken${JSON.stringify(payload)}`;
+            }),
+          },
+        },
+        {
+          provide: JwtStrategy,
+          useValue: {
+            validate: jest.fn(async (payload: any) => {
+              return {
+                id: payload.id,
+                name: payload.name,
+                username: payload.username,
+              };
+            }),
+          },
+        },
         {
           provide: AuthService,
           useValue: {
@@ -100,10 +122,9 @@ describe('AppController', () => {
     });
 
     it('should return error response when username is already taken', async () => {
-      const result = await appController.signup(DummyData.user);
-
-      expect(result.status).toEqual(Status.Error);
-      expect(result.message).toMatch(/Error: Username already exists/);
+      await expect(appController.signup(DummyData.user)).rejects.toThrowError(
+        'Username already exist',
+      );
     });
   });
 

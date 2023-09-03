@@ -1,7 +1,10 @@
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User as UserSchema } from '@prisma/client';
-import { UserInfo } from 'src/models/user-info.type';
 import { DummyData } from '../../test/dummy-data';
+import { JwtStrategy } from '../auth/jwt.strategy';
+import { UserInfo } from '../models/user-info.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from './users.service';
@@ -14,7 +17,28 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PrismaModule],
       providers: [
+        ConfigService,
         UsersService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(async (payload: any) => {
+              return `notrealtoken${JSON.stringify(payload)}`;
+            }),
+          },
+        },
+        {
+          provide: JwtStrategy,
+          useValue: {
+            validate: jest.fn(async (payload: any) => {
+              return {
+                id: payload.id,
+                name: payload.name,
+                username: payload.username,
+              };
+            }),
+          },
+        },
         {
           provide: PrismaService,
           useValue: {
@@ -79,6 +103,7 @@ describe('UsersService', () => {
         id: DummyData.user.id,
         name: DummyData.user.name,
         username: DummyData.user.username,
+        refreshTokenHash: 'r3fr3sh_t0k3n',
         passwordHash: 'this_is_password_hash',
       };
 
