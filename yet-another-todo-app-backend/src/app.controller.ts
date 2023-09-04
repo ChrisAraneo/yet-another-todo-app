@@ -114,7 +114,7 @@ export class AppController {
       });
   }
 
-  // TODO Unit tests, e2e tests, testing
+  // TODO Add unit tests
   @UseGuards(JwtAuthGuard)
   @Post('tasks')
   @Header('content-type', 'application/json')
