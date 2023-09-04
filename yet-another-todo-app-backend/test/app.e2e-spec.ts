@@ -95,7 +95,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .get('/tasks')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send()
         .expect((res) => {
@@ -136,7 +136,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .post('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(task)
         .expect((res) => {
@@ -173,13 +173,13 @@ describe('AppController (e2e)', () => {
 
       const postTaskRequest = await request(app.getHttpServer())
         .post('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(task);
 
       return request(app.getHttpServer())
         .delete('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(postTaskRequest.body.data)
         .expect((res) => {
@@ -215,7 +215,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .delete('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(nonexistentTask)
         .expect((res) => {
