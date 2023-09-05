@@ -71,7 +71,7 @@ export class AppController {
     };
   }
 
-  // TODO Unit tests, e2e tests, testing
+  // TODO E2E tests, testing
   // @UseGuards(JwtRefreshAuthGuard) // TODO Fix or refactor
   @Post('refresh')
   @Header('content-type', 'application/json')

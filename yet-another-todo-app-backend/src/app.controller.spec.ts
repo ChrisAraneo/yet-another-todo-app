@@ -8,7 +8,6 @@ import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { Status } from './models/status.enum';
 import { Task } from './models/tasks.type';
-import { UserDetails } from './models/user-details.type';
 import { UserInfo } from './models/user-info.type';
 import { PrismaService } from './prisma/prisma.service';
 import { TasksModule } from './tasks/tasks.module';
@@ -62,8 +61,21 @@ describe('AppController', () => {
                 });
               },
             ),
-            login: jest.fn(async (user: UserDetails) => {
-              return `dummy.jwt.token${user.id}`;
+            login: jest.fn(async () => {
+              return {
+                accessToken: `dummy.jwt.token`,
+                refreshToken: `dummy.jwt.token`,
+              };
+            }),
+            refreshTokens: jest.fn(async (refreshToken: string) => {
+              if (refreshToken === DummyData.user.refreshToken) {
+                return {
+                  accessToken: `dummy.jwt.token`,
+                  refreshToken: `dummy.jwt.token`,
+                };
+              } else {
+                throw Error('Invalid refresh token.');
+              }
             }),
           },
         },
@@ -132,15 +144,40 @@ describe('AppController', () => {
   });
 
   describe('login', () => {
-    it('should return token when user provided correct credentials', async () => {
+    it('should return tokens when user provided correct credentials', async () => {
       expect(
         await appController.login({
           user: DummyData.user,
         }),
       ).toEqual({
         status: Status.Success,
-        data: 'dummy.jwt.token961d2c4d-8042-43a6-9a25-78d733094837',
+        data: {
+          accessToken: 'dummy.jwt.token',
+          refreshToken: 'dummy.jwt.token',
+        },
       });
+    });
+  });
+
+  describe('refreshAccessToken', () => {
+    it('should return tokens when user provided correct refresh token', async () => {
+      expect(
+        await appController.refreshAccessToken({
+          refreshToken: DummyData.user.refreshToken,
+        }),
+      ).toEqual({
+        status: Status.Success,
+        data: {
+          accessToken: 'dummy.jwt.token',
+          refreshToken: 'dummy.jwt.token',
+        },
+      });
+    });
+
+    it('should return error response when provided incorrect refresh token', async () => {
+      await expect(
+        appController.refreshAccessToken({ refreshToken: 'incorrect-token' }),
+      ).rejects.toThrowError();
     });
   });
 
