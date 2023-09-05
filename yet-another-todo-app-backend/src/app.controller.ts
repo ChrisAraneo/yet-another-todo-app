@@ -114,13 +114,12 @@ export class AppController {
       });
   }
 
-  // TODO Add unit tests
   @UseGuards(JwtAuthGuard)
   @Post('tasks')
   @Header('content-type', 'application/json')
   async setTasks(@Request() request: any): Promise<Response<Task[]>> {
-    const username = request && request.user && request.user.username;
-    const tasks = request && request.body;
+    const username = request?.user?.username;
+    const tasks = request?.body;
 
     return await this.tasksService
       .createOrUpdateTasks(username, tasks)

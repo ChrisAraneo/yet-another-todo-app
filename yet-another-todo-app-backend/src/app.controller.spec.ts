@@ -99,6 +99,9 @@ describe('AppController', () => {
             }),
             createOrUpdateTask: jest.fn(async (_: string, task: Task) => task),
             removeTask: jest.fn(async (_: string, task: Task) => task),
+            createOrUpdateTasks: jest.fn(
+              async (_: string, tasks: Task[]) => tasks,
+            ),
           },
         },
       ],
@@ -147,6 +150,17 @@ describe('AppController', () => {
         status: Status.Success,
         data: DummyData.tasks,
       });
+    });
+  });
+
+  describe('setTasks', () => {
+    it('should return success response when task was successfuly created', async () => {
+      expect(
+        await appController.setTasks({
+          user: DummyData.user,
+          body: DummyData.tasks,
+        }),
+      ).toEqual({ status: Status.Success, data: DummyData.tasks });
     });
   });
 
