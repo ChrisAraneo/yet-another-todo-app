@@ -101,6 +101,15 @@ describe('AppController', () => {
                 }
               });
             }),
+            deleteUser: jest.fn(async (): Promise<UserSchema> => {
+              return new Promise<any>((resolve) => {
+                resolve({
+                  id: DummyData.user.id,
+                  name: DummyData.user.name,
+                  username: DummyData.user.username,
+                });
+              });
+            }),
           },
         },
         {
@@ -224,6 +233,23 @@ describe('AppController', () => {
           body: task,
         }),
       ).toEqual({ status: Status.Success, data: task });
+    });
+  });
+
+  describe('deleteUser', () => {
+    it('should return success response when user was successfuly deleted', async () => {
+      expect(
+        await appController.deleteUser({
+          user: DummyData.user,
+        }),
+      ).toEqual({
+        status: Status.Success,
+        data: {
+          id: DummyData.user.id,
+          name: DummyData.user.name,
+          username: DummyData.user.username,
+        },
+      });
     });
   });
 });
