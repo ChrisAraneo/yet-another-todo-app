@@ -157,6 +157,41 @@ describe('TasksService', () => {
     });
   });
 
+  describe('createOrUpdateTasks', () => {
+    it('should return new created tasks', async () => {
+      const newTasks: Task[] = [
+        {
+          id: '2123b2c4-c723-4e1c-9714-d49dc35c3dd2',
+          title: 'First task',
+          description: 'New task',
+          state: DummyData.taskStates.find(
+            (state) => state.value === 'COMPLETED',
+          ),
+          isHidden: false,
+          creationDate: '2023-03-01T19:43:44.738Z',
+          startDate: '2023-03-01T19:45:44.321Z',
+          endDate: '2023-03-04T21:00:33.889Z',
+        },
+        {
+          id: '3f97e16f-c10b-4ee3-923d-c9e2a9b9354d',
+          title: 'Second',
+          description: 'New task too',
+          state: DummyData.taskStates.find(
+            (state) => state.value === 'COMPLETED',
+          ),
+          isHidden: false,
+          creationDate: '2023-05-01T19:43:44.738Z',
+          startDate: '2023-05-01T19:45:44.321Z',
+          endDate: '2023-05-04T21:00:33.889Z',
+        },
+      ];
+
+      expect(
+        await service.createOrUpdateTasks(DummyData.user.username, newTasks),
+      ).toEqual(newTasks);
+    });
+  });
+
   describe('removeTask', () => {
     it('should return removed task', async () => {
       const task: Task = DummyData.tasks[0];
