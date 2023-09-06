@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { User as UserSchema } from '@prisma/client';
 import { DummyData } from '../test/dummy-data';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtStrategy } from './auth/jwt.strategy';
 import { Status } from './models/status.enum';
@@ -22,7 +21,6 @@ describe('AppController', () => {
       imports: [TasksModule],
       controllers: [AppController],
       providers: [
-        AppService,
         UsersService,
         {
           provide: JwtService,
