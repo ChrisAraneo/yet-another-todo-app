@@ -26,18 +26,12 @@ export class AuthService {
   ): Promise<UserDetails | null> {
     const user = await this.userService.findUser(username);
 
-    if (!!user && !!password) {
-      let isValid = false;
-
-      try {
-        isValid = await bcrypt.compare(password, user.passwordHash);
-      } catch (error) {
-        isValid = false;
-      }
-
-      if (isValid) {
-        return { id: user.id, name: user.name, username: user.username };
-      }
+    if (
+      !!user &&
+      !!password &&
+      (await bcrypt.compare(password, user.passwordHash))
+    ) {
+      return { id: user.id, name: user.name, username: user.username };
     }
 
     return null;
