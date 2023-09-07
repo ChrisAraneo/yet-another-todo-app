@@ -54,14 +54,14 @@ export class AuthService {
 
   async refreshTokens(refreshToken: string): Promise<Tokens> {
     const payload: any = this.jwtService.decode(refreshToken);
-    let user:
+    const user:
       | (UserDetails & { passwordHash: string; refreshTokenHash: string }) // TODO Type
-      | undefined;
+      | undefined = await this.userService.findUser(payload?.username);
 
-    try {
-      user = await this.userService.findUser(payload?.username);
-    } catch (error: any) {
-      throw error;
+    if (!user) {
+      throw Error(
+        `User with username provided in payload does not exist (${payload?.username}).`,
+      );
     }
 
     if (!(await bcrypt.compare(refreshToken, user?.refreshTokenHash))) {
