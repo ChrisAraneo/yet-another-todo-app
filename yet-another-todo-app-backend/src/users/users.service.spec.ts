@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User as UserSchema } from '@prisma/client';
 import { DummyData } from '../../test/dummy-data';
-import { JwtStrategy } from '../auth/jwt.strategy';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
 import { UserInfo } from '../models/user-info.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';

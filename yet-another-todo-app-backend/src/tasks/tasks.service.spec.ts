@@ -6,7 +6,7 @@ import {
   TaskState as TaskStateSchema,
 } from '@prisma/client';
 import { DummyData } from '../../test/dummy-data';
-import { JwtStrategy } from '../auth/jwt.strategy';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
 import { Task } from '../models/tasks.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
