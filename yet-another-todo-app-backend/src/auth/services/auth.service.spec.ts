@@ -3,14 +3,14 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import * as bcrypt from 'bcrypt';
-import { DummyData } from '../../test/dummy-data';
-import { UserDetails } from '../models/user-details.type';
-import { PrismaModule } from '../prisma/prisma.module';
-import { PrismaService } from '../prisma/prisma.service';
-import { UsersModule } from '../users/users.module';
-import { UsersService } from '../users/users.service';
+import { DummyData } from '../../../test/dummy-data';
+import { UserDetails } from '../../models/user-details.type';
+import { PrismaModule } from '../../prisma/prisma.module';
+import { PrismaService } from '../../prisma/prisma.service';
+import { UsersModule } from '../../users/users.module';
+import { UsersService } from '../../users/users.service';
+import { LocalStrategy } from './../local.strategy';
 import { AuthService } from './auth.service';
-import { LocalStrategy } from './local.strategy';
 
 describe('AuthService', () => {
   let service: AuthService;
