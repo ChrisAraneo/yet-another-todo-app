@@ -9,7 +9,7 @@ import { PrismaModule } from '../../prisma/prisma.module';
 import { PrismaService } from '../../prisma/prisma.service';
 import { UsersModule } from '../../users/users.module';
 import { UsersService } from '../../users/users.service';
-import { LocalStrategy } from './../local.strategy';
+import { LocalStrategy } from './../strategies/local.strategy';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
