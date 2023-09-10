@@ -75,10 +75,7 @@
     },
     "collectCoverageFrom": [
       "**/*.service.(t|j)s",
-      "**/*.controller.(t|j)s,",
-      "**/*.strategy.(t|j)s",
-      "**/*.type.(t|j)s",
-      "**/*.enum.(t|j)s"
+      "**/*.controller.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
