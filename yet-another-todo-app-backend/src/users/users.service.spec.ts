@@ -67,6 +67,20 @@ describe('UsersService', () => {
                 }
               });
             }),
+            deleteUser: jest.fn(
+              async (username: string): Promise<UserSchema> => {
+                return new Promise<any>((resolve, reject) => {
+                  if (username === DummyData.user.username) {
+                    resolve({
+                      ...DummyData.user,
+                      password: 'this_is_password_hash',
+                    });
+                  } else {
+                    reject(undefined);
+                  }
+                });
+              },
+            ),
           },
         },
       ],
@@ -112,6 +126,25 @@ describe('UsersService', () => {
 
     it('should return undefined when user was not found', async () => {
       expect(await service.findUser('this_username_doesnt_exist')).toEqual(
+        undefined,
+      );
+    });
+  });
+
+  describe('deleteUser', () => {
+    it('should return user data when user was successfuly deleted', async () => {
+      const user = DummyData.user;
+      const username = user.username;
+
+      expect(await service.deleteUser(username)).toEqual({
+        id: user.id,
+        name: user.name,
+        username: user.username,
+      });
+    });
+
+    it("should throw error when user don't exists", async () => {
+      await expect(service.deleteUser('not_existing_username')).rejects.toBe(
         undefined,
       );
     });
