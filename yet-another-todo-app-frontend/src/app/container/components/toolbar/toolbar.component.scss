@@ -1,10 +1,51 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
-mat-toolbar {
+:host {
+  height: $_64unit;
+}
+
+::ng-deep mat-toolbar {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   border-bottom: $border;
   width: 100%;
-  height: $unit;
+  max-height: $_64unit;
+
+  .mdc-icon-button {
+    mat-icon {
+      width: $_24unit;
+      height: $_24unit;
+      font-size: $_24unit;
+    }
+  }
+}
+
+.menu-button-wrapper,
+yata-title,
+.logged-user-information-wrapper,
+.offline-mode-wrapper {
+  width: math.div(100%, 3);
+}
+
+yata-title {
+  text-align: center;
+}
+
+.logged-user-information-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.offline-mode-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+yata-logged-user-information {
+  margin-right: $_16unit;
 }

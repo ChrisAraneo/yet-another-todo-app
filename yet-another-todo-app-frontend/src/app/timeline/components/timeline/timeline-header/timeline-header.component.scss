@@ -2,8 +2,8 @@
 
 :host {
   box-sizing: border-box;
-  width: $unit * 3;
-  height: $unit;
+  width: $column-width;
+  height: $_64unit;
   display: flex;
   flex-direction: column;
   justify-content: center;

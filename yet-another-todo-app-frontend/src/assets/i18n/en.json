@@ -1,5 +1,6 @@
 {
   "AddTaskModal": {
+    "cancel": "Cancel",
     "description": "Description",
     "endDate": "End date",
     "modalTitle": "Add new task",
@@ -12,21 +13,45 @@
     "title": "ヤタ YATA - Yet Another Todo App"
   },
   "AppFooter": {
+    "githubRepo": "Github repository",
     "madeBy": "App by Krzysztof Pająk \"Chris Araneo\""
   },
   "COMPLETED": "Task completed",
+  "ConfigureTableModal": {
+    "asc": "Ascending order",
+    "cancel": "Cancel",
+    "desc": "Descending order",
+    "direction": "Direction",
+    "id": "Order by column",
+    "modalTitle": "Configure table view",
+    "save": "Save changes",
+    "sortConfiguration": "Sort data"
+  },
+  "ConfigureTimelineModal": {
+    "cancel": "Cancel",
+    "endDate": "End date",
+    "modalTitle": "Configure timeline view",
+    "save": "Save changes",
+    "startDate": "Start date"
+  },
   "DatesFilter": {
     "endDate": "End date",
     "startDate": "Start date"
   },
   "DeleteTaskModal": {
+    "cancel": "Cancel",
     "delete": "Delete",
     "emptyCaption": "There are no defined tasks to delete",
     "emptyHint": "Create tasks first so you can delete them later",
     "modalTitle": "Delete task",
     "selectTask": "Task to delete"
   },
+  "DragDropTaskOrderList": {
+    "hint": "You can hide or show tasks of a certain type on the timeline by configuring the checkboxes below. You can also change the order in which tasks of a certain type are displayed in the column by reorganizing task states below. To do this, drag and drop the elements on the list.",
+    "label": "Sort and filter tasks displayed in columns"
+  },
   "EditTaskModal": {
+    "cancel": "Cancel",
     "description": "Description",
     "emptyCaption": "There are no defined tasks to edit",
     "emptyHint": "Create tasks first so you can edit them later",
@@ -38,25 +63,72 @@
     "state": "State",
     "title": "Title"
   },
+  "Error": {
+    "matchOther": "Passwords do not match.",
+    "minlength": "{{ label }} must be at least {{ requiredLength }} symbols long.",
+    "required": "This is required."
+  },
+  "ExportTasksModal": {
+    "cancel": "Cancel",
+    "modalTitle": "Export tasks",
+    "password": "Password",
+    "repeatPassword": "Repeat password",
+    "submit": "Export"
+  },
+  "FileInput": {
+    "selectedFile": "Selected file"
+  },
   "IN_PROGRESS": "Task in progress",
+  "ImportTasksModal": {
+    "cancel": "Cancel",
+    "changeFile": "Change zip file",
+    "file": "Tasks zip file",
+    "modalTitle": "Import tasks",
+    "password": "Password",
+    "selectFile": "Select zip file",
+    "submit": "Import",
+    "unzipError": "Error while extracting tasks. Make sure you have selected the correct file and entered matching password."
+  },
+  "LoggedUserInformation": {
+    "loggedAs": "Logged as"
+  },
   "NOT_STARTED": "Task not started",
+  "OfflineIndicator": {
+    "offlineMode": "Offline mode",
+    "offlineModeHint": "You are offline and data will not be synchronized with the server."
+  },
   "REJECTED": "Task is rejected",
   "SUSPENDED": "Task is suspended",
   "SearchBar": {
     "searchTasks": "Search tasks"
   },
+  "SelectImportActionModal": {
+    "ADD_NEW_AND_SKIP_EXISTING": "Add new tasks to the list. If some of them already exist then skip them.",
+    "ADD_NEW_AND_UPDATE_EXISTING": "Add new tasks to the list and update existing ones.",
+    "REPLACE_DATA_SET": "Delete all tasks saved so far and then add all tasks from the file.",
+    "modalTitle": "Select action",
+    "submit": "Continue"
+  },
   "SideNavigation": {
     "addTask": "Add task",
+    "configureTable": "Configure table",
+    "configureTimeline": "Configure timeline",
     "deleteTask": "Delete task",
     "editTask": "Edit task",
+    "exportTasks": "Export tasks",
+    "importTasks": "Import tasks",
     "tableView": "Table view",
     "timelineView": "Timeline view"
   },
   "SignInModal": {
+    "dontSignIn": "Don't sign in",
     "modalTitle": "Sign in",
     "password": "Password",
     "signIn": "Sign in",
     "username": "Username"
+  },
+  "SignOutButton": {
+    "tooltip": "Sign out"
   },
   "Table": {
     "creationDate": "Creation date",
@@ -64,6 +136,7 @@
     "endDate": "End date",
     "id": "ID",
     "paginatorLabel": "Select page of tasks",
+    "sortById": "Sort by ID",
     "startDate": "Start date",
     "state": "State",
     "title": "Title"
@@ -73,7 +146,7 @@
     "previousMonth": "Previous month"
   },
   "Toolbar": {
-    "githubIcon": "Github iton",
+    "githubIcon": "Github icon",
     "menuIcon": "Menu icon"
   }
 }

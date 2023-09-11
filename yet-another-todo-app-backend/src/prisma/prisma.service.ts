@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import {
   PrismaClient,
   Task as TaskSchema,
@@ -6,13 +8,18 @@ import {
   User as UserSchema,
 } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-import { UserInfo } from 'src/models/user-info.type';
 import { TaskState } from '../models/task-state.type';
 import { Task } from '../models/tasks.type';
+import { UserInfo } from '../models/user-info.type';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
-  constructor() {
+  private refreshTokenOptions: JwtSignOptions;
+
+  constructor(
+    private jwtService: JwtService,
+    private configService: ConfigService,
+  ) {
     super({
       datasources: {
         db: {
@@ -20,6 +27,11 @@ export class PrismaService extends PrismaClient {
         },
       },
     });
+
+    this.refreshTokenOptions = {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_EXPIRATION'),
+    };
   }
 
   async getUser(username: string): Promise<UserSchema> {
@@ -31,13 +43,25 @@ export class PrismaService extends PrismaClient {
   }
 
   async createUser(user: UserInfo, password: string): Promise<UserSchema> {
-    return this.user.create({
+    const createdUser = await this.user.create({
       data: {
         name: user.name,
         username: user.username,
         password: await bcrypt.hash(password, 10),
+        refreshToken: '', // TODO Optional? And pass null here
       },
     });
+
+    const refreshToken = this.jwtService.sign(
+      {
+        id: createdUser.id,
+        username: createdUser.username,
+        name: createdUser.name,
+      },
+      this.refreshTokenOptions,
+    );
+
+    return this.updateUserRefreshToken(createdUser.username, refreshToken);
   }
 
   async deleteUser(username: string): Promise<UserSchema> {
@@ -48,14 +72,27 @@ export class PrismaService extends PrismaClient {
     });
   }
 
+  async updateUserRefreshToken(
+    username: string,
+    refreshToken: string,
+  ): Promise<UserSchema> {
+    return this.user.update({
+      where: { username },
+      data: {
+        ...(await this.getUser(username)),
+        refreshToken: await bcrypt.hash(refreshToken, 10),
+      },
+    });
+  }
+
   async getTaskStates(): Promise<TaskStateSchema[]> {
     return await this.taskState.findMany();
   }
 
-  async getTaskState(id: string): Promise<TaskStateSchema> {
+  async getTaskState(value: string): Promise<TaskStateSchema> {
     return await this.taskState.findUnique({
       where: {
-        id: id,
+        value: value,
       },
     });
   }

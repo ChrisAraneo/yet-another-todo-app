@@ -10,15 +10,31 @@
   overflow-x: scroll;
 }
 
-.timeline-headers-row {
+.timeline-headers-buttons {
   display: flex;
+}
+
+.timeline-headers-row {
+  position: sticky;
+  top: 0;
+  display: flex;
+  z-index: 999;
+  padding-left: $_64unit;
 }
 
 .timeline-header-button {
   position: absolute;
-  width: $unit;
-  min-width: $unit;
+  width: $_64unit;
+  min-width: $_64unit;
   z-index: 1000;
+}
+
+.timeline-header-date {
+  background-color: white;
+
+  &:last-of-type {
+    padding-right: $_64unit;
+  }
 }
 
 .arrow-back {
@@ -33,20 +49,16 @@ yata-dates-filter {
   box-sizing: border-box;
   border-right: $border;
   border-left: $border;
-  margin-left: $unit;
+  margin-left: $_64unit;
 }
 
 yata-timeline-header {
-  min-width: $unit * 3;
-  height: $unit;
+  min-width: $column-width;
+  height: $_64unit;
   border-bottom: $border;
 }
 
-yata-timeline-header:last-of-type {
-  padding-right: $unit;
-}
-
 yata-timeline-content {
-  margin-left: 6 * $unit;
-  min-height: calc(100% - $unit);
+  margin-left: $_64unit;
+  min-height: calc(100% - $_64unit);
 }

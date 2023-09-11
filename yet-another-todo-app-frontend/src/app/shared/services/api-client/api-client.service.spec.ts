@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { TaskCreator } from 'src/app/shared/models/task-creator.model';
 import { environment } from 'src/environments/environment';
 import { Task } from '../../models/task.model';
+import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 
@@ -56,46 +57,46 @@ describe('ApiClientService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#fetchTasksFromApi should return an Observable<Task[]> on successful response', () => {
+  it('#fetchTasksFromApi should return tasks on successful response', () => {
     const dummySuccessResponse: ApiResponse<TaskData[]> = {
       status: ApiResponseStatus.Success,
       data: dummyResponseData,
     };
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
+    service.fetchTasksFromApi('-').then((tasks) => {
       expect(tasks?.length).toBe(2);
       expect(tasks).toEqual(dummyTasks);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(dummySuccessResponse);
   });
 
-  it('#fetchTasksFromApi should return an Observable<undefined> on error response', () => {
+  it('#fetchTasksFromApi should reject promise on error response', () => {
     const dummyErrorResponse: ApiResponse<TaskData[]> = {
       status: ApiResponseStatus.Error,
       data: null,
       message: 'Error message',
     };
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
-      expect(tasks).toEqual(undefined);
+    service.fetchTasksFromApi('-').catch((error) => {
+      expect(error).toEqual(dummyErrorResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(dummyErrorResponse);
   });
 
-  it('#fetchTasksFromApi should return an Observable<undefined> on invalid response', () => {
+  it('#fetchTasksFromApi should reject promise on invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.fetchTasksFromApi().subscribe((tasks) => {
-      expect(tasks).toEqual(undefined);
+    service.fetchTasksFromApi('-').catch((error) => {
+      expect(error).toEqual(invalidResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/tasks`);
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
     expect(req.request.method).toBe('GET');
     req.flush(invalidResponse);
   });
@@ -106,36 +107,172 @@ describe('ApiClientService', () => {
       data: dummyResponseData[0],
     };
 
-    service.postTaskToApi(dummyTask).subscribe((task) => {
+    service.postTaskToApi(dummyTask, '-').then((task) => {
       expect(task).toEqual(dummyTask);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(dummySuccessResponse);
   });
 
-  it('#postTaskToApi should handle error response', () => {
-    service.postTaskToApi(dummyTask).subscribe((task) => {
-      expect(task).toEqual(undefined);
-    });
-
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
-    expect(req.request.method).toBe('POST');
-    req.flush({
+  it('#postTaskToApi should reject promise on error response', () => {
+    const errorResponse = {
       status: ApiResponseStatus.Error,
       data: null,
+    };
+
+    service.postTaskToApi(dummyTask, '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
     });
+
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
   });
 
-  it('#postTaskToApi should handle invalid response', () => {
+  it('#postTaskToApi should reject promise on invalid response', () => {
     const invalidResponse: any = `<h1>Invalid response</h1>`;
 
-    service.postTaskToApi(dummyTask).subscribe((task) => {
-      expect(task).toEqual(undefined);
+    service.postTaskToApi(dummyTask, '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.api.origin}/task`);
+    const req = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#postTasksToApi should handle success response', () => {
+    const dummySuccessResponse: ApiResponse<TaskData[]> = {
+      status: ApiResponseStatus.Success,
+      data: dummyResponseData,
+    };
+
+    service.postTasksToApi(dummyTasks, '-').then((tasks) => {
+      expect(tasks).toEqual(dummyTasks);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#postTasksToApi should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.postTasksToApi(dummyTasks, '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#postTasksToApi should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.postTasksToApi(dummyTasks, '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#signIn should return tokens on successful response', () => {
+    const dummySuccessResponse: ApiResponse<LoginResponse> = {
+      status: ApiResponseStatus.Success,
+      data: {
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken',
+      },
+    };
+
+    service.signIn('test', 'password', '-').then((response) => {
+      expect(response?.accessToken).toBe('accessToken');
+      expect(response?.refreshToken).toEqual('refreshToken');
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#signIn should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.signIn('test', 'password', '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#signIn should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.signIn('test', 'password', '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(invalidResponse);
+  });
+
+  it('#refreshAccessToken should return tokens on successful response', () => {
+    const dummySuccessResponse: ApiResponse<RefreshResponse> = {
+      status: ApiResponseStatus.Success,
+      data: {
+        accessToken: 'accessToken',
+        refreshToken: 'refreshToken',
+      },
+    };
+
+    service.refreshAccessToken('current-token', '-').then((response) => {
+      expect(response?.accessToken).toBe('accessToken');
+      expect(response?.refreshToken).toEqual('refreshToken');
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(dummySuccessResponse);
+  });
+
+  it('#refreshAccessToken should reject promise on error response', () => {
+    const errorResponse = {
+      status: ApiResponseStatus.Error,
+      data: null,
+    };
+
+    service.refreshAccessToken('current-token', '-').catch((error) => {
+      expect(error).toEqual(errorResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(req.request.method).toBe('POST');
+    req.flush(errorResponse);
+  });
+
+  it('#refreshAccessToken should reject promise on invalid response', () => {
+    const invalidResponse: any = `<h1>Invalid response</h1>`;
+
+    service.refreshAccessToken('current-token', '-').catch((error) => {
+      expect(error).toBe(invalidResponse);
+    });
+
+    const req = httpMock.expectOne(environment.api.refreshEndpoint);
     expect(req.request.method).toBe('POST');
     req.flush(invalidResponse);
   });

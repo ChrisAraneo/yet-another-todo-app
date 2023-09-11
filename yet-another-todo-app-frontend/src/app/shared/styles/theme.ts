@@ -9,4 +9,4 @@ export const COLOR_DISABLED = '#888888';
 
 export const BORDER = `1px solid ${COLOR_TEXT}`;
 
-export const DIALOG_WIDTH = '800px';
+export const DIALOG_WIDTH = `${UNIT * 12}px`;

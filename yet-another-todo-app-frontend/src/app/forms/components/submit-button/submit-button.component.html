@@ -1,0 +1,19 @@
+<div class="submit-button-wrapper">
+  <button
+    mat-flat-button
+    [color]="color"
+    (click)="onButtonClick($event)"
+    [disabled]="invalid || pending || isLoading">
+    <ng-container [ngTemplateOutlet]="buttonContent"></ng-container>
+  </button>
+</div>
+
+<ng-template #buttonContent>
+  <div class="button-content">
+    <mat-icon>{{ icon }}</mat-icon>
+    <ng-content></ng-content>
+    <div class="spinner-wrapper">
+      <mat-spinner [diameter]="22" *ngIf="isLoading"></mat-spinner>
+    </div>
+  </div>
+</ng-template>

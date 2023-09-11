@@ -1,66 +1,63 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { createAction } from '@ngrx/store';
-import { map, mergeMap, of } from 'rxjs';
-import { TaskTransformer } from 'src/app/shared/models/task-transformer';
+import { from, map, mergeMap, of } from 'rxjs';
 import { ApiClientService } from 'src/app/shared/services/api-client/api-client.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../models/task.model';
+import { TaskTransformerService } from '../../services/task-transformer/task-transformer.service';
 import {
   CREATE_TASK_API,
   HIDE_TASK_API,
+  UPDATE_TASKS_API,
   UPDATE_TASK_API,
   createTask,
   hideTask,
+  setTasks,
   updateTask,
 } from '../actions/task.actions';
 
 @Injectable()
 export class TaskEffects {
-  createTaskEffect = createEffect(() =>
+  readonly createTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(CREATE_TASK_API),
-      map((action: any) => action && action?.task),
-      mergeMap((task: Task) =>
-        this.apiClientService
-          .postTaskToApi(task)
-          .pipe(
-            map((result: Task | undefined) =>
-              result ? createTask({ task: result }) : createAction('')(),
-            ),
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTaskToApi(action.task, action.operationId)).pipe(
+          map((result: Task | undefined) =>
+            result ? createTask({ task: result }) : createAction('')(),
           ),
+        ),
       ),
     ),
   );
 
-  updateTaskEffect = createEffect(() =>
+  readonly updateTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(UPDATE_TASK_API),
-      map((action: any) => action && action?.task),
-      mergeMap((task: Task) =>
-        this.apiClientService
-          .postTaskToApi(task)
-          .pipe(
-            map((result: Task | undefined) =>
-              result ? updateTask({ task: result }) : createAction('')(),
-            ),
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTaskToApi(action.task, action.operationId)).pipe(
+          map((result: Task | undefined) =>
+            result ? updateTask({ task: result }) : createAction('')(),
           ),
+        ),
       ),
     ),
   );
 
-  hideTaskEffect = createEffect(() =>
+  readonly hideTaskEffect = createEffect(() =>
     this.actions.pipe(
       ofType(HIDE_TASK_API),
-      map((action: any) => action && action?.id),
-      mergeMap((id: string) =>
+      mergeMap((action: any) =>
         this.tasksService.getTasks().pipe(
-          map((tasks) => tasks.find((item) => item.getId() === id)),
+          map((tasks) => tasks.find((item) => item.getId() === action.id)),
           mergeMap((task: Task | undefined) => {
             if (!!task) {
-              const hiddenTask = TaskTransformer.transform(task, { isHidden: true }); // TODO Transformer to service
+              const hiddenTask = this.taskTransformerService.transform(task, { isHidden: true });
 
-              return this.apiClientService.postTaskToApi(hiddenTask).pipe(map(() => id));
+              return from(this.apiClientService.postTaskToApi(hiddenTask, action.operationId)).pipe(
+                map(() => action.id),
+              );
             } else {
               return of(undefined);
             }
@@ -71,9 +68,23 @@ export class TaskEffects {
     ),
   );
 
+  readonly updateTasksEffect = createEffect(() =>
+    this.actions.pipe(
+      ofType(UPDATE_TASKS_API),
+      mergeMap((action: any) =>
+        from(this.apiClientService.postTasksToApi(action.tasks, action.operationId)).pipe(
+          map((result: Task[] | undefined) =>
+            result ? setTasks({ tasks: result }) : createAction('')(),
+          ),
+        ),
+      ),
+    ),
+  );
+
   constructor(
     private actions: Actions,
     private apiClientService: ApiClientService,
     private tasksService: TasksService,
+    private taskTransformerService: TaskTransformerService,
   ) {}
 }

@@ -1,14 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import differenceInDays from 'date-fns/differenceInDays';
-import { StartedTask } from 'src/app/shared/models/task.model';
-import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { TaskState } from 'src/app/shared/models/task-state.model';
+import { Task } from 'src/app/shared/models/task.model';
 import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
-
-// TODO Move to separate types file
-type Column = {
-  tasks: StartedTask[];
-  left: string;
-};
+import { TimelineTaskManagerService } from 'src/app/timeline/services/timeline-task-manager.service';
+import { TimelineColumn } from './timeline-content.types';
 
 @Component({
   selector: 'yata-timeline-content',
@@ -16,48 +11,54 @@ type Column = {
   styleUrls: ['./timeline-content.component.scss'],
 })
 export class TimelineContentComponent implements OnChanges {
+  @Input() today!: Date;
   @Input() startDate!: Date;
   @Input() endDate!: Date;
-  @Input() tasks: StartedTask[] = [];
+  @Input() tasks: Task[] = [];
+  @Input() tasksStateSortOrder: TaskState[] = [];
+  @Input() tasksStateFilter: TaskState[] = [];
 
-  columns: Column[] = [];
+  columns: TimelineColumn[] = [];
 
-  private readonly columnWidth = COLUMN_WIDTH;
+  readonly columnWidth = COLUMN_WIDTH;
 
-  constructor(private dateUtils: DateUtilsService) {}
+  constructor(private timelineTaskManager: TimelineTaskManagerService) {}
 
   ngOnChanges(): void {
-    if (this.tasks && this.startDate) {
-      this.columns = this.mapTasksToColumns(this.tasks, this.startDate);
+    if (
+      this.tasks &&
+      this.today &&
+      this.startDate &&
+      this.endDate &&
+      this.tasksStateFilter &&
+      this.tasksStateSortOrder
+    ) {
+      this.updateColumns(
+        this.tasks,
+        this.today,
+        this.startDate,
+        this.endDate,
+        this.tasksStateFilter,
+        this.tasksStateSortOrder,
+      );
     }
   }
 
-  private mapTasksToColumns(tasks: StartedTask[], timelineStartDate: Date): Column[] {
-    const map: Map<string, StartedTask[]> = new Map();
-
-    tasks.forEach((task) => {
-      const startDate: string = this.dateUtils.formatDate(task.getStartDate(), 'dd-MM-yyyy');
-
-      if (map.has(startDate)) {
-        map.set(startDate, [...(map.get(startDate) || []), task]);
-      } else {
-        map.set(startDate, [task]);
-      }
-    });
-
-    const array = Array.from(map.values()).sort((a, b) => {
-      return a[0].getStartDate().valueOf() - b[0].getStartDate().valueOf();
-    });
-
-    return array.map((tasks: StartedTask[], index: number) => {
-      const left =
-        (differenceInDays(tasks[0].getStartDate(), timelineStartDate) - index) * this.columnWidth +
-        'px';
-
-      return {
-        tasks,
-        left,
-      };
-    });
+  private updateColumns(
+    tasks: Task[],
+    today: Date,
+    startDate: Date,
+    endDate: Date,
+    tasksStateFilter: TaskState[],
+    tasksStateSortOrder: TaskState[],
+  ): void {
+    this.columns = this.timelineTaskManager.mapTasksToTimelineColumns(
+      tasks,
+      today,
+      startDate,
+      endDate,
+      tasksStateFilter,
+      tasksStateSortOrder,
+    );
   }
 }

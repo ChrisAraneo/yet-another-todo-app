@@ -66,6 +66,22 @@ export class SideNavigationComponent implements OnChanges {
       },
     };
 
+    const configureTable = {
+      icon: 'settings',
+      label: 'SideNavigation.configureTable',
+      click: (): void => {
+        this.dialogService.openConfigureTableModal();
+      },
+    };
+
+    const configureTimeline = {
+      icon: 'settings',
+      label: 'SideNavigation.configureTimeline',
+      click: (): void => {
+        this.dialogService.openConfigureTimelineModal();
+      },
+    };
+
     const addTask = {
       icon: 'add',
       label: 'SideNavigation.addTask',
@@ -90,10 +106,42 @@ export class SideNavigationComponent implements OnChanges {
       },
     };
 
+    const exportTasks = {
+      icon: 'folder_zip',
+      label: 'SideNavigation.exportTasks',
+      click: (): void => {
+        this.dialogService.openExportTasksModal();
+      },
+    };
+
+    const importTasks = {
+      icon: 'drive_folder_upload',
+      label: 'SideNavigation.importTasks',
+      click: (): void => {
+        this.dialogService.openImportTasksModal();
+      },
+    };
+
     if (mode === AppMode.Timeline) {
-      this.items = [showTable, addTask, editTask, deleteTask];
+      this.items = [
+        showTable,
+        configureTimeline,
+        addTask,
+        editTask,
+        deleteTask,
+        exportTasks,
+        importTasks,
+      ];
     } else if (mode === AppMode.Table) {
-      this.items = [showTimeline, addTask, editTask, deleteTask];
+      this.items = [
+        showTimeline,
+        configureTable,
+        addTask,
+        editTask,
+        deleteTask,
+        exportTasks,
+        importTasks,
+      ];
     } else {
       throw Error(`Cannot set side navigation items, the app mode is invalid: ${mode}`);
     }

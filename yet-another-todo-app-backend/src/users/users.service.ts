@@ -13,9 +13,14 @@ export class UsersService {
     user: UserInfo,
     password: string,
   ): Promise<UserDetails | null> {
-    return this.prismaService
+    return await this.prismaService
       .createUser(user, password)
-      .then(({ id, name, username }) => ({ id, name, username }))
+      .then(({ id, name, username, refreshToken }) => ({
+        id,
+        name,
+        username,
+        refreshToken,
+      }))
       .catch((error) => {
         const target = error?.meta?.target[0];
 
@@ -27,9 +32,10 @@ export class UsersService {
       });
   }
 
-  async findUser(
-    username: string,
-  ): Promise<(UserDetails & { passwordHash: string }) | undefined> {
+  async findUser(username: string): Promise<
+    | (UserDetails & { passwordHash: string; refreshTokenHash: string }) // TODO Type
+    | undefined
+  > {
     const user = await this.prismaService.getUser(username);
 
     if (!user) {
@@ -41,6 +47,7 @@ export class UsersService {
       name: user.name,
       username: user.username,
       passwordHash: user.password,
+      refreshTokenHash: user.refreshToken,
     };
   }
 
@@ -48,6 +55,20 @@ export class UsersService {
     return this.prismaService
       .deleteUser(username)
       .then(({ id, name, username }) => ({ id, name, username }))
+      .catch((error) => {
+        throw error;
+      });
+  }
+
+  async updateRefreshToken(
+    username: string,
+    refreshToken: string,
+  ): Promise<UserDetails | null> {
+    // TODO Throw custom error
+
+    return this.prismaService
+      .updateUserRefreshToken(username, refreshToken)
+      .then(({ id, name, username }) => ({ id, name, username, refreshToken }))
       .catch((error) => {
         throw error;
       });

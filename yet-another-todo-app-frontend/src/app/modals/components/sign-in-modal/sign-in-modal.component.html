@@ -5,8 +5,11 @@
     [label]="'SignInModal.username' | translate"></yata-text-input>
   <yata-password-input
     [formControlName]="'password'"
-    [label]="'SignInModal.password' | translate"></yata-password-input>
-  <button mat-flat-button color="primary" (click)="submit()" [disabled]="form.invalid">
-    {{ 'SignInModal.signIn' | translate }}
-  </button>
+    [label]="'SignInModal.password' | translate"
+    [parentForm]="form"></yata-password-input>
+  <yata-modal-action-buttons
+    [form]="form"
+    [submitButton]="{ label: 'SignInModal.signIn', click: submit }"
+    [cancelButton]="{ label: 'SignInModal.dontSignIn', click: cancel }">
+  </yata-modal-action-buttons>
 </form>

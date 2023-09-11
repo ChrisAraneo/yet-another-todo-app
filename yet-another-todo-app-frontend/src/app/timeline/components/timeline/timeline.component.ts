@@ -11,11 +11,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { TaskState } from 'src/app/shared/models/task-state.model';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme';
-import { StartedTask } from '../../../shared/models/task.model';
+import { Task } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 @Component({
@@ -24,24 +25,28 @@ import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
   styleUrls: ['./timeline.component.scss'],
 })
 export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-  @Input() startDate?: Date;
-  @Input() endDate?: Date;
+  @Input() startDate: Date | null = null;
+  @Input() endDate: Date | null = null;
+  @Input() tasksStateSortOrder: TaskState[] = [];
+  @Input() tasksStateFilter: TaskState[] = [];
 
   @Output() changeStartDate = new EventEmitter<Date>();
   @Output() changeEndDate = new EventEmitter<Date>();
 
-  tasks!: Observable<StartedTask[]>;
+  readonly today = new Date();
+
+  tasks!: Observable<Task[]>;
   headers: TimelineHeader[] = [];
   previousMonthButtonPosition!: ElementPosition;
   nextMonthButtonPosition!: ElementPosition;
+  columnHighlightHeight: string = '0px';
 
   private observer!: ResizeObserver;
 
   constructor(
-    private elementRef: ElementRef,
+    public elementRef: ElementRef,
     private tasksService: TasksService,
     private dateUtils: DateUtilsService,
-    private host: ElementRef,
     private zone: NgZone,
   ) {
     this.initializeButtons();
@@ -73,6 +78,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
 
       this.updateTasks(currentStartDate, currentEndDate);
       this.updateTimelineHeaders(currentStartDate, currentEndDate);
+      this.updateColumnHighlightHeight();
     }
   }
 
@@ -83,7 +89,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
   }
 
   ngOnDestroy(): void {
-    this.observer && this.observer.unobserve(this.host.nativeElement);
+    this.observer && this.observer.unobserve(this.elementRef.nativeElement);
   }
 
   changeStartDateToPreviousMonth(): void {
@@ -113,6 +119,12 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
     };
   }
 
+  private updateColumnHighlightHeight(): void {
+    this.columnHighlightHeight = this.elementRef?.nativeElement
+      ? `${this.elementRef.nativeElement.clientHeight + 1}px`
+      : '0';
+  }
+
   private initializeResizeObserver(): void {
     this.observer = new ResizeObserver((entries: ResizeObserverEntry[]) => {
       this.zone.run(() => {
@@ -125,10 +137,11 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
           width: contentRect.width,
           height: contentRect.height,
         });
+        this.updateColumnHighlightHeight();
       });
     });
 
-    this.observer.observe(this.host.nativeElement);
+    this.observer.observe(this.elementRef.nativeElement);
   }
 
   private addWindowResizeListener(): void {
@@ -143,19 +156,7 @@ export class TimelineComponent implements OnInit, OnChanges, AfterViewInit, OnDe
       return;
     }
 
-    this.tasks = this.tasksService.getTasks().pipe(
-      map((tasks) => {
-        const startedTasks: StartedTask[] = tasks.filter(
-          (task) => task instanceof StartedTask,
-        ) as StartedTask[];
-        const tasksInSelectedPeriod = startedTasks.filter(
-          (task) =>
-            +task.getStartDate() >= +(startDate || 0) && +task.getStartDate() <= +(endDate || -1),
-        );
-
-        return tasksInSelectedPeriod;
-      }),
-    );
+    this.tasks = this.tasksService.getTasks();
   }
 
   private updateTimelineHeaders(startDate?: Date, endDate?: Date): void {

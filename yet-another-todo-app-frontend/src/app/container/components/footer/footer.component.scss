@@ -1,15 +1,16 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 :host {
   box-sizing: border-box;
   border-top: $border;
-  padding: $unit / 12 $unit / 8;
+  padding: $_6unit $_8unit;
   margin: 0;
 
   span,
   a {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
-    font-size: 12px;
+    font-size: $_12unit;
     color: #333333;
   }
 }

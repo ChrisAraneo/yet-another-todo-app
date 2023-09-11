@@ -1,0 +1,14 @@
+@use 'sass:math';
+@import '../../../../../shared/styles/variables.scss';
+
+:host {
+  .error-container {
+    margin-top: $_6unit;
+    padding: 0 $_2unit;
+  }
+
+  .error {
+    display: inline-block;
+    color: $warn-color;
+  }
+}

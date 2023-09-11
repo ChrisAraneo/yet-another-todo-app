@@ -1,0 +1,11 @@
+<yata-title class="modal-title">{{ 'SelectImportActionModal.modalTitle' | translate }}</yata-title>
+<form>
+  <mat-radio-group [(ngModel)]="action" [ngModelOptions]="{ standalone: true }">
+    <mat-radio-button *ngFor="let action of actions" [value]="action">
+      {{ 'SelectImportActionModal.' + action | translate }}
+    </mat-radio-button>
+  </mat-radio-group>
+  <button mat-flat-button color="primary" (click)="submit()">
+    {{ 'SelectImportActionModal.submit' | translate }}
+  </button>
+</form>

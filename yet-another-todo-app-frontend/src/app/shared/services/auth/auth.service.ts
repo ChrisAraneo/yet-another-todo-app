@@ -1,109 +1,106 @@
-import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, filter, first, map, mergeMap, tap } from 'rxjs';
-import { SignInData } from 'src/app/shared/models/sign-in-data.model';
-import { ApiResponse, ApiResponseStatus } from '../api-client/api-client.types';
+import { BehaviorSubject, Observable, Subscription, from, of, tap } from 'rxjs';
+import { ApiClientService } from '../api-client/api-client.service';
+import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
+import { LoginResponse, RefreshResponse } from './auth.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  private readonly loginEndpoint;
-
-  private username = new BehaviorSubject<string>('');
-  private password = new BehaviorSubject<string | null>(null);
-  private token = new BehaviorSubject<string | null>(null);
+  private username = new BehaviorSubject<string | null>(null);
+  private accessToken = new BehaviorSubject<string | null>(null);
+  private refreshToken = new BehaviorSubject<string | null>(null);
   private subscription = new Subscription();
 
   constructor(
     @Inject('API') public api: any,
-    private http: HttpClient,
+    private apiClientService: ApiClientService,
     private userService: UserService,
+    private operationIdGeneratorService: OperationIdGeneratorService,
   ) {
-    this.loginEndpoint = `${this.api.origin}/login`;
-
-    this.subscribeToUserChanges();
+    this.subscribeToUsernameChanges();
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  refreshToken(): Observable<any> {
-    return this.fetchNewToken(this.username.getValue(), this.password.getValue()).pipe(
-      tap((token: string | null) => {
-        this.update(token);
+  signIn(username: string, password: string): Observable<LoginResponse | null> {
+    this.setIsOfflineMode(false);
+
+    const operationId = this.operationIdGeneratorService.generate();
+
+    return from(this.apiClientService.signIn(username, password, operationId)).pipe(
+      tap((response) => {
+        const accessToken = response?.accessToken;
+        const refreshToken = response?.refreshToken;
+
+        this.setUsername(username);
+        accessToken && this.setAccessToken(accessToken);
+        refreshToken && this.setRefreshToken(refreshToken);
+        this.setIsLoggedBasedOnTokenValue(accessToken);
       }),
     );
   }
 
-  signIn(username: string, password: string): void {
-    this.userService.setUser(username, password);
-  }
+  refresh(): Observable<RefreshResponse | null> {
+    const operationId = this.operationIdGeneratorService.generate();
+    const currentRefreshToken = this.refreshToken.getValue();
 
-  getToken(): string | null {
-    return this.token.getValue();
-  }
+    if (typeof currentRefreshToken !== 'string' || currentRefreshToken === '') {
+      return of(null);
+    }
 
-  private subscribeToUserChanges(): void {
-    const filterByExistingUsernameAndPassword = filter(
-      (user: SignInData) => !!user.username && !!user.password,
-    );
+    return from(this.apiClientService.refreshAccessToken(currentRefreshToken, operationId)).pipe(
+      tap((response) => {
+        const accessToken = response?.accessToken;
 
-    const emitUsername = tap((user: SignInData) => {
-      this.username.next(user.username);
-    });
-
-    const emitPassword = tap((user: SignInData) => {
-      this.password.next(user.password);
-    });
-
-    const fetchNewTokenOnUserChange = mergeMap((user: SignInData) => {
-      return this.fetchNewToken(user.username, user.password);
-    });
-
-    this.subscription = this.userService
-      .getUser()
-      .pipe(
-        filterByExistingUsernameAndPassword,
-        emitUsername,
-        emitPassword,
-        fetchNewTokenOnUserChange,
-      )
-      .subscribe((token: string | null) => {
-        this.update(token);
-      });
-  }
-
-  private fetchNewToken(username: string, password: string | null): Observable<string | null> {
-    return this.http.post<ApiResponse<string>>(this.loginEndpoint, { username, password }).pipe(
-      first(),
-      map((response: ApiResponse<string | null>) => {
-        if (response && response.status === ApiResponseStatus.Success) {
-          return response.data || null;
-        }
-
-        return null;
+        accessToken && this.setAccessToken(accessToken);
       }),
     );
   }
 
-  private update(token: string | null): void {
-    this.setToken(token);
-    this.setUserAsLoggedIfTokenExists(token);
-    this.removePassword();
+  signOut(): void {
+    this.setIsOfflineMode(true);
+    this.setUsername('');
+    this.setAccessToken(null);
+    this.setRefreshToken(null);
+    this.setIsLoggedBasedOnTokenValue('');
   }
 
-  private setToken(token: string | null): void {
-    this.token.next(token);
+  getAccessToken(): string | null {
+    return this.accessToken.getValue();
   }
 
-  private removePassword(): void {
-    this.userService.removePassword();
+  getRefreshEndpoint(): string {
+    return this.api.refreshEndpoint;
   }
 
-  private setUserAsLoggedIfTokenExists(token: string | null): void {
+  private subscribeToUsernameChanges(): void {
+    this.userService.getUsername().subscribe((username) => {
+      this.username.next(username);
+    });
+  }
+
+  private setUsername(username: string): void {
+    this.userService.setUsername(username);
+  }
+
+  private setAccessToken(token: string | null): void {
+    this.accessToken.next(token);
+  }
+
+  private setRefreshToken(refreshToken: string | null): void {
+    this.refreshToken.next(refreshToken);
+  }
+
+  private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
     this.userService.setIsUserLogged(!!token);
+  }
+
+  private setIsOfflineMode(value: boolean): void {
+    this.userService.setIsOfflineMode(value);
   }
 }

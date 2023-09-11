@@ -95,7 +95,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .get('/tasks')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send()
         .expect((res) => {
@@ -110,6 +110,65 @@ describe('AppController (e2e)', () => {
         .set('Content-Type', 'application/json')
         .send()
         .expect(401);
+    });
+  });
+
+  describe('POST /tasks', () => {
+    it('should return success response with created tasks when provided correct token', async () => {
+      const tasks: Task[] = [
+        {
+          id: '1',
+          title: 'Lorem ipsum',
+          description: 'Dolor es',
+          state: {
+            id: '1',
+            value: 'IN_PROGRESS',
+            iconName: 'progress',
+            color: 'white',
+          },
+          isHidden: false,
+          creationDate: new Date(2023, 1, 2).toISOString(),
+          startDate: new Date(2023, 1, 3).toISOString(),
+        },
+        {
+          id: '2',
+          title: 'Nulla porttitor tincidunt erat',
+          description:
+            'Nulla facilisis massa dui, tempor blandit lectus bibendum sed.',
+          state: {
+            id: '1',
+            value: 'IN_PROGRESS',
+            iconName: 'progress',
+            color: 'white',
+          },
+          isHidden: false,
+          creationDate: new Date(2023, 3, 12).toISOString(),
+          startDate: new Date(2023, 3, 12).toISOString(),
+        },
+      ];
+
+      const loginRequest = await request(app.getHttpServer())
+        .post('/login')
+        .send(existingUser);
+
+      return request(app.getHttpServer())
+        .post('/tasks')
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
+        .set('Content-Type', 'application/json')
+        .send(tasks)
+        .expect((res) => {
+          expect(res.body.status).toBe(Status.Success);
+          expect(res.body.data[0].title).toBe(tasks[0].title);
+          expect(res.body.data[0].description).toBe(tasks[0].description);
+          expect(res.body.data[0].state.value).toBe(tasks[0].state.value);
+          expect(res.body.data[0].isHidden).toBe(tasks[0].isHidden);
+          expect(res.body.data[0].startDate).toBe(tasks[0].startDate);
+          expect(res.body.data[1].title).toBe(tasks[1].title);
+          expect(res.body.data[1].description).toBe(tasks[1].description);
+          expect(res.body.data[1].state.value).toBe(tasks[1].state.value);
+          expect(res.body.data[1].isHidden).toBe(tasks[1].isHidden);
+          expect(res.body.data[1].startDate).toBe(tasks[1].startDate);
+        });
     });
   });
 
@@ -136,7 +195,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .post('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(task)
         .expect((res) => {
@@ -173,13 +232,13 @@ describe('AppController (e2e)', () => {
 
       const postTaskRequest = await request(app.getHttpServer())
         .post('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(task);
 
       return request(app.getHttpServer())
         .delete('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(postTaskRequest.body.data)
         .expect((res) => {
@@ -215,7 +274,7 @@ describe('AppController (e2e)', () => {
 
       return request(app.getHttpServer())
         .delete('/task')
-        .set('Authorization', `Bearer ${loginRequest.body.data}`)
+        .set('Authorization', `Bearer ${loginRequest.body.data.accessToken}`)
         .set('Content-Type', 'application/json')
         .send(nonexistentTask)
         .expect((res) => {

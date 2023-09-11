@@ -1,9 +1,12 @@
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import {
   Task as TaskSchema,
   TaskState as TaskStateSchema,
 } from '@prisma/client';
 import { DummyData } from '../../test/dummy-data';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
 import { Task } from '../models/tasks.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
@@ -16,6 +19,27 @@ describe('TasksService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PrismaModule],
       providers: [
+        ConfigService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(async (payload: any) => {
+              return `notrealtoken${JSON.stringify(payload)}`;
+            }),
+          },
+        },
+        {
+          provide: JwtStrategy,
+          useValue: {
+            validate: jest.fn(async (payload: any) => {
+              return {
+                id: payload.id,
+                name: payload.name,
+                username: payload.username,
+              };
+            }),
+          },
+        },
         {
           provide: PrismaService,
           useValue: {
@@ -130,6 +154,41 @@ describe('TasksService', () => {
       expect(
         await service.createOrUpdateTask(DummyData.user.username, newTask),
       ).toEqual(newTask);
+    });
+  });
+
+  describe('createOrUpdateTasks', () => {
+    it('should return new created tasks', async () => {
+      const newTasks: Task[] = [
+        {
+          id: '2123b2c4-c723-4e1c-9714-d49dc35c3dd2',
+          title: 'First task',
+          description: 'New task',
+          state: DummyData.taskStates.find(
+            (state) => state.value === 'COMPLETED',
+          ),
+          isHidden: false,
+          creationDate: '2023-03-01T19:43:44.738Z',
+          startDate: '2023-03-01T19:45:44.321Z',
+          endDate: '2023-03-04T21:00:33.889Z',
+        },
+        {
+          id: '3f97e16f-c10b-4ee3-923d-c9e2a9b9354d',
+          title: 'Second',
+          description: 'New task too',
+          state: DummyData.taskStates.find(
+            (state) => state.value === 'COMPLETED',
+          ),
+          isHidden: false,
+          creationDate: '2023-05-01T19:43:44.738Z',
+          startDate: '2023-05-01T19:45:44.321Z',
+          endDate: '2023-05-04T21:00:33.889Z',
+        },
+      ];
+
+      expect(
+        await service.createOrUpdateTasks(DummyData.user.username, newTasks),
+      ).toEqual(newTasks);
     });
   });
 

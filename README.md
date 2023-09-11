@@ -4,7 +4,7 @@ Developing a simple daily planner that I would personally use</i>
 
 ![App with example tasks](/screenshot.png?raw=true "App with example tasks")
 
-# Features (v0.1)
+# Features (v0.2)
 
 - Sign up users
 - Log in using username and password
@@ -12,8 +12,25 @@ Developing a simple daily planner that I would personally use</i>
 - View tasks on a timeline
 - Change the time period displayed on the timeline
 - View tasks in a table form
+- Filter and sort displayed tasks (new in v0.2)
+- Export tasks to encrypted zip archive (new in v0.2)
+- Import tasks from zip archive (new in v0.2)
+- Use app in offline mode (new in v0.2)
+- Delete users (new in v0.2)
 
-All the features are basic and will be improved in the near future.
+Version 0.2 also introduces many improvements and bug fixes to existing features.
+
+# Roadmap
+
+What is planned in future releases?
+
+- Major UI redesign
+- Code refactoring
+- More unit tests, e2e tests
+- Use of Angular Routing
+- Upgrade to Angular 16+
+
+All current features will be improved in the near future.
 
 # Development setup
 

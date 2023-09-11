@@ -1,0 +1,33 @@
+<div>
+  <yata-label [for]="label"></yata-label>
+  <div class="content-wrapper">
+    <div class="input-wrapper">
+      <button
+        class="file-input-button"
+        [class.loading]="isLoading"
+        mat-flat-button
+        color="primary"
+        (click)="fileInput.click()"
+        [disabled]="isDisabled">
+        <mat-icon *ngIf="value === null && !isLoading">folder_open</mat-icon>
+        <mat-icon *ngIf="value !== null && !isLoading">folder</mat-icon>
+        <mat-icon *ngIf="isLoading">hourglass_empty</mat-icon>
+        {{ !filename ? selectFileLabel : changeFileLabel }}
+      </button>
+      <input
+        #fileInput
+        hidden
+        [name]="label"
+        type="file"
+        [value]="value"
+        (change)="onChange($event)"
+        (blur)="onBlur()"
+        [disabled]="isDisabled"
+        [placeholder]="label" />
+    </div>
+    <div class="filename-wrapper" *ngIf="filename">
+      <span class="label">{{ 'FileInput.selectedFile' | translate }}</span>
+      <span class="filename">{{ filename }}</span>
+    </div>
+  </div>
+</div>

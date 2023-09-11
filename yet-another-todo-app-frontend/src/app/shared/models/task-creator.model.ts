@@ -21,18 +21,34 @@ export class TaskCreator {
     const isHidden = !!data['isHidden'];
 
     if (state instanceof NotStartedTaskState) {
-      return this.createPendingTask(title, description, creationDate, id, isHidden);
-    } else if (state instanceof InProgressTaskState || state instanceof SuspendedTaskState) {
+      return this.createPendingTask(
+        title,
+        description,
+        startDate,
+        endDate,
+        creationDate,
+        id,
+        isHidden,
+      );
+    } else if (
+      (state instanceof InProgressTaskState || state instanceof SuspendedTaskState) &&
+      !!startDate
+    ) {
       return this.createStartedTask(
         title,
         description,
         state,
         startDate,
+        endDate,
         creationDate,
         id,
         isHidden,
       );
-    } else if (state instanceof CompletedTaskState || state instanceof RejectedTaskState) {
+    } else if (
+      (state instanceof CompletedTaskState || state instanceof RejectedTaskState) &&
+      !!startDate &&
+      !!endDate
+    ) {
       return this.createEndedTask(
         title,
         description,
@@ -51,11 +67,23 @@ export class TaskCreator {
   private static createPendingTask(
     title: unknown,
     description: unknown,
+    startDate: unknown,
+    endDate: unknown,
     creationDate: unknown,
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
     this.throwErrorWhenInvalidString(title, new Error(`Incorrect pending task title: ${title}`));
+
+    this.throwErrorWhenNotEmpty(
+      startDate,
+      new Error(`Pending task has defined startDate: ${startDate}`),
+    );
+
+    this.throwErrorWhenNotEmpty(
+      endDate,
+      new Error(`Pending task has defined startDate: ${endDate}`),
+    );
 
     this.throwErrorWhenInvalidString(
       description,
@@ -83,6 +111,7 @@ export class TaskCreator {
     description: unknown,
     state: unknown,
     startDate: unknown,
+    endDate: unknown,
     creationDate: unknown,
     id?: unknown,
     isHidden?: unknown,
@@ -95,6 +124,13 @@ export class TaskCreator {
     );
 
     this.throwErrorWhenInvalidTaskState(state, new Error(`Incorrect started task state: ${state}`));
+
+    this.throwErrorWhenNotEmpty(
+      endDate,
+      new Error(
+        `Task has defined endDate but it is in ${state} state: ${endDate}, ${typeof endDate}`,
+      ),
+    );
 
     this.throwErrorWhenInvalidDateString(
       startDate,
@@ -185,6 +221,12 @@ export class TaskCreator {
 
   private static throwErrorWhenInvalidTaskState(value: unknown, error: Error): void {
     if (!value || !(value instanceof TaskState)) {
+      throw error;
+    }
+  }
+
+  private static throwErrorWhenNotEmpty(value: unknown, error: Error): void {
+    if (value !== undefined && value !== null) {
       throw error;
     }
   }

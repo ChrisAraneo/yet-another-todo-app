@@ -1,9 +1,11 @@
 <div>
-  <label>{{ label }}</label>
+  <yata-label [for]="label"></yata-label>
   <textarea
+    [name]="label"
     [value]="value"
     [rows]="rows"
     [placeholder]="label"
     [maxLength]="maxLength"
-    (input)="onChange($event)"></textarea>
+    (input)="onChange($event)"
+    *yataErrorTooltip="label"></textarea>
 </div>

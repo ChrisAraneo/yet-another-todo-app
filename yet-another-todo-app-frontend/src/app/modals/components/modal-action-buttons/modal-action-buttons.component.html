@@ -1,0 +1,17 @@
+<div class="actions">
+  <yata-cancel-button
+    *ngIf="cancelButton && cancelButton.label"
+    [disabled]="!!form?.pending"
+    [cancel]="cancelButton.click">
+    {{ cancelButton.label | translate }}
+  </yata-cancel-button>
+  <yata-submit-button
+    *ngIf="submitButton && submitButton.label"
+    [invalid]="!!form?.invalid"
+    [pending]="!!form?.pending"
+    [submit]="submitButton.click"
+    [color]="submitButton.color || 'primary'"
+    [icon]="submitButton.icon">
+    {{ submitButton.label | translate }}
+  </yata-submit-button>
+</div>

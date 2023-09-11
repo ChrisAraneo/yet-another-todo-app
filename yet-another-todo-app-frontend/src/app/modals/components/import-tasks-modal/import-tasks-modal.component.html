@@ -1,0 +1,20 @@
+<yata-title class="modal-title">{{ 'ImportTasksModal.modalTitle' | translate }}</yata-title>
+<form [formGroup]="form" *ngIf="!!form" (submit)="$event.preventDefault()">
+  <yata-file-input
+    [formControlName]="'file'"
+    [label]="'ImportTasksModal.file' | translate"
+    [selectFileLabel]="'ImportTasksModal.selectFile' | translate"
+    [changeFileLabel]="'ImportTasksModal.changeFile' | translate"></yata-file-input>
+  <yata-password-input
+    [formControlName]="'password'"
+    [label]="'ImportTasksModal.password' | translate"
+    [parentForm]="form"></yata-password-input>
+  <span class="error-label" *ngIf="unzipError">
+    {{ 'ImportTasksModal.unzipError' | translate }}
+  </span>
+  <yata-modal-action-buttons
+    [form]="form"
+    [submitButton]="{ label: 'ImportTasksModal.submit', click: submit }"
+    [cancelButton]="{ label: 'ImportTasksModal.cancel', click: cancel }">
+  </yata-modal-action-buttons>
+</form>

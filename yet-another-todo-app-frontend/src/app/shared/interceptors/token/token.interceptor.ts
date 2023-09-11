@@ -1,6 +1,6 @@
 import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, mergeMap } from 'rxjs';
+import { Observable, catchError, delay, mergeMap } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Injectable()
@@ -15,7 +15,10 @@ export class TokenInterceptor implements HttpInterceptor {
     return next
       .handle(
         request.clone({
-          headers: request.headers.append('Authorization', `Bearer ${this.authService.getToken()}`),
+          headers: request.headers.append(
+            'Authorization',
+            `Bearer ${this.authService.getAccessToken()}`,
+          ),
         }),
       )
       .pipe(
@@ -28,14 +31,18 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   private handleResponseError(request: HttpRequest<unknown>, next: any): Observable<any> {
-    return this.authService.refreshToken().pipe(
-      mergeMap(() => {
+    const isRefreshUrl = request.url === this.authService.getRefreshEndpoint();
+
+    if (isRefreshUrl) {
+      return next.handle(request);
+    }
+
+    return this.authService.refresh().pipe(
+      delay(250),
+      mergeMap((response) => {
         return next.handle(
           request.clone({
-            headers: request.headers.append(
-              'Authorization',
-              `Bearer ${this.authService.getToken()}`,
-            ),
+            headers: request.headers.append('Authorization', `Bearer ${response?.accessToken}`),
           }),
         );
       }),

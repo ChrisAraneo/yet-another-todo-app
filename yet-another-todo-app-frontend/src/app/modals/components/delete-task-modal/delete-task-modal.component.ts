@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, first, map } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
@@ -26,7 +26,49 @@ export class DeleteTaskModalComponent implements OnDestroy {
     private tasksService: TasksService,
   ) {
     this.initializeTasksObservable();
+    this.initializeFormWithInitialTask();
+  }
 
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
+  }
+
+  submit: () => Promise<void> = async () => {
+    if (!this.taskForm || this.taskForm.invalid) {
+      return;
+    }
+
+    const task = this.taskForm.controls.task.value;
+
+    return new Promise((resolve, reject) => {
+      if (task) {
+        this.tasksService.hideTask(task.getId()).subscribe(() => {
+          resolve();
+
+          this.dialogRef.close();
+        });
+      } else {
+        reject();
+      }
+    });
+  };
+
+  cancel: () => void = () => {
+    this.dialogRef.close();
+  };
+
+  private initializeTasksObservable(): void {
+    this.tasks = this.tasksService.getTasks().pipe(
+      map((tasks) =>
+        tasks.map((task) => ({
+          label: `${task.getTitle()} (${task.getShortId()})`,
+          value: task,
+        })),
+      ),
+    );
+  }
+
+  private initializeFormWithInitialTask(): void {
     this.subscription.add(
       this.tasks.pipe(first()).subscribe((tasks) => {
         const initialTask = this.getInitialTask(tasks, this.data);
@@ -36,23 +78,6 @@ export class DeleteTaskModalComponent implements OnDestroy {
         }
       }),
     );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
-  }
-
-  submit(): void {
-    if (!this.taskForm || this.taskForm.invalid) {
-      return;
-    }
-
-    const task = this.taskForm.controls.task.value;
-
-    if (task) {
-      this.tasksService.hideTask(task.getId());
-      this.dialogRef.close();
-    }
   }
 
   private getInitialTask(tasks: TaskOption[], data: any): Task | undefined {
@@ -67,19 +92,13 @@ export class DeleteTaskModalComponent implements OnDestroy {
       : tasks[0].value;
   }
 
-  private initializeTasksObservable(): void {
-    this.tasks = this.tasksService
-      .getTasks()
-      .pipe(map((tasks) => tasks.map((task) => ({ label: task.getTitle(), value: task }))));
-  }
-
   private initializeForm(initialTask: Task): void {
     if (!initialTask) {
       throw new Error("Can't initialize Edit task modal form, initial task is undefined");
     }
 
     this.taskForm = this.formBuilder.group<TaskForm>({
-      task: new FormControl(initialTask),
+      task: new FormControl(initialTask, { validators: [Validators.required] }),
     });
   }
 }

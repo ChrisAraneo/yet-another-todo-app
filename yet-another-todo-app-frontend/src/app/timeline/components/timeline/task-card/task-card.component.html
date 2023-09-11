@@ -18,7 +18,9 @@
       </p>
     </mat-card-content>
     <mat-card-actions class="bottom-actions">
-      <button mat-button (click)="completeTask(task)">Complete</button>
+      <button *ngIf="!isCompleted" mat-button (click)="completeTask(task)">
+        <mat-icon>done</mat-icon>
+      </button>
     </mat-card-actions>
   </ng-container>
 </mat-card>

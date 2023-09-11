@@ -1,0 +1,39 @@
+@use 'sass:math';
+@import '../../../shared/styles/variables.scss';
+
+.export-tasks-modal .mat-mdc-dialog-container {
+  > div {
+    display: flex;
+    flex-direction: column;
+    border: $border;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mat-mdc-dialog-surface {
+    border-radius: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: $_32unit;
+  }
+
+  .modal-title {
+    h1 {
+      padding: $_16unit $_32unit;
+      border-bottom: $border;
+    }
+  }
+
+  yata-text-input,
+  yata-textarea,
+  yata-select,
+  yata-date-picker,
+  yata-password-input {
+    margin-bottom: $_16unit;
+  }
+}

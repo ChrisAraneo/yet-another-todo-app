@@ -1,0 +1,75 @@
+@use 'sass:math';
+@import '../../../shared/styles/variables.scss';
+
+.content-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: $_6unit;
+}
+
+.input-wrapper {
+  box-sizing: border-box;
+  width: auto;
+  min-width: $_192unit;
+  max-width: $_192unit;
+  margin-right: $_12unit;
+}
+
+.filename-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: $_36unit;
+  padding: $_4unit $_8unit;
+  border: $border;
+  border-color: $form-input-focus-background;
+  border-radius: $form-input-border-radius;
+  background-color: $form-input-focus-background;
+}
+
+.label,
+.filename {
+  display: block;
+}
+
+.label {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  padding: 0;
+  margin: 0;
+  margin-bottom: $_2unit;
+  font-size: $_10unit;
+  line-height: $_10unit;
+  font-weight: 400;
+  background-color: transparent;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.filename {
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  opacity: 0.9;
+  padding: 0;
+  margin: 0;
+  font-size: $_14unit;
+  line-height: $_14unit;
+  font-weight: 400;
+}
+
+button,
+input {
+  width: 100%;
+  max-width: $_192unit;
+  padding: $_6unit $_6unit;
+  font-size: $_16unit;
+  border-radius: $form-input-border-radius;
+  outline: none;
+  margin: 0;
+  opacity: 1;
+}
+
+.loading {
+  opacity: 0.5;
+}

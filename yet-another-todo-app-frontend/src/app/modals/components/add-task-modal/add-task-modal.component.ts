@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, map } from 'rxjs';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
@@ -42,13 +42,15 @@ export class AddTaskModalComponent implements OnDestroy {
     this.initializeStates();
     this.initializeForm();
     this.initializeObservables();
+    this.subscribeToShowStartDateControlChanges();
+    this.subscribeToShowEndDateControlChanges();
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  submit(): void {
+  submit = async (): Promise<void> => {
     if (this.taskForm.invalid) {
       return;
     }
@@ -57,10 +59,19 @@ export class AddTaskModalComponent implements OnDestroy {
       ...this.taskForm.value,
       creationDate: new Date(),
     });
-    this.tasksService.addTask(task);
 
+    return new Promise((resolve) => {
+      this.tasksService.addTask(task).subscribe(() => {
+        resolve();
+
+        this.dialogRef.close();
+      });
+    });
+  };
+
+  cancel = (): void => {
     this.dialogRef.close();
-  }
+  };
 
   private initializeStates(): void {
     this.states = this.taskStateTranslatorService.getTranslatedTaskStateSelectOptions();
@@ -68,9 +79,12 @@ export class AddTaskModalComponent implements OnDestroy {
 
   private initializeForm(): void {
     this.taskForm = this.formBuilder.group<TaskForm>({
-      title: new FormControl('', { nonNullable: true }),
-      description: new FormControl('', { nonNullable: true }),
-      state: new FormControl(new NotStartedTaskState(), { nonNullable: true }),
+      title: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+      description: new FormControl('', { validators: [Validators.required], nonNullable: true }),
+      state: new FormControl(new NotStartedTaskState(), {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
       startDate: new FormControl(null),
       endDate: new FormControl(null),
     });
@@ -93,5 +107,46 @@ export class AddTaskModalComponent implements OnDestroy {
         return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
     );
+  }
+
+  private subscribeToShowStartDateControlChanges(): void {
+    this.subscription.add(
+      this.showStartDateControl.subscribe((show: boolean) => {
+        const control = this.taskForm.controls.startDate;
+
+        if (show) {
+          this.setValidatorRequired(control);
+        } else {
+          this.clearValidatorsAndSetNullValue(control);
+        }
+
+        this.taskForm.updateValueAndValidity();
+      }),
+    );
+  }
+
+  private subscribeToShowEndDateControlChanges(): void {
+    this.subscription.add(
+      this.showEndDateControl.subscribe((show: boolean) => {
+        const control = this.taskForm.controls.endDate;
+
+        if (show) {
+          this.setValidatorRequired(control);
+        } else {
+          this.clearValidatorsAndSetNullValue(control);
+        }
+
+        this.taskForm.updateValueAndValidity();
+      }),
+    );
+  }
+
+  private setValidatorRequired(control: AbstractControl): void {
+    control.setValidators(Validators.required);
+  }
+
+  private clearValidatorsAndSetNullValue(control: AbstractControl): void {
+    control.clearValidators();
+    control.setValue(null);
   }
 }

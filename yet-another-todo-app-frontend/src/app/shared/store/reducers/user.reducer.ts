@@ -1,19 +1,16 @@
 import { createReducer, on } from '@ngrx/store';
-import { CurrentUser } from 'src/app/shared/models/current-user.model';
-import { removePassword, setIsLogged, setPassword, setUsername } from '../actions/user.actions';
+import { setIsLogged, setIsOfflineMode, setUsername } from '../actions/user.actions';
+import { CurrentUser } from '../types/current-user.type';
 
 export const initialState: CurrentUser = {
-  user: {
-    username: '',
-    password: null,
-  },
+  username: '',
   isLogged: false,
+  isOfflineMode: false,
 };
 
 export const userReducer = createReducer(
   initialState,
-  on(setUsername, (state, { username }) => ({ ...state, user: { ...state.user, username } })),
-  on(setPassword, (state, { password }) => ({ ...state, user: { ...state.user, password } })),
-  on(removePassword, (state) => ({ ...state, user: { ...state.user, password: null } })),
+  on(setUsername, (state, { username }) => ({ ...state, username })),
   on(setIsLogged, (state, { isLogged }) => ({ ...state, isLogged })),
+  on(setIsOfflineMode, (state, { isOfflineMode }) => ({ ...state, isOfflineMode })),
 );

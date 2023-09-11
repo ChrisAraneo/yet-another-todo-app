@@ -1,0 +1,152 @@
+{
+  "AddTaskModal": {
+    "cancel": "Anuluj",
+    "description": "Opis",
+    "endDate": "Data zakończenia",
+    "modalTitle": "Dodaj nowe zadanie",
+    "startDate": "Data rozpoczęcia",
+    "state": "Stan",
+    "submit": "Zapisz",
+    "title": "Tytuł"
+  },
+  "App": {
+    "title": "ヤタ YATA - Yet Another Todo App"
+  },
+  "AppFooter": {
+    "githubRepo": "Repozytorium Github",
+    "madeBy": "Autor aplikacji: Krzysztof Pająk \"Chris Araneo\""
+  },
+  "COMPLETED": "Zadanie wykonane",
+  "ConfigureTableModal": {
+    "asc": "Kolejność rosnąca",
+    "cancel": "Anuluj",
+    "desc": "Kolejność malejąca",
+    "direction": "Kolejność sortowania",
+    "id": "Sortuj według kolumny",
+    "modalTitle": "Konfiguruj widok tabeli",
+    "save": "Zapisz zmiany",
+    "sortConfiguration": "Sortuj dane"
+  },
+  "ConfigureTimelineModal": {
+    "cancel": "Anuluj",
+    "endDate": "Data zakończenia",
+    "modalTitle": "Konfiguruj widok osi czasu",
+    "save": "Zapisz zmiany",
+    "startDate": "Data rozpoczecia"
+  },
+  "DatesFilter": {
+    "endDate": "Data zakończenia",
+    "startDate": "Data rozpoczęcia"
+  },
+  "DeleteTaskModal": {
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "emptyCaption": "Brak zadań do usunięcia",
+    "emptyHint": "Najpierw utwórz zadania, aby móc je później usunąć",
+    "modalTitle": "Usuń zadanie",
+    "selectTask": "Zadanie do usunięcia"
+  },
+  "DragDropTaskOrderList": {
+    "hint": "Możesz ukryć lub pokazać zadania określonego typu na osi czasu, konfigurując poniższe pola wyboru. Możesz także zmienić kolejność, w jakiej zadania określonego typu są wyświetlane w kolumnie, reorganizując stany zadań poniżej. Aby to zrobić, przeciągnij i upuść elementy na liście.",
+    "label": "Sortuj i filtruj zadania wyświetlane w kolumnach"
+  },
+  "EditTaskModal": {
+    "cancel": "Anuluj",
+    "description": "Opis",
+    "emptyCaption": "Brak zadań do edycji",
+    "emptyHint": "Najpierw utwórz zadania, aby móc je później edytować",
+    "endDate": "Data zakończenia",
+    "modalTitle": "Edytuj zadanie",
+    "saveChanges": "Zapisz zmiany",
+    "selectTask": "Zadanie do edycji",
+    "startDate": "Data rozpoczęcia",
+    "state": "Stan",
+    "title": "Tytuł"
+  },
+  "Error": {
+    "matchOther": "Hasła są różne.",
+    "minlength": "{{ label }} musi być długości co najmniej {{ requiredLength }} znaków.",
+    "required": "To pole jest wymagane."
+  },
+  "ExportTasksModal": {
+    "cancel": "Anuluj",
+    "modalTitle": "Eksportuj zadania",
+    "password": "Hasło",
+    "repeatPassword": "Powtórz hasło",
+    "submit": "Eksportuj"
+  },
+  "FileInput": {
+    "selectedFile": "Wybrany plik"
+  },
+  "IN_PROGRESS": "Zadanie w toku",
+  "ImportTasksModal": {
+    "cancel": "Anuluj",
+    "changeFile": "Zmień plik zip",
+    "file": "Plik zip z zadaniami",
+    "modalTitle": "Importuj zadania",
+    "password": "Hasło",
+    "selectFile": "Wybierz plik zip",
+    "submit": "Importuj",
+    "unzipError": "Błąd podczas wyodrębniania zadań. Upewnij się, że wybrałeś właściwy plik i wpisałeś pasujące hasło."
+  },
+  "LoggedUserInformation": {
+    "loggedAs": "Jesteś zalogowany jako"
+  },
+  "NOT_STARTED": "Zadanie nierozpoczęte",
+  "OfflineIndicator": {
+    "offlineMode": "Tryb offline",
+    "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
+  },
+  "REJECTED": "Zadanie odrzucone",
+  "SUSPENDED": "Zadanie zawieszone",
+  "SearchBar": {
+    "searchTasks": "Wyszukaj zadania"
+  },
+  "SelectImportActionModal": {
+    "ADD_NEW_AND_SKIP_EXISTING": "Dodaj nowe zadania do listy. Pomiń te, które już są na liście.",
+    "ADD_NEW_AND_UPDATE_EXISTING": "Dodaj nowe zadania do listy i zaktualizuj te zadania, które już są na liście.",
+    "REPLACE_DATA_SET": "Usuń wszystkie zapisane do tej pory zadania, a następnie dodaj wszystkie zadania z pliku.",
+    "modalTitle": "Wybierz akcję",
+    "submit": "Kontynuuj"
+  },
+  "SideNavigation": {
+    "addTask": "Dodaj zadanie",
+    "configureTable": "Konfiguruj tabelę",
+    "configureTimeline": "Konfiguruj oś czasu",
+    "deleteTask": "Usuń zadanie",
+    "editTask": "Edytuj zadanie",
+    "exportTasks": "Eksportuj zadania",
+    "importTasks": "Importuj zadania",
+    "tableView": "Widok tabeli",
+    "timelineView": "Widok osi czasu"
+  },
+  "SignInModal": {
+    "dontSignIn": "Nie loguj się",
+    "modalTitle": "Zaloguj się",
+    "password": "Hasło",
+    "signIn": "Zaloguj się",
+    "username": "Nazwa użytkownika"
+  },
+  "SignOutButton": {
+    "tooltip": "Wyloguj się"
+  },
+  "Table": {
+    "creationDate": "Data utworzenia",
+    "description": "Opis",
+    "endDate": "Data zakończenia",
+    "id": "ID",
+    "paginatorLabel": "Wybierz stronę z zadaniami",
+    "sortById": "Sortuj po ID",
+    "startDate": "Data rozpoczecia",
+    "state": "Stan",
+    "title": "Tytuł"
+  },
+  "Timeline": {
+    "nextMonth": "Następny miesiąc",
+    "previousMonth": "Poprzedni miesiąc"
+  },
+  "Toolbar": {
+    "githubIcon": "Ikona Github",
+    "menuIcon": "Ikona menu"
+  }
+}

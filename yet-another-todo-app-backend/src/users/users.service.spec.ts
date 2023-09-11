@@ -1,7 +1,10 @@
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { User as UserSchema } from '@prisma/client';
-import { UserInfo } from 'src/models/user-info.type';
 import { DummyData } from '../../test/dummy-data';
+import { JwtStrategy } from '../auth/strategies/jwt.strategy';
+import { UserInfo } from '../models/user-info.type';
 import { PrismaModule } from '../prisma/prisma.module';
 import { PrismaService } from '../prisma/prisma.service';
 import { UsersService } from './users.service';
@@ -14,7 +17,28 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [PrismaModule],
       providers: [
+        ConfigService,
         UsersService,
+        {
+          provide: JwtService,
+          useValue: {
+            sign: jest.fn(async (payload: any) => {
+              return `notrealtoken${JSON.stringify(payload)}`;
+            }),
+          },
+        },
+        {
+          provide: JwtStrategy,
+          useValue: {
+            validate: jest.fn(async (payload: any) => {
+              return {
+                id: payload.id,
+                name: payload.name,
+                username: payload.username,
+              };
+            }),
+          },
+        },
         {
           provide: PrismaService,
           useValue: {
@@ -43,6 +67,20 @@ describe('UsersService', () => {
                 }
               });
             }),
+            deleteUser: jest.fn(
+              async (username: string): Promise<UserSchema> => {
+                return new Promise<any>((resolve, reject) => {
+                  if (username === DummyData.user.username) {
+                    resolve({
+                      ...DummyData.user,
+                      password: 'this_is_password_hash',
+                    });
+                  } else {
+                    reject(undefined);
+                  }
+                });
+              },
+            ),
           },
         },
       ],
@@ -79,6 +117,7 @@ describe('UsersService', () => {
         id: DummyData.user.id,
         name: DummyData.user.name,
         username: DummyData.user.username,
+        refreshTokenHash: 'r3fr3sh_t0k3n',
         passwordHash: 'this_is_password_hash',
       };
 
@@ -87,6 +126,25 @@ describe('UsersService', () => {
 
     it('should return undefined when user was not found', async () => {
       expect(await service.findUser('this_username_doesnt_exist')).toEqual(
+        undefined,
+      );
+    });
+  });
+
+  describe('deleteUser', () => {
+    it('should return user data when user was successfuly deleted', async () => {
+      const user = DummyData.user;
+      const username = user.username;
+
+      expect(await service.deleteUser(username)).toEqual({
+        id: user.id,
+        name: user.name,
+        username: user.username,
+      });
+    });
+
+    it("should throw error when user don't exists", async () => {
+      await expect(service.deleteUser('not_existing_username')).rejects.toBe(
         undefined,
       );
     });

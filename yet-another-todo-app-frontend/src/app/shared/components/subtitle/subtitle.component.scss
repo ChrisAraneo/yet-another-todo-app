@@ -1,6 +1,9 @@
+@use 'sass:math';
+@import '../../styles/variables.scss';
+
 span {
   font-family: 'Spectral', serif;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: $_18unit;
+  line-height: $_20unit;
   font-weight: 500;
 }

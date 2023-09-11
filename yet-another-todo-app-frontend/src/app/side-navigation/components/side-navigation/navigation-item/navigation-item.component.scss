@@ -3,16 +3,16 @@
 :host {
   box-sizing: border-box;
   width: 100%;
-  height: $unit;
+  height: $_64unit;
 
   .mdc-button {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    padding: 0 24px;
+    padding: 0 $_24unit;
     margin: 0;
     width: 100%;
-    height: $unit;
+    height: $_64unit;
     border-radius: 0;
     text-align: left;
   }
@@ -22,13 +22,15 @@
     flex-direction: column;
     justify-content: center;
     justify-items: center;
-    margin-right: $unit * 0.25;
-    font-size: 24px;
-    height: 24px;
+    margin-right: $_16unit;
+    font-size: $_24unit;
+    height: $_24unit;
     width: auto;
   }
 
-  yata-title {
+  span {
     display: block;
+    font-weight: 400;
+    font-size: $_14unit;
   }
 }

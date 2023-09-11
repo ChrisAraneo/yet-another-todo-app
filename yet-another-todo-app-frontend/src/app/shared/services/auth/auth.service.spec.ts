@@ -1,91 +1,79 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ApiClientService } from '../api-client/api-client.service';
+import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
+  const dummyOperationId = '-';
+
   let service: AuthService;
-  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, StoreModule.forRoot({})],
       providers: [
         { provide: 'API', useValue: environment.api },
+        MockProvider(ApiClientService, {
+          signIn: async () => ({
+            accessToken: 'acc3sst0k3n',
+            refreshToken: 'r3fr3shT0k3n',
+          }),
+          refreshAccessToken: async (refreshToken) => {
+            if (refreshToken === 'r3fr3shT0k3n') {
+              return {
+                accessToken: 'acc3sst0k3n_2',
+                refreshToken: 'r3fr3shT0k3n_2',
+              };
+            } else {
+              return null;
+            }
+          },
+        }),
         MockProvider(UserService, {
-          getUser: () => of({ username: 'test', password: 'testpassword' }),
-          setUser: () => undefined,
+          getUserData: () => of({ username: 'lorem', isLogged: true, isOfflineMode: false }),
+          getUsername: () => of('lorem'),
+        }),
+        MockProvider(OperationIdGeneratorService, {
+          generate: () => dummyOperationId,
         }),
       ],
     });
     service = TestBed.inject(AuthService);
-    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#signIn should trigger sending a login request', () => {
-    const response: any = {
-      status: 'success',
-      data: 'thisistoken',
-    };
+  it('#signIn should update tokens and then #getAccessToken should return valid access token', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
 
-    service.signIn('lorem', 'ipsum');
-
-    const req = httpMock.expectOne(`${environment.api.origin}/login`);
-    expect(req.request.method).toBe('POST');
-    req.flush(response);
+    expect(service.getAccessToken()).toEqual('acc3sst0k3n');
   });
 
-  it('#refreshToken should trigger sending a login request', () => {
-    const response: any = {
-      status: 'success',
-      data: 'thisistoken',
-    };
+  it('#getAccessToken call after #signIn then #refresh should return updated valid access token', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
 
-    service.refreshToken();
+    await firstValueFrom(service.refresh());
 
-    const req = httpMock.expectOne(`${environment.api.origin}/login`);
-    expect(req.request.method).toBe('POST');
-    req.flush(response);
+    expect(service.getAccessToken()).toEqual('acc3sst0k3n_2');
   });
 
-  it('#getToken should return the last stored token after the last successful login', () => {
-    const dummyToken = 'thisistoken';
+  it('#getAccessToken call after #signIn then #signOut should return null', async () => {
+    await firstValueFrom(service.signIn('lorem', 'ipsum'));
 
-    service.signIn('lorem', 'ipsum');
+    service.signOut();
 
-    const req = httpMock.expectOne(`${environment.api.origin}/login`);
-    expect(req.request.method).toBe('POST');
-    req.flush({
-      status: 'success',
-      data: dummyToken,
-    });
-
-    expect(service.getToken()).toBe(dummyToken);
+    expect(service.getAccessToken()).toEqual(null);
   });
 
-  it('#getToken should return null when the last login attempt failed', () => {
-    service.signIn('lorem', 'thisiswrongpassword');
-
-    const req = httpMock.expectOne(`${environment.api.origin}/login`);
-    expect(req.request.method).toBe('POST');
-    req.flush({
-      status: 'error',
-      data: null,
-      message: 'lorem ipsum',
-    });
-
-    expect(service.getToken()).toBe(null);
-  });
-
-  it('#getToken should return null when user has not logged in yet', () => {
-    expect(service.getToken()).toBe(null);
+  it('#getRefreshEndpoint should return valid endpoint', () => {
+    expect(service.getRefreshEndpoint()).toEqual(environment.api.refreshEndpoint);
   });
 });

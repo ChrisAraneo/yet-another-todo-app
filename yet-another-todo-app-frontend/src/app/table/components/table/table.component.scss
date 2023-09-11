@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 :host {
@@ -23,14 +24,48 @@
 
 th.cdk-header-cell {
   box-sizing: border-box;
-  height: $unit;
+  height: $_64unit;
   border-bottom: $border;
+
+  span {
+    font-weight: 500;
+  }
 }
 
 .mat-mdc-table .mdc-data-table__row {
-  height: $unit;
+  height: $_64unit;
 }
 
 .searchbar-wrapper {
-  padding: $unit / 4 $unit / 4 0 $unit / 4;
+  padding: $_16unit $_16unit 0 $_16unit;
+}
+
+.mat-column-id {
+  min-width: 85px;
+  max-width: 85px;
+}
+
+.mat-column-title {
+  min-width: 200px;
+}
+
+.mat-column-description {
+  min-width: 400px;
+}
+
+.mat-column-state {
+  min-width: $_64unit;
+  max-width: $_64unit;
+}
+
+.mat-column-creationDate,
+.mat-column-startDate,
+.mat-column-endDate {
+  min-width: 110px;
+  max-width: 110px;
+}
+
+.mat-column-actions {
+  min-width: 132px;
+  max-width: 132px;
 }

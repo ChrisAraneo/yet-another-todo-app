@@ -1,41 +1,28 @@
+@use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
 select,
 select:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: $unit / 6 $unit / 6;
-  font-size: 16px;
+  padding: $_10unit $_10unit;
+  font-size: $_16unit;
   border-radius: $form-input-border-radius;
   outline: none;
   margin: 0;
-  margin-top: 6px;
-  background: url('../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat right
-    #ddd;
+  margin-top: $_6unit;
+  background: url('../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat
+    right #ddd;
   -webkit-appearance: none;
-  background-position-x: calc(100% - $unit / 8);
+  background-position-x: calc(100% - $_8unit);
 }
 
 select:not(:focus) {
   border: $form-input-border;
-  background-color: $form-input-background;
+  background-color: transparent;
 }
 
 select:focus {
   border: $form-input-focus-border;
   background-color: $form-input-focus-background;
-}
-
-label {
-  display: block;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-  padding: 0 2px;
-  margin: 0;
-  margin-top: 6px;
-  font-size: 14px;
-  font-weight: 400;
-  background-color: transparent;
-  color: black;
-  text-transform: uppercase;
-  opacity: 0.8;
 }

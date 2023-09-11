@@ -55,7 +55,9 @@ export class TasksService {
       ? await this.prismaService.createTask(username, task)
       : await this.prismaService.updateTask(username, task);
 
-    const taskState = await this.prismaService.getTaskState(result.stateId);
+    const taskState = (await this.prismaService.getTaskStates()).find(
+      (state) => state.value === task.state.value || state.id === task.state.id,
+    );
 
     return {
       id: result.id,
@@ -80,10 +82,19 @@ export class TasksService {
     };
   }
 
+  // TODO Unit tests, e2e tests, testing
+  async createOrUpdateTasks(username: string, tasks: Task[]): Promise<Task[]> {
+    const result: Task[] = [];
+
+    for (const task of tasks) {
+      result.push(await this.createOrUpdateTask(username, task));
+    }
+
+    return result;
+  }
+
   async removeTask(username: string, task: Task): Promise<Task> {
-    return this.prismaService.removeTask(username, task.id).then(() => {
-      return task;
-    });
+    return this.prismaService.removeTask(username, task.id).then(() => task);
   }
 
   private isNullOrUndefined(item: any): boolean {

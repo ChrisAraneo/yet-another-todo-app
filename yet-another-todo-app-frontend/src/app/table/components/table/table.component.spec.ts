@@ -27,7 +27,7 @@ describe('TableComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(TasksService, {
           getTasks: () => of([]),
-          hideTask: () => undefined,
+          hideTask: () => of(undefined),
         }),
       ],
     }).compileComponents();

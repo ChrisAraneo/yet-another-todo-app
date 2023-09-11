@@ -1,12 +1,17 @@
 <yata-title class="modal-title">{{ 'AddTaskModal.modalTitle' | translate }}</yata-title>
 <form [formGroup]="taskForm">
-  <yata-text-input [formControlName]="'title'" [label]="'AddTaskModal.title' | translate"></yata-text-input>
+  <yata-text-input
+    [formControlName]="'title'"
+    [label]="'AddTaskModal.title' | translate"></yata-text-input>
   <yata-textarea
     [formControlName]="'description'"
     [label]="'AddTaskModal.description' | translate"
     [rows]="2"
     [maxLength]="200"></yata-textarea>
-  <yata-select [formControlName]="'state'" [label]="'AddTaskModal.state' | translate" [options]="states"></yata-select>
+  <yata-select
+    [formControlName]="'state'"
+    [label]="'AddTaskModal.state' | translate"
+    [options]="states"></yata-select>
   <yata-date-picker
     *ngIf="!!showStartDateControl && (showStartDateControl | async)"
     [formControlName]="'startDate'"
@@ -15,7 +20,9 @@
     *ngIf="!!showEndDateControl && (showEndDateControl | async)"
     [formControlName]="'endDate'"
     [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
-  <button mat-flat-button color="primary" (click)="submit()" [disabled]="taskForm.invalid">
-    {{ 'AddTaskModal.submit' | translate }}
-  </button>
+  <yata-modal-action-buttons
+    [form]="taskForm"
+    [submitButton]="{ label: 'AddTaskModal.submit', click: submit }"
+    [cancelButton]="{ label: 'AddTaskModal.cancel', click: cancel }">
+  </yata-modal-action-buttons>
 </form>

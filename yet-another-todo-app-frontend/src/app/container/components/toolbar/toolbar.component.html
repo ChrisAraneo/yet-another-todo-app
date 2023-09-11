@@ -1,9 +1,20 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button [attr.aria-label]="'Toolbar.menuIcon' | translate" (click)="onMenuClick()">
-    <mat-icon>menu</mat-icon>
-  </button>
+  <div class="menu-button-wrapper">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Toolbar.menuIcon' | translate"
+      (click)="onMenuClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
   <yata-title>{{ title }}</yata-title>
-  <button mat-icon-button [attr.aria-label]="'Toolbar.githubIcon' | translate" (click)="onGitClick()">
-    <img src="assets/images/github-mark.svg" style="width: 24px; height: 24px" />
-  </button>
+  <div class="logged-user-information-wrapper" *ngIf="!isOfflineMode; else offlineMode">
+    <yata-logged-user-information [username]="username"></yata-logged-user-information>
+    <yata-sign-out-button *ngIf="!isOfflineMode"></yata-sign-out-button>
+  </div>
+  <ng-template #offlineMode>
+    <div class="offline-mode-wrapper">
+      <yata-offline-indicator></yata-offline-indicator>
+    </div>
+  </ng-template>
 </mat-toolbar>

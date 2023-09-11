@@ -1,6 +1,6 @@
 {
   "name": "yet-another-todo-app-backend",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "author": "Krzysztof Pająk",
   "private": true,
   "license": "MIT",
@@ -74,7 +74,9 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "**/*.service.(t|j)s",
+      "**/*.controller.(t|j)s",
+      "!**/prisma.service.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
