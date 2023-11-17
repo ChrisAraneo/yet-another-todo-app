@@ -7,6 +7,7 @@ export const COLOR_DANGER = 'orange';
 export const COLOR_TEXT = 'black';
 export const COLOR_DISABLED = '#888888';
 
-export const BORDER = `1px solid ${COLOR_TEXT}`;
+export const BORDER_COLOR = '#C7DAE3';
+export const BORDER = `1px solid ${BORDER_COLOR}`;
 
 export const DIALOG_WIDTH = `${UNIT * 12}px`;

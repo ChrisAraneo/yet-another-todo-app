@@ -43,10 +43,10 @@ $theme: mat.define-light-theme(
   )
 );
 
-$primary-color: mat.get-color-from-palette($theme-primary, 600);
+$primary-color: #a5e4ff;
 $warn-color: mat.get-color-from-palette($theme-warn, 600);
 
-$border-color: black;
+$border-color: #c7dae3;
 $border: 1px solid $border-color;
 $border-radius: 0;
 
