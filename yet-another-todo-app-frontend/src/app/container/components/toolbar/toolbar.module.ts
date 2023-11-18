@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
+import { ToolbarModule as PrimeNgToolbarModule } from 'primeng/toolbar';
 import { HttpLoaderFactory } from 'src/app/app.module';
 import { MaterialModule } from '../../../shared/material.module';
 import { SharedModule } from '../../../shared/shared.module';
@@ -28,6 +30,8 @@ import { ToolbarComponent } from './toolbar.component';
         deps: [HttpClient],
       },
     }),
+    PrimeNgToolbarModule,
+    ButtonModule,
     MaterialModule,
   ],
   providers: [],
