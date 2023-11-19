@@ -46,6 +46,10 @@
   width: math.div(100%, 3);
 }
 
+.menu-button-wrapper {
+  margin-left: $_12unit;
+}
+
 yata-title {
   width: math.div(100%, 3.5);
   text-align: center;
@@ -66,4 +70,8 @@ yata-title {
 
 yata-logged-user-information {
   margin-right: $_16unit;
+}
+
+yata-sign-out-button {
+  margin-right: $_10unit;
 }
