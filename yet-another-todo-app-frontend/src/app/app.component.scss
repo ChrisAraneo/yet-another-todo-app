@@ -2,11 +2,12 @@
 
 main {
   width: 100%;
-  background-color: $theme-background-color;
   height: calc(100vh - $_64unit * 2 - ($_32unit - $_2unit));
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
+  background: none;
+  background-color: transparent;
 }
 
 yata-side-navigation {

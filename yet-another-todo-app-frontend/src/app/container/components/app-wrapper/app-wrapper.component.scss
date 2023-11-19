@@ -9,7 +9,8 @@
   display: flex;
   justify-items: center;
   align-items: center;
-  background-image: url('../../../../assets/images/wladislaw-sokolowskij-0vw4InAC-yM-unsplash.jpg');
+  background-color: transparent;
+  background-image: url('../../../../assets/images/pexels-bri-schneiter-5020934.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -22,7 +23,7 @@
   border: $border;
   width: 100%;
   height: calc(100vh - $_64unit + $_2unit);
-  background-color: $theme-background-color;
+  background-color: transparent;
 }
 
 .hidden {
