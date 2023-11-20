@@ -2,8 +2,9 @@
 @import '../../styles/variables.scss';
 
 span {
-  font-family: 'Spectral', serif;
+  font-family: 'Gentium', sans-serif;
   font-size: $_18unit;
   line-height: $_20unit;
   font-weight: 500;
+  color: $theme-subtitle-text-color;
 }

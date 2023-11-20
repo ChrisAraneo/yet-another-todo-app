@@ -2,8 +2,9 @@
 @import '../../styles/variables.scss';
 
 h1 {
-  font-family: 'Spectral', serif;
-  font-size: $_20unit;
+  font-family: 'Gentium', sans-serif;
+  font-size: $_22unit;
   line-height: $_24unit;
   font-weight: 500;
+  color: $theme-title-text-color;
 }
