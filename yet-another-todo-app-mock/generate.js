@@ -40,24 +40,36 @@ const taskStates = [
 const tasks = [];
 
 function generate() {
-  const storePath = process.argv[2]
-    ? process.argv[2]
-    : path.join(process.cwd(), "/store.json");
+  const storePath = process.argv[2] ? process.argv[2] : path.join(process.cwd(), "/store.json");
 
-  const numberOfTasks = process.argv[3] ? +process.argv[3] : 100;
+  const totalNumberOfTasks = process.argv[3] ? +process.argv[3] : 750;
+  const numberOfNotStartedTasks = totalNumberOfTasks < 10 ? totalNumberOfTasks : 10;
+  const startDate = addDays(new Date(), -365);
+  const endDate = addDays(new Date(), 365);
 
-  let i = 0;
-  while (i < numberOfTasks) {
-    tasks.push(createRandomTask());
-    i++;
+  while (tasks.length < totalNumberOfTasks - numberOfNotStartedTasks) {
+    let date = startDate;
+
+    while (+date < +endDate) {
+      if (tasks.length < totalNumberOfTasks - numberOfNotStartedTasks) {
+        const taskStateId = getRandomInt(taskStates.length - 2);
+        const taskState = taskStates[taskStateId + 1];
+        tasks.push(createRandomTask(date, date, taskState));
+        date = addDays(date, 1);
+      } else {
+        date = endDate;
+      }
+    }
+  }
+
+  for (let i = 0; i < numberOfNotStartedTasks; i++) {
+    tasks.push(createRandomTask(new Date(), undefined, taskStates[0]));
   }
 
   writeStoreFile(storePath, JSON.stringify(tasks));
 }
 
-function createRandomTask() {
-  const taskStateId = getRandomInt(taskStates.length - 1);
-  const taskState = taskStates[taskStateId];
+function createRandomTask(startDate, endDate, taskState) {
   const lorem = faker.lorem.lines(1).split(" ");
 
   let task = {
@@ -65,20 +77,19 @@ function createRandomTask() {
     title: `${lorem[0]} ${lorem[1]}`,
     description: faker.lorem.lines(1),
     state: taskState,
-    creationDate: new Date(),
+    creationDate: startDate,
     isHidden: faker.datatype.boolean(),
     startDate: undefined,
     endDate: undefined,
   };
 
   if (taskState.value !== "NOT_STARTED") {
-    task.startDate = addDays(new Date(), getRandomInt(200) - 100);
+    task.startDate = startDate;
   }
 
-  if (taskState.value === "COMPLETED" || taskState.value === "REJECTED") {
-    task.endDate = addDays(task.startDate, getRandomInt(200));
+  if (taskState.value !== "NOT_STARTED" && taskState.value !== "IN_PROGRESS" && taskState.value !== "SUSPENDED") {
+    task.endDate = endDate;
   }
-
   return task;
 }
 
