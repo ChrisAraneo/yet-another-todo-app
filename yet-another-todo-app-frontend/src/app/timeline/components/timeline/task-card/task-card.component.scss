@@ -34,11 +34,18 @@ mat-card {
 .mat-mdc-card-content {
   justify-content: center;
   text-align: center;
+
+  p {
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+    font-size: $_14unit;
+  }
 }
 
 .mat-mdc-card-header {
   justify-content: center;
   text-align: center;
+  margin-bottom: $_14unit;
 }
 
 .mat-mdc-icon-button {
