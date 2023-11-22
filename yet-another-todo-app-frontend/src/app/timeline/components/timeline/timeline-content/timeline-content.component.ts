@@ -12,8 +12,8 @@ import { TimelineColumn } from './timeline-content.types';
 })
 export class TimelineContentComponent implements OnChanges {
   @Input() today!: Date;
-  @Input() startDate!: Date;
-  @Input() endDate!: Date;
+  @Input() startDate!: Date | null;
+  @Input() endDate!: Date | null;
   @Input() tasks: Task[] = [];
   @Input() tasksStateSortOrder: TaskState[] = [];
   @Input() tasksStateFilter: TaskState[] = [];

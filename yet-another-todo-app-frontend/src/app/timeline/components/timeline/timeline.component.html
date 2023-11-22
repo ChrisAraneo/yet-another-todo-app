@@ -27,17 +27,17 @@
   </yata-timeline-header>
 </div>
 <yata-column-highlight
-  [startDate]="startDate"
-  [endDate]="endDate"
+  [startDate]="startDate | async"
+  [endDate]="endDate | async"
   [highlightedDate]="today"
   [height]="columnHighlightHeight">
 </yata-column-highlight>
 <yata-timeline-content
-  *ngIf="startDate && endDate"
+  *ngIf="!!(startDate | async) && !!(endDate | async)"
   [today]="today"
-  [startDate]="startDate"
-  [endDate]="endDate"
+  [startDate]="startDate | async"
+  [endDate]="endDate | async"
   [tasks]="(tasks | async) || []"
-  [tasksStateSortOrder]="tasksStateSortOrder"
-  [tasksStateFilter]="tasksStateFilter">
+  [tasksStateSortOrder]="(tasksStateSortOrder | async) || []"
+  [tasksStateFilter]="(tasksStateFilter | async) || []">
 </yata-timeline-content>

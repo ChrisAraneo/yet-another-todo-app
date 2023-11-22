@@ -1,14 +1,13 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, debounceTime, first, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, debounceTime, map } from 'rxjs';
 import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
-import { TaskState } from './shared/models/task-state.model';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
-import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 @Component({
@@ -17,18 +16,14 @@ import { TimelineComponent } from './timeline/components/timeline/timeline.compo
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy, AfterViewInit {
-  @ViewChild('timeline') timelineElementRef!: TimelineComponent;
+  @ViewChild(TimelineComponent) timelineElementRef!: TimelineComponent;
 
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
   appMode: AppMode = AppMode.Timeline;
-  isAppVisible: boolean = false;
   isMenuOpened: boolean = true;
-  timelineStartDate!: Observable<Date>;
-  timelineEndDate!: Observable<Date>;
-  timelineTasksStateSortOrder!: Observable<TaskState[]>;
-  timelineTasksStateFilter!: Observable<TaskState[]>;
+  isAppVisible!: BehaviorSubject<boolean>;
   username!: Observable<string | null>;
   isOfflineMode!: Observable<boolean>;
   tableSort!: Observable<MatSortable>;
@@ -41,9 +36,11 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     private userService: UserService,
     private dialogService: DialogService,
     private viewConfigurationService: ViewConfigurationService,
+    private router: Router,
   ) {
     this.initializeTranslateService();
-    this.initializeTimelineConfigurationObservables();
+    this.initializeIsAppVisibleObservable();
+    // this.initializeTimelineConfigurationObservables();
     this.initializeTableConfigurationObservables();
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
@@ -51,7 +48,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.centerTimelineScrollOnTodayColumn();
+    // TODO Fix centering timeline
+    // this.centerTimelineScrollOnTodayColumn();
   }
 
   ngOnDestroy(): void {
@@ -66,14 +64,6 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.appMode = mode;
   }
 
-  changeStartDate(startDate: Date): void {
-    this.viewConfigurationService.changeTimelineStartDate(startDate);
-  }
-
-  changeEndDate(endDate: Date): void {
-    this.viewConfigurationService.changeTimelineEndDate(endDate);
-  }
-
   private initializeTranslateService(): void {
     this.translateService.addLangs(['en', 'pl']);
     this.translateService.setDefaultLang('en');
@@ -83,22 +73,8 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     this.translateService.use(browserCultureLang || 'en');
   }
 
-  private initializeTimelineConfigurationObservables(): void {
-    this.timelineStartDate = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.startDate));
-
-    this.timelineEndDate = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.endDate));
-
-    this.timelineTasksStateSortOrder = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.order));
-
-    this.timelineTasksStateFilter = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.filter));
+  private initializeIsAppVisibleObservable(): void {
+    this.isAppVisible = new BehaviorSubject(false);
   }
 
   private initializeTableConfigurationObservables(): void {
@@ -121,27 +97,32 @@ export class AppComponent implements OnDestroy, AfterViewInit {
       .pipe(debounceTime(200))
       .subscribe((state) => {
         if (!state.isLogged && !state.isOfflineMode) {
-          this.isAppVisible = false;
+          this.isAppVisible.next(false);
           this.dialogService.openSignInModal();
         } else {
-          this.isAppVisible = true;
+          this.isAppVisible.next(true);
+
+          if (this.router.url === '/timeline') {
+            // this.centerTimelineScrollOnTodayColumn(); // TODO
+          }
         }
       });
   }
 
-  private centerTimelineScrollOnTodayColumn(): void {
-    this.timelineStartDate?.pipe(first()).subscribe((startDate) => {
-      const element = this.timelineElementRef.elementRef.nativeElement;
+  // TODO Fix
+  // private centerTimelineScrollOnTodayColumn(): void {
+  //   this.timelineStartDate?.pipe(first()).subscribe((startDate) => {
+  //     const element = this.timelineElementRef.elementRef.nativeElement;
 
-      const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
-      const timelineContentMargin = UNIT;
-      const elementClientWidth = element.clientWidth;
-      const columnsInView = elementClientWidth / COLUMN_WIDTH;
+  //     const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
+  //     const timelineContentMargin = UNIT;
+  //     const elementClientWidth = element.clientWidth;
+  //     const columnsInView = elementClientWidth / COLUMN_WIDTH;
 
-      const scrollLeft =
-        offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
+  //     const scrollLeft =
+  //       offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
 
-      element.scrollLeft = scrollLeft;
-    });
-  }
+  //     element.scrollLeft = scrollLeft;
+  //   });
+  // }
 }
