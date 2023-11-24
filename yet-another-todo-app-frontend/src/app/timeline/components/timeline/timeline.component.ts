@@ -7,7 +7,6 @@ import { UNIT } from 'src/app/shared/styles/theme';
 import { TaskState } from '../../../shared/models/task-state.model';
 import { Task } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
-// import { TaskState } from '../../../shared/models/task-state.model';
 
 @Component({
   selector: 'yata-timeline',
@@ -17,8 +16,8 @@ import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly today = new Date();
 
-  startDate!: BehaviorSubject<Date | null>;
-  endDate!: BehaviorSubject<Date | null>;
+  startDate: BehaviorSubject<Date | null> = new BehaviorSubject<Date | null>(null);
+  endDate: BehaviorSubject<Date | null> = new BehaviorSubject<Date | null>(null);
   tasksStateSortOrder!: Observable<TaskState[]>;
   tasksStateFilter!: Observable<TaskState[]>;
 
@@ -29,7 +28,7 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   columnHighlightHeight: string = '0px';
 
   private observer!: ResizeObserver;
-  private subscription: Subscription = new Subscription();
+  private subscription?: Subscription;
 
   constructor(
     public elementRef: ElementRef,
@@ -43,46 +42,9 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // TODO Refactoring, cleaner code
-    this.startDate = new BehaviorSubject<Date | null>(null);
-
-    this.subscription.add(
-      this.viewConfigurationService
-        .getTimelineConfiguration()
-        .pipe(map((config) => config.startDate))
-        .subscribe((startDate) => {
-          this.startDate.next(startDate);
-
-          const endDate = this.endDate?.getValue();
-          this.update(startDate, endDate || undefined);
-        }),
-    );
-
-    // TODO Refactoring, cleaner code
-    this.endDate = new BehaviorSubject<Date | null>(null);
-
-    this.subscription.add(
-      this.viewConfigurationService
-        .getTimelineConfiguration()
-        .pipe(map((config) => config.endDate))
-        .subscribe((endDate) => {
-          this.endDate.next(endDate);
-
-          const startDate = this.startDate?.getValue();
-          this.update(startDate || undefined, endDate);
-        }),
-    );
-
-    // TODO Refactoring, cleaner code
-    this.tasksStateSortOrder = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.order));
-
-    // TODO Refactoring, cleaner code
-    this.tasksStateFilter = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.filter));
-
+    this.initializeSubjects();
+    this.initializeObservables();
+    this.subscribeToConfigurationChanges();
     this.initializeResizeObserver();
   }
 
@@ -97,13 +59,16 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   update(startDate?: Date, endDate?: Date): void {
-    // TODO Handle too many days selected
-    // const daysInPeriodOfTime = this.dateUtils.getNumberOfDaysBetweenDates(startDate, endDate);
+    const daysInPeriodOfTime: number =
+      startDate && endDate
+        ? this.dateUtils.getNumberOfDaysBetweenDates(startDate, endDate)
+        : Number.NaN;
 
-    // if (daysInPeriodOfTime > 10 * 365) {
-    // TODO Handle too many days selected
-    // return;
-    // }
+    if (!isNaN(daysInPeriodOfTime) && daysInPeriodOfTime > 10 * 365) {
+      throw Error('Selected too many days to display on the timeline');
+    }
+
+    // TODO What in case of NaN?
 
     this.updateTasks(startDate, endDate);
     this.updateTimelineHeaders(startDate, endDate);
@@ -137,6 +102,52 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.changeStartDate(firstDayOfNextMonth);
       this.changeEndDate(this.dateUtils.getLastDayOfTheMonth(firstDayOfNextMonth));
+    }
+  }
+
+  private initializeSubjects(): void {
+    this.startDate = new BehaviorSubject<Date | null>(null);
+    this.endDate = new BehaviorSubject<Date | null>(null);
+  }
+
+  private initializeObservables(): void {
+    this.tasksStateSortOrder = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.order));
+
+    this.tasksStateFilter = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.filter));
+  }
+
+  private subscribeToConfigurationChanges(): void {
+    const startDateChangesSubscription = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.startDate))
+      .subscribe((startDate) => {
+        this.startDate.next(startDate);
+
+        const endDate = this.endDate?.getValue();
+        this.update(startDate, endDate || undefined);
+      });
+
+    const endDateChangesSubscription = this.viewConfigurationService
+      .getTimelineConfiguration()
+      .pipe(map((config) => config.endDate))
+      .subscribe((endDate) => {
+        this.endDate.next(endDate);
+
+        const startDate = this.startDate?.getValue();
+        this.update(startDate || undefined, endDate);
+      });
+
+    if (!this.subscription) {
+      this.subscription = startDateChangesSubscription;
+      this.subscription.add(endDateChangesSubscription);
+    } else {
+      this.subscription.unsubscribe();
+      this.subscription.add(startDateChangesSubscription);
+      this.subscription.add(endDateChangesSubscription);
     }
   }
 
@@ -218,6 +229,7 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
     button['top'] !== `${y}px` && (button.top = `${y}px`);
   }
 
+  // TODO Move to pipe
   private capitalizeFirstLetter(text: string): string {
     return text.charAt(0).toUpperCase() + text.slice(1);
   }

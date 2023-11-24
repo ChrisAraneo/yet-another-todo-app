@@ -9,7 +9,7 @@
       [isOpened]="isMenuOpened"
       [mode]="appMode"
       (modeChange)="changeAppMode($event)"></yata-side-navigation>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="onRouterOutletActivated($event)"></router-outlet>
     <div class="table-wrapper" *ngIf="appMode === tableMode">
       <yata-table [sort]="tableSort | async"></yata-table>
     </div>
