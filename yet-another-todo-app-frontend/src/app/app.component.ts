@@ -20,7 +20,6 @@ export class AppComponent implements OnDestroy {
   readonly timelineMode = AppMode.Timeline;
   readonly tableMode = AppMode.Table;
 
-  appMode: AppMode = AppMode.Timeline;
   isMenuOpened: boolean = true;
   isAppVisible!: BehaviorSubject<boolean>;
   isOfflineMode!: Observable<boolean>;
@@ -61,10 +60,6 @@ export class AppComponent implements OnDestroy {
 
   onMenuClick(): void {
     this.isMenuOpened = !this.isMenuOpened;
-  }
-
-  changeAppMode(mode: AppMode): void {
-    this.appMode = mode;
   }
 
   private initializeTranslateService(): void {

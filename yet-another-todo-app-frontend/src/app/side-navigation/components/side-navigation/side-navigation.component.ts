@@ -1,5 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AppMode } from 'src/app/app.types';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { BORDER, UNIT } from 'src/app/shared/styles/theme';
@@ -30,31 +32,58 @@ import { NavigationItem } from './side-navigation.types';
     ]),
   ],
 })
-export class SideNavigationComponent implements OnChanges {
+export class SideNavigationComponent implements OnInit, OnDestroy {
   @Input() isOpened: boolean = true;
-  @Input() mode: AppMode = AppMode.Timeline;
 
-  @Output() modeChange: EventEmitter<AppMode> = new EventEmitter<AppMode>();
-
+  mode?: AppMode;
   items: NavigationItem[] = [];
 
-  constructor(private dialogService: DialogService) {}
+  private subscription?: Subscription;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const currentMode = changes['mode'] && changes['mode'].currentValue;
-    const previousMode = changes['mode'] && changes['mode'].previousValue;
+  constructor(private router: Router, private dialogService: DialogService) {}
 
-    if (currentMode !== previousMode) {
-      this.updateNavigationItems(currentMode);
+  ngOnInit(): void {
+    this.subscribeToUrlChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
+  }
+
+  private subscribeToUrlChanges(): void {
+    const subscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const urlPart = event.url.split('/').filter((part) => !!part)[0];
+
+        if (urlPart === 'timeline' || urlPart === 'table') {
+          const currentMode = urlPart === 'timeline' ? AppMode.Timeline : AppMode.Table;
+          const previousMode = this.mode;
+
+          if (currentMode !== previousMode) {
+            this.updateNavigationItems(currentMode);
+          }
+
+          this.mode = currentMode;
+        } else {
+          throw Error('Incorrect app mode');
+        }
+      }
+    });
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.unsubscribe();
+      this.subscription.add(subscription);
     }
   }
 
-  private updateNavigationItems(mode: AppMode): void {
+  private updateNavigationItems(mode?: AppMode): void {
     const showTable = {
       icon: 'list',
       label: 'SideNavigation.tableView',
       click: (): void => {
-        this.modeChange.emit(AppMode.Table);
+        this.router.navigate(['table']);
       },
     };
 
@@ -62,7 +91,7 @@ export class SideNavigationComponent implements OnChanges {
       icon: 'event_note',
       label: 'SideNavigation.timelineView',
       click: (): void => {
-        this.modeChange.emit(AppMode.Timeline);
+        this.router.navigate(['timeline']);
       },
     };
 

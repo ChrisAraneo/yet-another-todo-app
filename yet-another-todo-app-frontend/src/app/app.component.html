@@ -5,14 +5,8 @@
     [isOfflineMode]="!!(isOfflineMode | async)"
     (menuClick)="onMenuClick()"></yata-toolbar>
   <main>
-    <yata-side-navigation
-      [isOpened]="isMenuOpened"
-      [mode]="appMode"
-      (modeChange)="changeAppMode($event)"></yata-side-navigation>
+    <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
     <router-outlet (activate)="onRouterOutletActivated($event)"></router-outlet>
-    <div class="table-wrapper" *ngIf="appMode === tableMode">
-      <yata-table [sort]="tableSort | async"></yata-table>
-    </div>
   </main>
   <yata-footer></yata-footer>
 </yata-app-wrapper>

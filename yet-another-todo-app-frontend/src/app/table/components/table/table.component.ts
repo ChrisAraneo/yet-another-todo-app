@@ -27,7 +27,7 @@ import { TABLE_DISPLAYED_COLUMNS, TABLE_PAGE_SIZE_OPTIONS } from './table.config
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
-  @Input('sort') sort: MatSortable | null = null;
+  @Input('sort') sort: MatSortable | null = null; // TODO Get from the store because its not passed to input anymore
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) matSortDirective?: MatSort;
