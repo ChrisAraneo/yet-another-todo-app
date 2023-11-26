@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,6 +6,7 @@ import { BehaviorSubject, Subscription, map } from 'rxjs';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
 import { TasksSorterService } from '../../services/tasks-sorter/tasks-sorter.service';
 import { SortActive } from '../../services/tasks-sorter/tasks-sorter.types';
@@ -26,9 +18,7 @@ import { TABLE_DISPLAYED_COLUMNS, TABLE_PAGE_SIZE_OPTIONS } from './table.config
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
-  @Input('sort') sort: MatSortable | null = null; // TODO Get from the store because its not passed to input anymore
-
+export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) matSortDirective?: MatSort;
 
@@ -36,6 +26,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
   readonly displayedColumns = TABLE_DISPLAYED_COLUMNS;
 
   data: MatTableDataSource<TasksDataSource> | undefined;
+  sort: BehaviorSubject<MatSortable | null> = new BehaviorSubject<MatSortable | null>(null);
 
   private _data = new BehaviorSubject<MatTableDataSource<TasksDataSource> | undefined>(undefined);
   private search = new BehaviorSubject<string>('');
@@ -47,19 +38,8 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
     private dateUtilsService: DateUtilsService,
     private dialogService: DialogService,
     private tasksSorterService: TasksSorterService,
+    private viewConfigurationService: ViewConfigurationService,
   ) {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const sort: MatSortable | null = changes['sort'].currentValue;
-
-    if (!!sort) {
-      this.changeSort({ active: sort.id, direction: sort.start });
-
-      if (this.sort !== null) {
-        this.matSortDirective?.sort(this.sort);
-      }
-    }
-  }
 
   ngOnInit(): void {
     const tasks = this.tasksService
@@ -78,10 +58,22 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
       this.updateTableDataSource(text, this._sort.getValue());
     });
 
+    const sortConfigSubscription = this.viewConfigurationService
+      .getTableConfiguration()
+      .pipe(map((config) => config.sort))
+      .subscribe((sort) => {
+        this.sort.next(sort);
+
+        if (sort !== null) {
+          this.matSortDirective?.sort(sort);
+        }
+      });
+
     this.subscription = new Subscription();
     this.subscription.add(tasksSubscription);
     this.subscription.add(sortingSubscription);
     this.subscription.add(searchSubscription);
+    this.subscription.add(sortConfigSubscription);
   }
 
   ngOnDestroy(): void {
@@ -93,8 +85,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy, AfterViewIn
       this.data.paginator = this.paginator;
     }
 
-    if (this.sort !== null) {
-      this.matSortDirective?.sort(this.sort);
+    const sort = this.sort.getValue();
+
+    if (sort !== null) {
+      this.matSortDirective?.sort(sort);
     }
   }
 

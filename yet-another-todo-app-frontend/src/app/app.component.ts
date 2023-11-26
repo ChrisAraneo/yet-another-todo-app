@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
-import { MatSortable } from '@angular/material/sort';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription, debounceTime, map, mergeMap, tap } from 'rxjs';
 import { AppMode } from './app.types';
@@ -24,7 +23,6 @@ export class AppComponent implements OnDestroy {
   isAppVisible!: BehaviorSubject<boolean>;
   isOfflineMode!: Observable<boolean>;
   username!: Observable<string | null>;
-  tableSort!: Observable<MatSortable>;
   timelineElementRef: ElementRef | null = null;
 
   private subscription!: Subscription;
@@ -38,7 +36,6 @@ export class AppComponent implements OnDestroy {
   ) {
     this.initializeTranslateService();
     this.initializeIsAppVisibleObservable();
-    this.initializeTableConfigurationObservables();
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
@@ -73,12 +70,6 @@ export class AppComponent implements OnDestroy {
 
   private initializeIsAppVisibleObservable(): void {
     this.isAppVisible = new BehaviorSubject(false);
-  }
-
-  private initializeTableConfigurationObservables(): void {
-    this.tableSort = this.viewConfigurationService
-      .getTableConfiguration()
-      .pipe(map((config) => config.sort));
   }
 
   private initializeUsernameObservable(): void {
