@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription, debounceTime, map, mergeMap, tap } from 'rxjs';
-import { AppMode } from './app.types';
 import { DialogService } from './modals/services/dialog/dialog.service';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
@@ -16,9 +15,6 @@ import { TimelineComponent } from './timeline/components/timeline/timeline.compo
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
-  readonly timelineMode = AppMode.Timeline;
-  readonly tableMode = AppMode.Table;
-
   isMenuOpened: boolean = true;
   isAppVisible!: BehaviorSubject<boolean>;
   isOfflineMode!: Observable<boolean>;

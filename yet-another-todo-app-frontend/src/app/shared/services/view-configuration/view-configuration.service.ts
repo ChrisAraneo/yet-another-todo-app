@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
 import { TaskState } from '../../models/task-state.model';
 import {
+  setAppMode,
   setTableSort,
   setTimelineEndDate,
   setTimelineStartDate,
@@ -11,6 +13,7 @@ import {
   setTimelineTaskStateOrder,
 } from '../../store/actions/configuration.actions';
 import {
+  AppMode,
   TableConfiguration,
   TimelineConfiguration,
   ViewConfiguration,
@@ -23,8 +26,16 @@ export class ViewConfigurationService {
   private configuration!: BehaviorSubject<ViewConfiguration>;
   private subscription?: Subscription;
 
-  constructor(public store: Store<{ viewConfiguration: ViewConfiguration }>) {
-    this.initializeConfigurationBehaviorSubject();
+  constructor(
+    public store: Store<{ viewConfiguration: ViewConfiguration }>,
+    private router: Router,
+  ) {
+    this.initializeConfigurationSubject();
+    this.subscribeToUrlChanges();
+  }
+
+  getAppMode(): Observable<AppMode> {
+    return this.configuration.asObservable().pipe(map((config) => config.mode));
   }
 
   getTimelineConfiguration(): Observable<TimelineConfiguration> {
@@ -55,17 +66,44 @@ export class ViewConfigurationService {
     this.store.dispatch(setTableSort({ sort }));
   }
 
-  private initializeConfigurationBehaviorSubject(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+  protected changeAppMode(mode: AppMode): void {
+    this.store.dispatch(setAppMode({ mode }));
+  }
 
-    this.subscription = this.store.select('viewConfiguration').subscribe((config) => {
+  private initializeConfigurationSubject(): void {
+    const subscription = this.store.select('viewConfiguration').subscribe((config) => {
       if (!this.configuration) {
         this.configuration = new BehaviorSubject(config);
       } else {
         this.configuration.next(config);
       }
     });
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.add(subscription);
+    }
+  }
+
+  private subscribeToUrlChanges(): void {
+    const subscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const urlPart = event.url.split('/').filter((part) => !!part)[0];
+
+        if (urlPart === 'timeline' || urlPart === 'table') {
+          this.changeAppMode(urlPart === 'timeline' ? AppMode.Timeline : AppMode.Table);
+        } else {
+          console.warn('Undefined app mode');
+          this.changeAppMode(AppMode.Undefined);
+        }
+      }
+    });
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.add(subscription);
+    }
   }
 }

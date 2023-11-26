@@ -10,19 +10,21 @@ import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 import { NavigatorRefService } from '../../services/navigator-ref/navigator-ref.service';
 import { UserLocaleService } from '../../services/user-locale/user-locale.service';
 import {
+  setAppMode,
   setTableSort,
   setTimelineEndDate,
   setTimelineStartDate,
   setTimelineTaskStateFilter,
   setTimelineTaskStateOrder,
 } from '../actions/configuration.actions';
-import { ViewConfiguration } from '../types/view-configuration.type';
+import { AppMode, ViewConfiguration } from '../types/view-configuration.type';
 
 const dateUtilsService = new DateUtilsService(
   new UserLocaleService(new NavigatorRefService(null as unknown as Document)),
 );
 
 export const initialState: ViewConfiguration = {
+  mode: AppMode.Undefined,
   timeline: {
     startDate: getInitialTimelineStartDate(),
     endDate: getInitialTimelineEndDate(),
@@ -52,6 +54,10 @@ export const initialState: ViewConfiguration = {
 
 export const viewConfigurationReducer = createReducer(
   initialState,
+  on(setAppMode, (state, { mode }) => ({
+    ...state,
+    mode: mode,
+  })),
   on(setTimelineStartDate, (state, { startDate }) => ({
     ...state,
     timeline: { ...state.timeline, startDate },
