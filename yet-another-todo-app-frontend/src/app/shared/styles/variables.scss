@@ -48,11 +48,11 @@ $theme: mat.define-light-theme(
 $primary-color: #1893e2;
 $warn-color: mat.get-color-from-palette($theme-warn, 600);
 
-$border-color: #d0d0d5;
+$border-color: #c7c7cb;
 $border: 1px solid $border-color;
 $border-radius: 0;
 
-$form-input-border-color: lighten($border-color, 37.5%);
+$form-input-border-color: lighten($border-color, 4.5%);
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-border-radius: $_4unit;
 $form-input-focus-border: 1px solid !important;
