@@ -10,4 +10,4 @@ export const COLOR_DISABLED = '#888888';
 export const BORDER_COLOR = '#d0d0d5';
 export const BORDER = `1px solid ${BORDER_COLOR}`;
 
-export const DIALOG_WIDTH = `${UNIT * 12}px`;
+export const DIALOG_WIDTH = `${UNIT * 10}px`;
