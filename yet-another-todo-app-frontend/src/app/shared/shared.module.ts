@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ImageModule } from 'primeng/image';
 import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
@@ -49,6 +50,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     }),
     BrowserModule,
     MaterialModule,
+    ImageModule,
   ],
   providers: [
     ApiClientService,
@@ -74,6 +76,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     TitleComponent,
     SubtitleComponent,
     LabelComponent,
+    LogoComponent,
   ],
 })
 export class SharedModule {}
