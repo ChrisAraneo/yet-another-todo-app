@@ -21,6 +21,7 @@ $_24unit: math.div($_64unit, math.div(64, 24));
 $_32unit: math.div($_64unit, math.div(64, 32));
 $_36unit: math.div($_64unit, math.div(64, 36));
 $_40unit: math.div($_64unit, math.div(64, 40));
+$_48unit: math.div($_64unit, math.div(64, 48));
 $_128unit: $_64unit * 2;
 $_192unit: $_64unit * 3;
 
