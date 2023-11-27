@@ -6,6 +6,7 @@ import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { LabelComponent } from './components/label/label.component';
+import { LogoComponent } from './components/logo/logo.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { TitleComponent } from './components/title/title.component';
@@ -35,6 +36,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     SubtitleComponent,
     LabelComponent,
     ErrorSnackbarComponent,
+    LogoComponent,
   ],
   imports: [
     TranslateModule.forRoot({
