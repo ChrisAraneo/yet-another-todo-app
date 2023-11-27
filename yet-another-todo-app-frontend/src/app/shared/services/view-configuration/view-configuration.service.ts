@@ -35,15 +35,15 @@ export class ViewConfigurationService {
   }
 
   getAppMode(): Observable<AppMode> {
-    return this.configuration.asObservable().pipe(map((config) => config.mode));
+    return this.configuration.pipe(map((config) => config.mode));
   }
 
   getTimelineConfiguration(): Observable<TimelineConfiguration> {
-    return this.configuration.asObservable().pipe(map((config) => config.timeline));
+    return this.configuration.pipe(map((config) => config.timeline));
   }
 
   getTableConfiguration(): Observable<TableConfiguration> {
-    return this.configuration.asObservable().pipe(map((config) => config.table));
+    return this.configuration.pipe(map((config) => config.table));
   }
 
   changeTimelineStartDate(date: Date): void {
@@ -89,10 +89,10 @@ export class ViewConfigurationService {
   private subscribeToUrlChanges(): void {
     const subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        const urlPart = event.url.split('/').filter((part) => !!part)[0];
+        const urlParts = (event.urlAfterRedirects || event.url).split('/').filter((part) => !!part);
 
-        if (urlPart === 'timeline' || urlPart === 'table') {
-          this.changeAppMode(urlPart === 'timeline' ? AppMode.Timeline : AppMode.Table);
+        if (urlParts.length && (urlParts[0] === 'timeline' || urlParts[0] === 'table')) {
+          this.changeAppMode(urlParts[0] === 'timeline' ? AppMode.Timeline : AppMode.Table);
         } else {
           console.warn('Undefined app mode');
           this.changeAppMode(AppMode.Undefined);
