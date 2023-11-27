@@ -122,7 +122,6 @@
   },
   "SignInModal": {
     "dontSignIn": "Don't sign in",
-    "modalTitle": "Sign in",
     "password": "Password",
     "signIn": "Sign in",
     "username": "Username"

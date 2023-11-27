@@ -122,7 +122,6 @@
   },
   "SignInModal": {
     "dontSignIn": "Nie loguj się",
-    "modalTitle": "Zaloguj się",
     "password": "Hasło",
     "signIn": "Zaloguj się",
     "username": "Nazwa użytkownika"
