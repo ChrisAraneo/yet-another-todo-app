@@ -1,4 +1,13 @@
-<button mat-button (click)="click($event)">
-  <mat-icon class="navigation-item-icon" *ngIf="!!icon">{{ icon }}</mat-icon>
-  <span *ngIf="!!label">{{ label }}</span>
-</button>
+<ng-container *ngIf="active; else notActive">
+  <div class="navigation-activated-item">
+    <mat-icon class="navigation-item-icon" *ngIf="!!icon">{{ icon }}</mat-icon>
+    <span *ngIf="!!label">{{ label }}</span>
+  </div>
+</ng-container>
+
+<ng-template #notActive>
+  <button mat-button class="navigation-item-button" (click)="click($event)">
+    <mat-icon class="navigation-item-icon" *ngIf="!!icon">{{ icon }}</mat-icon>
+    <span *ngIf="!!label">{{ label }}</span>
+  </button>
+</ng-template>

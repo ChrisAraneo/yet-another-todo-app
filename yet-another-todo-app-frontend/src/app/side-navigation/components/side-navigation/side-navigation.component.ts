@@ -64,6 +64,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const showTable = {
       icon: 'list',
       label: 'SideNavigation.tableView',
+      active: mode === AppMode.Table,
       click: (): void => {
         this.router.navigate(['table']);
       },
@@ -72,6 +73,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const showTimeline = {
       icon: 'event_note',
       label: 'SideNavigation.timelineView',
+      active: mode === AppMode.Timeline,
       click: (): void => {
         this.router.navigate(['timeline']);
       },
@@ -80,7 +82,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const configureTable = {
       icon: 'settings',
       label: 'SideNavigation.configureTable',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(2);
         this.dialogService.openConfigureTableModal();
       },
     };
@@ -88,7 +92,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const configureTimeline = {
       icon: 'settings',
       label: 'SideNavigation.configureTimeline',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(2);
         this.dialogService.openConfigureTimelineModal();
       },
     };
@@ -96,15 +102,22 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const addTask = {
       icon: 'add',
       label: 'SideNavigation.addTask',
+      active: false,
       click: (): void => {
-        this.dialogService.openAddTaskModal();
+        this.router.navigate(['add-task']).then((x) => {
+          console.log(x, 'x');
+          this.activateNavigationItem(3);
+          this.dialogService.openAddTaskModal();
+        });
       },
     };
 
     const editTask = {
       icon: 'edit',
       label: 'SideNavigation.editTask',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(4);
         this.dialogService.openEditTaskModal();
       },
     };
@@ -112,7 +125,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const deleteTask = {
       icon: 'delete',
       label: 'SideNavigation.deleteTask',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(5);
         this.dialogService.openDeleteTaskModal();
       },
     };
@@ -120,7 +135,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const exportTasks = {
       icon: 'folder_zip',
       label: 'SideNavigation.exportTasks',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(6);
         this.dialogService.openExportTasksModal();
       },
     };
@@ -128,32 +145,23 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     const importTasks = {
       icon: 'drive_folder_upload',
       label: 'SideNavigation.importTasks',
+      active: false,
       click: (): void => {
+        this.activateNavigationItem(7);
         this.dialogService.openImportTasksModal();
       },
     };
 
-    if (mode === AppMode.Timeline) {
-      this.items = [
-        showTable,
-        configureTimeline,
-        addTask,
-        editTask,
-        deleteTask,
-        exportTasks,
-        importTasks,
-      ];
-    } else if (mode === AppMode.Table) {
-      this.items = [
-        showTimeline,
-        configureTable,
-        addTask,
-        editTask,
-        deleteTask,
-        exportTasks,
-        importTasks,
-      ];
-    }
+    this.items = [
+      showTimeline,
+      showTable,
+      mode === AppMode.Timeline ? configureTimeline : configureTable,
+      addTask,
+      editTask,
+      deleteTask,
+      exportTasks,
+      importTasks,
+    ];
   }
 
   private subscribeToModeChange(): void {
@@ -166,5 +174,11 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     } else {
       this.subscription.add(subscription);
     }
+  }
+
+  private activateNavigationItem(index: number): void {
+    this.items.forEach((item, i) => {
+      item.active = i === index;
+    });
   }
 }
