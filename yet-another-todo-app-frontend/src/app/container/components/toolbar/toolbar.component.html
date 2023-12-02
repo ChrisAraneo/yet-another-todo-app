@@ -7,7 +7,7 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
-  <yata-title>{{ title }}</yata-title>
+  <yata-title [color]="titleColor">{{ title }}</yata-title>
   <div class="logged-user-information-wrapper" *ngIf="!isOfflineMode; else offlineMode">
     <yata-logged-user-information [username]="username"></yata-logged-user-information>
     <yata-sign-out-button *ngIf="!isOfflineMode"></yata-sign-out-button>

@@ -1,29 +1,11 @@
 @use 'sass:math';
 @use '@angular/material' as mat;
 
+@import './units.scss';
+@import './pallete.scss';
+
 @include mat.all-component-typographies();
 @include mat.core();
-
-$_64unit: 64px;
-
-$_2unit: math.div($_64unit, math.div(64, 2));
-$_4unit: math.div($_64unit, math.div(64, 4));
-$_6unit: math.div($_64unit, math.div(64, 6));
-$_8unit: math.div($_64unit, math.div(64, 8));
-$_10unit: math.div($_64unit, math.div(64, 10));
-$_12unit: math.div($_64unit, math.div(64, 12));
-$_14unit: math.div($_64unit, math.div(64, 14));
-$_16unit: math.div($_64unit, math.div(64, 16));
-$_18unit: math.div($_64unit, math.div(64, 18));
-$_20unit: math.div($_64unit, math.div(64, 20));
-$_22unit: math.div($_64unit, math.div(64, 22));
-$_24unit: math.div($_64unit, math.div(64, 24));
-$_32unit: math.div($_64unit, math.div(64, 32));
-$_36unit: math.div($_64unit, math.div(64, 36));
-$_40unit: math.div($_64unit, math.div(64, 40));
-$_48unit: math.div($_64unit, math.div(64, 48));
-$_128unit: $_64unit * 2;
-$_192unit: $_64unit * 3;
 
 $column-width: $_64unit * 3;
 
@@ -31,9 +13,10 @@ $theme-background-color: white;
 $theme-title-text-color: rgb(45, 45, 45);
 $theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
 
-$theme-primary: mat.define-palette(mat.$indigo-palette);
-$theme-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$theme-warn: mat.define-palette(mat.$red-palette);
+$theme-primary: mat.define-palette($yata-palette-primary);
+$theme-accent: mat.define-palette($yata-palette-secondary, A200, A100, A400);
+$theme-warn: mat.define-palette($yata-palette-red);
+$theme-grey: mat.define-palette($yata-palette-grey);
 
 $theme: mat.define-light-theme(
   (
@@ -46,16 +29,30 @@ $theme: mat.define-light-theme(
   )
 );
 
-$primary-color: #1893e2;
+$primary-color: mat.get-color-from-palette($theme-primary, 600);
+$primary-color-50: mat.get-color-from-palette($theme-primary, 50);
+$primary-color-100: mat.get-color-from-palette($theme-primary, 100);
+$primary-color-200: mat.get-color-from-palette($theme-primary, 200);
+$primary-color-300: mat.get-color-from-palette($theme-primary, 300);
+$primary-color-400: mat.get-color-from-palette($theme-primary, 400);
+$primary-color-500: mat.get-color-from-palette($theme-primary, 500);
+$primary-color-600: mat.get-color-from-palette($theme-primary, 600);
+
 $warn-color: mat.get-color-from-palette($theme-warn, 600);
 
-$border-color: #c7c7cb;
+$grey-color: mat.get-color-from-palette($theme-grey, 600);
+$grey-color-50: mat.get-color-from-palette($theme-grey, 50);
+$grey-color-100: mat.get-color-from-palette($theme-grey, 100);
+$grey-color-200: mat.get-color-from-palette($theme-grey, 200);
+$grey-color-300: mat.get-color-from-palette($theme-grey, 300);
+
+$border-color: mat.get-color-from-palette($theme-grey, 300);
 $border: 1px solid $border-color;
 $border-radius: 0;
 
 $form-input-border-color: lighten($border-color, 4.5%);
 $form-input-border: 1px solid $form-input-border-color;
-$form-input-border-radius: $_4unit;
+$form-input-border-radius: $_6unit;
 $form-input-focus-border: 1px solid !important;
 $form-input-background: darken($theme-background-color, 2%) $primary-color !important;
 $form-input-focus-background: lighten(

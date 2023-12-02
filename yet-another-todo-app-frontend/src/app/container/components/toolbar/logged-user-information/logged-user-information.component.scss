@@ -13,6 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  color: $grey-color-300;
 
   span {
     display: block;
@@ -27,6 +28,7 @@
     line-height: $_14unit;
     font-weight: 400;
     opacity: 1;
+    color: $primary-color-100;
     background-color: transparent;
     text-transform: uppercase;
   }
