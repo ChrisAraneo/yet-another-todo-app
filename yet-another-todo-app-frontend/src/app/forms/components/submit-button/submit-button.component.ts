@@ -16,6 +16,8 @@ export class SubmitButtonComponent {
   @Input() color: string = 'primary';
   @Input() icon?: string;
 
+  readonly spinnerDiameter = 24;
+
   isLoading: boolean = false;
 
   onButtonClick(event?: any): void {

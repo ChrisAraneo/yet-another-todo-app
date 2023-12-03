@@ -1,13 +1,20 @@
 @import '../../../shared/styles/variables.scss';
 
+$spinner-wrapper-width: 24px;
+$submit-button-wrapper-height: $_48unit;
+$submit-button-border-radius: $_10unit;
+
 .submit-button-wrapper {
   width: 100%;
-  max-width: $_192unit;
+  max-width: $_256unit;
+  height: $submit-button-wrapper-height;
 
   ::ng-deep {
     button {
       margin: 0;
       width: 100% !important;
+      height: 100% !important;
+      border-radius: $submit-button-border-radius;
     }
   }
 
@@ -21,12 +28,12 @@
   }
 
   .spinner-wrapper {
-    width: 22px;
+    width: $spinner-wrapper-width;
   }
 
   .spinner-wrapper {
-    height: 36px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+    height: $submit-button-wrapper-height;
+    padding-top: ($submit-button-wrapper-height - $spinner-wrapper-width) * 0.5;
+    padding-bottom: ($submit-button-wrapper-height - $spinner-wrapper-width) * 0.5;
   }
 }
