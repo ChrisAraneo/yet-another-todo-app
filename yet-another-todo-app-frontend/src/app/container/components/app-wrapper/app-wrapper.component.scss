@@ -14,16 +14,39 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  z-index: 0;
 }
 
 .border {
+  position: absolute;
+  top: $_32unit - $_1unit;
+  left: $_32unit;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  border: $border;
+  width: calc(100% - $_64unit);
+  height: calc(100vh - $_64unit + $_2unit);
+  border-image: linear-gradient(
+      $primary-color-800 0%,
+      $primary-color-800 25%,
+      $border-color 50%,
+      $border-color 100%
+    )
+    30;
+  border-width: 100%;
+  border-style: solid;
+  z-index: 1;
+}
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: $_1unit;
   width: 100%;
   height: calc(100vh - $_64unit + $_2unit);
   background-color: transparent;
+  z-index: 3;
 }
 
 .hidden {

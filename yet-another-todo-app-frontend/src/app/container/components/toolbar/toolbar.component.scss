@@ -19,8 +19,8 @@
   height: 100%;
   max-height: $_64unit;
   border: none;
-  border-bottom: px solid $primary-color;
-  border-radius: $border-radius;
+  border-bottom: 1px solid $primary-color-800;
+  border-radius: 0;
   max-height: $_64unit;
   padding: 0;
   margin: 0;
@@ -28,8 +28,8 @@
   background-image: linear-gradient(
     90deg,
     $primary-color-500 0%,
-    lighten($primary-color-500, 12%) 50%,
-    lighten($primary-color-500, 8%) 100%
+    lighten($primary-color-500, 14%) 50%,
+    $primary-color-500 100%
   );
   background-size: cover;
   background-repeat: no-repeat;
