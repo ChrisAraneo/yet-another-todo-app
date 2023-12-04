@@ -1,5 +1,6 @@
 $_64unit: 64px;
 
+$_1unit: math.div($_64unit, 64);
 $_2unit: math.div($_64unit, math.div(64, 2));
 $_4unit: math.div($_64unit, math.div(64, 4));
 $_6unit: math.div($_64unit, math.div(64, 6));
