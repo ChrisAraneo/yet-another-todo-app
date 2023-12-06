@@ -104,10 +104,8 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.addTask',
       active: false,
       click: (): void => {
-        this.router.navigate(['add-task']).then((x) => {
-          console.log(x, 'x');
+        this.router.navigate(['add-task']).then(() => {
           this.activateNavigationItem(3);
-          this.dialogService.openAddTaskModal();
         });
       },
     };
