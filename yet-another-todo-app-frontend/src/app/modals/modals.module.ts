@@ -14,6 +14,7 @@ import { TaskStateTranslatorService } from '../shared/services/task-state-transl
 import { TasksService } from '../shared/services/tasks/tasks.service';
 import { UserService } from '../shared/services/user/user.service';
 import { SharedModule } from '../shared/shared.module';
+import { AddTaskModalLauncherComponent } from './components/add-task-modal-launcher/add-task-modal-launcher.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from './components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from './components/configure-timeline-modal/configure-timeline-modal.component';
@@ -31,6 +32,7 @@ import { DialogService } from './services/dialog/dialog.service';
   declarations: [
     ModalActionButtonsComponent,
     AddTaskModalComponent,
+    AddTaskModalLauncherComponent,
     DeleteTaskModalComponent,
     EditTaskModalComponent,
     SignInModalComponent,
