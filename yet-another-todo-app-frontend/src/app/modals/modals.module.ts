@@ -69,5 +69,6 @@ import { DialogService } from './services/dialog/dialog.service';
     TaskCreatorService,
     DialogService,
   ],
+  exports: [AddTaskModalLauncherComponent],
 })
 export class ModalsModule {}
