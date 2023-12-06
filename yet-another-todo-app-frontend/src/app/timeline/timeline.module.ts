@@ -6,6 +6,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AppRoutingModule } from '../app-routing.module';
 import { HttpLoaderFactory } from '../app.module';
 import { FormsModule } from '../forms/forms.module';
 import { MaterialModule } from '../shared/material.module';
@@ -26,6 +27,7 @@ import { TimelineTaskManagerService } from './services/timeline-task-manager.ser
     ColumnHighlightComponent,
   ],
   imports: [
+    AppRoutingModule,
     CommonModule,
     SharedModule,
     FormsModule,
