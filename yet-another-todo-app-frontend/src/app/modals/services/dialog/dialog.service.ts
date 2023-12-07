@@ -25,8 +25,8 @@ export class DialogService {
     private viewConfigurationService: ViewConfigurationService,
   ) {}
 
-  openAddTaskModal(): void {
-    this.openDialog(AddTaskModalComponent);
+  openAddTaskModal(): Observable<any> {
+    return this.openDialog(AddTaskModalComponent);
   }
 
   openEditTaskModal(initialTaskId?: string): void {
