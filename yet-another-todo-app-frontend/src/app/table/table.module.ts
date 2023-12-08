@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AppRoutingModule } from '../app-routing.module';
 import { HttpLoaderFactory } from '../app.module';
 import { DialogService } from '../modals/services/dialog/dialog.service';
 import { MaterialModule } from '../shared/material.module';
@@ -14,6 +15,7 @@ import { TableComponent } from './components/table/table.component';
 @NgModule({
   declarations: [TableComponent, SearchbarComponent],
   imports: [
+    AppRoutingModule,
     SharedModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
