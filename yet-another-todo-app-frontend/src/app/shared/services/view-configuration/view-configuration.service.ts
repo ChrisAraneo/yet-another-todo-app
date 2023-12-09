@@ -3,6 +3,7 @@ import { MatSortable } from '@angular/material/sort';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
+import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
 import { TaskState } from '../../models/task-state.model';
 import {
   setAppMode,
@@ -91,8 +92,8 @@ export class ViewConfigurationService {
       if (event instanceof NavigationEnd) {
         const urlParts = (event.urlAfterRedirects || event.url).split('/').filter((part) => !!part);
 
-        if (urlParts.length && (urlParts[0] === 'timeline' || urlParts[0] === 'table')) {
-          this.changeAppMode(urlParts[0] === 'timeline' ? AppMode.Timeline : AppMode.Table);
+        if (urlParts.length && (urlParts[0] === TIMELINE_PATH || urlParts[0] === TABLE_PATH)) {
+          this.changeAppMode(urlParts[0] === TIMELINE_PATH ? AppMode.Timeline : AppMode.Table);
         } else {
           console.warn('Undefined app mode');
           this.changeAppMode(AppMode.Undefined);
