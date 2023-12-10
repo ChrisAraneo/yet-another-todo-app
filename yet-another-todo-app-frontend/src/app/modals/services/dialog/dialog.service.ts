@@ -33,8 +33,8 @@ export class DialogService {
     return this.openDialog(EditTaskModalComponent, { initialTaskId });
   }
 
-  openDeleteTaskModal(initialTaskId?: string): void {
-    this.openDialog(DeleteTaskModalComponent, { initialTaskId });
+  openDeleteTaskModal(initialTaskId?: string): Observable<any> {
+    return this.openDialog(DeleteTaskModalComponent, { initialTaskId });
   }
 
   openSignInModal(): void {
