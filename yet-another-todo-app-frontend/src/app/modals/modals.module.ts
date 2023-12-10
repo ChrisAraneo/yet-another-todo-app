@@ -19,6 +19,7 @@ import { AddTaskModalComponent } from './components/add-task-modal/add-task-moda
 import { ConfigureTableModalComponent } from './components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from './components/configure-timeline-modal/configure-timeline-modal.component';
 import { DragDropTaskOrderListComponent } from './components/configure-timeline-modal/drag-drop-task-order-list/drag-drop-task-order-list.component';
+import { DeleteTaskModalLauncherComponent } from './components/delete-task-modal-launcher/delete-task-modal-launcher.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalLauncherComponent } from './components/edit-task-modal-launcher/edit-task-modal-launcher.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
@@ -35,6 +36,7 @@ import { DialogService } from './services/dialog/dialog.service';
     AddTaskModalComponent,
     AddTaskModalLauncherComponent,
     DeleteTaskModalComponent,
+    DeleteTaskModalLauncherComponent,
     EditTaskModalComponent,
     EditTaskModalLauncherComponent,
     SignInModalComponent,
