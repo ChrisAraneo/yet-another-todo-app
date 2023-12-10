@@ -29,8 +29,8 @@ export class DialogService {
     return this.openDialog(AddTaskModalComponent);
   }
 
-  openEditTaskModal(initialTaskId?: string): void {
-    this.openDialog(EditTaskModalComponent, { initialTaskId });
+  openEditTaskModal(initialTaskId?: string): Observable<any> {
+    return this.openDialog(EditTaskModalComponent, { initialTaskId });
   }
 
   openDeleteTaskModal(initialTaskId?: string): void {
