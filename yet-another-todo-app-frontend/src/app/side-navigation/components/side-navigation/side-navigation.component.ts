@@ -2,7 +2,13 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ADD_TASK_PATH, TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
+import {
+  ADD_TASK_PATH,
+  DELETE_TASK_PATH,
+  EDIT_TASK_PATH,
+  TABLE_PATH,
+  TIMELINE_PATH,
+} from 'src/app/app-routing.consts';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
@@ -117,7 +123,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.editTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, 'edit-task']);
+        await this.router.navigate([firstChild, EDIT_TASK_PATH]);
         this.activateNavigationItem(4);
       },
     };
@@ -127,7 +133,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.deleteTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, 'delete-task']);
+        await this.router.navigate([firstChild, DELETE_TASK_PATH]);
         this.activateNavigationItem(5);
       },
     };
