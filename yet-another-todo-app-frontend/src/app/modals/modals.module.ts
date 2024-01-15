@@ -23,6 +23,7 @@ import { DeleteTaskModalLauncherComponent } from './components/delete-task-modal
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalLauncherComponent } from './components/edit-task-modal-launcher/edit-task-modal-launcher.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
+import { ExportTasksModalLauncherComponent } from './components/export-tasks-modal-launcher/export-tasks-modal-launcher.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
@@ -41,6 +42,7 @@ import { DialogService } from './services/dialog/dialog.service';
     EditTaskModalLauncherComponent,
     SignInModalComponent,
     ExportTasksModalComponent,
+    ExportTasksModalLauncherComponent,
     ImportTasksModalComponent,
     SelectImportActionModalComponent,
     DragDropTaskOrderListComponent,
