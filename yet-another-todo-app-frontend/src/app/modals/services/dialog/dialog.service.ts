@@ -41,8 +41,8 @@ export class DialogService {
     this.openDialog(SignInModalComponent);
   }
 
-  openExportTasksModal(): void {
-    this.openDialog(ExportTasksModalComponent);
+  openExportTasksModal(): Observable<any> {
+    return this.openDialog(ExportTasksModalComponent);
   }
 
   openImportTasksModal(): void {
