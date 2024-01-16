@@ -4,12 +4,14 @@ import {
   ADD_TASK_PATH,
   DELETE_TASK_PATH,
   EDIT_TASK_PATH,
+  EXPORT_TASKS_PATH,
   TABLE_PATH,
   TIMELINE_PATH,
 } from './app-routing.consts';
 import { AddTaskModalLauncherComponent } from './modals/components/add-task-modal-launcher/add-task-modal-launcher.component';
 import { DeleteTaskModalLauncherComponent } from './modals/components/delete-task-modal-launcher/delete-task-modal-launcher.component';
 import { EditTaskModalLauncherComponent } from './modals/components/edit-task-modal-launcher/edit-task-modal-launcher.component';
+import { ExportTasksModalLauncherComponent } from './modals/components/export-tasks-modal-launcher/export-tasks-modal-launcher.component';
 import { TableComponent } from './table/components/table/table.component';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
@@ -25,6 +27,10 @@ const modalRoutes: Routes = [
   {
     path: DELETE_TASK_PATH,
     component: DeleteTaskModalLauncherComponent,
+  },
+  {
+    path: EXPORT_TASKS_PATH,
+    component: ExportTasksModalLauncherComponent,
   },
 ];
 
