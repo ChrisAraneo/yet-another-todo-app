@@ -6,6 +6,7 @@ import {
   ADD_TASK_PATH,
   DELETE_TASK_PATH,
   EDIT_TASK_PATH,
+  EXPORT_TASKS_PATH,
   TABLE_PATH,
   TIMELINE_PATH,
 } from 'src/app/app-routing.consts';
@@ -143,7 +144,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.exportTasks',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, 'export-tasks']);
+        await this.router.navigate([firstChild, EXPORT_TASKS_PATH]);
         this.activateNavigationItem(6);
       },
     };
