@@ -25,6 +25,7 @@ import { EditTaskModalLauncherComponent } from './components/edit-task-modal-lau
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
 import { ExportTasksModalLauncherComponent } from './components/export-tasks-modal-launcher/export-tasks-modal-launcher.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
+import { ImportTasksModalLauncherComponent } from './components/import-tasks-modal-launcher/import-tasks-modal-launcher.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
@@ -44,6 +45,7 @@ import { DialogService } from './services/dialog/dialog.service';
     ExportTasksModalComponent,
     ExportTasksModalLauncherComponent,
     ImportTasksModalComponent,
+    ImportTasksModalLauncherComponent,
     SelectImportActionModalComponent,
     DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
