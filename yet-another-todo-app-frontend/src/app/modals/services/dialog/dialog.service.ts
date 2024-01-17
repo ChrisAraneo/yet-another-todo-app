@@ -1,7 +1,7 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, filter, first } from 'rxjs';
+import { Observable, filter, first, mergeMap } from 'rxjs';
 import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/add-task-modal.component';
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
@@ -45,15 +45,14 @@ export class DialogService {
     return this.openDialog(ExportTasksModalComponent);
   }
 
-  openImportTasksModal(): void {
-    this.openDialog(ImportTasksModalComponent)
-      .pipe(
-        first(),
-        filter((result: any) => !!result),
-      )
-      .subscribe((result: ZipFileContent) => {
-        this.openDialog(SelectImportActionModalComponent, result);
-      });
+  openImportTasksModal(): Observable<any> {
+    return this.openDialog(ImportTasksModalComponent).pipe(
+      first(),
+      filter((result: any) => !!result),
+      mergeMap((result: ZipFileContent) => {
+        return this.openDialog(SelectImportActionModalComponent, result);
+      }),
+    );
   }
 
   openConfigureTimelineModal(): void {
