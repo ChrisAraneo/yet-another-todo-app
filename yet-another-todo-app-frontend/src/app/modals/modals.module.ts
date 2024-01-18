@@ -14,18 +14,13 @@ import { TaskStateTranslatorService } from '../shared/services/task-state-transl
 import { TasksService } from '../shared/services/tasks/tasks.service';
 import { UserService } from '../shared/services/user/user.service';
 import { SharedModule } from '../shared/shared.module';
-import { AddTaskModalLauncherComponent } from './components/add-task-modal-launcher/add-task-modal-launcher.component';
 import { AddTaskModalComponent } from './components/add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from './components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from './components/configure-timeline-modal/configure-timeline-modal.component';
 import { DragDropTaskOrderListComponent } from './components/configure-timeline-modal/drag-drop-task-order-list/drag-drop-task-order-list.component';
-import { DeleteTaskModalLauncherComponent } from './components/delete-task-modal-launcher/delete-task-modal-launcher.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
-import { EditTaskModalLauncherComponent } from './components/edit-task-modal-launcher/edit-task-modal-launcher.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
-import { ExportTasksModalLauncherComponent } from './components/export-tasks-modal-launcher/export-tasks-modal-launcher.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
-import { ImportTasksModalLauncherComponent } from './components/import-tasks-modal-launcher/import-tasks-modal-launcher.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
@@ -37,16 +32,11 @@ import { DialogService } from './services/dialog/dialog.service';
   declarations: [
     ModalActionButtonsComponent,
     AddTaskModalComponent,
-    AddTaskModalLauncherComponent,
     DeleteTaskModalComponent,
-    DeleteTaskModalLauncherComponent,
     EditTaskModalComponent,
-    EditTaskModalLauncherComponent,
     SignInModalComponent,
     ExportTasksModalComponent,
-    ExportTasksModalLauncherComponent,
     ImportTasksModalComponent,
-    ImportTasksModalLauncherComponent,
     SelectImportActionModalComponent,
     DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
@@ -79,6 +69,6 @@ import { DialogService } from './services/dialog/dialog.service';
     TaskCreatorService,
     DialogService,
   ],
-  exports: [AddTaskModalLauncherComponent],
+  exports: [ModalLauncherComponent],
 })
 export class ModalsModule {}

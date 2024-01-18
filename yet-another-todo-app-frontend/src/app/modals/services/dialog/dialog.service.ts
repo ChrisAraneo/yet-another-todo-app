@@ -37,8 +37,8 @@ export class DialogService {
     return this.openDialog(DeleteTaskModalComponent, { initialTaskId });
   }
 
-  openSignInModal(): void {
-    this.openDialog(SignInModalComponent);
+  openSignInModal(): Observable<any> {
+    return this.openDialog(SignInModalComponent);
   }
 
   openExportTasksModal(): Observable<any> {
@@ -55,27 +55,30 @@ export class DialogService {
     );
   }
 
-  openConfigureTimelineModal(): void {
-    this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(first())
-      .subscribe(({ startDate, endDate, order, filter }) => {
-        this.openDialog<ConfigureTimelineModalData>(ConfigureTimelineModalComponent, {
+  openConfigureTimelineModal(): Observable<any> {
+    return this.viewConfigurationService.getTimelineConfiguration().pipe(
+      first(),
+      mergeMap(({ startDate, endDate, order, filter }) => {
+        return this.openDialog<ConfigureTimelineModalData>(ConfigureTimelineModalComponent, {
           startDate,
           endDate,
           statesOrder: order,
           statesFilter: filter,
         });
-      });
+      }),
+    );
   }
 
-  openConfigureTableModal(): void {
-    this.viewConfigurationService
-      .getTableConfiguration()
-      .pipe(first())
-      .subscribe(({ sort }) => {
-        this.openDialog(ConfigureTableModalComponent, { id: sort.id, direction: sort.start });
-      });
+  openConfigureTableModal(): Observable<any> {
+    return this.viewConfigurationService.getTableConfiguration().pipe(
+      first(),
+      mergeMap(({ sort }) => {
+        return this.openDialog(ConfigureTableModalComponent, {
+          id: sort.id,
+          direction: sort.start,
+        });
+      }),
+    );
   }
 
   private openDialog<T>(component: ComponentType<any>, data?: T): Observable<any> {
