@@ -29,6 +29,7 @@ import { ImportTasksModalLauncherComponent } from './components/import-tasks-mod
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
+import { ModalLauncherComponent } from './components/modal-launcher/modal-launcher.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
@@ -50,6 +51,7 @@ import { DialogService } from './services/dialog/dialog.service';
     DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
     ConfigureTableModalComponent,
+    ModalLauncherComponent,
   ],
   imports: [
     SharedModule,
