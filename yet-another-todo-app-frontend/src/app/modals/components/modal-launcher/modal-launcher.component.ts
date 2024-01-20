@@ -62,13 +62,13 @@ export class ModalLauncherComponent {
             return this.dialogService.openExportTasksModal();
           }
           case ImportTasksModalComponent.name: {
-            return this.dialogService.openExportTasksModal();
+            return this.dialogService.openImportTasksModal();
           }
           case SignInModalComponent.name: {
             return this.dialogService.openSignInModal();
           }
           default: {
-            throw Error('Unsupported modal data');
+            throw Error('Unsupported modal class');
           }
         }
       }),
