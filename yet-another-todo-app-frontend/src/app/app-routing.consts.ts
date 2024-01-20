@@ -4,3 +4,4 @@ export const ADD_TASK_PATH = 'add-task';
 export const EDIT_TASK_PATH = 'edit-task';
 export const DELETE_TASK_PATH = 'delete-task';
 export const EXPORT_TASKS_PATH = 'export-tasks';
+export const IMPORT_TASKS_PATH = 'import-tasks';
