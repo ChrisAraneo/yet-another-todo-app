@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   ADD_TASK_PATH,
+  CONFIGURE_PATH,
   DELETE_TASK_PATH,
   EDIT_TASK_PATH,
   EXPORT_TASKS_PATH,
@@ -93,9 +94,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       icon: 'settings',
       label: 'SideNavigation.configureTable',
       active: false,
-      click: (): void => {
+      click: async (): Promise<void> => {
+        await this.router.navigate([firstChild, CONFIGURE_PATH]);
         this.activateNavigationItem(2);
-        this.dialogService.openConfigureTableModal();
       },
     };
 
@@ -103,9 +104,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       icon: 'settings',
       label: 'SideNavigation.configureTimeline',
       active: false,
-      click: (): void => {
+      click: async (): Promise<void> => {
+        await this.router.navigate([firstChild, CONFIGURE_PATH]);
         this.activateNavigationItem(2);
-        this.dialogService.openConfigureTimelineModal();
       },
     };
 
