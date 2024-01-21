@@ -20,8 +20,8 @@ import { SignInModalComponent } from '../sign-in-modal/sign-in-modal.component';
   styleUrls: ['./modal-launcher.component.scss'],
 })
 export class ModalLauncherComponent {
-  private observable!: Observable<any>;
-  private subscription!: Subscription;
+  private observable?: Observable<any>;
+  private subscription?: Subscription;
 
   constructor(
     private dialogService: DialogService,
@@ -36,10 +36,15 @@ export class ModalLauncherComponent {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription && this.subscription.unsubscribe();
   }
 
   private resolveOpenModalObservable(): void {
+    if (!this.activatedRoute || !this.activatedRoute.data) {
+      // TODO Throw error?
+      return;
+    }
+
     this.observable = this.activatedRoute.data.pipe(
       mergeMap((data) => {
         switch (data['modal']['name']) {
@@ -76,6 +81,10 @@ export class ModalLauncherComponent {
   }
 
   private subscribeToModalClose(): void {
+    if (!this.observable) {
+      return;
+    }
+
     this.subscription = this.observable
       .pipe(
         debounceTime(50),
