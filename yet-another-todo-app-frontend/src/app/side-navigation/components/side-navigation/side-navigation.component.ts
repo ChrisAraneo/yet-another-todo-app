@@ -1,20 +1,22 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, map, mergeMap } from 'rxjs';
 import {
   ADD_TASK_PATH,
   CONFIGURE_PATH,
   DELETE_TASK_PATH,
   EDIT_TASK_PATH,
   EXPORT_TASKS_PATH,
+  IMPORT_TASKS_PATH,
   TABLE_PATH,
   TIMELINE_PATH,
 } from 'src/app/app-routing.consts';
-import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
 import { BORDER, UNIT } from 'src/app/shared/styles/theme';
+import { Task } from '../../../shared/models/task.model';
 import { NavigationItem } from './side-navigation.types';
 
 @Component({
@@ -51,19 +53,19 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private dialogService: DialogService,
     private viewConfigurationService: ViewConfigurationService,
+    private tasksService: TasksService,
   ) {}
 
   ngOnInit(): void {
-    this.subscribeToModeChange();
+    this.subscribeToChanges();
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  private updateNavigationItems(mode?: AppMode): void {
+  private updateNavigationItems(mode?: AppMode, tasks?: Task[]): void {
     if (!mode || mode === AppMode.Undefined) {
       this.items = [];
 
@@ -71,6 +73,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     }
 
     const firstChild = mode === AppMode.Timeline ? TIMELINE_PATH : TABLE_PATH;
+    const firstTask = (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
 
     const showTable = {
       icon: 'list',
@@ -125,7 +128,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.editTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, EDIT_TASK_PATH]);
+        await this.router.navigate([firstChild, EDIT_TASK_PATH, firstTask?.getId()]);
         this.activateNavigationItem(4);
       },
     };
@@ -135,7 +138,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.deleteTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, DELETE_TASK_PATH]);
+        await this.router.navigate([firstChild, DELETE_TASK_PATH, firstTask?.getId()]);
         this.activateNavigationItem(5);
       },
     };
@@ -155,7 +158,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.importTasks',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, 'import-tasks']);
+        await this.router.navigate([firstChild, IMPORT_TASKS_PATH]);
         this.activateNavigationItem(7);
       },
     };
@@ -172,16 +175,24 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     ];
   }
 
-  private subscribeToModeChange(): void {
-    const subscription = this.viewConfigurationService.getAppMode().subscribe((mode) => {
-      this.updateNavigationItems(mode);
-    });
-
-    if (!this.subscription) {
-      this.subscription = subscription;
-    } else {
-      this.subscription.add(subscription);
-    }
+  private subscribeToChanges(): void {
+    this.subscription = this.viewConfigurationService
+      .getAppMode()
+      .pipe(
+        mergeMap((mode) => {
+          return this.tasksService.getTasks().pipe(
+            map((tasks) => {
+              return {
+                mode,
+                tasks,
+              };
+            }),
+          );
+        }),
+      )
+      .subscribe(({ mode, tasks }) => {
+        this.updateNavigationItems(mode, tasks);
+      });
   }
 
   private activateNavigationItem(index: number): void {
