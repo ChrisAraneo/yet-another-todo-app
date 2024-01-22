@@ -30,14 +30,14 @@ const commonModalRoutes: Routes = [
     },
   },
   {
-    path: EDIT_TASK_PATH,
+    path: `${EDIT_TASK_PATH}/:id`,
     component: ModalLauncherComponent,
     data: {
       modal: EditTaskModalComponent,
     },
   },
   {
-    path: DELETE_TASK_PATH,
+    path: `${DELETE_TASK_PATH}/:id`,
     component: ModalLauncherComponent,
     data: {
       modal: DeleteTaskModalComponent,
