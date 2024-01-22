@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription, debounceTime, mergeMap } from 'rxjs';
+import { Observable, Subscription, debounceTime, map, mergeMap } from 'rxjs';
 import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
@@ -47,15 +47,25 @@ export class ModalLauncherComponent {
 
     this.observable = this.activatedRoute.data.pipe(
       mergeMap((data) => {
+        return this.activatedRoute.params.pipe(
+          map((params) => {
+            return {
+              data,
+              params,
+            };
+          }),
+        );
+      }),
+      mergeMap(({ data, params }) => {
         switch (data['modal']['name']) {
           case AddTaskModalComponent.name: {
             return this.dialogService.openAddTaskModal();
           }
           case EditTaskModalComponent.name: {
-            return this.dialogService.openEditTaskModal();
+            return this.dialogService.openEditTaskModal(params['id']);
           }
           case DeleteTaskModalComponent.name: {
-            return this.dialogService.openDeleteTaskModal();
+            return this.dialogService.openDeleteTaskModal(params['id']);
           }
           case ConfigureTableModalComponent.name: {
             return this.dialogService.openConfigureTableModal();
