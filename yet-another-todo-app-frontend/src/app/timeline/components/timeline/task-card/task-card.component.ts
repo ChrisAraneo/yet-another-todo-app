@@ -35,7 +35,13 @@ export class TaskCardComponent implements OnChanges, OnDestroy {
   }
 
   openEditTaskModal(taskId: string): void {
-    this.dialogService.openEditTaskModal(taskId);
+    const subscription = this.dialogService.navigateToEditTaskModal(taskId).subscribe();
+
+    if (!this.subscription) {
+      this.subscription = subscription;
+    } else {
+      this.subscription.add(subscription);
+    }
   }
 
   completeTask(task: Task): void {
