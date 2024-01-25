@@ -1,3 +1,4 @@
+export const SIGN_IN_PATH = 'sign-in';
 export const TIMELINE_PATH = 'timeline';
 export const TABLE_PATH = 'table';
 export const CONFIGURE_PATH = 'configure';
