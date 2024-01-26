@@ -22,6 +22,7 @@ export class AppComponent implements OnDestroy {
   username!: Observable<string | null>;
   timelineElementRef: ElementRef | null = null;
 
+  private centerTimeline = new BehaviorSubject<void>(undefined);
   private subscription?: Subscription;
 
   constructor(
@@ -36,6 +37,7 @@ export class AppComponent implements OnDestroy {
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
+    this.subscribeToCenterTimeline();
   }
 
   ngOnDestroy(): void {
@@ -78,24 +80,42 @@ export class AppComponent implements OnDestroy {
   }
 
   private subscribeToUserChanges(): void {
-    this.subscription = this.userService
-      .getUserData()
-      .pipe(
-        debounceTime(100),
-        tap((currentUser: CurrentUser) => {
-          if (!currentUser.isLogged && !currentUser.isOfflineMode) {
-            this.router.navigate([SIGN_IN_PATH]).then(() => {
-              this.isAppVisible.next(false);
-            });
-          } else {
-            this.router.navigate([TIMELINE_PATH]).then(() => {
-              this.isAppVisible.next(true);
-            });
-          }
-        }),
-        mergeMap(() => this.centerTimelineScrollOnTodayColumn()),
-      )
-      .subscribe();
+    !this.subscription && (this.subscription = new Subscription());
+
+    this.subscription.add(
+      this.userService
+        .getUserData()
+        .pipe(
+          debounceTime(100),
+          tap((currentUser: CurrentUser) => {
+            if (!currentUser.isLogged && !currentUser.isOfflineMode) {
+              this.router.navigate([SIGN_IN_PATH]).then(() => {
+                this.isAppVisible.next(false);
+              });
+            } else {
+              this.router.navigate([TIMELINE_PATH]).then(() => {
+                this.isAppVisible.next(true);
+                this.centerTimeline.next();
+              });
+            }
+          }),
+        )
+        .subscribe(),
+    );
+  }
+
+  private subscribeToCenterTimeline(): void {
+    !this.subscription && (this.subscription = new Subscription());
+
+    this.subscription.add(
+      this.centerTimeline
+        .asObservable()
+        .pipe(
+          debounceTime(10),
+          mergeMap(() => this.centerTimelineScrollOnTodayColumn()),
+        )
+        .subscribe(),
+    );
   }
 
   private centerTimelineScrollOnTodayColumn(): Observable<void> {
