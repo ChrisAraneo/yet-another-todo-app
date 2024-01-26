@@ -7,6 +7,7 @@ import {
   EDIT_TASK_PATH,
   EXPORT_TASKS_PATH,
   IMPORT_TASKS_PATH,
+  SIGN_IN_PATH,
   TABLE_PATH,
   TIMELINE_PATH,
 } from './app-routing.consts';
@@ -18,6 +19,7 @@ import { EditTaskModalComponent } from './modals/components/edit-task-modal/edit
 import { ExportTasksModalComponent } from './modals/components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from './modals/components/import-tasks-modal/import-tasks-modal.component';
 import { ModalLauncherComponent } from './modals/components/modal-launcher/modal-launcher.component';
+import { SignInModalComponent } from './modals/components/sign-in-modal/sign-in-modal.component';
 import { TableComponent } from './table/components/table/table.component';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
@@ -61,6 +63,13 @@ const commonModalRoutes: Routes = [
 
 const routes: Routes = [
   {
+    path: SIGN_IN_PATH,
+    component: ModalLauncherComponent,
+    data: {
+      modal: SignInModalComponent,
+    },
+  },
+  {
     path: TIMELINE_PATH,
     component: TimelineComponent,
     children: [
@@ -88,7 +97,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', pathMatch: 'full', redirectTo: TIMELINE_PATH },
+  { path: '', pathMatch: 'full', redirectTo: SIGN_IN_PATH },
 ];
 
 @NgModule({
