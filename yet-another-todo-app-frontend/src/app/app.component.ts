@@ -1,7 +1,8 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscription, debounceTime, map, mergeMap, tap } from 'rxjs';
-import { DialogService } from './modals/services/dialog/dialog.service';
+import { SIGN_IN_PATH, TIMELINE_PATH } from './app-routing.consts';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
@@ -21,14 +22,14 @@ export class AppComponent implements OnDestroy {
   username!: Observable<string | null>;
   timelineElementRef: ElementRef | null = null;
 
-  private subscription!: Subscription;
+  private subscription?: Subscription;
 
   constructor(
     private translateService: TranslateService,
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
-    private dialogService: DialogService,
     private viewConfigurationService: ViewConfigurationService,
+    private router: Router,
   ) {
     this.initializeTranslateService();
     this.initializeIsAppVisibleObservable();
@@ -77,28 +78,24 @@ export class AppComponent implements OnDestroy {
   }
 
   private subscribeToUserChanges(): void {
-    const subscription = this.userService
+    this.subscription = this.userService
       .getUserData()
       .pipe(
         debounceTime(100),
         tap((currentUser: CurrentUser) => {
           if (!currentUser.isLogged && !currentUser.isOfflineMode) {
-            this.isAppVisible.next(false);
-            this.dialogService.openSignInModal();
+            this.router.navigate([SIGN_IN_PATH]).then(() => {
+              this.isAppVisible.next(false);
+            });
           } else {
-            this.isAppVisible.next(true);
+            this.router.navigate([TIMELINE_PATH]).then(() => {
+              this.isAppVisible.next(true);
+            });
           }
         }),
         mergeMap(() => this.centerTimelineScrollOnTodayColumn()),
       )
       .subscribe();
-
-    if (!this.subscription) {
-      this.subscription = subscription;
-    } else {
-      this.subscription.unsubscribe();
-      this.subscription.add(subscription);
-    }
   }
 
   private centerTimelineScrollOnTodayColumn(): Observable<void> {
