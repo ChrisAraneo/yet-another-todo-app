@@ -5,11 +5,11 @@ label {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: $_14unit;
   font-weight: 400;
-  color: black;
+  color: $form-label-color;
   text-transform: uppercase;
   display: block;
   padding: 0 $_2unit;
   margin: $_6unit 0 0 0;
   background-color: transparent;
-  opacity: 0.8;
+  opacity: 1;
 }

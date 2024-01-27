@@ -48,18 +48,18 @@ $grey-color-100: mat.get-color-from-palette($theme-grey, 100);
 $grey-color-200: mat.get-color-from-palette($theme-grey, 200);
 $grey-color-300: mat.get-color-from-palette($theme-grey, 300);
 
-$border-color: mat.get-color-from-palette($theme-grey, 300);
+$border-color: mat.get-color-from-palette($theme-grey, 100);
 $border: 1px solid $border-color;
 $border-radius: 0;
 
-$form-input-border-color: lighten($border-color, 4.5%);
+$form-label-color: mat.get-color-from-palette($theme-grey, 900);
+
+$form-input-border-color: mat.get-color-from-palette($theme-grey, 700);
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-border-radius: $_6unit;
-$form-input-focus-border: 1px solid !important;
-$form-input-background: darken($theme-background-color, 2%) $primary-color !important;
-$form-input-focus-background: lighten(
-  mat.get-color-from-palette($theme-primary, 600),
-  53%
-) !important;
+$form-input-focus-border-color: $primary-color-200 !important;
+$form-input-focus-border: 1px solid $form-input-focus-border-color !important;
+$form-input-background: darken($theme-background-color, 0.5%) !important;
+$form-input-focus-background: #f3f5fc !important;
 
 @include mat.all-component-themes($theme);
