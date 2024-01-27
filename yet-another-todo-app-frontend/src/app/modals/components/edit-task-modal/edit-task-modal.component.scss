@@ -5,27 +5,29 @@
   > div {
     display: flex;
     flex-direction: column;
-    border: $border;
-    border-radius: 0;
+    border: none;
     padding: 0;
     margin: 0;
   }
 
   .mat-mdc-dialog-surface {
-    border-radius: 0;
+    border: $border;
+    border-radius: $modal-border-radius;
   }
 
   form {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: $_32unit;
+    padding: $_24unit;
   }
 
   .modal-title {
     h1 {
-      padding: $_16unit $_32unit;
       border-bottom: $border;
+      padding: $_24unit $_32unit;
+      font-weight: 500;
+      text-align: center;
     }
   }
 

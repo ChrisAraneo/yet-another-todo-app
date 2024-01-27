@@ -50,7 +50,9 @@ $grey-color-300: mat.get-color-from-palette($theme-grey, 300);
 
 $border-color: mat.get-color-from-palette($theme-grey, 100);
 $border: 1px solid $border-color;
-$border-radius: 0;
+$border-radius: $_6unit;
+
+$modal-border-radius: $_16unit;
 
 $form-label-color: mat.get-color-from-palette($theme-grey, 900);
 
