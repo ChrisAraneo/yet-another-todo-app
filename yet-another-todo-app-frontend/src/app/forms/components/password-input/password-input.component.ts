@@ -49,8 +49,8 @@ export class PasswordInputComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  onChange(event: Event): void {
-    const value: string = (<HTMLInputElement>event.target).value;
+  onChange(event: any): void {
+    const value: string = event as string;
 
     this.changed && this.changed(value);
 
