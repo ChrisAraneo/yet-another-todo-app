@@ -41,6 +41,15 @@ $primary-color-700: mat.get-color-from-palette($theme-primary, 700);
 $primary-color-800: mat.get-color-from-palette($theme-primary, 800);
 
 $warn-color: mat.get-color-from-palette($theme-warn, 600);
+$warn-color-50: mat.get-color-from-palette($theme-warn, 50);
+$warn-color-100: mat.get-color-from-palette($theme-warn, 100);
+$warn-color-200: mat.get-color-from-palette($theme-warn, 200);
+$warn-color-300: mat.get-color-from-palette($theme-warn, 300);
+$warn-color-400: mat.get-color-from-palette($theme-warn, 400);
+$warn-color-500: mat.get-color-from-palette($theme-warn, 500);
+$warn-color-600: mat.get-color-from-palette($theme-warn, 600);
+$warn-color-700: mat.get-color-from-palette($theme-warn, 700);
+$warn-color-800: mat.get-color-from-palette($theme-warn, 800);
 
 $grey-color: mat.get-color-from-palette($theme-grey, 600);
 $grey-color-50: mat.get-color-from-palette($theme-grey, 50);
