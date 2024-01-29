@@ -6,6 +6,7 @@
       type="text"
       [(ngModel)]="value"
       (ngModelChange)="onChange($event)"
+      (blur)="onBlur()"
       [disabled]="isDisabled"
       *yataErrorTooltip="label" />
   </span>
