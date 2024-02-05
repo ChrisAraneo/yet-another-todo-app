@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class TextareaComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() rows: number = 3;
+  @Input() cols: number = 30;
   @Input() maxLength: number = 9999;
 
   value: string;
