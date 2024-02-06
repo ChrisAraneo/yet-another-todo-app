@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpLoaderFactory } from '../app.module';
@@ -45,6 +46,7 @@ import { DirectivesModule } from './directives/directives.module';
     }),
     InputTextModule,
     InputTextareaModule,
+    CalendarModule,
   ],
   providers: [],
   exports: [
