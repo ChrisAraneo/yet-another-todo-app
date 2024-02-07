@@ -16,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class DatePickerComponent implements ControlValueAccessor {
   @Input() label: string = '';
 
+  date?: Date;
   value: string;
   isDisabled: boolean;
 
@@ -27,10 +28,10 @@ export class DatePickerComponent implements ControlValueAccessor {
     this.isDisabled = false;
   }
 
-  onChange(event: Event): void {
-    const value: string = (<HTMLInputElement>event.target).value;
+  onChange(event: any): void {
+    this.value = (event as Date).toISOString();
 
-    this.changed && this.changed(value);
+    this.changed && this.changed(this.value);
   }
 
   onBlur(): void {
