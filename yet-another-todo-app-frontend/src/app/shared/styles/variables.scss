@@ -12,12 +12,14 @@ $theme-title-text-color: rgb(45, 45, 45);
 $theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
 
 $theme-primary: mat.define-palette($yata-palette-primary);
+$theme-secondary: mat.define-palette($yata-palette-secondary);
 $theme-grey: mat.define-palette($yata-palette-grey);
+$theme-danger: mat.define-palette($yata-palette-red);
 
 $column-width: $_64unit * 3;
 
-$color-accent: mat.define-palette($yata-palette-secondary, A200, A100, A400);
-$color-danger: mat.define-palette($yata-palette-red);
+$color-accent: mat.get-color-from-palette($theme-secondary, 700);
+$color-danger: mat.get-color-from-palette($theme-danger, 700);
 $color-warning: 'orange';
 $color-text: 'black';
 $color-disabled: '#888888';
@@ -32,8 +34,8 @@ $theme: mat.define-light-theme(
   (
     color: (
       primary: $theme-primary,
-      accent: $color-accent,
-      warn: $color-danger,
+      accent: $theme-secondary,
+      warn: $theme-danger,
     ),
     typography: mat.define-typography-config(),
   )
@@ -50,16 +52,16 @@ $primary-color-600: mat.get-color-from-palette($theme-primary, 600);
 $primary-color-700: mat.get-color-from-palette($theme-primary, 700);
 $primary-color-800: mat.get-color-from-palette($theme-primary, 800);
 
-$danger-color: mat.get-color-from-palette($color-danger, 600);
-$danger-color-50: mat.get-color-from-palette($color-danger, 50);
-$danger-color-100: mat.get-color-from-palette($color-danger, 100);
-$danger-color-200: mat.get-color-from-palette($color-danger, 200);
-$danger-color-300: mat.get-color-from-palette($color-danger, 300);
-$danger-color-400: mat.get-color-from-palette($color-danger, 400);
-$danger-color-500: mat.get-color-from-palette($color-danger, 500);
-$danger-color-600: mat.get-color-from-palette($color-danger, 600);
-$danger-color-700: mat.get-color-from-palette($color-danger, 700);
-$danger-color-800: mat.get-color-from-palette($color-danger, 800);
+$danger-color: mat.get-color-from-palette($theme-danger, 600);
+$danger-color-50: mat.get-color-from-palette($theme-danger, 50);
+$danger-color-100: mat.get-color-from-palette($theme-danger, 100);
+$danger-color-200: mat.get-color-from-palette($theme-danger, 200);
+$danger-color-300: mat.get-color-from-palette($theme-danger, 300);
+$danger-color-400: mat.get-color-from-palette($theme-danger, 400);
+$danger-color-500: mat.get-color-from-palette($theme-danger, 500);
+$danger-color-600: mat.get-color-from-palette($theme-danger, 600);
+$danger-color-700: mat.get-color-from-palette($theme-danger, 700);
+$danger-color-800: mat.get-color-from-palette($theme-danger, 800);
 
 $grey-color: mat.get-color-from-palette($theme-grey, 600);
 $grey-color-50: mat.get-color-from-palette($theme-grey, 50);
@@ -68,7 +70,6 @@ $grey-color-200: mat.get-color-from-palette($theme-grey, 200);
 $grey-color-300: mat.get-color-from-palette($theme-grey, 300);
 
 $border-radius: $_6unit;
-
 $modal-border-radius: $_16unit;
 
 $form-label-color: mat.get-color-from-palette($theme-grey, 900);
