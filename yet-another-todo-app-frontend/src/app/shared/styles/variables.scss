@@ -7,6 +7,13 @@
 @include mat.all-component-typographies();
 @include mat.core();
 
+$theme-background-color: white;
+$theme-title-text-color: rgb(45, 45, 45);
+$theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
+
+$theme-primary: mat.define-palette($yata-palette-primary);
+$theme-grey: mat.define-palette($yata-palette-grey);
+
 $column-width: $_64unit * 3;
 
 $color-accent: mat.define-palette($yata-palette-secondary, A200, A100, A400);
@@ -20,14 +27,6 @@ $border: 1px solid $border-color;
 
 $dialog-width: $_64unit * 15;
 $dialog-height: $_64unit * 10;
-
-$theme-background-color: white;
-$theme-title-text-color: rgb(45, 45, 45);
-$theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
-
-$theme-primary: mat.define-palette($yata-palette-primary);
-
-$theme-grey: mat.define-palette($yata-palette-grey);
 
 $theme: mat.define-light-theme(
   (
