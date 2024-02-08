@@ -3,7 +3,7 @@ import {
   COLOR_DANGER,
   COLOR_DISABLED,
   COLOR_TEXT,
-  COLOR_WARN,
+  COLOR_WARNING,
 } from '../styles/theme';
 
 export abstract class TaskState {
@@ -38,7 +38,7 @@ export class NotStartedTaskState extends TaskState {
 
 export class InProgressTaskState extends TaskState {
   constructor() {
-    super('IN_PROGRESS', 'autorenew', COLOR_DANGER);
+    super('IN_PROGRESS', 'autorenew', COLOR_WARNING);
   }
 }
 
@@ -56,6 +56,6 @@ export class CompletedTaskState extends TaskState {
 
 export class RejectedTaskState extends TaskState {
   constructor() {
-    super('REJECTED', 'not_interested', COLOR_WARN);
+    super('REJECTED', 'not_interested', COLOR_DANGER);
   }
 }
