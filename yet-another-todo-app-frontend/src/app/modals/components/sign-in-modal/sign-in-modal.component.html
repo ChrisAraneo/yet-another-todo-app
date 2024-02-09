@@ -1,18 +1,22 @@
-<yata-title class="app-title">{{ 'App.title' | translate }}</yata-title>
-<div class="logo-wrapper">
+<div>
   <yata-logo></yata-logo>
 </div>
-<form [formGroup]="form" *ngIf="!!form">
-  <yata-text-input
-    [formControlName]="'username'"
-    [label]="'SignInModal.username' | translate"></yata-text-input>
-  <yata-password-input
-    [formControlName]="'password'"
-    [label]="'SignInModal.password' | translate"
-    [parentForm]="form"></yata-password-input>
-  <yata-modal-action-buttons
-    [form]="form"
-    [submitButton]="{ label: 'SignInModal.signIn', click: submit }"
-    [cancelButton]="{ label: 'SignInModal.dontSignIn', click: cancel }">
-  </yata-modal-action-buttons>
-</form>
+<div>
+  <yata-title class="app-title">{{ 'App.title' | translate }}</yata-title>
+  <form [formGroup]="form" *ngIf="!!form">
+    <div>
+      <yata-text-input
+        [formControlName]="'username'"
+        [label]="'SignInModal.username' | translate"></yata-text-input>
+      <yata-password-input
+        [formControlName]="'password'"
+        [label]="'SignInModal.password' | translate"
+        [parentForm]="form"></yata-password-input>
+    </div>
+    <yata-modal-action-buttons
+      [form]="form"
+      [submitButton]="{ label: 'SignInModal.signIn', click: submit }"
+      [cancelButton]="{ label: 'SignInModal.dontSignIn', click: cancel }">
+    </yata-modal-action-buttons>
+  </form>
+</div>

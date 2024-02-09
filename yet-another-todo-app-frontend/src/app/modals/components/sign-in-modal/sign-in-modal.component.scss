@@ -3,19 +3,44 @@
 
 .sign-in-modal .mat-mdc-dialog-container {
   > div {
-    display: flex;
-    flex-direction: column;
     border: none;
     padding: 0;
     margin: 0;
   }
 
   .mat-mdc-dialog-surface {
-    border: $border;
+    border: none;
     border-radius: $modal-border-radius;
   }
 
+  yata-sign-in-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+
+    > div {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: center;
+    }
+  }
+
+  yata-logo {
+    width: 100%;
+    height: 100%;
+  }
+
   .app-title {
+    margin-top: $_40unit;
+    margin-bottom: $_32unit;
+
     h1 {
       padding: $_24unit $_32unit;
       font-weight: 500;
@@ -23,23 +48,21 @@
     }
   }
 
-  .logo-wrapper {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 100%;
-    margin-top: $_16unit;
-  }
-
   form {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: space-between;
     padding: $_24unit;
-  }
+    height: 100%;
 
-  yata-text-input,
-  yata-password-input {
-    margin-bottom: $_16unit;
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      > yata-password-input {
+        margin-top: $_16unit !important;
+      }
+    }
   }
 }
