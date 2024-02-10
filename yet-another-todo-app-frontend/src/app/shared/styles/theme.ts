@@ -11,4 +11,4 @@ export const BORDER_COLOR = '#e6e7ec';
 export const BORDER = `1px solid ${BORDER_COLOR}`;
 
 export const DIALOG_WIDTH = `${UNIT * 15}px`;
-export const DIALOG_HEIGHT = `${UNIT * 10}px`;
+export const DIALOG_HEIGHT = `${UNIT * 9}px`;
