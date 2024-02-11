@@ -1,10 +1,10 @@
-<div>
+<div class="figure">
   <yata-logo></yata-logo>
 </div>
-<div>
+<div class="form">
   <yata-title class="app-title">{{ 'App.title' | translate }}</yata-title>
   <form [formGroup]="form" *ngIf="!!form">
-    <div>
+    <div class="controls">
       <yata-text-input
         [formControlName]="'username'"
         [label]="'SignInModal.username' | translate"></yata-text-input>

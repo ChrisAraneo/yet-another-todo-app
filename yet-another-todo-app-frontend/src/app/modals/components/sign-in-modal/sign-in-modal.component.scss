@@ -22,7 +22,8 @@
     align-items: stretch;
     align-content: center;
 
-    > div {
+    .figure,
+    .form {
       width: 50%;
       display: flex;
       flex-direction: column;
@@ -55,7 +56,7 @@
     padding: $_24unit;
     height: 100%;
 
-    > div {
+    .controls {
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
