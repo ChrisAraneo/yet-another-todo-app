@@ -3,23 +3,42 @@
 
 .add-task-modal .mat-mdc-dialog-container {
   > div {
-    display: flex;
-    flex-direction: column;
     border: none;
     padding: 0;
     margin: 0;
   }
 
   .mat-mdc-dialog-surface {
-    border: $border;
+    border: none;
     border-radius: $modal-border-radius;
   }
 
-  form {
+  yata-add-task-modal {
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
-    flex: 1;
-    padding: $_24unit;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+
+    .figure,
+    .form {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: center;
+    }
+
+    .figure {
+      background-image: url('../../../../assets/images/add-task.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto;
+      height: 100%;
+    }
   }
 
   .modal-title {
@@ -31,10 +50,24 @@
     }
   }
 
-  yata-text-input,
-  yata-textarea,
-  yata-select,
-  yata-date-picker {
-    margin-bottom: $_16unit;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $_24unit;
+    height: 100%;
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      > yata-text-input,
+      > yata-textarea,
+      > yata-select,
+      > yata-date-picker {
+        margin-bottom: $_16unit !important;
+      }
+    }
   }
 }
