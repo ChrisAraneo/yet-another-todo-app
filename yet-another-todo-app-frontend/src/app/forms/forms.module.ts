@@ -14,6 +14,7 @@ import { FileInputComponent } from './components/file-input/file-input.component
 import { LabelComponent } from './components/label/label.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { SelectComponent } from './components/select/select.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
@@ -30,6 +31,7 @@ import { DirectivesModule } from './directives/directives.module';
     DatePickerComponent,
     PasswordInputComponent,
     FileInputComponent,
+    StepperComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,7 @@ import { DirectivesModule } from './directives/directives.module';
     TextareaComponent,
     PasswordInputComponent,
     FileInputComponent,
+    StepperComponent,
   ],
 })
 export class FormsModule {}
