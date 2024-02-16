@@ -25,11 +25,13 @@ import { ImportTasksModalComponent } from './components/import-tasks-modal/impor
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
 import { ModalLauncherComponent } from './components/modal-launcher/modal-launcher.component';
+import { ModalTitleComponent } from './components/modal-title/modal-title.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
 @NgModule({
   declarations: [
+    ModalTitleComponent,
     ModalActionButtonsComponent,
     AddTaskModalComponent,
     DeleteTaskModalComponent,
