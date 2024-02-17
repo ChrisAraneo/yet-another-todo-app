@@ -5,7 +5,7 @@ $next-button-border-radius: $_10unit;
 
 .next-button-wrapper {
   width: 100%;
-  max-width: $_160unit;
+  max-width: $_192unit;
   height: $next-button-wrapper-height;
 
   ::ng-deep {
@@ -17,12 +17,17 @@ $next-button-border-radius: $_10unit;
     }
   }
 
+  mat-icon {
+    margin-left: $_12unit;
+  }
+
   .button-content {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: $_160unit;
+    width: auto;
     padding: 0 $_8unit;
+    padding-left: $_18unit !important;
   }
 }
