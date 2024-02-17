@@ -3,8 +3,12 @@
 .actions {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
   margin-top: $_32unit;
+}
+
+.first-step {
+  justify-content: flex-end;
 }
 
 yata-cancel-button {
