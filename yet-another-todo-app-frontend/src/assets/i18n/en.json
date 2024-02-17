@@ -92,6 +92,10 @@
   "LoggedUserInformation": {
     "loggedAs": "Logged as"
   },
+  "ModalActionButtons": {
+    "back": "Back",
+    "next": "Next"
+  },
   "NOT_STARTED": "Task not started",
   "OfflineIndicator": {
     "offlineMode": "Offline mode",

@@ -92,6 +92,10 @@
   "LoggedUserInformation": {
     "loggedAs": "Jesteś zalogowany jako"
   },
+  "ModalActionButtons": {
+    "back": "Wróć",
+    "next": "Dalej"
+  },
   "NOT_STARTED": "Zadanie nierozpoczęte",
   "OfflineIndicator": {
     "offlineMode": "Tryb offline",
