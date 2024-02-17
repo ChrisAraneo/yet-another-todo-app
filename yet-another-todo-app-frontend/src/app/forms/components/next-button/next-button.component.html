@@ -1,1 +1,8 @@
-<p>next-button works!</p>
+<div class="next-button-wrapper">
+  <button mat-button [color]="color" (click)="onButtonClick($event)" [disabled]="isLoading">
+    <div class="button-content">
+      <ng-content></ng-content>
+      <mat-icon>{{ icon }}</mat-icon>
+    </div>
+  </button>
+</div>

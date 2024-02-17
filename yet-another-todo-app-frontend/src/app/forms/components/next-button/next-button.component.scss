@@ -1,0 +1,28 @@
+@import '../../../shared/styles/variables.scss';
+
+$next-button-wrapper-height: $_48unit;
+$next-button-border-radius: $_10unit;
+
+.next-button-wrapper {
+  width: 100%;
+  max-width: $_160unit;
+  height: $next-button-wrapper-height;
+
+  ::ng-deep {
+    button {
+      margin: 0;
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: $next-button-border-radius;
+    }
+  }
+
+  .button-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: $_160unit;
+    padding: 0 $_8unit;
+  }
+}
