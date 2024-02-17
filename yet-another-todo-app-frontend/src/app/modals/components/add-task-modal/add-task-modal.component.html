@@ -1,6 +1,6 @@
 <div class="figure"></div>
 <div class="form">
-  <yata-title class="modal-title">{{ 'AddTaskModal.modalTitle' | translate }}</yata-title>
+  <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
   <form [formGroup]="taskForm">
     <div class="controls">
       <yata-text-input
@@ -26,8 +26,11 @@
     </div>
     <yata-modal-action-buttons
       [form]="taskForm"
-      [submitButton]="{ label: 'AddTaskModal.submit', click: submit }"
-      [cancelButton]="{ label: 'AddTaskModal.cancel', click: cancel }">
+      [step]="step"
+      [total]="total"
+      [backButton]="{ click: back }"
+      [nextButton]="{ click: next }"
+      [submitButton]="{ label: 'AddTaskModal.submit', click: submit }">
     </yata-modal-action-buttons>
   </form>
 </div>

@@ -19,9 +19,3 @@ export type SubmitButton = {
   color?: string;
   icon?: string;
 };
-
-/* TODO REMOVE */
-export type CancelButton = {
-  label: string;
-  click: (() => Promise<void>) | (() => void);
-};

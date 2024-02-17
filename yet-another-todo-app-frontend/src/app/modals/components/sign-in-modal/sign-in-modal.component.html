@@ -13,10 +13,10 @@
         [label]="'SignInModal.password' | translate"
         [parentForm]="form"></yata-password-input>
     </div>
+    <!-- TODO Add "stay offline" button!! -->
     <yata-modal-action-buttons
       [form]="form"
-      [submitButton]="{ label: 'SignInModal.signIn', click: submit }"
-      [cancelButton]="{ label: 'SignInModal.dontSignIn', click: cancel }">
+      [submitButton]="{ label: 'SignInModal.signIn', click: submit }">
     </yata-modal-action-buttons>
   </form>
 </div>

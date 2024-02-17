@@ -29,6 +29,8 @@ export class AddTaskModalComponent implements OnDestroy {
   showStartDateControl!: Observable<boolean>;
   showEndDateControl!: Observable<boolean>;
   states: Option<TaskState>[] = [];
+  step: number = 1;
+  total: number = 3;
 
   private subscription: Subscription = new Subscription();
 
@@ -49,6 +51,14 @@ export class AddTaskModalComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
+
+  next = async (): Promise<void> => {
+    this.step < this.total && this.step++;
+  };
+
+  back = async (): Promise<void> => {
+    this.step > 1 && this.step--;
+  };
 
   submit = async (): Promise<void> => {
     if (this.taskForm.invalid) {
