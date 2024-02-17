@@ -8,6 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpLoaderFactory } from '../app.module';
 import { MaterialModule } from '../shared/material.module';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 import { CancelButtonComponent } from './components/cancel-button/cancel-button.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
@@ -24,6 +25,7 @@ import { DirectivesModule } from './directives/directives.module';
   declarations: [
     LabelComponent,
     NextButtonComponent,
+    BackButtonComponent,
     SubmitButtonComponent,
     CancelButtonComponent,
     TextInputComponent,
@@ -52,6 +54,8 @@ import { DirectivesModule } from './directives/directives.module';
   ],
   providers: [],
   exports: [
+    NextButtonComponent,
+    BackButtonComponent,
     SubmitButtonComponent,
     CancelButtonComponent,
     DatePickerComponent,
