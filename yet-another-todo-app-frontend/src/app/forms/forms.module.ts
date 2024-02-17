@@ -12,6 +12,7 @@ import { CancelButtonComponent } from './components/cancel-button/cancel-button.
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
 import { FileInputComponent } from './components/file-input/file-input.component';
 import { LabelComponent } from './components/label/label.component';
+import { NextButtonComponent } from './components/next-button/next-button.component';
 import { PasswordInputComponent } from './components/password-input/password-input.component';
 import { SelectComponent } from './components/select/select.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
@@ -22,6 +23,7 @@ import { DirectivesModule } from './directives/directives.module';
 @NgModule({
   declarations: [
     LabelComponent,
+    NextButtonComponent,
     SubmitButtonComponent,
     CancelButtonComponent,
     TextInputComponent,
