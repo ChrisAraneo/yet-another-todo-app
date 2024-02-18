@@ -26,6 +26,7 @@ import { SelectImportActionModalComponent } from './components/import-tasks-moda
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
 import { ModalLauncherComponent } from './components/modal-launcher/modal-launcher.component';
 import { ModalTitleComponent } from './components/modal-title/modal-title.component';
+import { PageComponent } from './components/page/page.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
@@ -44,6 +45,7 @@ import { DialogService } from './services/dialog/dialog.service';
     ConfigureTimelineModalComponent,
     ConfigureTableModalComponent,
     ModalLauncherComponent,
+    PageComponent,
   ],
   imports: [
     SharedModule,
