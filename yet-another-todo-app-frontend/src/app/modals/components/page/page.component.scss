@@ -2,4 +2,6 @@
 
 :host {
   padding: $_24unit;
+  display: flex;
+  flex-direction: column;
 }
