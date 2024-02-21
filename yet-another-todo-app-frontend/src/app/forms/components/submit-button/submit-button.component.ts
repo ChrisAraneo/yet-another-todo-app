@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+// TODO Shared
 const NOOP = async (): Promise<void> => {
   return;
 };
