@@ -1,6 +1,5 @@
 export type NextButton = {
   click: (event?: any) => Promise<void>;
-
   color?: string;
   icon?: string;
   label?: string;
