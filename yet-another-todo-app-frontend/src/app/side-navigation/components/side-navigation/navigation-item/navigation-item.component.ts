@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-const NOOP: () => any = () => {
-  return null;
-};
+import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
   selector: 'yata-navigation-item',

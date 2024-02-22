@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-// TODO Shared
-const NOOP = async (): Promise<void> => {
-  return;
-};
+import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
   selector: 'yata-submit-button',

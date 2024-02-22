@@ -1,10 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { NOOP } from 'src/app/shared/utils/noop.const';
 import { BackButton, NextButton, SubmitButton } from './modal-action-buttons.types';
-
-const NOOP = async (): Promise<void> => {
-  return;
-};
 
 @Component({
   selector: 'yata-modal-action-buttons',
