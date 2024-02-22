@@ -4,15 +4,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: $_32unit;
+  margin: 0;
+  padding: $_24unit;
 }
 
 .first-step {
   justify-content: flex-end;
-}
-
-yata-cancel-button {
-  margin-right: $_16unit;
-  display: flex;
-  align-items: center;
 }
