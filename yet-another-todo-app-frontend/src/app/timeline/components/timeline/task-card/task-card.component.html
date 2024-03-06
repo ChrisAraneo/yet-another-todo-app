@@ -13,9 +13,7 @@
       <yata-title>{{ task.getTitle() }}</yata-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        {{ task.getDescription() }}
-      </p>
+      <yata-paragraph [textAlign]="'center'">{{ task.getDescription() }}</yata-paragraph>
     </mat-card-content>
     <mat-card-actions class="bottom-actions">
       <button *ngIf="!isCompleted" mat-button (click)="completeTask(task)">
