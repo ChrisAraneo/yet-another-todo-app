@@ -8,6 +8,7 @@ import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-bo
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { LabelComponent } from './components/label/label.component';
 import { LogoComponent } from './components/logo/logo.component';
+import { ParagraphComponent } from './components/paragraph/paragraph.component';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
 import { TitleComponent } from './components/title/title.component';
@@ -38,6 +39,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     LabelComponent,
     ErrorSnackbarComponent,
     LogoComponent,
+    ParagraphComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -77,6 +79,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     SubtitleComponent,
     LabelComponent,
     LogoComponent,
+    ParagraphComponent,
   ],
 })
 export class SharedModule {}
