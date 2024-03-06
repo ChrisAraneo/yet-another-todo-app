@@ -1,3 +1,4 @@
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -21,6 +22,18 @@ import { TaskForm } from './add-task-modal.types';
   selector: 'yata-add-task-modal',
   templateUrl: './add-task-modal.component.html',
   styleUrls: ['./add-task-modal.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(
+          '300ms',
+          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
+        ),
+      ]),
+      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';
@@ -53,7 +66,14 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   next = async (): Promise<void> => {
-    this.step < this.total && this.step++;
+    switch (this.step) {
+      case 1: {
+        return this.handleGoNextToSecondStep();
+      }
+      case 2: {
+        return this.handleGoNextToThirdStep();
+      }
+    }
   };
 
   back = async (): Promise<void> => {
@@ -158,5 +178,33 @@ export class AddTaskModalComponent implements OnDestroy {
   private clearValidatorsAndSetNullValue(control: AbstractControl): void {
     control.clearValidators();
     control.setValue(null);
+  }
+
+  private handleGoNextToSecondStep(): void {
+    const { title, description } = this.taskForm.controls;
+
+    title.markAsTouched();
+    title.updateValueAndValidity();
+    description.markAsTouched();
+    description.updateValueAndValidity();
+
+    if (title.valid && description.valid) {
+      this.step = 2;
+    }
+  }
+
+  private handleGoNextToThirdStep(): void {
+    const { state, startDate, endDate } = this.taskForm.controls;
+
+    state.markAsTouched();
+    state.updateValueAndValidity();
+    startDate.markAsTouched();
+    startDate.updateValueAndValidity();
+    endDate.markAsTouched();
+    endDate.updateValueAndValidity();
+
+    if (state.valid && startDate.valid && endDate.valid) {
+      this.step = 3;
+    }
   }
 }

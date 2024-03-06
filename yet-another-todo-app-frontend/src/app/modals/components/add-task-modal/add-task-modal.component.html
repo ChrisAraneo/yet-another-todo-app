@@ -3,26 +3,58 @@
   <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
   <form [formGroup]="taskForm">
     <div class="controls">
-      <yata-text-input
-        [formControlName]="'title'"
-        [label]="'AddTaskModal.title' | translate"></yata-text-input>
-      <yata-textarea
-        [formControlName]="'description'"
-        [label]="'AddTaskModal.description' | translate"
-        [rows]="2"
-        [maxLength]="200"></yata-textarea>
-      <yata-select
-        [formControlName]="'state'"
-        [label]="'AddTaskModal.state' | translate"
-        [options]="states"></yata-select>
-      <yata-date-picker
-        *ngIf="!!showStartDateControl && (showStartDateControl | async)"
-        [formControlName]="'startDate'"
-        [label]="'AddTaskModal.startDate' | translate"></yata-date-picker>
-      <yata-date-picker
-        *ngIf="!!showEndDateControl && (showEndDateControl | async)"
-        [formControlName]="'endDate'"
-        [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
+      <yata-page *ngIf="step === 1" [@fadeInOut]>
+        <yata-text-input
+          [formControlName]="'title'"
+          [label]="'AddTaskModal.title' | translate"></yata-text-input>
+        <yata-textarea
+          [formControlName]="'description'"
+          [label]="'AddTaskModal.description' | translate"
+          [rows]="4"
+          [maxLength]="200"></yata-textarea>
+      </yata-page>
+      <yata-page *ngIf="step === 2" [@fadeInOut]>
+        <yata-select
+          [formControlName]="'state'"
+          [label]="'AddTaskModal.state' | translate"
+          [options]="states"></yata-select>
+        <yata-date-picker
+          *ngIf="!!showStartDateControl && (showStartDateControl | async)"
+          [formControlName]="'startDate'"
+          [label]="'AddTaskModal.startDate' | translate"></yata-date-picker>
+        <yata-date-picker
+          *ngIf="!!showEndDateControl && (showEndDateControl | async)"
+          [formControlName]="'endDate'"
+          [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
+      </yata-page>
+      <yata-page *ngIf="step === 3" class="summary" [@fadeInOut]>
+        <!-- TODO Add summary header -->
+        <yata-label>{{ 'AddTaskModal.title' | translate }}</yata-label>
+        <yata-title>{{ taskForm.value.title }}</yata-title>
+        <yata-label>{{ 'AddTaskModal.description' | translate }}</yata-label>
+        <yata-paragraph>{{ taskForm.value.title }}</yata-paragraph>
+        <yata-label>{{ 'AddTaskModal.state' | translate }}</yata-label>
+        <yata-paragraph>
+          <yata-task-state-icon
+            *ngIf="taskForm.value.state"
+            [state]="taskForm.value.state"></yata-task-state-icon>
+          <span class="state-label">{{
+            (taskForm.value.state ? taskForm.value.state.toString() : '') | translate
+          }}</span>
+        </yata-paragraph>
+        <yata-label>{{ 'AddTaskModal.startDate' | translate }}</yata-label>
+        <yata-paragraph>
+          <!-- TODO Custom date pipe -->
+          <!-- TODO Display dash symbol if value is empty -->
+          {{ taskForm.value.startDate | date }}
+        </yata-paragraph>
+        <yata-label>{{ 'AddTaskModal.endDate' | translate }}</yata-label>
+        <yata-paragraph>
+          <!-- TODO Custom date pipe -->
+          <!-- TODO Display dash symbol if value is empty -->
+          {{ taskForm.value.endDate | date }}
+        </yata-paragraph>
+      </yata-page>
     </div>
     <yata-modal-action-buttons
       [form]="taskForm"

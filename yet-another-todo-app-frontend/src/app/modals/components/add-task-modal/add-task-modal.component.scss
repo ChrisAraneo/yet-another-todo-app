@@ -45,20 +45,39 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: $_24unit;
     height: 100%;
 
     .controls {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      width: $_48unit * 10;
+      height: auto;
 
-      > yata-text-input,
-      > yata-textarea,
-      > yata-select,
-      > yata-date-picker {
-        margin-bottom: $_16unit !important;
+      yata-page {
+        position: absolute;
+        width: $_48unit * 10;
+
+        yata-text-input,
+        yata-textarea,
+        yata-select,
+        yata-date-picker {
+          margin-bottom: $_16unit !important;
+        }
       }
+    }
+  }
+
+  .summary {
+    yata-label:not(:first-of-type) {
+      margin-top: $_16unit !important;
+    }
+
+    yata-task-state-icon {
+      height: $_24unit;
+    }
+
+    .state-label {
+      margin-left: $_8unit;
+      height: $_24unit;
+      line-height: $_24unit;
     }
   }
 }
