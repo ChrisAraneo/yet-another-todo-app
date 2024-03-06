@@ -1,24 +1,33 @@
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
-input,
-input:focus {
-  box-sizing: border-box;
-  width: 100%;
-  padding: $_6unit $_6unit;
-  font-size: $_16unit;
-  border-radius: $form-input-border-radius;
-  outline: none;
-  margin: 0;
-  margin-top: $_6unit;
-}
+::ng-deep p-calendar {
+  .p-calendar {
+    width: 100% !important;
+  }
 
-input:not(:focus) {
-  border: $form-input-border;
-  background-color: $form-input-background;
-}
+  .p-datepicker-calendar {
+    tr {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
 
-input:focus {
-  border: $form-input-focus-border;
-  background-color: $form-input-focus-background;
+    td {
+      width: $_32unit;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        width: $_32unit;
+        height: $_32unit;
+      }
+    }
+  }
 }
