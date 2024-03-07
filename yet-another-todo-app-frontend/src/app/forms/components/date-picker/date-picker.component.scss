@@ -1,9 +1,38 @@
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
+$table-cell-size: $_22unit;
+
+.calendar-wrapper {
+  margin-top: $_8unit !important;
+  height: $_64unit * 3.875 !important;
+}
+
 ::ng-deep p-calendar {
   .p-calendar {
     width: 100% !important;
+    height: 100% !important;
+  }
+
+  .p-datepicker-calendar-container {
+    padding: $_12unit $_8unit;
+  }
+
+  .p-datepicker-header {
+    padding: $_4unit $_4unit;
+  }
+
+  .p-datepicker-month {
+    padding-right: $_8unit;
+  }
+
+  .p-datepicker table th {
+    width: $table-cell-size;
+    height: $table-cell-size + $_4unit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   .p-datepicker-calendar {
@@ -17,16 +46,18 @@
     }
 
     td {
-      width: $_32unit;
-      height: auto;
+      margin-bottom: $_4unit;
+      width: $table-cell-size;
+      height: $table-cell-size;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
 
       span {
-        width: $_32unit;
-        height: $_32unit;
+        width: $table-cell-size;
+        height: $table-cell-size;
+        font-size: $_14unit;
       }
     }
   }
