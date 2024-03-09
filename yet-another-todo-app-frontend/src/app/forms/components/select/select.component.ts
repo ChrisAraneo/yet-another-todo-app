@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import diff from 'microdiff';
 import { Option } from './select.types';
@@ -15,7 +15,7 @@ import { Option } from './select.types';
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor, AfterViewInit {
+export class SelectComponent implements ControlValueAccessor {
   @Input() label: string = '';
   @Input() options: Option<any>[] = [];
 
@@ -24,15 +24,6 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   changed?: (value: any) => void;
   touched?: () => void;
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      if (this.options[0]) {
-        this.selectedOption = this.options[0];
-        this.writeValue(this.options[0]);
-      }
-    });
-  }
 
   onChange(event: Event): void {
     const value = this.options.find((item) => this.isEqual(item, event))?.value;
@@ -45,7 +36,12 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   writeValue(value: any): void {
-    this.value = this.options.find((item) => this.isEqual(item, value))?.value;
+    this.options.forEach((item, index) => {
+      if (this.isEqual(item?.value, value)) {
+        this.value = item?.value;
+        this.selectedOption = this.options[index];
+      }
+    });
   }
 
   registerOnChange(fn: any): void {
