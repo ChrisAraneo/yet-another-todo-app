@@ -1,14 +1,11 @@
 <div>
   <yata-form-label [for]="label"></yata-form-label>
-  <select
-    #select
-    [name]="label"
-    [value]="selectedIndex"
-    [disabled]="isDisabled"
-    (input)="onChange($event)"
-    (blur)="onBlur()">
-    <option *ngFor="let option of options; let index = index" [value]="index">
-      {{ option.label }}
-    </option>
-  </select>
+  <p-dropdown
+    [options]="options"
+    optionLabel="label"
+    [showClear]="false"
+    [placeholder]="label"
+    [(ngModel)]="selectedOption"
+    (ngModelChange)="onChange($event)"
+    (blur)="onBlur()"></p-dropdown>
 </div>

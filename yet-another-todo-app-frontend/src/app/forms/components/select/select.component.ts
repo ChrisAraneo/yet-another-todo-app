@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import diff from 'microdiff';
 import { Option } from './select.types';
@@ -16,44 +16,28 @@ import { Option } from './select.types';
   ],
 })
 export class SelectComponent implements ControlValueAccessor, AfterViewInit {
-  @ViewChild('select') selectElementRef!: ElementRef;
-
   @Input() label: string = '';
   @Input() options: Option<any>[] = [];
 
+  selectedOption?: Option<any>;
   value?: any;
-  selectedIndex: number;
-  isDisabled: boolean;
 
   changed?: (value: any) => void;
   touched?: () => void;
 
-  constructor() {
-    this.selectedIndex = 0;
-    this.isDisabled = false;
-  }
-
   ngAfterViewInit(): void {
-    const index: number = this.options
-      .map((option) => option.value)
-      .findIndex((value) => this.isEqual(value, this.value || {}));
-    const nonNegativeIndex = index >= 0 ? index : 0;
-
     setTimeout(() => {
-      this.selectedIndex = nonNegativeIndex;
-      this.selectElementRef.nativeElement.value = nonNegativeIndex;
+      if (this.options[0]) {
+        this.selectedOption = this.options[0];
+        this.writeValue(this.options[0]);
+      }
     });
   }
 
   onChange(event: Event): void {
-    const selectedIndex: number = +(<HTMLInputElement>event.target).value;
-    const selectedOption = this.options[selectedIndex];
-    const selectedValue = selectedOption.value;
+    const value = this.options.find((item) => this.isEqual(item, event))?.value;
 
-    this.value = selectedValue;
-    this.selectedIndex = selectedIndex;
-
-    this.changed && this.changed(selectedValue);
+    this.changed && this.changed(value);
   }
 
   onBlur(): void {
@@ -61,19 +45,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   }
 
   writeValue(value: any): void {
-    const selectedIndex: number = this.options
-      .map((option) => option.value)
-      .findIndex((item) => this.isEqual(item, value));
-
-    if (selectedIndex >= 0) {
-      const selectedOption = this.options[selectedIndex];
-      this.value = selectedOption.value;
-
-      const nonNegativeIndex = selectedIndex >= 0 ? selectedIndex : 0;
-      this.selectedIndex = nonNegativeIndex;
-    } else {
-      console.error('Selected value not found in available options', value);
-    }
+    this.value = this.options.find((item) => this.isEqual(item, value))?.value;
   }
 
   registerOnChange(fn: any): void {
@@ -82,10 +54,6 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   registerOnTouched(fn: any): void {
     this.touched = fn;
-  }
-
-  setDisabledState?(isDisabled: boolean): void {
-    this.isDisabled = isDisabled;
   }
 
   private isEqual(a: any, b: any): boolean {

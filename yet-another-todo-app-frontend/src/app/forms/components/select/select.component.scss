@@ -1,28 +1,29 @@
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
-select,
-select:focus {
-  box-sizing: border-box;
-  width: 100%;
-  padding: $_10unit $_10unit;
-  font-size: $_16unit;
-  border-radius: $form-input-border-radius;
-  outline: none;
-  margin: 0;
+::ng-deep p-dropdown {
+  display: flex;
   margin-top: $_6unit;
-  background: url('../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat
-    right #ddd;
-  -webkit-appearance: none;
-  background-position-x: calc(100% - $_8unit);
+  width: 100%;
+
+  .p-dropdown {
+    width: 100%;
+    padding: $_10unit $_10unit;
+    font-size: $_16unit;
+    border: $form-input-border;
+    border-radius: $form-input-border-radius;
+  }
+
+  .p-dropdown.p-focus {
+    border-color: $form-input-focus-border-color !important;
+    box-shadow: 0 0 0 $_6unit $primary-color-50 !important;
+    background-color: $form-input-focus-background;
+  }
 }
 
-select:not(:focus) {
-  border: $form-input-border;
-  background-color: transparent;
-}
-
-select:focus {
-  border: $form-input-focus-border;
-  background-color: $form-input-focus-background;
+::ng-deep p-dropdownitem {
+  li span {
+    display: block;
+    padding: $_10unit $_10unit;
+  }
 }
