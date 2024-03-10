@@ -1,6 +1,8 @@
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
+$padding: $_10unit $_10unit;
+
 ::ng-deep p-dropdown {
   display: flex;
   margin-top: $_6unit;
@@ -8,7 +10,7 @@
 
   .p-dropdown {
     width: 100%;
-    padding: $_10unit $_10unit;
+    padding: $padding;
     font-size: $_16unit;
     border: $form-input-border;
     border-radius: $form-input-border-radius;
@@ -24,6 +26,11 @@
 ::ng-deep p-dropdownitem {
   li span {
     display: block;
-    padding: $_10unit $_10unit;
+    padding: $padding;
+  }
+
+  .p-highlight {
+    background-color: $form-input-focus-background;
+    color: $primary-color;
   }
 }
