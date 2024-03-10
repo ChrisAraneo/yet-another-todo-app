@@ -10,6 +10,7 @@
 $theme-background-color: white;
 $theme-title-text-color: rgb(45, 45, 45);
 $theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
+$theme-text-color: rgb(10, 10, 10); // TODO Use it
 
 $theme-primary: mat.define-palette($yata-palette-primary);
 $theme-secondary: mat.define-palette($yata-palette-secondary);
@@ -74,6 +75,7 @@ $modal-border-radius: $_16unit;
 
 $form-label-color: mat.get-color-from-palette($theme-grey, 900);
 
+$form-input-text-color: $theme-text-color; // TODO Use it
 $form-input-border-color: mat.get-color-from-palette($theme-grey, 700);
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-border-radius: $_6unit;
