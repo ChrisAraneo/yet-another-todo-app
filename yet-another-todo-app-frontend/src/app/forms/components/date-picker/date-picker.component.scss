@@ -11,15 +11,15 @@ $table-cell-size: $_22unit;
 ::ng-deep p-calendar {
   .p-calendar {
     width: 100% !important;
-    height: 100% !important;
+    height: auto;
   }
 
   .p-datepicker-calendar-container {
-    padding: $_12unit $_8unit;
+    padding: $_16unit $_8unit;
   }
 
   .p-datepicker-header {
-    padding: $_4unit $_4unit;
+    padding: $_8unit $_8unit;
   }
 
   .p-datepicker-month {
