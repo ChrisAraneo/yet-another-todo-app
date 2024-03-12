@@ -1,0 +1,45 @@
+@import '../../styles/variables.scss';
+
+.card {
+  box-sizing: border-box;
+  border: $border;
+  background-color: $theme-background-color;
+  border-radius: $border-radius;
+  width: 100%;
+}
+
+.top-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $_8unit;
+  padding: $_2unit $_2unit;
+}
+
+.header {
+  justify-content: center;
+  text-align: center;
+  margin-bottom: $_12unit;
+  padding: $_10unit;
+}
+
+.content {
+  justify-content: center;
+  padding: $_10unit;
+  margin-bottom: $_32unit;
+}
+
+.mat-mdc-icon-button {
+  padding: 0;
+  min-width: 0;
+  width: $_32unit;
+  height: $_32unit;
+  flex-shrink: 0;
+  line-height: $_22unit;
+  border-radius: 50%;
+}
+
+yata-task-state-icon {
+  padding: $_10unit $_12unit;
+}

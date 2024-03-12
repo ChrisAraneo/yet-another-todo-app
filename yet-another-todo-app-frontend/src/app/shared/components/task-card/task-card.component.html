@@ -1,1 +1,17 @@
-<p>task-card works!</p>
+<div class="card" *ngIf="!!task">
+  <div class="top-actions">
+    <yata-task-state-icon
+      [state]="task.getState()"
+      [size]="24"
+      [opacity]="0.4"></yata-task-state-icon>
+    <button mat-icon-button (click)="openEditTaskModal(task.getId())">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
+  <div class="header">
+    <yata-title>{{ task.getTitle() }}</yata-title>
+  </div>
+  <div class="content">
+    <yata-paragraph [textAlign]="'center'">{{ task.getDescription() }}</yata-paragraph>
+  </div>
+</div>

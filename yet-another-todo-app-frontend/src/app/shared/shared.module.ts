@@ -9,9 +9,12 @@ import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackb
 import { LabelComponent } from './components/label/label.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { ParagraphComponent } from './components/paragraph/paragraph.component';
+import { ParagraphModule } from './components/paragraph/paragraph.module';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
+import { TaskStateIconModule } from './components/task-state-icon/task-state-icon.module';
 import { TitleComponent } from './components/title/title.component';
+import { TitleModule } from './components/title/title.module';
 import { MaterialModule } from './material.module';
 import { ApiClientService } from './services/api-client/api-client.service';
 import { AuthService } from './services/auth/auth.service';
@@ -32,14 +35,11 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
 @NgModule({
   declarations: [
-    TaskStateIconComponent,
-    TitleComponent,
     EmptyInfoBoxComponent,
     SubtitleComponent,
     LabelComponent,
     ErrorSnackbarComponent,
     LogoComponent,
-    ParagraphComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -53,6 +53,9 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     BrowserModule,
     MaterialModule,
     ImageModule,
+    TaskStateIconModule,
+    TitleModule,
+    ParagraphModule,
   ],
   providers: [
     ApiClientService,
