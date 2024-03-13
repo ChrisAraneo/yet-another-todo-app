@@ -26,7 +26,7 @@
 
 .content {
   justify-content: center;
-  padding: $_10unit;
+  padding: $_14unit;
   margin-bottom: $_32unit;
 }
 
@@ -36,10 +36,12 @@
   width: $_32unit;
   height: $_32unit;
   flex-shrink: 0;
-  line-height: $_22unit;
+  line-height: $_24unit;
   border-radius: 50%;
 }
 
 yata-task-state-icon {
-  padding: $_10unit $_12unit;
+  width: $_24unit;
+  height: $_24unit;
+  margin-left: $_12unit;
 }
