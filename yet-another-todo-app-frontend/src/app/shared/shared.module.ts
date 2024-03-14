@@ -7,6 +7,7 @@ import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { LabelComponent } from './components/label/label.component';
+import { LabelModule } from './components/label/label.module';
 import { LogoComponent } from './components/logo/logo.component';
 import { ParagraphComponent } from './components/paragraph/paragraph.component';
 import { ParagraphModule } from './components/paragraph/paragraph.module';
@@ -34,13 +35,7 @@ import { ViewConfigurationService } from './services/view-configuration/view-con
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
 @NgModule({
-  declarations: [
-    EmptyInfoBoxComponent,
-    SubtitleComponent,
-    LabelComponent,
-    ErrorSnackbarComponent,
-    LogoComponent,
-  ],
+  declarations: [EmptyInfoBoxComponent, SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -56,6 +51,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     TaskStateIconModule,
     TitleModule,
     ParagraphModule,
+    LabelModule,
   ],
   providers: [
     ApiClientService,
