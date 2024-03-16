@@ -22,6 +22,7 @@ import { AuthService } from './services/auth/auth.service';
 import { DateUtilsService } from './services/date-utils/date-utils.service';
 import { GlobalErrorHandlerService } from './services/global-error-handler/global-error-handler.service';
 import { HttpLoggingService } from './services/http-logging/http-logging.service';
+import { NavigationService } from './services/navigation/navigation.service';
 import { NavigatorRefService } from './services/navigator-ref/navigator-ref.service';
 import { OperationIdGeneratorService } from './services/operation-id-generator/operation-id-generator.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
@@ -70,6 +71,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     UserLocaleService,
     NavigatorRefService,
     GlobalErrorHandlerService,
+    NavigationService,
   ],
   exports: [
     EmptyInfoBoxComponent,
