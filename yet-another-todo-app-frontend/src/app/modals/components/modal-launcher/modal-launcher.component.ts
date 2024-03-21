@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, debounceTime, map, mergeMap } from 'rxjs';
-import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
-import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from '../configure-table-modal/configure-table-modal.component';
@@ -25,9 +23,8 @@ export class ModalLauncherComponent {
 
   constructor(
     private dialogService: DialogService,
-    private router: Router,
+    private navigationService: NavigationService,
     private activatedRoute: ActivatedRoute,
-    private viewConfigurationService: ViewConfigurationService,
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +38,6 @@ export class ModalLauncherComponent {
 
   private resolveOpenModalObservable(): void {
     if (!this.activatedRoute || !this.activatedRoute.data) {
-      // TODO Throw error?
       return;
     }
 
@@ -95,17 +91,8 @@ export class ModalLauncherComponent {
       return;
     }
 
-    this.subscription = this.observable
-      .pipe(
-        debounceTime(50),
-        mergeMap(() => {
-          return this.viewConfigurationService.getAppMode();
-        }),
-      )
-      .subscribe((mode: AppMode) => {
-        if (mode === AppMode.Timeline || mode === AppMode.Table) {
-          this.router.navigate([mode === AppMode.Timeline ? TIMELINE_PATH : TABLE_PATH]);
-        }
-      });
+    this.subscription = this.observable.pipe(debounceTime(50)).subscribe(() => {
+      this.navigationService.navigateBack();
+    });
   }
 }
