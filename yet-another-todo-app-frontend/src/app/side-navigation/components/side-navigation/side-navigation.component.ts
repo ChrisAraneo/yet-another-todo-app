@@ -1,17 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription, map, mergeMap } from 'rxjs';
-import {
-  ADD_TASK_PATH,
-  CONFIGURE_PATH,
-  DELETE_TASK_PATH,
-  EDIT_TASK_PATH,
-  EXPORT_TASKS_PATH,
-  IMPORT_TASKS_PATH,
-  TABLE_PATH,
-  TIMELINE_PATH,
-} from 'src/app/app-routing.consts';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
@@ -52,9 +42,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    private router: Router,
     private viewConfigurationService: ViewConfigurationService,
     private tasksService: TasksService,
+    private navigationService: NavigationService,
   ) {}
 
   ngOnInit(): void {
@@ -72,15 +62,14 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const firstChild = mode === AppMode.Timeline ? TIMELINE_PATH : TABLE_PATH;
     const firstTask = (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
 
     const showTable = {
       icon: 'list',
       label: 'SideNavigation.tableView',
       active: mode === AppMode.Table,
-      click: (): void => {
-        this.router.navigate([TABLE_PATH]);
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToTableRoute();
       },
     };
 
@@ -88,8 +77,8 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       icon: 'event_note',
       label: 'SideNavigation.timelineView',
       active: mode === AppMode.Timeline,
-      click: (): void => {
-        this.router.navigate([TIMELINE_PATH]);
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToTimelineRoute();
       },
     };
 
@@ -98,7 +87,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.configureTable',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, CONFIGURE_PATH]);
+        await this.navigationService.navigateToConfigureRoute();
         this.activateNavigationItem(2);
       },
     };
@@ -108,7 +97,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.configureTimeline',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, CONFIGURE_PATH]);
+        await this.navigationService.navigateToConfigureRoute();
         this.activateNavigationItem(2);
       },
     };
@@ -118,7 +107,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.addTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, ADD_TASK_PATH]);
+        await this.navigationService.navigateToAddTaskRoute();
         this.activateNavigationItem(3);
       },
     };
@@ -128,7 +117,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.editTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, EDIT_TASK_PATH, firstTask?.getId()]);
+        await this.navigationService.navigateToEditTaskRoute(firstTask?.getId() || '');
         this.activateNavigationItem(4);
       },
     };
@@ -138,7 +127,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.deleteTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, DELETE_TASK_PATH, firstTask?.getId()]);
+        await this.navigationService.navigateToDeleteTaskRoute(firstTask?.getId() || '');
         this.activateNavigationItem(5);
       },
     };
@@ -148,7 +137,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.exportTasks',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, EXPORT_TASKS_PATH]);
+        await this.navigationService.navigateToExportTasksRoute();
         this.activateNavigationItem(6);
       },
     };
@@ -158,7 +147,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.importTasks',
       active: false,
       click: async (): Promise<void> => {
-        await this.router.navigate([firstChild, IMPORT_TASKS_PATH]);
+        await this.navigationService.navigateToImportTasksRoute();
         this.activateNavigationItem(7);
       },
     };
