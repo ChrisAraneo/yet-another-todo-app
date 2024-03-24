@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { MatSortable } from '@angular/material/sort';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable, Subscription, map } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, first, map, timer } from 'rxjs';
 import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
 import { TaskState } from '../../models/task-state.model';
 import {
@@ -23,9 +23,9 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class ViewConfigurationService {
+export class ViewConfigurationService implements OnDestroy {
   private configuration!: BehaviorSubject<ViewConfiguration>;
-  private subscription?: Subscription;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     public store: Store<{ viewConfiguration: ViewConfiguration }>,
@@ -33,6 +33,10 @@ export class ViewConfigurationService {
   ) {
     this.initializeConfigurationSubject();
     this.subscribeToUrlChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getAppMode(): Observable<AppMode> {
@@ -80,31 +84,36 @@ export class ViewConfigurationService {
       }
     });
 
-    if (!this.subscription) {
-      this.subscription = subscription;
-    } else {
-      this.subscription.add(subscription);
-    }
+    this.subscription.add(subscription);
   }
 
   private subscribeToUrlChanges(): void {
-    const subscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const urlParts = (event.urlAfterRedirects || event.url).split('/').filter((part) => !!part);
+    const initialUrlSubscription = timer(200)
+      .pipe(first())
+      .subscribe(() => {
+        this.changeAppModeBasedOnUrl(this.router.routerState.snapshot.url);
+      });
 
-        if (urlParts.length && (urlParts[0] === TIMELINE_PATH || urlParts[0] === TABLE_PATH)) {
-          this.changeAppMode(urlParts[0] === TIMELINE_PATH ? AppMode.Timeline : AppMode.Table);
-        } else {
-          console.warn('Undefined app mode');
-          this.changeAppMode(AppMode.Undefined);
-        }
+    const eventsSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.changeAppModeBasedOnUrl(event.urlAfterRedirects || event.url);
+      } else if (event instanceof NavigationSkipped) {
+        this.changeAppModeBasedOnUrl(event.url);
       }
     });
 
-    if (!this.subscription) {
-      this.subscription = subscription;
+    this.subscription.add(initialUrlSubscription);
+    this.subscription.add(eventsSubscription);
+  }
+
+  private changeAppModeBasedOnUrl(url: string): void {
+    const urlParts = url.split('/').filter((part) => !!part);
+
+    if (urlParts.length && (urlParts[0] === TIMELINE_PATH || urlParts[0] === TABLE_PATH)) {
+      this.changeAppMode(urlParts[0] === TIMELINE_PATH ? AppMode.Timeline : AppMode.Table);
     } else {
-      this.subscription.add(subscription);
+      console.warn('Undefined app mode');
+      this.changeAppMode(AppMode.Undefined);
     }
   }
 }
