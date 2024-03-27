@@ -9,9 +9,21 @@
     </button>
   </div>
   <div class="header">
-    <yata-title>{{ task.getTitle() }}</yata-title>
+    <yata-title [textAlign]="'center'">{{ task.getTitle() }}</yata-title>
+    <!-- TODO Create separate component for date range -->
+    <div class="date-range">
+      <div class="start-date">
+        <yata-label class="margin-right">{{ startDate }}</yata-label>
+        <yata-label *ngIf="!endDate">{{ startTime }}</yata-label>
+      </div>
+      <div class="end-date" *ngIf="endDate">
+        <yata-label class="margin-right">{{ '\u2014' }}</yata-label>
+        <yata-label class="margin-right">{{ endDate }}</yata-label>
+        <yata-label>{{ endTime }}</yata-label>
+      </div>
+    </div>
   </div>
-  <div class="content">
+  <div class="description">
     <yata-paragraph [textAlign]="'center'">{{ task.getDescription() }}</yata-paragraph>
   </div>
 </div>
