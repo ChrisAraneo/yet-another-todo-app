@@ -27,29 +27,25 @@ export class NavigationService {
   }
 
   async navigateToAddTaskRoute(): Promise<boolean> {
-    return this.navigate([ADD_TASK_PATH], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), ADD_TASK_PATH], {
       queryParamsHandling: 'merge',
     });
   }
 
   async navigateToEditTaskRoute(id: string): Promise<boolean> {
-    return this.navigate([EDIT_TASK_PATH, id], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), EDIT_TASK_PATH, id], {
       queryParamsHandling: 'merge',
     });
   }
 
   async navigateToDeleteTaskRoute(id: string): Promise<boolean> {
-    return this.navigate([DELETE_TASK_PATH, id], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), DELETE_TASK_PATH, id], {
       queryParamsHandling: 'merge',
     });
   }
 
   async navigateToConfigureRoute(): Promise<boolean> {
-    return this.navigate([CONFIGURE_PATH], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), CONFIGURE_PATH], {
       queryParamsHandling: 'merge',
     });
   }
@@ -69,20 +65,19 @@ export class NavigationService {
   }
 
   async navigateToExportTasksRoute(): Promise<boolean> {
-    return this.navigate([EXPORT_TASKS_PATH], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), EXPORT_TASKS_PATH], {
       queryParamsHandling: 'merge',
     });
   }
 
   async navigateToImportTasksRoute(): Promise<boolean> {
-    return this.navigate([IMPORT_TASKS_PATH], {
-      relativeTo: this.activatedRoute,
+    return this.navigate([this.getFirstRootChild(), IMPORT_TASKS_PATH], {
       queryParamsHandling: 'merge',
     });
   }
 
   async navigateBack(): Promise<boolean> {
+    // TODO Use path from root?
     const urlParts = this.getRouteSnapshotUrlParts();
     const length = urlParts.length;
 
@@ -111,6 +106,10 @@ export class NavigationService {
       paths.filter((path) => !!path),
       extras,
     );
+  }
+
+  private getFirstRootChild(): string {
+    return this.getRouteSnapshotUrlParts()[0];
   }
 
   private getRouteSnapshotUrlParts(): string[] {
