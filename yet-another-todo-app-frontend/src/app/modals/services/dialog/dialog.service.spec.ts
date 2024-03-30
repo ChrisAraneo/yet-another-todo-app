@@ -24,9 +24,10 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from 'src/app/shared/models/task-state.model';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme';
 import { environment } from 'src/environments/environment';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
@@ -93,6 +94,7 @@ describe('DialogService', () => {
           getTimelineConfiguration: () => of(dummyConfiguration.timeline),
           getTableConfiguration: () => of({ ...dummyConfiguration.table } as { sort: MatSortable }),
         }),
+        MockProvider(NavigationService),
         FormBuilder,
       ],
     });
@@ -113,6 +115,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(AddTaskModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: AddTaskModalComponent.PANEL_CLASS,
       });
 
@@ -130,6 +133,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(EditTaskModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: EditTaskModalComponent.PANEL_CLASS,
         data: {
           initialTaskId: taskId,
@@ -150,6 +154,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(DeleteTaskModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: DeleteTaskModalComponent.PANEL_CLASS,
         data: {
           initialTaskId: taskId,
@@ -169,6 +174,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(SignInModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: SignInModalComponent.PANEL_CLASS,
       });
 
@@ -185,6 +191,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(ExportTasksModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: ExportTasksModalComponent.PANEL_CLASS,
       });
 
@@ -201,6 +208,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(ImportTasksModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: ImportTasksModalComponent.PANEL_CLASS,
       });
 
@@ -217,6 +225,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
         data: {
           startDate: dummyConfiguration.timeline.startDate,
@@ -239,6 +248,7 @@ describe('DialogService', () => {
     setTimeout(() => {
       expect(matDialog.open).toHaveBeenCalledWith(ConfigureTableModalComponent, {
         width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
         panelClass: ConfigureTableModalComponent.PANEL_CLASS,
         data: {
           id: dummyConfiguration.table.sort.id,
