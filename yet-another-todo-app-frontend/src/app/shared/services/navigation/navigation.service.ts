@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
+import { NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
 import {
   ADD_TASK_PATH,
   CONFIGURE_PATH,
@@ -16,7 +16,7 @@ import {
   providedIn: 'root',
 })
 export class NavigationService {
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router) {}
 
   async navigateToTimelineRoute(): Promise<boolean> {
     return this.navigate([`/${TIMELINE_PATH}`]);
