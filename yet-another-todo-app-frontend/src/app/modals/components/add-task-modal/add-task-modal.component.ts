@@ -42,8 +42,9 @@ export class AddTaskModalComponent implements OnDestroy {
   showStartDateControl!: Observable<boolean>;
   showEndDateControl!: Observable<boolean>;
   states: Option<TaskState>[] = [];
-  step: number = 1;
+  step: number = 1; // TODO NgSwitch
   total: number = 3;
+  task?: Task;
 
   private subscription: Subscription = new Subscription();
 
@@ -85,13 +86,14 @@ export class AddTaskModalComponent implements OnDestroy {
       return;
     }
 
-    const task: Task = this.taskCreator.create({
-      ...this.taskForm.value,
-      creationDate: new Date(),
-    });
+    this.task = this.createTask();
+
+    if (this.task) {
+      return;
+    }
 
     return new Promise((resolve) => {
-      this.tasksService.addTask(task).subscribe(() => {
+      this.tasksService.addTask(this.task as Task).subscribe(() => {
         resolve();
 
         this.dialogRef.close();
@@ -204,7 +206,15 @@ export class AddTaskModalComponent implements OnDestroy {
     endDate.updateValueAndValidity();
 
     if (state.valid && startDate.valid && endDate.valid) {
+      this.task = this.createTask();
       this.step = 3;
     }
+  }
+
+  private createTask(): Task {
+    return this.taskCreator.create({
+      ...this.taskForm.value,
+      creationDate: new Date(),
+    });
   }
 }

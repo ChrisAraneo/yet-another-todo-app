@@ -27,33 +27,12 @@
           [formControlName]="'endDate'"
           [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
       </yata-page>
+      <!-- TODO Use NgSwitch -->
       <yata-page *ngIf="step === 3" class="summary" [@fadeInOut]>
-        <!-- TODO Add summary header -->
-        <yata-label>{{ 'AddTaskModal.title' | translate }}</yata-label>
-        <yata-title>{{ taskForm.value.title }}</yata-title>
-        <yata-label>{{ 'AddTaskModal.description' | translate }}</yata-label>
-        <yata-paragraph>{{ taskForm.value.title }}</yata-paragraph>
-        <yata-label>{{ 'AddTaskModal.state' | translate }}</yata-label>
-        <yata-paragraph>
-          <yata-task-state-icon
-            *ngIf="taskForm.value.state"
-            [state]="taskForm.value.state"></yata-task-state-icon>
-          <span class="state-label">{{
-            (taskForm.value.state ? taskForm.value.state.toString() : '') | translate
-          }}</span>
-        </yata-paragraph>
-        <yata-label>{{ 'AddTaskModal.startDate' | translate }}</yata-label>
-        <yata-paragraph>
-          <!-- TODO Custom date pipe -->
-          <!-- TODO Display dash symbol if value is empty -->
-          {{ taskForm.value.startDate | date }}
-        </yata-paragraph>
-        <yata-label>{{ 'AddTaskModal.endDate' | translate }}</yata-label>
-        <yata-paragraph>
-          <!-- TODO Custom date pipe -->
-          <!-- TODO Display dash symbol if value is empty -->
-          {{ taskForm.value.endDate | date }}
-        </yata-paragraph>
+        <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
+        <div class="task-card-wrapper">
+          <yata-task-card *ngIf="task" [task]="task"></yata-task-card>
+        </div>
       </yata-page>
     </div>
     <yata-modal-action-buttons

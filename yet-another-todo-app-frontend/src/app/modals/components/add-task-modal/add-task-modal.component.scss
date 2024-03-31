@@ -66,18 +66,17 @@
   }
 
   .summary {
-    yata-label:not(:first-of-type) {
-      margin-top: $_16unit !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    yata-subtitle {
+      margin-bottom: $_18unit;
     }
 
-    yata-task-state-icon {
-      height: $_24unit;
-    }
-
-    .state-label {
-      margin-left: $_8unit;
-      height: $_24unit;
-      line-height: $_24unit;
+    .task-card-wrapper {
+      width: calc($column-width - $_16unit);
     }
   }
 }
