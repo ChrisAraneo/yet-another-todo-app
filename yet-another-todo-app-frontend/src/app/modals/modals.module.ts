@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { FormsModule } from '../forms/forms.module';
+import { TaskCardModule } from '../shared/components/task-card/task-card.module';
 import { MaterialModule } from '../shared/material.module';
 import { ApiClientService } from '../shared/services/api-client/api-client.service';
 import { AuthService } from '../shared/services/auth/auth.service';
@@ -62,6 +63,7 @@ import { DialogService } from './services/dialog/dialog.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MaterialModule,
+    TaskCardModule,
   ],
   providers: [
     DateUtilsService,
