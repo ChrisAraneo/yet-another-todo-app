@@ -92,9 +92,14 @@ export class AddTaskModalComponent implements OnDestroy {
       return;
     }
 
-    this.task = this.createTask();
+    let validTask = true;
+    try {
+      this.task = this.createTask();
+    } catch (_) {
+      validTask = false;
+    }
 
-    if (this.task) {
+    if (!validTask) {
       return;
     }
 
@@ -215,8 +220,14 @@ export class AddTaskModalComponent implements OnDestroy {
     endDate.markAsTouched();
     endDate.updateValueAndValidity();
 
-    if (startDate.valid && endDate.valid) {
+    let validTask = true;
+    try {
       this.task = this.createTask();
+    } catch (_) {
+      validTask = false;
+    }
+
+    if (startDate.valid && endDate.valid && validTask) {
       this.step = 3;
     }
   }
