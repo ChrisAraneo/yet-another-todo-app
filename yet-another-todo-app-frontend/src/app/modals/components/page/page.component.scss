@@ -1,7 +1,7 @@
 @import '../../../shared/styles/variables.scss';
 
 :host {
-  padding: $_24unit;
+  padding: $_24unit $_32unit;
   display: flex;
   flex-direction: column;
 }
