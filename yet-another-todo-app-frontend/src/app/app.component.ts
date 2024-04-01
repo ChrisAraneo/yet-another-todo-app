@@ -1,6 +1,16 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { BehaviorSubject, Observable, Subscription, debounceTime, map, mergeMap, tap } from 'rxjs';
+import { PrimeNGConfig } from 'primeng/api';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  debounceTime,
+  first,
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
@@ -28,6 +38,7 @@ export class AppComponent implements OnDestroy {
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
     private viewConfigurationService: ViewConfigurationService,
+    private primeNgConfig: PrimeNGConfig,
   ) {
     this.initializeTranslateService();
     this.initializeIsAppVisibleObservable();
@@ -62,6 +73,13 @@ export class AppComponent implements OnDestroy {
     const browserCultureLang = this.translateService.getBrowserCultureLang();
 
     this.translateService.use(browserCultureLang || 'en');
+
+    this.translateService
+      .get('PrimeNG')
+      ?.pipe(first())
+      .subscribe((result) => {
+        this.primeNgConfig.setTranslation(result);
+      });
   }
 
   private initializeIsAppVisibleObservable(): void {
