@@ -2,8 +2,8 @@
 <div class="form">
   <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
   <form [formGroup]="taskForm">
-    <div class="controls">
-      <yata-page *ngIf="step === 1" [@fadeInOut]>
+    <div class="controls" [ngSwitch]="step">
+      <yata-page *ngSwitchCase="1" [@fadeInOut]>
         <yata-text-input
           [formControlName]="'title'"
           [label]="'AddTaskModal.title' | translate"></yata-text-input>
@@ -12,12 +12,12 @@
           [label]="'AddTaskModal.description' | translate"
           [rows]="4"
           [maxLength]="200"></yata-textarea>
-      </yata-page>
-      <yata-page *ngIf="step === 2" [@fadeInOut]>
         <yata-select
           [formControlName]="'state'"
           [label]="'AddTaskModal.state' | translate"
           [options]="states"></yata-select>
+      </yata-page>
+      <yata-page *ngSwitchCase="2" [@fadeInOut]>
         <yata-date-picker
           *ngIf="!!showStartDateControl && (showStartDateControl | async)"
           [formControlName]="'startDate'"
@@ -27,8 +27,7 @@
           [formControlName]="'endDate'"
           [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
       </yata-page>
-      <!-- TODO Use NgSwitch -->
-      <yata-page *ngIf="step === 3" class="summary" [@fadeInOut]>
+      <yata-page *ngSwitchCase="3" class="summary" [@fadeInOut]>
         <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
         <div class="task-card-wrapper">
           <yata-task-card *ngIf="task" [task]="task"></yata-task-card>

@@ -2,7 +2,7 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription, map } from 'rxjs';
+import { Observable, Subscription, map, shareReplay } from 'rxjs';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
@@ -42,7 +42,7 @@ export class AddTaskModalComponent implements OnDestroy {
   showStartDateControl!: Observable<boolean>;
   showEndDateControl!: Observable<boolean>;
   states: Option<TaskState>[] = [];
-  step: number = 1; // TODO NgSwitch
+  step: number = 1;
   total: number = 3;
   task?: Task;
 
@@ -78,7 +78,13 @@ export class AddTaskModalComponent implements OnDestroy {
   };
 
   back = async (): Promise<void> => {
-    this.step > 1 && this.step--;
+    if (this.step === 1) {
+      return;
+    } else if (this.step === 3 && this.shouldSkipSecondStep()) {
+      this.step = 1;
+    } else {
+      this.step--;
+    }
   };
 
   submit = async (): Promise<void> => {
@@ -132,12 +138,14 @@ export class AddTaskModalComponent implements OnDestroy {
           state instanceof RejectedTaskState
         );
       }),
+      shareReplay(1),
     );
 
     this.showEndDateControl = this.taskForm.controls.state.valueChanges.pipe(
       map((state: TaskState) => {
         return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
+      shareReplay(1),
     );
   }
 
@@ -183,32 +191,40 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   private handleGoNextToSecondStep(): void {
-    const { title, description } = this.taskForm.controls;
+    const { title, description, state } = this.taskForm.controls;
 
     title.markAsTouched();
     title.updateValueAndValidity();
     description.markAsTouched();
     description.updateValueAndValidity();
+    state.markAsTouched();
+    state.updateValueAndValidity();
 
-    if (title.valid && description.valid) {
+    if (this.shouldSkipSecondStep()) {
+      this.handleGoNextToThirdStep();
+    } else if (title.valid && description.valid && state.valid) {
       this.step = 2;
     }
   }
 
   private handleGoNextToThirdStep(): void {
-    const { state, startDate, endDate } = this.taskForm.controls;
+    const { startDate, endDate } = this.taskForm.controls;
 
-    state.markAsTouched();
-    state.updateValueAndValidity();
     startDate.markAsTouched();
     startDate.updateValueAndValidity();
     endDate.markAsTouched();
     endDate.updateValueAndValidity();
 
-    if (state.valid && startDate.valid && endDate.valid) {
+    if (startDate.valid && endDate.valid) {
       this.task = this.createTask();
       this.step = 3;
     }
+  }
+
+  private shouldSkipSecondStep(): boolean {
+    return (
+      this.taskForm.controls?.state?.value?.toString() === new NotStartedTaskState().toString()
+    );
   }
 
   private createTask(): Task {
