@@ -102,6 +102,41 @@
     "offlineMode": "Tryb offline",
     "offlineModeHint": "Jesteś w trybie offline i dane nie zostaną zsynchronizowane z serwerem."
   },
+  "PrimeNG": {
+    "dayNames": ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+    "dayNamesMin": ["Ndz", "Pn", "Wt", "Śr", "Czw", "Pt", "Sob"],
+    "dayNamesShort": ["Niedz", "Pon", "Wto", "Śro", "Czw", "Piąt", "Sob"],
+    "monthNames": [
+      "Styczeń",
+      "Luty",
+      "Marzec",
+      "Kwiecień",
+      "Maj",
+      "Czerwiec",
+      "Lipiec",
+      "Sierpień",
+      "Wrzesień",
+      "Październik",
+      "Listopad",
+      "Grudzień"
+    ],
+    "monthNamesShort": [
+      "Sty",
+      "Lut",
+      "Mar",
+      "Kw",
+      "Maj",
+      "Czw",
+      "Lip",
+      "Sier",
+      "Wrz",
+      "Paź",
+      "Lis",
+      "Gru"
+    ],
+    "today": "Dziś",
+    "weekHeader": "Tydz"
+  },
   "REJECTED": "Zadanie odrzucone",
   "SUSPENDED": "Zadanie zawieszone",
   "SearchBar": {
