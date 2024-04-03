@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpLoaderFactory } from '../app.module';
@@ -53,6 +54,7 @@ import { DirectivesModule } from './directives/directives.module';
     InputTextareaModule,
     CalendarModule,
     DropdownModule,
+    InputNumberModule,
   ],
   providers: [],
   exports: [
