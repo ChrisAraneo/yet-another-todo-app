@@ -39,8 +39,8 @@ export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';
 
   taskForm!: FormGroup<TaskForm>;
-  showStartDateControl!: Observable<boolean>;
-  showEndDateControl!: Observable<boolean>;
+  showDatePicker!: Observable<boolean>;
+  isDateRange!: Observable<boolean>;
   states: Option<TaskState>[] = [];
   step: number = 1;
   total: number = 3;
@@ -58,8 +58,7 @@ export class AddTaskModalComponent implements OnDestroy {
     this.initializeStates();
     this.initializeForm();
     this.initializeObservables();
-    this.subscribeToShowStartDateControlChanges();
-    this.subscribeToShowEndDateControlChanges();
+    this.subscribeToShowDatePickerControlChanges();
   }
 
   ngOnDestroy(): void {
@@ -128,13 +127,12 @@ export class AddTaskModalComponent implements OnDestroy {
         validators: [Validators.required],
         nonNullable: true,
       }),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null),
+      dateRange: new FormControl(null),
     });
   }
 
   private initializeObservables(): void {
-    this.showStartDateControl = this.taskForm.controls.state.valueChanges.pipe(
+    this.showDatePicker = this.taskForm.controls.state.valueChanges.pipe(
       map((state: TaskState) => {
         return (
           state instanceof InProgressTaskState ||
@@ -146,7 +144,7 @@ export class AddTaskModalComponent implements OnDestroy {
       shareReplay(1),
     );
 
-    this.showEndDateControl = this.taskForm.controls.state.valueChanges.pipe(
+    this.isDateRange = this.taskForm.controls.state.valueChanges.pipe(
       map((state: TaskState) => {
         return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
@@ -154,26 +152,10 @@ export class AddTaskModalComponent implements OnDestroy {
     );
   }
 
-  private subscribeToShowStartDateControlChanges(): void {
+  private subscribeToShowDatePickerControlChanges(): void {
     this.subscription.add(
-      this.showStartDateControl.subscribe((show: boolean) => {
-        const control = this.taskForm.controls.startDate;
-
-        if (show) {
-          this.setValidatorRequired(control);
-        } else {
-          this.clearValidatorsAndSetNullValue(control);
-        }
-
-        this.taskForm.updateValueAndValidity();
-      }),
-    );
-  }
-
-  private subscribeToShowEndDateControlChanges(): void {
-    this.subscription.add(
-      this.showEndDateControl.subscribe((show: boolean) => {
-        const control = this.taskForm.controls.endDate;
+      this.showDatePicker.subscribe((show: boolean) => {
+        const control = this.taskForm.controls.dateRange;
 
         if (show) {
           this.setValidatorRequired(control);
@@ -213,12 +195,10 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   private handleGoNextToThirdStep(): void {
-    const { startDate, endDate } = this.taskForm.controls;
+    const { dateRange } = this.taskForm.controls;
 
-    startDate.markAsTouched();
-    startDate.updateValueAndValidity();
-    endDate.markAsTouched();
-    endDate.updateValueAndValidity();
+    dateRange.markAsTouched();
+    dateRange.updateValueAndValidity();
 
     let validTask = true;
     try {
@@ -227,7 +207,7 @@ export class AddTaskModalComponent implements OnDestroy {
       validTask = false;
     }
 
-    if (startDate.valid && endDate.valid && validTask) {
+    if (dateRange.valid && validTask) {
       this.step = 3;
     }
   }
@@ -239,9 +219,25 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   private createTask(): Task {
-    return this.taskCreator.create({
+    const { dateRange } = this.taskForm.value;
+
+    const input: any = {
       ...this.taskForm.value,
       creationDate: new Date(),
-    });
+    };
+
+    if (dateRange && typeof dateRange === 'string') {
+      input['startDate'] = dateRange;
+    } else if (dateRange && Array.isArray(dateRange)) {
+      input['startDate'] = dateRange[0];
+
+      if (dateRange.length === 1) {
+        input['endDate'] = dateRange[0];
+      } else {
+        input['endDate'] = dateRange[1];
+      }
+    }
+
+    return this.taskCreator.create(input);
   }
 }

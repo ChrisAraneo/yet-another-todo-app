@@ -4,8 +4,8 @@
     <p-calendar
       class="max-w-full"
       [name]="label"
-      [(ngModel)]="date"
-      (ngModelChange)="onChange($event)"
+      [(ngModel)]="model"
+      (ngModelChange)="onChangeDate($event)"
       [icon]="'input'"
       [showIcon]="true"
       [disabled]="isDisabled"
@@ -13,5 +13,45 @@
       [inline]="true"
       [showWeek]="true"
       *yataErrorTooltip="label"></p-calendar>
+  </div>
+  <div class="time-picker-wrapper" *ngIf="showTime">
+    <div>
+      <p-inputNumber
+        [(ngModel)]="start.hours"
+        (ngModelChange)="onChangeDate(model)"
+        mode="decimal"
+        [min]="0"
+        [max]="23"
+        (blur)="onBlur()">
+      </p-inputNumber>
+      <span>:</span>
+      <p-inputNumber
+        [(ngModel)]="start.minutes"
+        (ngModelChange)="onChangeDate(model)"
+        mode="decimal"
+        [min]="0"
+        [max]="59"
+        (blur)="onBlur()">
+      </p-inputNumber>
+    </div>
+    <div *ngIf="range">
+      <p-inputNumber
+        [(ngModel)]="end.hours"
+        (ngModelChange)="onChangeDate(model)"
+        mode="decimal"
+        [min]="0"
+        [max]="23"
+        (blur)="onBlur()">
+      </p-inputNumber>
+      <span>:</span>
+      <p-inputNumber
+        [(ngModel)]="end.minutes"
+        (ngModelChange)="onChangeDate(model)"
+        mode="decimal"
+        [min]="0"
+        [max]="59"
+        (blur)="onBlur()">
+      </p-inputNumber>
+    </div>
   </div>
 </div>

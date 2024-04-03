@@ -18,14 +18,13 @@
           [options]="states"></yata-select>
       </yata-page>
       <yata-page *ngSwitchCase="2" [@fadeInOut]>
+        <!-- TODO Update translations -->
         <yata-date-picker
-          *ngIf="!!showStartDateControl && (showStartDateControl | async)"
-          [formControlName]="'startDate'"
-          [label]="'AddTaskModal.startDate' | translate"></yata-date-picker>
-        <yata-date-picker
-          *ngIf="!!showEndDateControl && (showEndDateControl | async)"
-          [formControlName]="'endDate'"
-          [label]="'AddTaskModal.endDate' | translate"></yata-date-picker>
+          *ngIf="!!(showDatePicker | async)"
+          [formControlName]="'dateRange'"
+          [label]="'AddTaskModal.startDate' | translate"
+          [range]="!!(isDateRange | async)"
+          [showTime]="true"></yata-date-picker>
       </yata-page>
       <yata-page *ngSwitchCase="3" class="summary" [@fadeInOut]>
         <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
