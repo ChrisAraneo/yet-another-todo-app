@@ -5,6 +5,7 @@
     "endDate": "Data zakończenia",
     "modalTitle": "Dodaj nowe zadanie",
     "startDate": "Data rozpoczęcia",
+    "dateRange": "Data rozpoczęcia i data zakończenia",
     "state": "Stan",
     "submit": "Zapisz",
     "summary": "Podsumowanie",
@@ -34,6 +35,10 @@
     "modalTitle": "Konfiguruj widok osi czasu",
     "save": "Zapisz zmiany",
     "startDate": "Data rozpoczecia"
+  },
+  "DatePicker": {
+    "endTime": "Czas zakończenia",
+    "startTime": "Czas rozpoczęcia"
   },
   "DatesFilter": {
     "endDate": "Data zakończenia",

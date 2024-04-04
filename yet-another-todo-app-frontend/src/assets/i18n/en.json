@@ -5,6 +5,7 @@
     "endDate": "End date",
     "modalTitle": "Add new task",
     "startDate": "Start date",
+    "dateRange": "Start date and end date",
     "state": "State",
     "submit": "Submit",
     "summary": "Summary",
@@ -34,6 +35,10 @@
     "modalTitle": "Configure timeline view",
     "save": "Save changes",
     "startDate": "Start date"
+  },
+  "DatePicker": {
+    "endTime": "End time",
+    "startTime": "Start time"
   },
   "DatesFilter": {
     "endDate": "End date",
