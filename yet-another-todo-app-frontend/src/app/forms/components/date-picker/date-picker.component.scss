@@ -17,6 +17,16 @@ $table-cell-size: $_26unit;
     padding: $_16unit $_8unit;
   }
 
+  .p-component.p-datepicker-inline {
+    border-color: $border-color;
+  }
+
+  &.show-time .p-component.p-datepicker-inline {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
   .p-datepicker-header {
     padding: $_8unit $_8unit;
   }
@@ -67,4 +77,82 @@ $table-cell-size: $_26unit;
       }
     }
   }
+}
+
+.time-picker-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border: $border;
+  border-radius: $form-input-border-radius;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0 $_20unit $_20unit $_20unit;
+
+  .start-time-wrapper,
+  .end-time-wrapper {
+    width: 100%;
+    max-width: 50%;
+  }
+
+  ::ng-deep yata-form-label {
+    label {
+      margin-top: 0;
+    }
+  }
+
+  ::ng-deep p-inputNumber {
+    .p-inputtext {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: $_40unit + $_2unit;
+      padding: $_8unit $_8unit;
+      font-size: $_16unit;
+      border: $form-input-border;
+      background-color: $form-input-background;
+      border-radius: $form-input-border-radius;
+      outline: none;
+      margin: 0;
+      margin-top: $_6unit;
+
+      &:not(.ng-invalid):enabled:focus {
+        border-color: $form-input-focus-border-color !important;
+        box-shadow: 0 0 0 $_6unit $primary-color-50 !important;
+        background-color: $form-input-focus-background;
+      }
+
+      &:not(.ng-invalid):hover {
+        border-color: $form-input-focus-border-color !important;
+        box-shadow: 0 0 0 $_4unit $primary-color-50 !important;
+        background-color: $form-input-focus-background;
+      }
+
+      &:not(.ng-invalid):not(:focus) {
+        border-color: $form-input-border-color !important;
+        background-color: $form-input-background;
+      }
+
+      &.ng-invalid {
+        border-color: $color-danger !important;
+      }
+
+      &.ng-invalid:enabled:focus {
+        border-color: $form-input-focus-border-color !important;
+        box-shadow: 0 0 0 $_6unit $danger-color-50 !important;
+        background-color: $danger-color-50 !important;
+      }
+
+      &.ng-invalid:hover {
+        border-color: $color-danger !important;
+        box-shadow: 0 0 0 $_4unit $danger-color-50 !important;
+        background-color: $danger-color-50 !important;
+      }
+    }
+  }
+}
+
+.separator {
+  margin-left: $_8unit;
+  margin-right: $_8unit;
 }
