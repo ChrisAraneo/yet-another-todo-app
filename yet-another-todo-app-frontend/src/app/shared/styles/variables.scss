@@ -2,16 +2,19 @@
 @use '@angular/material' as mat;
 
 @import './units.scss';
-@import './pallete.scss';
+
+// Use color-palletes-generator from yata-another-todo-app-dev-scripts
+// to generate color palletes.
+@import './palletes.__generated.scss';
 
 @include mat.all-component-typographies();
 @include mat.core();
 
-$theme-background-color: white;
-$theme-title-text-color: rgb(45, 45, 45);
-$theme-subtitle-text-color: lighten($theme-title-text-color, 5%);
-$theme-label-text-color: rgb(100, 100, 100); // TODO Use it
-$theme-text-color: rgb(10, 10, 10); // TODO Use it
+$theme-background-color: white; // TODO Rename
+$theme-title-text-color: rgb(45, 45, 45); // TODO Rename
+$theme-subtitle-text-color: lighten($theme-title-text-color, 5%); // TODO Rename
+$theme-label-text-color: rgb(100, 100, 100); // TODO Use it, rename
+$theme-text-color: rgb(10, 10, 10); // TODO Use it, rename
 
 $theme-primary: mat.define-palette($yata-palette-primary);
 $theme-secondary: mat.define-palette($yata-palette-secondary);

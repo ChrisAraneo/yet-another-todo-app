@@ -91,13 +91,19 @@ curl --location 'http://localhost:9339/signup' \
 
 ## Running the application in development mode
 
-Make sure database is running in docker container and then start backend:
+1. Before starting Angular UI for the first time, you must generate color palettes that are used by components:
+
+```bash
+/yet-another-todo-app-dev-scripts$ npm run color-palletes-generator
+```
+
+2. Make sure database is running in Docker container and then start backend:
 
 ```bash
 /yet-another-todo-app-backend$ npm run start:dev
 ```
 
-Then run Angular UI
+3. Start Angular UI:
 
 ```bash
 /yet-another-todo-app-frontend$ npm run start
