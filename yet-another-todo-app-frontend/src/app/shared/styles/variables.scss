@@ -23,8 +23,8 @@ $theme-danger: mat.define-palette($yata-palette-red);
 
 $column-width: $_64unit * 3;
 
-$color-accent: mat.get-color-from-palette($theme-secondary, 700);
-$color-danger: mat.get-color-from-palette($theme-danger, 700);
+$color-accent: mat.get-color-from-palette($theme-secondary, 600);
+$color-danger: mat.get-color-from-palette($theme-danger, 600);
 $color-warning: 'orange';
 $color-text: 'black';
 $color-disabled: '#888888';
@@ -84,7 +84,7 @@ $form-input-border-radius: $_6unit;
 $form-input-border-color: mat.get-color-from-palette($theme-grey, 400);
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-background: darken($theme-background-color, 0.7%) !important;
-$form-input-focus-border-color: $primary-color !important;
+$form-input-focus-border-color: $primary-color;
 $form-input-focus-border: 1px solid $form-input-focus-border-color !important;
 $form-input-focus-background: rgba($primary-color-50, 0.33) !important;
 

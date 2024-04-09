@@ -7,34 +7,30 @@
   padding: $_10unit $_8unit;
   font-size: $_16unit;
   border: $form-input-border;
+  border-color: $form-input-border-color !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
+  margin: $_6unit 0;
   outline: none;
-  margin: 0;
-  margin-top: $_6unit;
 
-  &:not(.ng-invalid):enabled:focus {
+  &:focus {
     border-color: $form-input-focus-border-color !important;
     box-shadow: 0 0 0 $_6unit $primary-color-50 !important;
     background-color: $form-input-focus-background;
   }
 
-  &:not(.ng-invalid):hover {
+  &:hover {
     border-color: $form-input-focus-border-color !important;
     box-shadow: 0 0 0 $_4unit $primary-color-50 !important;
     background-color: $form-input-focus-background;
   }
 
-  &:not(.ng-invalid):not(:focus) {
-    border-color: $form-input-border-color !important;
-    background-color: $form-input-background;
-  }
-
   &.ng-invalid {
     border-color: $color-danger !important;
+    background-color: $danger-color-50 !important;
   }
 
-  &.ng-invalid:enabled:focus {
+  &.ng-invalid:focus {
     border-color: $form-input-focus-border-color !important;
     box-shadow: 0 0 0 $_6unit $danger-color-50 !important;
     background-color: $danger-color-50 !important;
@@ -44,5 +40,15 @@
     border-color: $color-danger !important;
     box-shadow: 0 0 0 $_4unit $danger-color-50 !important;
     background-color: $danger-color-50 !important;
+  }
+
+  &:disabled {
+    border-color: $form-input-border-color !important;
+    background-color: $grey-color-100 !important;
+  }
+
+  &:disabled:hover {
+    border-color: $form-input-border-color !important;
+    box-shadow: 0 0 0 0 transparent !important;
   }
 }
