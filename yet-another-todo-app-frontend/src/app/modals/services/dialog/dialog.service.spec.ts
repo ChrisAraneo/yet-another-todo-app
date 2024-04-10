@@ -27,7 +27,7 @@ import {
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme.__generated';
 import { environment } from 'src/environments/environment';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';

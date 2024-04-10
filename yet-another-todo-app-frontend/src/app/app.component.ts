@@ -15,7 +15,7 @@ import { DateUtilsService } from './shared/services/date-utils/date-utils.servic
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
 import { CurrentUser } from './shared/store/types/current-user.type';
-import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
+import { COLUMN_WIDTH, UNIT } from './shared/styles/theme.__generated';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 @Component({

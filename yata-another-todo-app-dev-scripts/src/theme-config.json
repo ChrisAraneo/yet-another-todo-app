@@ -1,0 +1,20 @@
+{
+  "unit": 64,
+  "lightness": 40,
+  "primary": {
+    "hue": 212,
+    "saturation": 100
+  },
+  "secondary": {
+    "hue": 162,
+    "saturation": 100
+  },
+  "red": {
+    "hue": 2,
+    "saturation": 100
+  },
+  "gray": {
+    "hue": 212,
+    "saturation": 10
+  }
+}

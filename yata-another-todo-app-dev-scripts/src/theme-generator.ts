@@ -1,6 +1,20 @@
 import materialPalette from 'material-palette';
 import fs from 'node:fs';
-import path from 'path';
+import Path from 'path';
+
+interface Color {
+  hue: number;
+  saturation: number;
+}
+
+interface Config {
+  unit: number;
+  lightness: number;
+  primary: Color;
+  secondary: Color;
+  red: Color;
+  gray: Color;
+}
 
 function hslToHex(input: { h: number; s: number; l: number }): string {
   const { h, s } = input;
@@ -18,18 +32,48 @@ function hslToHex(input: { h: number; s: number; l: number }): string {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
-function main(): void {
-  const lightness = 40;
-  const primary = materialPalette({ h: 212, s: 100, l: lightness });
-  const secondary = materialPalette({ h: 162, s: 100, l: lightness });
-  const red = materialPalette({ h: 2, s: 100, l: lightness });
-  const gray = materialPalette({ h: 212, s: 10, l: lightness + 12 });
+function readFile(path: string): string {
+  return fs.readFileSync(Path.normalize(process.cwd() + path), 'utf8');
+}
 
-  const output = `/*
- * THIS FILE WAS GENERATED USING SCRIPT.
- * DON'T MODIFY IT.
- * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.
-*/
+function writeFile(path: string, output: string): void {
+  const outputPath = Path.normalize(process.cwd() + '/../yet-another-todo-app-frontend/' + path);
+
+  fs.writeFile(outputPath, output, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+}
+
+function main(): void {
+  const config: Config = JSON.parse(readFile('/dist/theme-config.json')) as Config;
+  const unit = 64;
+  const lightness = config.lightness;
+  const primary = materialPalette({
+    h: config.primary.hue,
+    s: config.primary.saturation,
+    l: lightness,
+  });
+  const secondary = materialPalette({
+    h: config.secondary.hue,
+    s: config.secondary.saturation,
+    l: lightness,
+  });
+  const red = materialPalette({
+    h: config.red.hue,
+    s: config.red.saturation,
+    l: lightness,
+  });
+  const gray = materialPalette({
+    h: config.gray.hue,
+    s: config.gray.saturation,
+    l: lightness + 12,
+  });
+
+  const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
+
+  const colorPalletes = `${disclaimer}
 $yata-palette-primary: (
   50: ${hslToHex(primary['50'])},
   100: ${hslToHex(primary['100'])},
@@ -163,16 +207,41 @@ $yata-palette-grey: (
 );
 `;
 
-  const outputPath = path.normalize(
-    process.cwd() +
-      '/../yet-another-todo-app-frontend/src/app/shared/styles/palletes.__generated.scss',
-  );
+  writeFile('src/app/shared/styles/palletes.__generated.scss', colorPalletes);
 
-  fs.writeFile(outputPath, output, (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
+  let units = `${disclaimer}
+$_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
+
+  for (let i = 2; i <= 48; i += 2) {
+    units += `\n$_${i}unit: ${i}px;`;
+  }
+
+  units += `\n\n$_128unit: $_64unit * 2;
+$_160unit: $_128unit + $_32unit;
+$_192unit: $_64unit * 3;
+$_256unit: $_64unit * 4;
+`;
+
+  writeFile('src/app/shared/styles/units.__generated.scss', units);
+
+  const tsConsts = `${disclaimer}
+export const UNIT = ${unit};
+export const COLUMN_WIDTH = ${unit * 3};
+
+export const COLOR_ACCENT = '${hslToHex(secondary['600'])}';
+export const COLOR_DANGER = '${hslToHex(red['600'])}';
+export const COLOR_WARNING = 'orange'; // TODO
+export const COLOR_TEXT = 'black'; // TODO
+export const COLOR_DISABLED = '#888888'; // TODO
+
+export const BORDER_COLOR = '${hslToHex(gray['200'])}';
+export const BORDER = \`1px solid ${hslToHex(gray['200'])}\`;
+
+export const DIALOG_WIDTH = \`\${UNIT * 15}px\`;
+export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`;
+`;
+
+  writeFile('src/app/shared/styles/theme.__generated.ts', tsConsts);
 }
 
 main();

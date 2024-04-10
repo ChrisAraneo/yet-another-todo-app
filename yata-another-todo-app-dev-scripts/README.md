@@ -1,8 +1,8 @@
 # YATA - Dev scripts
 
-## Generate color palletes
+## Generate theme values
 
-You can generate and overwrite the current color palettes using `color-palettes-generator.ts`.
+You can generate and overwrite the current color palettes and other theme values using `theme-generator.ts`.
 
 To run the script, first install the required dependencies and then run the npm script.
 
@@ -20,7 +20,7 @@ npm install
 ### Running the script
 
 ```bash
-$ npm run color-palletes-generator
+$ npm run theme-generator
 ```
 
 ## License

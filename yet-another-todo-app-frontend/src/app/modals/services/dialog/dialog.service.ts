@@ -9,7 +9,7 @@ import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/si
 import { ZipFileContent } from 'src/app/shared/models/zip-file-content.type';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme.__generated';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ConfigureTimelineModalData } from '../../components/configure-timeline-modal/configure-timeline-modal.types';

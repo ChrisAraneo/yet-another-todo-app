@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subscription, map, of } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { UNIT } from 'src/app/shared/styles/theme';
+import { UNIT } from 'src/app/shared/styles/theme.__generated';
 import { TaskState } from '../../../shared/models/task-state.model';
 import { Task } from '../../../shared/models/task.model';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';

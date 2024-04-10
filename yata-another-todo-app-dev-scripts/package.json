@@ -3,8 +3,9 @@
   "version": "0.2.0",
   "scripts": {
     "lint": "eslint \"src/**/*.{ts,json}\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.json\"",
-    "color-palletes-generator": "esbuild src/color-palletes-generator.ts --bundle --platform=node --outfile=dist/color-palletes-generator.js && node dist/color-palletes-generator.js"
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.json\" \"src/**/*.js\"",
+    "copy-config": "node src/copy-theme-config-file",
+    "theme-generator": "esbuild src/theme-generator.ts --bundle --platform=node --outfile=dist/theme-generator.js && npm run copy-config && node dist/theme-generator.js"
   },
   "author": "Krzysztof Pająk",
   "license": "MIT",

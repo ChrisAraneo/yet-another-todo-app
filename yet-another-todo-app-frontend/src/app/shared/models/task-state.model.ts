@@ -4,7 +4,7 @@ import {
   COLOR_DISABLED,
   COLOR_TEXT,
   COLOR_WARNING,
-} from '../styles/theme';
+} from '../styles/theme.__generated';
 
 export abstract class TaskState {
   private value: string;

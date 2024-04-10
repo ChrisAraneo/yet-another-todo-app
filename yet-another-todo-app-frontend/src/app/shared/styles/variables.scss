@@ -1,14 +1,15 @@
 @use 'sass:math';
 @use '@angular/material' as mat;
 
-@import './units.scss';
-
-// Use color-palletes-generator from yata-another-todo-app-dev-scripts
-// to generate color palletes.
+// Use theme-generator from yata-another-todo-app-dev-scripts
+// to generate theme variables like color palletes, units etc.
+@import './units.__generated.scss';
 @import './palletes.__generated.scss';
 
 @include mat.all-component-typographies();
 @include mat.core();
+
+$column-width: $_64unit * 3;
 
 $theme-background-color: white; // TODO Rename
 $theme-title-text-color: rgb(45, 45, 45); // TODO Rename
@@ -20,8 +21,6 @@ $theme-primary: mat.define-palette($yata-palette-primary);
 $theme-secondary: mat.define-palette($yata-palette-secondary);
 $theme-grey: mat.define-palette($yata-palette-grey);
 $theme-danger: mat.define-palette($yata-palette-red);
-
-$column-width: $_64unit * 3;
 
 $color-accent: mat.get-color-from-palette($theme-secondary, 600);
 $color-danger: mat.get-color-from-palette($theme-danger, 600);

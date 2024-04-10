@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { TaskState } from 'src/app/shared/models/task-state.model';
 import { Task } from 'src/app/shared/models/task.model';
-import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
+import { COLUMN_WIDTH } from 'src/app/shared/styles/theme.__generated';
 import { TimelineTaskManagerService } from 'src/app/timeline/services/timeline-task-manager.service';
 import { TimelineColumn } from './timeline-content.types';
 
