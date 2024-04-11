@@ -2,7 +2,13 @@ import materialPalette from 'material-palette';
 import fs from 'node:fs';
 import Path from 'path';
 
-interface Color {
+interface RgbColor {
+  red: number;
+  green: number;
+  blue: number;
+}
+
+interface HsColor {
   hue: number;
   saturation: number;
 }
@@ -10,10 +16,10 @@ interface Color {
 interface Config {
   unit: number;
   lightness: number;
-  primary: Color;
-  secondary: Color;
-  red: Color;
-  gray: Color;
+  primary: HsColor;
+  secondary: HsColor;
+  red: HsColor;
+  gray: HsColor;
 }
 
 function hslToHex(input: { h: number; s: number; l: number }): string {
@@ -30,6 +36,27 @@ function hslToHex(input: { h: number; s: number; l: number }): string {
       .padStart(2, '0');
   };
   return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+function hexToRgb(hex: string): RgbColor {
+  const _hex = hex.replace('#', '');
+  const bigint = parseInt(_hex, 16);
+  const red = (bigint >> 16) & 255;
+  const green = (bigint >> 8) & 255;
+  const blue = bigint & 255;
+
+  return {
+    red,
+    green,
+    blue,
+  };
+}
+
+function contrast(input: { h: number; s: number; l: number }): string {
+  const rgb = hexToRgb(hslToHex(input));
+  const o = Math.round((rgb.red * 299 + rgb.green * 587 + rgb.blue * 114) / 1000);
+
+  return o <= 130 ? '#ffffff' : '#000000';
 }
 
 function readFile(path: string): string {
@@ -90,20 +117,20 @@ $yata-palette-primary: (
   A400: ${hslToHex(primary['A400'])},
   A700: ${hslToHex(primary['A700'])},
   contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #ffffff,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #ffffff,
-    A700: #ffffff,
+    50: ${contrast(primary['50'])},
+    100: ${contrast(primary['100'])},
+    200: ${contrast(primary['200'])},
+    300: ${contrast(primary['300'])},
+    400: ${contrast(primary['400'])},
+    500: ${contrast(primary['500'])},
+    600: ${contrast(primary['600'])},
+    700: ${contrast(primary['700'])},
+    800: ${contrast(primary['800'])},
+    900: ${contrast(primary['900'])},
+    A100: ${contrast(primary['A100'])},
+    A200: ${contrast(primary['A200'])},
+    A400: ${contrast(primary['A400'])},
+    A700: ${contrast(primary['A700'])},
   ),
 );
 
@@ -123,20 +150,20 @@ $yata-palette-secondary: (
   A400: ${hslToHex(secondary['A400'])},
   A700: ${hslToHex(secondary['A700'])},
   contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #ffffff,
-    A700: #ffffff,
+    50: ${contrast(secondary['50'])},
+    100: ${contrast(secondary['100'])},
+    200: ${contrast(secondary['200'])},
+    300: ${contrast(secondary['300'])},
+    400: ${contrast(secondary['400'])},
+    500: ${contrast(secondary['500'])},
+    600: ${contrast(secondary['600'])},
+    700: ${contrast(secondary['700'])},
+    800: ${contrast(secondary['800'])},
+    900: ${contrast(secondary['900'])},
+    A100: ${contrast(secondary['A100'])},
+    A200: ${contrast(secondary['A200'])},
+    A400: ${contrast(secondary['A400'])},
+    A700: ${contrast(secondary['A700'])},
   ),
 );
 
@@ -156,20 +183,20 @@ $yata-palette-red: (
   A400: ${hslToHex(red['A400'])},
   A700: ${hslToHex(red['A700'])},
   contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #ffffff,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
+    50: ${contrast(red['50'])},
+    100: ${contrast(red['100'])},
+    200: ${contrast(red['200'])},
+    300: ${contrast(red['300'])},
+    400: ${contrast(red['400'])},
+    500: ${contrast(red['500'])},
+    600: ${contrast(red['600'])},
+    700: ${contrast(red['700'])},
+    800: ${contrast(red['800'])},
+    900: ${contrast(red['900'])},
+    A100: ${contrast(red['A100'])},
+    A200: ${contrast(red['A200'])},
+    A400: ${contrast(red['A400'])},
+    A700: ${contrast(red['A700'])},
   ),
 );
 
@@ -189,20 +216,20 @@ $yata-palette-grey: (
   A400: ${hslToHex(gray['A400'])},
   A700: ${hslToHex(gray['A700'])},
   contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #000000,
-    600: #000000,
-    700: #000000,
-    800: #000000,
-    900: #000000,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000,
+    50: ${contrast(gray['50'])},
+    100: ${contrast(gray['100'])},
+    200: ${contrast(gray['200'])},
+    300: ${contrast(gray['300'])},
+    400: ${contrast(gray['400'])},
+    500: ${contrast(gray['500'])},
+    600: ${contrast(gray['600'])},
+    700: ${contrast(gray['700'])},
+    800: ${contrast(gray['800'])},
+    900: ${contrast(gray['900'])},
+    A100: ${contrast(gray['A100'])},
+    A200: ${contrast(gray['A200'])},
+    A400: ${contrast(gray['A400'])},
+    A700: ${contrast(gray['A700'])},
   ),
 );
 `;
