@@ -1,3 +1,4 @@
+@use "sass:map";
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
@@ -118,13 +119,13 @@ $table-cell-size: $_26unit;
 
       &:not(.ng-invalid):enabled:focus {
         border-color: $form-input-focus-border-color !important;
-        box-shadow: 0 0 0 $_6unit $primary-color-50 !important;
+        box-shadow: 0 0 0 $_6unit map.get($yata-palette-primary, 50) !important;
         background-color: $form-input-focus-background;
       }
 
       &:not(.ng-invalid):hover {
         border-color: $form-input-focus-border-color !important;
-        box-shadow: 0 0 0 $_4unit $primary-color-50 !important;
+        box-shadow: 0 0 0 $_4unit map.get($yata-palette-primary, 50) !important;
         background-color: $form-input-focus-background;
       }
 
@@ -134,19 +135,19 @@ $table-cell-size: $_26unit;
       }
 
       &.ng-invalid {
-        border-color: $color-danger !important;
+        border-color: $danger-color !important;
       }
 
       &.ng-invalid:enabled:focus {
         border-color: $form-input-focus-border-color !important;
-        box-shadow: 0 0 0 $_6unit $danger-color-50 !important;
-        background-color: $danger-color-50 !important;
+        box-shadow: 0 0 0 $_6unit map.get($yata-palette-red, 50) !important;
+        background-color: map.get($yata-palette-red, 50) !important;
       }
 
       &.ng-invalid:hover {
-        border-color: $color-danger !important;
-        box-shadow: 0 0 0 $_4unit $danger-color-50 !important;
-        background-color: $danger-color-50 !important;
+        border-color: $danger-color !important;
+        box-shadow: 0 0 0 $_4unit map.get($yata-palette-red, 50) !important;
+        background-color: map.get($yata-palette-red, 50) !important;
       }
     }
   }

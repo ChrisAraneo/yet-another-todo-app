@@ -1,3 +1,4 @@
+@use "sass:map";
 @use 'sass:math';
 @import '../../../../shared/styles/variables.scss';
 
@@ -13,7 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: end;
-  color: $grey-color-200;
+  color: map.get($yata-palette-grey, 200);
 
   span {
     display: block;
@@ -28,7 +29,7 @@
     line-height: $_14unit;
     font-weight: 400;
     opacity: 1;
-    color: $grey-color-100;
+    color: map.get($yata-palette-grey, 100);
     background-color: transparent;
     text-transform: uppercase;
   }

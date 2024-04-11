@@ -1,10 +1,11 @@
+@use 'sass:map';
 @use 'sass:math';
 @use '@angular/material' as mat;
 
 // Use theme-generator from yata-another-todo-app-dev-scripts
-// to generate theme variables like color palletes, units etc.
+// to generate theme variables like color palettes, units etc.
 @import './units.__generated.scss';
-@import './palletes.__generated.scss';
+@import './palettes.__generated.scss';
 
 @import './colors.scss';
 
@@ -23,3 +24,6 @@ $modal-border-radius: $_16unit;
 
 $form-input-border-radius: $_6unit;
 $form-input-border: 1px solid $form-input-border-color;
+$form-input-focus-border: 1px solid $form-input-focus-border-color;
+$form-input-background: darken($background-color, 0.7%) !important;
+$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;

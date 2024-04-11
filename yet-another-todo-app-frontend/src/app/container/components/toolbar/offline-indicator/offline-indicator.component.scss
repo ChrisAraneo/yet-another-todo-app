@@ -1,3 +1,4 @@
+@use "sass:map";
 @import '../../../../shared/styles/variables.scss';
 
 :host {
@@ -16,6 +17,6 @@ div {
 
   span {
     display: block;
-    color: $grey-color-50;
+    color: map.get($yata-palette-grey, 50);
   }
 }

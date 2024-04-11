@@ -8,7 +8,7 @@
   width: 100%;
   max-width: 100%;
   overflow-x: scroll;
-  background-color: rgba($theme-background-color, 0.9);
+  background-color: rgba($background-color, 0.9);
 }
 
 .timeline-headers-buttons {
@@ -21,7 +21,7 @@
   display: flex;
   z-index: 999;
   padding-left: $_64unit;
-  background-color: $theme-background-color;
+  background-color: $background-color;
 }
 
 .timeline-header-button {

@@ -100,7 +100,7 @@ function main(): void {
 
   const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
 
-  const colorPalletes = `${disclaimer}
+  const colorPalettes = `${disclaimer}
 $yata-palette-primary: (
   50: ${hslToHex(primary['50'])},
   100: ${hslToHex(primary['100'])},
@@ -234,7 +234,7 @@ $yata-palette-grey: (
 );
 `;
 
-  writeFile('src/app/shared/styles/palletes.__generated.scss', colorPalletes);
+  writeFile('src/app/shared/styles/palettes.__generated.scss', colorPalettes);
 
   let units = `${disclaimer}
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;

@@ -1,3 +1,4 @@
+@use "sass:map";
 @use 'sass:math';
 @import '../../../shared/styles/variables.scss';
 
@@ -18,7 +19,7 @@ $padding: $_10unit $_10unit;
 
   .p-dropdown.p-focus {
     border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $_6unit $primary-color-50 !important;
+    box-shadow: 0 0 0 $_6unit map.get($yata-palette-primary, 50) !important;
     background-color: $form-input-focus-background;
   }
 }

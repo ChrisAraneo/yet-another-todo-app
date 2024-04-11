@@ -1,3 +1,4 @@
+@use "sass:map";
 @import '../../../shared/styles/variables.scss';
 
 :host {
@@ -27,8 +28,8 @@
   width: calc(100% - $_64unit);
   height: calc(100vh - $_64unit + $_2unit);
   border-image: linear-gradient(
-      $primary-color-800 0%,
-      $primary-color-800 25%,
+      map.get($yata-palette-primary, 800) 0%,
+      map.get($yata-palette-primary, 800) 25%,
       $border-color 50%,
       $border-color 100%
     )
