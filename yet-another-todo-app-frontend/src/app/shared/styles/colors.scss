@@ -1,0 +1,78 @@
+@use 'sass:math';
+@use '@angular/material' as mat;
+
+// Use theme-generator from yata-another-todo-app-dev-scripts
+// to generate theme variables like color palletes, units etc.
+@import './units.__generated.scss';
+@import './palletes.__generated.scss';
+
+@include mat.all-component-typographies();
+@include mat.core();
+
+$theme-background-color: white; // TODO Rename
+$theme-title-text-color: rgb(45, 45, 45); // TODO Rename
+$theme-subtitle-text-color: lighten($theme-title-text-color, 5%); // TODO Rename
+$theme-label-text-color: rgb(100, 100, 100); // TODO Use it, rename
+$theme-text-color: rgb(10, 10, 10); // TODO Use it, rename
+
+$theme-primary: mat.define-palette($yata-palette-primary);
+$theme-secondary: mat.define-palette($yata-palette-secondary);
+$theme-grey: mat.define-palette($yata-palette-grey);
+$theme-danger: mat.define-palette($yata-palette-red);
+
+$color-accent: mat.get-color-from-palette($theme-secondary, 600);
+$color-danger: mat.get-color-from-palette($theme-danger, 600);
+$color-warning: 'orange';
+$color-text: 'black';
+$color-disabled: '#888888';
+
+$border-color: mat.get-color-from-palette($theme-grey, 200);
+
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-secondary,
+      warn: $theme-danger,
+    ),
+    typography: mat.define-typography-config(),
+  )
+);
+
+$primary-color: mat.get-color-from-palette($theme-primary, 600);
+$primary-color-50: mat.get-color-from-palette($theme-primary, 50);
+$primary-color-100: mat.get-color-from-palette($theme-primary, 100);
+$primary-color-200: mat.get-color-from-palette($theme-primary, 200);
+$primary-color-300: mat.get-color-from-palette($theme-primary, 300);
+$primary-color-400: mat.get-color-from-palette($theme-primary, 400);
+$primary-color-500: mat.get-color-from-palette($theme-primary, 500);
+$primary-color-600: mat.get-color-from-palette($theme-primary, 600);
+$primary-color-700: mat.get-color-from-palette($theme-primary, 700);
+$primary-color-800: mat.get-color-from-palette($theme-primary, 800);
+
+$danger-color: mat.get-color-from-palette($theme-danger, 600);
+$danger-color-50: mat.get-color-from-palette($theme-danger, 50);
+$danger-color-100: mat.get-color-from-palette($theme-danger, 100);
+$danger-color-200: mat.get-color-from-palette($theme-danger, 200);
+$danger-color-300: mat.get-color-from-palette($theme-danger, 300);
+$danger-color-400: mat.get-color-from-palette($theme-danger, 400);
+$danger-color-500: mat.get-color-from-palette($theme-danger, 500);
+$danger-color-600: mat.get-color-from-palette($theme-danger, 600);
+$danger-color-700: mat.get-color-from-palette($theme-danger, 700);
+$danger-color-800: mat.get-color-from-palette($theme-danger, 800);
+
+$grey-color: mat.get-color-from-palette($theme-grey, 600);
+$grey-color-50: mat.get-color-from-palette($theme-grey, 50);
+$grey-color-100: mat.get-color-from-palette($theme-grey, 100);
+$grey-color-200: mat.get-color-from-palette($theme-grey, 200);
+$grey-color-300: mat.get-color-from-palette($theme-grey, 300);
+
+$form-label-color: mat.get-color-from-palette($theme-grey, 800);
+
+$form-input-text-color: $theme-text-color; // TODO Use it
+$form-input-border-color: mat.get-color-from-palette($theme-grey, 400);
+$form-input-background: darken($theme-background-color, 0.7%) !important;
+$form-input-focus-border-color: $primary-color;
+$form-input-focus-background: rgba($primary-color-50, 0.33) !important;
+
+@include mat.all-component-themes($theme);
