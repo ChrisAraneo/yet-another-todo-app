@@ -6,8 +6,7 @@
 // to generate theme variables like color palettes, units etc.
 @import './units.__generated.scss';
 @import './palettes.__generated.scss';
-
-@import './colors.scss';
+@import './colors.__generated.scss';
 
 @include mat.all-component-typographies();
 @include mat.core();

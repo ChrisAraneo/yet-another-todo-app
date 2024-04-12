@@ -28,10 +28,12 @@ function main(): void {
     s: config.palettes.gray.saturation,
     l: lightness + 12,
   });
+  const successColor = 'green'; // TODO
+  const warningColor = 'orange'; // TODO
 
   const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
 
-  const colorPalettes = `${disclaimer}
+  const palettes = `${disclaimer}
 $yata-palette-primary: (
   50: ${hslToHex(primary['50'])},
   100: ${hslToHex(primary['100'])},
@@ -165,7 +167,7 @@ $yata-palette-grey: (
 );
 `;
 
-  writeFile('src/app/shared/styles/palettes.__generated.scss', colorPalettes);
+  writeFile('src/app/shared/styles/palettes.__generated.scss', palettes);
 
   let units = `${disclaimer}
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
@@ -226,8 +228,8 @@ ${((): string => {
 
   return result;
 })()}
-export const SUCCESS_COLOR = 'green'; // TODO
-export const WARNING_COLOR = 'orange'; // TODO
+export const SUCCESS_COLOR = '${successColor}';
+export const WARNING_COLOR = '${warningColor}';
 export const STANDARD_TEXT_COLOR = '${hslToHex(gray['700'])}';
 export const DISABLED_COLOR = '${hslToHex(gray['400'])}';
 
@@ -239,6 +241,55 @@ export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`; // TODO
 `;
 
   writeFile('src/app/shared/styles/theme.__generated.ts', tsConsts);
+
+  const colors = `${disclaimer}
+@use "sass:map";
+@use 'sass:math';
+@use '@angular/material' as mat;
+
+@import './units.__generated.scss';
+@import './palettes.__generated.scss';
+
+@include mat.all-component-typographies();
+@include mat.core();
+
+// GENERAL COLORS
+$background-color: map.get($yata-palette-grey, 50);
+$border-color: map.get($yata-palette-grey, 200);
+$primary-color: map.get($yata-palette-primary, 600);
+$secondary-color: map.get($yata-palette-secondary, 600);
+$success-color: ${successColor};
+$danger-color: map.get($yata-palette-red, 600);
+$warning-color: ${warningColor};
+$disabled-color: map.get($yata-palette-grey, 400);
+
+// TEXT COLORS
+$title-text-color: map.get($yata-palette-grey, 900);
+$subtitle-text-color: map.get($yata-palette-grey, 700);
+$label-text-color: map.get($yata-palette-grey, 600);
+$standard-text-color: map.get($yata-palette-grey, 800);
+
+// FORM COLORS
+$form-label-color: map.get($yata-palette-grey, 600);
+$form-input-text-color: $standard-text-color;
+$form-input-border-color: map.get($yata-palette-grey, 400);
+$form-input-focus-border-color: $primary-color;
+
+// MATERIAL THEME
+$theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette($yata-palette-primary),
+      accent: mat.define-palette($yata-palette-secondary),
+      warn: mat.define-palette($yata-palette-red),
+    ),
+    typography: mat.define-typography-config(),
+  )
+);
+@include mat.all-component-themes($theme);  
+`;
+
+  writeFile('src/app/shared/styles/colors.__generated.scss', colors);
 }
 
 main();
