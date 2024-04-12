@@ -15,7 +15,7 @@ $background-color: map.get($yata-palette-grey, 50);
 $border-color: map.get($yata-palette-grey, 200);
 $primary-color: map.get($yata-palette-primary, 600);
 $secondary-color: map.get($yata-palette-secondary, 600);
-$accent-color: map.get($yata-palette-secondary, 600);
+$success-color: 'green'; // TODO
 $danger-color: map.get($yata-palette-red, 600);
 $warning-color: 'orange'; // TODO
 $disabled-color: map.get($yata-palette-grey, 400);

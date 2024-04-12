@@ -1,5 +1,5 @@
 import {
-  ACCENT_COLOR,
+  SUCCESS_COLOR,
   DANGER_COLOR,
   DISABLED_COLOR,
   STANDARD_TEXT_COLOR,
@@ -50,7 +50,7 @@ export class SuspendedTaskState extends TaskState {
 
 export class CompletedTaskState extends TaskState {
   constructor() {
-    super('COMPLETED', 'task_alt', ACCENT_COLOR);
+    super('COMPLETED', 'task_alt', SUCCESS_COLOR);
   }
 }
 

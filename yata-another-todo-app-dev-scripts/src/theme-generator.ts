@@ -1,100 +1,31 @@
 import materialPalette from 'material-palette';
-import fs from 'node:fs';
-import Path from 'path';
 
-interface RgbColor {
-  red: number;
-  green: number;
-  blue: number;
-}
-
-interface HsColor {
-  hue: number;
-  saturation: number;
-}
-
-interface Config {
-  unit: number;
-  lightness: number;
-  primary: HsColor;
-  secondary: HsColor;
-  red: HsColor;
-  gray: HsColor;
-}
-
-function hslToHex(input: { h: number; s: number; l: number }): string {
-  const { h, s } = input;
-  let l = input.l;
-
-  l /= 100;
-  const a = (s * Math.min(l, 1 - l)) / 100;
-  const f = (n: number): string => {
-    const k = (n + h / 30) % 12;
-    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-    return Math.round(255 * color)
-      .toString(16)
-      .padStart(2, '0');
-  };
-  return `#${f(0)}${f(8)}${f(4)}`;
-}
-
-function hexToRgb(hex: string): RgbColor {
-  const _hex = hex.replace('#', '');
-  const bigint = parseInt(_hex, 16);
-  const red = (bigint >> 16) & 255;
-  const green = (bigint >> 8) & 255;
-  const blue = bigint & 255;
-
-  return {
-    red,
-    green,
-    blue,
-  };
-}
-
-function contrast(input: { h: number; s: number; l: number }): string {
-  const rgb = hexToRgb(hslToHex(input));
-  const o = Math.round((rgb.red * 299 + rgb.green * 587 + rgb.blue * 114) / 1000);
-
-  return o <= 130 ? '#ffffff' : '#000000';
-}
-
-function readFile(path: string): string {
-  return fs.readFileSync(Path.normalize(process.cwd() + path), 'utf8');
-}
-
-function writeFile(path: string, output: string): void {
-  const outputPath = Path.normalize(process.cwd() + '/../yet-another-todo-app-frontend/' + path);
-
-  fs.writeFile(outputPath, output, (err) => {
-    if (err) {
-      console.error(err);
-    }
-  });
-}
+import { Config } from './types';
+import { readFile, writeFile } from './file-system-utils';
+import { contrast, hslToHex } from './color-utils';
 
 function main(): void {
   const config: Config = JSON.parse(readFile('/dist/theme-config.json')) as Config;
   const unit = 64;
-  const lightness = config.lightness;
+  const lightness = config.palettes.lightness;
   const primary = materialPalette({
-    h: config.primary.hue,
-    s: config.primary.saturation,
+    h: config.palettes.primary.hue,
+    s: config.palettes.primary.saturation,
     l: lightness,
   });
   const secondary = materialPalette({
-    h: config.secondary.hue,
-    s: config.secondary.saturation,
+    h: config.palettes.secondary.hue,
+    s: config.palettes.secondary.saturation,
     l: lightness,
   });
   const red = materialPalette({
-    h: config.red.hue,
-    s: config.red.saturation,
+    h: config.palettes.red.hue,
+    s: config.palettes.red.saturation,
     l: lightness,
   });
   const gray = materialPalette({
-    h: config.gray.hue,
-    s: config.gray.saturation,
+    h: config.palettes.gray.hue,
+    s: config.palettes.gray.saturation,
     l: lightness + 12,
   });
 
@@ -255,10 +186,47 @@ $_256unit: $_64unit * 4;
 export const UNIT = ${unit};
 export const COLUMN_WIDTH = ${unit * 3};
 
-export const COLOR_PRIMARY_50 = '${hslToHex(primary['50'])}';
+export const PRIMARY_COLOR = '${hslToHex(secondary['600'])}';
+${((): string => {
+  let result = '';
 
-export const ACCENT_COLOR = '${hslToHex(secondary['600'])}';
+  for (const key in primary) {
+    result += `export const COLOR_PRIMARY_${key} = '${hslToHex(primary[key])}';\n`;
+  }
+
+  return result;
+})()}
+export const SECONDARY_COLOR = '${hslToHex(secondary['600'])}';
+${((): string => {
+  let result = '';
+
+  for (const key in primary) {
+    result += `export const COLOR_SECONDARY_${key} = '${hslToHex(secondary[key])}';\n`;
+  }
+
+  return result;
+})()}
 export const DANGER_COLOR = '${hslToHex(red['600'])}';
+${((): string => {
+  let result = '';
+
+  for (const key in primary) {
+    result += `export const COLOR_DANGER_${key} = '${hslToHex(red[key])}';\n`;
+  }
+
+  return result;
+})()}
+export const GRAY_COLOR = '${hslToHex(gray['600'])}';
+${((): string => {
+  let result = '';
+
+  for (const key in primary) {
+    result += `export const COLOR_GRAY_${key} = '${hslToHex(gray[key])}';\n`;
+  }
+
+  return result;
+})()}
+export const SUCCESS_COLOR = 'green'; // TODO
 export const WARNING_COLOR = 'orange'; // TODO
 export const STANDARD_TEXT_COLOR = '${hslToHex(gray['700'])}';
 export const DISABLED_COLOR = '${hslToHex(gray['400'])}';
