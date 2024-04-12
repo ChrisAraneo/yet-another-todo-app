@@ -17,6 +17,6 @@ div {
 
   span {
     display: block;
-    color: map.get($yata-palette-grey, 50);
+    color: $label-text-color;
   }
 }

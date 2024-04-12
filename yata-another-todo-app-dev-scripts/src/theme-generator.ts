@@ -255,17 +255,19 @@ $_256unit: $_64unit * 4;
 export const UNIT = ${unit};
 export const COLUMN_WIDTH = ${unit * 3};
 
-export const COLOR_ACCENT = '${hslToHex(secondary['600'])}';
-export const COLOR_DANGER = '${hslToHex(red['600'])}';
-export const COLOR_WARNING = 'orange'; // TODO
-export const COLOR_TEXT = 'black'; // TODO
-export const COLOR_DISABLED = '#888888'; // TODO
+export const COLOR_PRIMARY_50 = '${hslToHex(primary['50'])}';
+
+export const ACCENT_COLOR = '${hslToHex(secondary['600'])}';
+export const DANGER_COLOR = '${hslToHex(red['600'])}';
+export const WARNING_COLOR = 'orange'; // TODO
+export const STANDARD_TEXT_COLOR = '${hslToHex(gray['700'])}';
+export const DISABLED_COLOR = '${hslToHex(gray['400'])}';
 
 export const BORDER_COLOR = '${hslToHex(gray['200'])}';
 export const BORDER = \`1px solid ${hslToHex(gray['200'])}\`;
 
-export const DIALOG_WIDTH = \`\${UNIT * 15}px\`;
-export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`;
+export const DIALOG_WIDTH = \`\${UNIT * 15}px\`; // TODO
+export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`; // TODO
 `;
 
   writeFile('src/app/shared/styles/theme.__generated.ts', tsConsts);

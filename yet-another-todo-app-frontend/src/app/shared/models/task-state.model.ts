@@ -1,9 +1,9 @@
 import {
-  COLOR_ACCENT,
-  COLOR_DANGER,
-  COLOR_DISABLED,
-  COLOR_TEXT,
-  COLOR_WARNING,
+  ACCENT_COLOR,
+  DANGER_COLOR,
+  DISABLED_COLOR,
+  STANDARD_TEXT_COLOR,
+  WARNING_COLOR,
 } from '../styles/theme.__generated';
 
 export abstract class TaskState {
@@ -32,30 +32,30 @@ export abstract class TaskState {
 
 export class NotStartedTaskState extends TaskState {
   constructor() {
-    super('NOT_STARTED', 'auto_awesome', COLOR_DISABLED);
+    super('NOT_STARTED', 'auto_awesome', DISABLED_COLOR);
   }
 }
 
 export class InProgressTaskState extends TaskState {
   constructor() {
-    super('IN_PROGRESS', 'autorenew', COLOR_WARNING);
+    super('IN_PROGRESS', 'autorenew', WARNING_COLOR);
   }
 }
 
 export class SuspendedTaskState extends TaskState {
   constructor() {
-    super('SUSPENDED', 'hourglass_empty', COLOR_TEXT);
+    super('SUSPENDED', 'hourglass_empty', STANDARD_TEXT_COLOR);
   }
 }
 
 export class CompletedTaskState extends TaskState {
   constructor() {
-    super('COMPLETED', 'task_alt', COLOR_ACCENT);
+    super('COMPLETED', 'task_alt', ACCENT_COLOR);
   }
 }
 
 export class RejectedTaskState extends TaskState {
   constructor() {
-    super('REJECTED', 'not_interested', COLOR_DANGER);
+    super('REJECTED', 'not_interested', DANGER_COLOR);
   }
 }

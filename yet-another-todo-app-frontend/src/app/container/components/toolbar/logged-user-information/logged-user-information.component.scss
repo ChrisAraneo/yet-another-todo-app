@@ -29,7 +29,7 @@
     line-height: $_14unit;
     font-weight: 400;
     opacity: 1;
-    color: map.get($yata-palette-grey, 100);
+    color: $background-color;
     background-color: transparent;
     text-transform: uppercase;
   }

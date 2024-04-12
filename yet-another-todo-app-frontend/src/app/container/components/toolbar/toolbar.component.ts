@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-const PALETTE_PRIMARY_50 = '#d6e9ff'; // TODO Move to shared
+import { COLOR_PRIMARY_50 } from 'src/app/shared/styles/theme.__generated';
 
 @Component({
   selector: 'yata-toolbar',
@@ -14,7 +13,7 @@ export class ToolbarComponent {
 
   @Output() menuClick = new EventEmitter();
 
-  readonly titleColor = PALETTE_PRIMARY_50;
+  readonly titleColor = COLOR_PRIMARY_50;
 
   onMenuClick(): void {
     this.menuClick.emit();

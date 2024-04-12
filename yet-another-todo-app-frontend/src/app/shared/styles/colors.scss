@@ -11,20 +11,20 @@
 @include mat.core();
 
 // GENERAL COLORS
-$background-color: white;
+$background-color: map.get($yata-palette-grey, 50);
 $border-color: map.get($yata-palette-grey, 200);
 $primary-color: map.get($yata-palette-primary, 600);
 $secondary-color: map.get($yata-palette-secondary, 600);
 $accent-color: map.get($yata-palette-secondary, 600);
 $danger-color: map.get($yata-palette-red, 600);
-$warning-color: 'orange';
-$disabled-color: '#888888';
+$warning-color: 'orange'; // TODO
+$disabled-color: map.get($yata-palette-grey, 400);
 
 // TEXT COLORS
-$title-text-color: rgb(45, 45, 45); // TODO Rename
-$subtitle-text-color: lighten($title-text-color, 5%); // TODO Rename
-$label-text-color: rgb(100, 100, 100); // TODO Use it, rename
-$standard-text-color: rgb(10, 10, 10); // TODO Use it, rename
+$title-text-color: map.get($yata-palette-grey, 700); // TODO Rename
+$subtitle-text-color: map.get($yata-palette-grey, 600); // TODO Rename
+$label-text-color: map.get($yata-palette-grey, 500); // TODO Use it, rename
+$standard-text-color: map.get($yata-palette-grey, 700); // TODO Use it, rename
 
 // FORM COLORS
 $form-label-color: map.get($yata-palette-grey, 800);
