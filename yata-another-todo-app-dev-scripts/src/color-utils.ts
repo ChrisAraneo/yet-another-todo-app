@@ -13,6 +13,7 @@ export function hslToHex(input: { h: number; s: number; l: number }): string {
       .toString(16)
       .padStart(2, '0');
   };
+
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
@@ -31,8 +32,7 @@ export function hexToRgb(hex: string): RgbColor {
 }
 
 export function contrast(input: { h: number; s: number; l: number }): string {
-  const rgb = hexToRgb(hslToHex(input));
-  const o = Math.round((rgb.red * 299 + rgb.green * 587 + rgb.blue * 114) / 1000);
+  const { red, green, blue } = hexToRgb(hslToHex(input));
 
-  return o <= 130 ? '#ffffff' : '#000000';
+  return Math.round((red * 299 + green * 587 + blue * 114) / 1000) <= 130 ? '#ffffff' : '#000000';
 }
