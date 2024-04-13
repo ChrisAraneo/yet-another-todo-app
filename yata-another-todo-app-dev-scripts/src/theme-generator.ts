@@ -4,6 +4,34 @@ import { Config } from './types';
 import { readFile, writeFile } from './file-system-utils';
 import { contrast, hslToHex } from './color-utils';
 
+function mapColorPaletteToScssMap(palette: object, name: string): string {
+  let result = `$yata-palette-${name.toLocaleLowerCase()}: (\n`;
+
+  for (const key in palette) {
+    result += `  ${key}: ${hslToHex(palette[key])},\n`;
+  }
+
+  result += '  contrast: (\n';
+
+  for (const key in palette) {
+    result += `    ${key}: ${contrast(palette[key])},\n`;
+  }
+
+  result += '  ),\n);\n';
+
+  return result;
+}
+
+function mapColorPaletteToConsts(palette: object, name: string): string {
+  let result = '';
+
+  for (const key in palette) {
+    result += `export const COLOR_${name.toLocaleUpperCase()}_${key} = '${hslToHex(palette[key])}';\n`;
+  }
+
+  return result;
+}
+
 function main(): void {
   const config: Config = JSON.parse(readFile('/dist/theme-config.json')) as Config;
   const unit = 64;
@@ -21,150 +49,33 @@ function main(): void {
   const red = materialPalette({
     h: config.palettes.red.hue,
     s: config.palettes.red.saturation,
-    l: lightness,
+    l: lightness + 12,
+  });
+  const green = materialPalette({
+    h: config.palettes.green.hue,
+    s: config.palettes.green.saturation,
+    l: lightness + 12,
+  });
+  const orange = materialPalette({
+    h: config.palettes.orange.hue,
+    s: config.palettes.orange.saturation,
+    l: lightness + 12,
   });
   const gray = materialPalette({
     h: config.palettes.gray.hue,
     s: config.palettes.gray.saturation,
     l: lightness + 12,
   });
-  const successColor = 'green'; // TODO
-  const warningColor = 'orange'; // TODO
+  const successColor = `${hslToHex(green['700'])}`;
+  const warningColor = `${hslToHex(orange['700'])}`;
 
   const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
 
   const palettes = `${disclaimer}
-$yata-palette-primary: (
-  50: ${hslToHex(primary['50'])},
-  100: ${hslToHex(primary['100'])},
-  200: ${hslToHex(primary['200'])},
-  300: ${hslToHex(primary['300'])},
-  400: ${hslToHex(primary['400'])},
-  500: ${hslToHex(primary['500'])},
-  600: ${hslToHex(primary['600'])},
-  700: ${hslToHex(primary['700'])},
-  800: ${hslToHex(primary['800'])},
-  900: ${hslToHex(primary['900'])},
-  A100: ${hslToHex(primary['A100'])},
-  A200: ${hslToHex(primary['A200'])},
-  A400: ${hslToHex(primary['A400'])},
-  A700: ${hslToHex(primary['A700'])},
-  contrast: (
-    50: ${contrast(primary['50'])},
-    100: ${contrast(primary['100'])},
-    200: ${contrast(primary['200'])},
-    300: ${contrast(primary['300'])},
-    400: ${contrast(primary['400'])},
-    500: ${contrast(primary['500'])},
-    600: ${contrast(primary['600'])},
-    700: ${contrast(primary['700'])},
-    800: ${contrast(primary['800'])},
-    900: ${contrast(primary['900'])},
-    A100: ${contrast(primary['A100'])},
-    A200: ${contrast(primary['A200'])},
-    A400: ${contrast(primary['A400'])},
-    A700: ${contrast(primary['A700'])},
-  ),
-);
-
-$yata-palette-secondary: (
-  50: ${hslToHex(secondary['50'])},
-  100: ${hslToHex(secondary['100'])},
-  200: ${hslToHex(secondary['200'])},
-  300: ${hslToHex(secondary['300'])},
-  400: ${hslToHex(secondary['400'])},
-  500: ${hslToHex(secondary['500'])},
-  600: ${hslToHex(secondary['600'])},
-  700: ${hslToHex(secondary['700'])},
-  800: ${hslToHex(secondary['800'])},
-  900: ${hslToHex(secondary['900'])},
-  A100: ${hslToHex(secondary['A100'])},
-  A200: ${hslToHex(secondary['A200'])},
-  A400: ${hslToHex(secondary['A400'])},
-  A700: ${hslToHex(secondary['A700'])},
-  contrast: (
-    50: ${contrast(secondary['50'])},
-    100: ${contrast(secondary['100'])},
-    200: ${contrast(secondary['200'])},
-    300: ${contrast(secondary['300'])},
-    400: ${contrast(secondary['400'])},
-    500: ${contrast(secondary['500'])},
-    600: ${contrast(secondary['600'])},
-    700: ${contrast(secondary['700'])},
-    800: ${contrast(secondary['800'])},
-    900: ${contrast(secondary['900'])},
-    A100: ${contrast(secondary['A100'])},
-    A200: ${contrast(secondary['A200'])},
-    A400: ${contrast(secondary['A400'])},
-    A700: ${contrast(secondary['A700'])},
-  ),
-);
-
-$yata-palette-red: (
-  50: ${hslToHex(red['50'])},
-  100: ${hslToHex(red['100'])},
-  200: ${hslToHex(red['200'])},
-  300: ${hslToHex(red['300'])},
-  400: ${hslToHex(red['400'])},
-  500: ${hslToHex(red['500'])},
-  600: ${hslToHex(red['600'])},
-  700: ${hslToHex(red['700'])},
-  800: ${hslToHex(red['800'])},
-  900: ${hslToHex(red['900'])},
-  A100: ${hslToHex(red['A100'])},
-  A200: ${hslToHex(red['A200'])},
-  A400: ${hslToHex(red['A400'])},
-  A700: ${hslToHex(red['A700'])},
-  contrast: (
-    50: ${contrast(red['50'])},
-    100: ${contrast(red['100'])},
-    200: ${contrast(red['200'])},
-    300: ${contrast(red['300'])},
-    400: ${contrast(red['400'])},
-    500: ${contrast(red['500'])},
-    600: ${contrast(red['600'])},
-    700: ${contrast(red['700'])},
-    800: ${contrast(red['800'])},
-    900: ${contrast(red['900'])},
-    A100: ${contrast(red['A100'])},
-    A200: ${contrast(red['A200'])},
-    A400: ${contrast(red['A400'])},
-    A700: ${contrast(red['A700'])},
-  ),
-);
-
-$yata-palette-grey: (
-  50: ${hslToHex(gray['50'])},
-  100: ${hslToHex(gray['100'])},
-  200: ${hslToHex(gray['200'])},
-  300: ${hslToHex(gray['300'])},
-  400: ${hslToHex(gray['400'])},
-  500: ${hslToHex(gray['500'])},
-  600: ${hslToHex(gray['600'])},
-  700: ${hslToHex(gray['700'])},
-  800: ${hslToHex(gray['800'])},
-  900: ${hslToHex(gray['900'])},
-  A100: ${hslToHex(gray['A100'])},
-  A200: ${hslToHex(gray['A200'])},
-  A400: ${hslToHex(gray['A400'])},
-  A700: ${hslToHex(gray['A700'])},
-  contrast: (
-    50: ${contrast(gray['50'])},
-    100: ${contrast(gray['100'])},
-    200: ${contrast(gray['200'])},
-    300: ${contrast(gray['300'])},
-    400: ${contrast(gray['400'])},
-    500: ${contrast(gray['500'])},
-    600: ${contrast(gray['600'])},
-    700: ${contrast(gray['700'])},
-    800: ${contrast(gray['800'])},
-    900: ${contrast(gray['900'])},
-    A100: ${contrast(gray['A100'])},
-    A200: ${contrast(gray['A200'])},
-    A400: ${contrast(gray['A400'])},
-    A700: ${contrast(gray['A700'])},
-  ),
-);
+${mapColorPaletteToScssMap(primary, 'primary')}
+${mapColorPaletteToScssMap(secondary, 'secondary')}
+${mapColorPaletteToScssMap(red, 'red')}
+${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
   writeFile('src/app/shared/styles/palettes.__generated.scss', palettes);
@@ -189,45 +100,13 @@ export const UNIT = ${unit};
 export const COLUMN_WIDTH = ${unit * 3};
 
 export const PRIMARY_COLOR = '${hslToHex(secondary['600'])}';
-${((): string => {
-  let result = '';
-
-  for (const key in primary) {
-    result += `export const COLOR_PRIMARY_${key} = '${hslToHex(primary[key])}';\n`;
-  }
-
-  return result;
-})()}
+${mapColorPaletteToConsts(primary, 'PRIMARY')}
 export const SECONDARY_COLOR = '${hslToHex(secondary['600'])}';
-${((): string => {
-  let result = '';
-
-  for (const key in primary) {
-    result += `export const COLOR_SECONDARY_${key} = '${hslToHex(secondary[key])}';\n`;
-  }
-
-  return result;
-})()}
+${mapColorPaletteToConsts(secondary, 'SECONDARY')}
 export const DANGER_COLOR = '${hslToHex(red['600'])}';
-${((): string => {
-  let result = '';
-
-  for (const key in primary) {
-    result += `export const COLOR_DANGER_${key} = '${hslToHex(red[key])}';\n`;
-  }
-
-  return result;
-})()}
+${mapColorPaletteToConsts(red, 'DANGER')}
 export const GRAY_COLOR = '${hslToHex(gray['600'])}';
-${((): string => {
-  let result = '';
-
-  for (const key in primary) {
-    result += `export const COLOR_GRAY_${key} = '${hslToHex(gray[key])}';\n`;
-  }
-
-  return result;
-})()}
+${mapColorPaletteToConsts(gray, 'GRAY')}
 export const SUCCESS_COLOR = '${successColor}';
 export const WARNING_COLOR = '${warningColor}';
 export const STANDARD_TEXT_COLOR = '${hslToHex(gray['700'])}';
@@ -254,25 +133,25 @@ export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`; // TODO
 @include mat.core();
 
 // GENERAL COLORS
-$background-color: map.get($yata-palette-grey, 50);
-$border-color: map.get($yata-palette-grey, 200);
+$background-color: map.get($yata-palette-gray, 50);
+$border-color: map.get($yata-palette-gray, 200);
 $primary-color: map.get($yata-palette-primary, 600);
 $secondary-color: map.get($yata-palette-secondary, 600);
 $success-color: ${successColor};
 $danger-color: map.get($yata-palette-red, 600);
 $warning-color: ${warningColor};
-$disabled-color: map.get($yata-palette-grey, 400);
+$disabled-color: map.get($yata-palette-gray, 400);
 
 // TEXT COLORS
-$title-text-color: map.get($yata-palette-grey, 900);
-$subtitle-text-color: map.get($yata-palette-grey, 700);
-$label-text-color: map.get($yata-palette-grey, 600);
-$standard-text-color: map.get($yata-palette-grey, 800);
+$title-text-color: map.get($yata-palette-gray, 900);
+$subtitle-text-color: map.get($yata-palette-gray, 700);
+$label-text-color: map.get($yata-palette-gray, 600);
+$standard-text-color: map.get($yata-palette-gray, 800);
 
 // FORM COLORS
-$form-label-color: map.get($yata-palette-grey, 600);
+$form-label-color: map.get($yata-palette-gray, 600);
 $form-input-text-color: $standard-text-color;
-$form-input-border-color: map.get($yata-palette-grey, 400);
+$form-input-border-color: map.get($yata-palette-gray, 400);
 $form-input-focus-border-color: $primary-color;
 
 // MATERIAL THEME

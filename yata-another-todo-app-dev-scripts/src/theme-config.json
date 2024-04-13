@@ -10,7 +10,15 @@
       "saturation": 100
     },
     "red": {
-      "hue": 2,
+      "hue": 3,
+      "saturation": 100
+    },
+    "green": {
+      "hue": 128,
+      "saturation": 100
+    },
+    "orange": {
+      "hue": 44,
       "saturation": 100
     },
     "secondary": {

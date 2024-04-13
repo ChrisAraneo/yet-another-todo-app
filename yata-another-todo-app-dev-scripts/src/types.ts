@@ -16,6 +16,8 @@ export interface Config {
     primary: HsColor;
     secondary: HsColor;
     red: HsColor;
+    green: HsColor;
+    orange: HsColor;
     gray: HsColor;
   };
 }

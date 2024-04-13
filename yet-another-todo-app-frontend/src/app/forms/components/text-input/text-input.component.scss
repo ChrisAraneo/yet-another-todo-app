@@ -45,7 +45,7 @@
 
   &:disabled {
     border-color: $form-input-border-color !important;
-    background-color: map.get($yata-palette-grey, 100) !important;
+    background-color: map.get($yata-palette-gray, 100) !important;
   }
 
   &:disabled:hover {
