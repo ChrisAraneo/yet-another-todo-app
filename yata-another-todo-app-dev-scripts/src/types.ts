@@ -11,6 +11,8 @@ export interface HsColor {
 
 export interface Config {
   unit: number;
+  borderRadius: string;
+  columnWidthInUnits: number;
   palettes: {
     lightness: number;
     primary: HsColor;
@@ -19,5 +21,10 @@ export interface Config {
     green: HsColor;
     orange: HsColor;
     gray: HsColor;
+  };
+  modals: {
+    widthInUnits: number;
+    heightInUnits: number;
+    borderRadius: string;
   };
 }

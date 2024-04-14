@@ -26,5 +26,12 @@
       "saturation": 100
     }
   },
+  "borderRadius": "6px",
+  "columnWidthInUnits": 3,
+  "modals": {
+    "widthInUnits": 15,
+    "heightInUnits": 10,
+    "borderRadius": "16px"
+  },
   "unit": 64
 }

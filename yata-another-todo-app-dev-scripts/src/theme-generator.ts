@@ -34,7 +34,12 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 
 function main(): void {
   const config: Config = JSON.parse(readFile('/dist/theme-config.json')) as Config;
+
   const unit = 64;
+  const borderRadius = config.borderRadius;
+  const columnWidthInUnits = config.columnWidthInUnits;
+  const modals = config.modals;
+
   const lightness = config.palettes.lightness;
   const primary = materialPalette({
     h: config.palettes.primary.hue,
@@ -169,6 +174,40 @@ $theme: mat.define-light-theme(
 `;
 
   writeFile('src/app/shared/styles/colors.__generated.scss', colors);
+
+  const variables = `${disclaimer}
+@use 'sass:map';
+@use 'sass:math';
+@use '@angular/material' as mat;
+
+@import './units.__generated.scss';
+@import './palettes.__generated.scss';
+@import './colors.__generated.scss';
+
+@include mat.all-component-typographies();
+@include mat.core();
+
+// GENERAL VARIABLES
+$border: 1px solid $border-color;
+$border-radius: ${borderRadius};
+
+// TIMELINE
+$column-width: $_64unit * ${columnWidthInUnits};
+
+// MODALS & DIALOG WINDOWS
+$dialog-width: $_64unit * ${modals.widthInUnits};
+$dialog-height: $_64unit * ${modals.heightInUnits};
+$modal-border-radius: ${modals.borderRadius};
+
+// FORMS
+$form-input-border-radius: $_6unit;
+$form-input-border: 1px solid $form-input-border-color;
+$form-input-focus-border: 1px solid $form-input-focus-border-color;
+$form-input-background: darken($background-color, 0.7%) !important;
+$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;  
+`;
+
+  writeFile('src/app/shared/styles/variables.__generated.scss', variables);
 }
 
 main();
