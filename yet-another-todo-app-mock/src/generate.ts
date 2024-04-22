@@ -2,28 +2,11 @@ import { faker } from '@faker-js/faker';
 import { addDays } from 'date-fns';
 import fs from 'fs';
 import path from 'path';
-import { LOREM_WORDS } from './lorem-words.const';
-
-// TODO Use types
+import { LOREM_WORDS } from './utils/lorem-words.const';
+import { Task } from './types/task.type';
+import { TaskState } from './types/task-state.type';
 
 // TODO Create shared and get types from shared
-type TaskState = {
-  id: string;
-  value: string;
-  iconName: string;
-  color: string;
-};
-
-type Task = {
-  id: string;
-  title: string;
-  description: string;
-  state: TaskState;
-  creationDate: Date;
-  isHidden: boolean;
-  startDate?: Date;
-  endDate?: Date;
-};
 
 const taskStates: TaskState[] = [
   {
@@ -60,7 +43,7 @@ const taskStates: TaskState[] = [
 
 const tasks: Task[] = [];
 
-function generate() {
+function generate(): void {
   const totalNumberOfTasks = process.argv[2] ? +process.argv[2] : 750;
   const storePath = process.argv[3] ? process.argv[3] : path.join(__dirname, '../store/store.json');
 
@@ -73,8 +56,7 @@ function generate() {
 
     while (+date < +endDate) {
       if (tasks.length < totalNumberOfTasks - numberOfNotStartedTasks) {
-        const taskStateId = getRandomInt(taskStates.length - 2);
-        const taskState = taskStates[taskStateId + 1];
+        const taskState = taskStates[getRandomInt(1, taskStates.length - 1)];
         tasks.push(createRandomTask(date, date, taskState));
         date = addDays(date, 1);
       } else {
@@ -90,12 +72,12 @@ function generate() {
   writeStoreFile(storePath, JSON.stringify(tasks));
 }
 
-function createRandomTask(startDate, endDate, taskState) {
+function createRandomTask(startDate: Date, endDate: Date, taskState: TaskState): Task {
   const lorem = createRandomLine().split(' ');
 
   const task = {
     id: faker.datatype.uuid(),
-    title: `${lorem[0]} ${lorem[1]}`,
+    title: `${lorem[0]} ${lorem.length > 1 ? lorem[1] : ''}`.trim(),
     description: createRandomLine(),
     state: taskState,
     creationDate: startDate,
@@ -118,11 +100,14 @@ function createRandomTask(startDate, endDate, taskState) {
   return task;
 }
 
-function getRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
+function getRandomInt(min: number, max: number): number {
+  const minCeil = Math.ceil(min);
+  const maxFloor = Math.floor(max);
+
+  return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
 }
 
-function writeStoreFile(filePath, fileContent) {
+function writeStoreFile(filePath: string, fileContent: string): void {
   try {
     fs.writeFileSync(filePath, fileContent, 'utf-8');
   } catch (e) {
@@ -133,17 +118,13 @@ function writeStoreFile(filePath, fileContent) {
 function createRandomLine(): string {
   let line = '';
 
-  for (let i = 0; i < Math.floor(Math.random() * 9) + 1; i++) {
-    line += ` ` + LOREM_WORDS[Math.floor(Math.random() * (LOREM_WORDS.length - 1))];
+  for (let i = 0; i < getRandomInt(1, 8); i++) {
+    line += LOREM_WORDS[getRandomInt(0, LOREM_WORDS.length - 1)] + ' ';
   }
 
   line = line.trim();
 
-  const firstChar = line.charAt(0);
-  const firsCharUpper = firstChar.toUpperCase();
-  const remainingChars = line.slice(1);
-
-  return firsCharUpper + remainingChars;
+  return line.charAt(0).toLocaleUpperCase() + line.slice(1);
 }
 
 generate();

@@ -5,10 +5,9 @@ import cors from 'cors';
 import jsonDiff from 'json-diff';
 import log4js from 'log4js';
 import bodyParser from 'body-parser';
+import { Task } from './types/task.type';
 
-// TODO Use types
-
-let data: any[] | null = null;
+let data: Task[] | null = null;
 
 const ACCESS_TOKEN = 'M0CK_TOKEN';
 const REFRESH_TOKEN = 'REFRESH_TOKEN';
@@ -24,8 +23,6 @@ const responseHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json',
 };
-
-console.log('storePath', storePath);
 
 const logger = log4js.getLogger();
 logger.level = 'debug';
@@ -102,10 +99,9 @@ server.post('/task', (request, response) => {
 
   readStoreFileIfDataIsNull();
 
-  const task = request.body;
-  const result = createOrUpdateTask(task);
+  const task: Task = request.body;
 
-  if (result === DIFF) {
+  if (createOrUpdateTask(task) === DIFF) {
     logger.debug('Writing store file');
     writeStoreFile(storePath, JSON.stringify(data));
   }
@@ -122,13 +118,9 @@ server.post('/tasks', (request, response) => {
 
   readStoreFileIfDataIsNull();
 
-  const tasks = request.body;
-
   let hasChanged = false;
-  tasks.forEach((task) => {
-    const result = createOrUpdateTask(task);
-
-    if (result === DIFF) {
+  (request.body as Task[]).forEach((task: Task) => {
+    if (createOrUpdateTask(task) === DIFF) {
       hasChanged = true;
     }
   });
@@ -193,7 +185,7 @@ server.listen(port, () => {
   logger.debug(`Server started running at ${port}`);
 });
 
-function readStoreFileIfDataIsNull() {
+function readStoreFileIfDataIsNull(): void {
   if (data === null) {
     logger.debug('Cache is empty');
     logger.debug('Reading store file');
@@ -201,7 +193,7 @@ function readStoreFileIfDataIsNull() {
   }
 }
 
-function createOrUpdateTask(task) {
+function createOrUpdateTask(task: Task): typeof DIFF | typeof NOT_DIFF {
   if (data === null) {
     data = [task];
 
@@ -227,7 +219,7 @@ function createOrUpdateTask(task) {
   }
 }
 
-function writeStoreFile(filePath, fileContent) {
+function writeStoreFile(filePath: string, fileContent: string): string {
   try {
     fs.writeFileSync(filePath, fileContent, 'utf-8');
   } catch (e) {
@@ -244,7 +236,8 @@ function writeStoreFile(filePath, fileContent) {
   });
 }
 
-function readStoreFile(filePath) {
+function readStoreFile(filePath: string): Task[] {
   const content = fs.readFileSync(filePath);
+
   return JSON.parse(content.toString());
 }
