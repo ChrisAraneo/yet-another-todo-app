@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "scripts": {
     "lint": "eslint \"src/**/*.{ts,json}\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.json\" \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.ts\"",
     "mock": "esbuild src/mock.ts --bundle --platform=node --outfile=dist/mock.js && node dist/mock.js",
     "generate": "esbuild src/generate.ts --bundle --platform=node --outfile=dist/generate.js && node dist/generate.js"
   },
@@ -30,6 +30,6 @@
     "eslint-plugin-jsonc": "^2.10.0",
     "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.0.3",
-    "typescript": "^5.4.0"
+    "typescript": "~5.3.0"
   }
 }
