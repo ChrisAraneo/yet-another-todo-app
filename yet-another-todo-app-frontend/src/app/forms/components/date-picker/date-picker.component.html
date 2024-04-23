@@ -13,6 +13,7 @@
       (blur)="onBlur()"
       [inline]="true"
       [showWeek]="true"
+      [selectionMode]="range ? 'range' : 'single'"
       *yataErrorTooltip="label"></p-calendar>
   </div>
   <div class="time-picker-wrapper" *ngIf="showTime">
