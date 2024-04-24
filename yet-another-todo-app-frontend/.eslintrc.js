@@ -30,6 +30,7 @@ module.exports = {
     "@typescript-eslint/member-ordering": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/method-signature-style": "error",
+    "@typescript-eslint/adjacent-overload-signatures": "off",
     "jsonc/sort-keys": "error"
   },
 };
