@@ -6,12 +6,13 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  padding: $_10unit $_8unit;
+  padding: $_10unit;
   font-size: $_16unit;
   border: $form-input-border;
   border-color: map.get($yata-palette-gray, 100) !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
+  color: $form-input-text-color;
   margin: $_6unit 0;
   outline: none;
 }

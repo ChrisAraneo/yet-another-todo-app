@@ -1,13 +1,15 @@
-@use "sass:map";
+@use 'sass:map';
 @use 'sass:math';
 @import '../../../shared/styles/variables.__generated.scss';
 
+$box-shadow-radius: $_4unit;
 $padding: $_10unit $_10unit;
 
 ::ng-deep p-dropdown {
   display: flex;
   margin-top: $_6unit;
   width: 100%;
+  color: $form-input-text-color;
 
   .p-dropdown {
     width: 100%;
@@ -19,7 +21,7 @@ $padding: $_10unit $_10unit;
 
   .p-dropdown.p-focus {
     border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $_6unit map.get($yata-palette-primary, 50) !important;
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
     background-color: $form-input-focus-background;
   }
 }

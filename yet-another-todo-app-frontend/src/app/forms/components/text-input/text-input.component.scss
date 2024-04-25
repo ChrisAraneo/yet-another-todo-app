@@ -1,28 +1,32 @@
-@use "sass:map";
+@use 'sass:map';
 @use 'sass:math';
 @import '../../../shared/styles/variables.__generated.scss';
+
+$box-shadow-radius: $_4unit;
 
 .p-inputtext {
   box-sizing: border-box;
   width: 100%;
-  padding: $_10unit $_8unit;
+  padding: $_10unit;
   font-size: $_16unit;
   border: $form-input-border;
   border-color: $form-input-border-color !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
-  margin: $_6unit 0;
+  color: $form-input-text-color;
+  margin: 0;
+  margin-top: $_6unit;
   outline: none;
 
   &:focus {
     border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $_6unit map.get($yata-palette-primary, 50) !important;
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
     background-color: $form-input-focus-background;
   }
 
   &:hover {
     border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $_4unit map.get($yata-palette-primary, 50) !important;
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
     background-color: $form-input-focus-background;
   }
 
@@ -33,13 +37,13 @@
 
   &.ng-invalid:focus {
     border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $_6unit map.get($yata-palette-red, 50) !important;
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-red, 50) !important;
     background-color: map.get($yata-palette-red, 50) !important;
   }
 
   &.ng-invalid:hover {
     border-color: $danger-color !important;
-    box-shadow: 0 0 0 $_4unit map.get($yata-palette-red, 50) !important;
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-red, 50) !important;
     background-color: map.get($yata-palette-red, 50) !important;
   }
 
