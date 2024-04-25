@@ -22,6 +22,7 @@ import { SelectComponent } from './components/select/select.component';
 import { SubmitButtonComponent } from './components/submit-button/submit-button.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
+import { TimePickerComponent } from './components/time-picker/time-picker.component';
 import { DirectivesModule } from './directives/directives.module';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { DirectivesModule } from './directives/directives.module';
     PasswordInputComponent,
     FileInputComponent,
     ReadonlyComponent,
+    TimePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +73,7 @@ import { DirectivesModule } from './directives/directives.module';
     PasswordInputComponent,
     FileInputComponent,
     ReadonlyComponent,
+    TimePickerComponent,
   ],
 })
 export class FormsModule {}
