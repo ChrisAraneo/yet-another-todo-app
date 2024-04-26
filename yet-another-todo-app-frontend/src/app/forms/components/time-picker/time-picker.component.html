@@ -1,1 +1,22 @@
-<p>time-picker works!</p>
+<div>
+  <yata-form-label [for]="label"></yata-form-label>
+  <div class="time-picker-wrapper">
+    <input
+      pInputText
+      type="text"
+      (input)="onHoursChange($event)"
+      (change)="onHoursChange($event)"
+      (blur)="onBlur()"
+      [disabled]="isDisabled"
+      *yataErrorTooltip="label" />
+    <span class="separator">:</span>
+    <input
+      pInputText
+      type="text"
+      (input)="onMinutesChange($event)"
+      (change)="onMinutesChange($event)"
+      (blur)="onBlur()"
+      [disabled]="isDisabled"
+      *yataErrorTooltip="label" />
+  </div>
+</div>
