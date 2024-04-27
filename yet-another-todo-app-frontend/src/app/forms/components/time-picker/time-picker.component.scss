@@ -64,6 +64,9 @@ $box-shadow-radius: $_4unit;
 }
 
 .separator {
-  display: block;
-  margin: 0 $_8unit;
+  display: flex;
+  margin: 0 $_10unit;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
 }
