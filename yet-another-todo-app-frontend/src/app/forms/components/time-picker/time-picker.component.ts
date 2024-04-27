@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -13,8 +13,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
 })
-export class TimePickerComponent implements ControlValueAccessor {
+export class TimePickerComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label: string = '';
+
+  @ViewChild('hours') hoursInput!: ElementRef;
+  @ViewChild('minutes') minutesInput!: ElementRef;
 
   hours: string;
   minutes: string;
@@ -29,38 +32,59 @@ export class TimePickerComponent implements ControlValueAccessor {
     this.isDisabled = false;
   }
 
-  onHoursChange(event: any): void {
+  ngAfterViewInit(): void {
+    this.hoursInput.nativeElement.value = this.hours;
+    this.minutesInput.nativeElement.value = this.minutes;
+  }
+
+  onHoursChange(event: InputEvent | Event | string): void {
     let value = '';
 
     if (event instanceof InputEvent || event instanceof Event) {
       value = (event.target as HTMLInputElement)?.value || '';
-    } else {
-      return;
+    } else if (typeof event === 'string') {
+      value = event;
     }
 
-    const hours: string = '00' + value.replace(/\D/g, '');
+    let hours: string = '00' + value.replace(/\D/g, '');
 
-    // TODO Fix hours > 23
+    if (+hours > 23) {
+      hours = '23';
+    } else if (+hours < 0) {
+      hours = '00';
+    }
+
     this.hours = hours.charAt(hours.length - 2) + hours.charAt(hours.length - 1);
-    (event.target as HTMLInputElement).value = this.hours;
+
+    if (event instanceof Event) {
+      (event.target as HTMLInputElement).value = this.hours;
+    }
 
     this.changed && this.changed(this.hours + ':' + this.minutes);
   }
 
-  onMinutesChange(event: any): void {
+  onMinutesChange(event: InputEvent | Event | string): void {
     let value = '';
 
     if (event instanceof InputEvent || event instanceof Event) {
       value = (event.target as HTMLInputElement)?.value || '';
-    } else {
-      return;
+    } else if (typeof event === 'string') {
+      value = event;
     }
 
-    const minutes: string = '00' + value.replace(/\D/g, '');
+    let minutes: string = '00' + value.replace(/\D/g, '');
 
-    // TODO Fix minutes > 59
+    if (+minutes > 59) {
+      minutes = '59';
+    } else if (+minutes < 0) {
+      minutes = '00';
+    }
+
     this.minutes = minutes.charAt(minutes.length - 2) + minutes.charAt(minutes.length - 1);
-    (event.target as HTMLInputElement).value = this.minutes;
+
+    if (event instanceof Event) {
+      (event.target as HTMLInputElement).value = this.minutes;
+    }
 
     this.changed && this.changed(this.hours + ':' + this.minutes);
   }
