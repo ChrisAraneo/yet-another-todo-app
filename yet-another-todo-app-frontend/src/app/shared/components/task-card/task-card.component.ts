@@ -11,6 +11,7 @@ import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 })
 export class TaskCardComponent implements OnChanges, OnDestroy {
   @Input() task!: Task;
+  @Input() showEditButton: boolean = false;
 
   startDate: string = '';
   startTime: string = '';
