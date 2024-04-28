@@ -2,7 +2,8 @@ import { animate, keyframes, style, transition, trigger } from '@angular/animati
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription, map, shareReplay } from 'rxjs';
+import { Observable, Subscription, map, shareReplay, tap } from 'rxjs';
+import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
@@ -40,10 +41,10 @@ export class AddTaskModalComponent implements OnDestroy {
 
   taskForm!: FormGroup<TaskForm>;
   showDatePicker!: Observable<boolean>;
-  isDateRange!: Observable<boolean>;
+  isDateRange: boolean = false;
   states: Option<TaskState>[] = [];
   step: number = 1;
-  total: number = 3;
+  total: number = 4;
   task?: Task;
 
   private subscription: Subscription = new Subscription();
@@ -54,11 +55,26 @@ export class AddTaskModalComponent implements OnDestroy {
     private tasksService: TasksService,
     private taskStateTranslatorService: TaskStateTranslatorService,
     private taskCreator: TaskCreatorService,
+    private dateUtilsService: DateUtilsService,
   ) {
     this.initializeStates();
     this.initializeForm();
     this.initializeObservables();
     this.subscribeToShowDatePickerControlChanges();
+    this.subscribeToStartTimeControlChanges();
+    this.subscribeToEndTimeControlChanges();
+  }
+
+  get startDate(): string | null {
+    const dateRange = this.taskForm.value.dateRange;
+
+    return this.formatDate(Array.isArray(dateRange) ? dateRange[0] : dateRange);
+  }
+
+  get endDate(): string | null {
+    const dateRange = this.taskForm.value.dateRange;
+
+    return this.formatDate(Array.isArray(dateRange) ? dateRange[1] : null);
   }
 
   ngOnDestroy(): void {
@@ -73,13 +89,16 @@ export class AddTaskModalComponent implements OnDestroy {
       case 2: {
         return this.handleGoNextToThirdStep();
       }
+      case 3: {
+        return this.handleGoNextToFourthStep();
+      }
     }
   };
 
   back = async (): Promise<void> => {
     if (this.step === 1) {
       return;
-    } else if (this.step === 3 && this.shouldSkipSecondStep()) {
+    } else if (this.step >= 3 && this.shouldSkipDateTimeSelection()) {
       this.step = 1;
     } else {
       this.step--;
@@ -128,11 +147,17 @@ export class AddTaskModalComponent implements OnDestroy {
         nonNullable: true,
       }),
       dateRange: new FormControl(null),
+      startTime: new FormControl('00:00', { nonNullable: true }),
+      endTime: new FormControl('00:00', { nonNullable: true }),
     });
   }
 
   private initializeObservables(): void {
     this.showDatePicker = this.taskForm.controls.state.valueChanges.pipe(
+      tap((state: TaskState) => {
+        this.isDateRange =
+          state instanceof CompletedTaskState || state instanceof RejectedTaskState;
+      }),
       map((state: TaskState) => {
         return (
           state instanceof InProgressTaskState ||
@@ -140,13 +165,6 @@ export class AddTaskModalComponent implements OnDestroy {
           state instanceof CompletedTaskState ||
           state instanceof RejectedTaskState
         );
-      }),
-      shareReplay(1),
-    );
-
-    this.isDateRange = this.taskForm.controls.state.valueChanges.pipe(
-      map((state: TaskState) => {
-        return state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
       shareReplay(1),
     );
@@ -164,6 +182,49 @@ export class AddTaskModalComponent implements OnDestroy {
         }
 
         this.taskForm.updateValueAndValidity();
+      }),
+    );
+  }
+
+  private subscribeToStartTimeControlChanges(): void {
+    this.subscription.add(
+      this.taskForm.controls.startTime.valueChanges.subscribe((startTime) => {
+        const parts = startTime.split(':');
+        const dateRange = this.taskForm.value.dateRange;
+
+        if (Array.isArray(dateRange)) {
+          const date = new Date(dateRange[0]);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
+
+          this.taskForm.controls.dateRange.setValue([
+            date.toISOString(),
+            dateRange[1] || date.toISOString(),
+          ]);
+        } else if (dateRange) {
+          const date = new Date(dateRange);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
+
+          this.taskForm.controls.dateRange.setValue(date.toISOString());
+        }
+      }),
+    );
+  }
+
+  private subscribeToEndTimeControlChanges(): void {
+    this.subscription.add(
+      this.taskForm.controls.endTime.valueChanges.subscribe((endTime) => {
+        const parts = endTime.split(':');
+        const dateRange = this.taskForm.value.dateRange;
+
+        if (Array.isArray(dateRange) && dateRange.length > 1) {
+          const date = new Date(dateRange[1] as string);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
+
+          this.taskForm.controls.dateRange.setValue([dateRange[0], date.toISOString()]);
+        }
       }),
     );
   }
@@ -187,14 +248,16 @@ export class AddTaskModalComponent implements OnDestroy {
     state.markAsTouched();
     state.updateValueAndValidity();
 
-    if (this.shouldSkipSecondStep()) {
-      this.handleGoNextToThirdStep();
+    if (this.shouldSkipDateTimeSelection()) {
+      this.handleGoNextToFourthStep();
     } else if (title.valid && description.valid && state.valid) {
       this.step = 2;
     }
   }
 
   private handleGoNextToThirdStep(): void {
+    this.patchDateRange();
+
     const { dateRange } = this.taskForm.controls;
 
     dateRange.markAsTouched();
@@ -212,7 +275,16 @@ export class AddTaskModalComponent implements OnDestroy {
     }
   }
 
-  private shouldSkipSecondStep(): boolean {
+  private handleGoNextToFourthStep(): void {
+    this.taskForm.updateValueAndValidity();
+
+    if (this.taskForm.valid) {
+      this.task = this.createTask();
+      this.step = 4;
+    }
+  }
+
+  private shouldSkipDateTimeSelection(): boolean {
     return (
       this.taskForm.controls?.state?.value?.toString() === new NotStartedTaskState().toString()
     );
@@ -230,14 +302,29 @@ export class AddTaskModalComponent implements OnDestroy {
       input['startDate'] = dateRange;
     } else if (dateRange && Array.isArray(dateRange)) {
       input['startDate'] = dateRange[0];
-
-      if (dateRange.length === 1) {
-        input['endDate'] = dateRange[0];
-      } else {
-        input['endDate'] = dateRange[1];
-      }
+      input['endDate'] = dateRange[1];
     }
 
     return this.taskCreator.create(input);
+  }
+
+  private formatDate(date: Date | string | number | null | undefined): string | null {
+    return date ? this.dateUtilsService.formatDate(new Date(date), 'dd MMMM yyyy') : null;
+  }
+
+  private patchDateRange(): void {
+    const { dateRange, state } = this.taskForm.value;
+
+    if (state instanceof CompletedTaskState || state instanceof RejectedTaskState) {
+      this.taskForm.controls.dateRange.patchValue(
+        Array.isArray(dateRange) && dateRange.length === 1
+          ? [dateRange[0], dateRange[0]]
+          : dateRange || null,
+      );
+    } else {
+      this.taskForm.controls.dateRange.patchValue(
+        Array.isArray(dateRange) ? dateRange[0] : dateRange || null,
+      );
+    }
   }
 }
