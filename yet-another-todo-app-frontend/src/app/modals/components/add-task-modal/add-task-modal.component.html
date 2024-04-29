@@ -29,13 +29,13 @@
           [range]="!!isDateRange"></yata-date-picker>
       </yata-page>
       <yata-page *ngSwitchCase="3" [@fadeInOut]>
-        <ng-container *ngIf="isDateRange; else singleDate">
-          <yata-readonly
-            [label]="'AddTaskModal.startDate' | translate"
-            [value]="startDate"></yata-readonly>
-          <yata-time-picker
-            [label]="'AddTaskModal.startTime' | translate"
-            formControlName="startTime"></yata-time-picker>
+        <yata-readonly
+          [label]="'AddTaskModal.startDate' | translate"
+          [value]="startDate"></yata-readonly>
+        <yata-time-picker
+          [label]="'AddTaskModal.startTime' | translate"
+          formControlName="startTime"></yata-time-picker>
+        <ng-container *ngIf="isDateRange">
           <yata-readonly
             [label]="'AddTaskModal.endDate' | translate"
             [value]="endDate"></yata-readonly>
@@ -43,14 +43,6 @@
             [label]="'AddTaskModal.endTime' | translate"
             formControlName="endTime"></yata-time-picker>
         </ng-container>
-        <ng-template #singleDate>
-          <yata-readonly
-            [label]="'AddTaskModal.startDate' | translate"
-            [value]="startDate"></yata-readonly>
-          <yata-time-picker
-            [label]="'AddTaskModal.startTime' | translate"
-            formControlName="startTime"></yata-time-picker>
-        </ng-template>
       </yata-page>
       <yata-page *ngSwitchCase="4" class="summary" [@fadeInOut]>
         <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
