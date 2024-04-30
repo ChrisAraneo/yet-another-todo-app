@@ -72,4 +72,24 @@ $table-cell-size: $_26unit;
       }
     }
   }
+
+  .p-monthpicker {
+    padding: $_16unit;
+  }
+
+  .p-monthpicker-month {
+    font-size: $_14unit;
+    height: $table-cell-size - $_2unit;
+    margin: $_2unit;
+  }
+
+  .p-yearpicker {
+    padding: $_16unit;
+  }
+
+  .p-yearpicker-year {
+    font-size: $_14unit;
+    height: $table-cell-size - $_2unit;
+    margin: $_2unit;
+  }
 }
