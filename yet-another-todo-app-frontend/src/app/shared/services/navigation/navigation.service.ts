@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
 import {
@@ -16,7 +17,7 @@ import {
   providedIn: 'root',
 })
 export class NavigationService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {}
 
   async navigateToTimelineRoute(): Promise<boolean> {
     return this.navigate([`/${TIMELINE_PATH}`]);
@@ -33,6 +34,14 @@ export class NavigationService {
   }
 
   async navigateToEditTaskRoute(id: string): Promise<boolean> {
+    const state = this.router.routerState.snapshot;
+    const urlParts = state.url.split('/').filter((part) => !!part);
+    const editPathIndex = urlParts.findIndex((part) => part === EDIT_TASK_PATH);
+
+    if (editPathIndex !== -1) {
+      return this.replaceUrlWithoutEvent(`${this.getFirstRootChild()}/${EDIT_TASK_PATH}/${id}`);
+    }
+
     return this.navigate([this.getFirstRootChild(), EDIT_TASK_PATH, id], {
       queryParamsHandling: 'merge',
     });
@@ -122,5 +131,11 @@ export class NavigationService {
       value.replace('-', '').replace('-', '').replace('-', '').replace('-', '').length ===
       value.length - 4
     );
+  }
+
+  private replaceUrlWithoutEvent(url: string): Promise<boolean> {
+    this.location.go(url);
+
+    return Promise.resolve(true);
   }
 }
