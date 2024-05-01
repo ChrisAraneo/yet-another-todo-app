@@ -1,7 +1,7 @@
 <div class="figure"></div>
 <div class="form">
   <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
-  <form [formGroup]="taskForm">
+  <form [formGroup]="form">
     <div class="controls" [ngSwitch]="step">
       <yata-page *ngSwitchCase="1" [@fadeInOut]>
         <yata-text-input
@@ -52,7 +52,7 @@
       </yata-page>
     </div>
     <yata-modal-action-buttons
-      [form]="taskForm"
+      [form]="form"
       [step]="step"
       [total]="total"
       [backButton]="{ click: back }"
