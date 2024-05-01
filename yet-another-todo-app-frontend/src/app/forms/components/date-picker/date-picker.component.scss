@@ -81,18 +81,23 @@ $table-cell-size: $_26unit;
 
   .p-monthpicker-month {
     flex: 1 0 calc(33.3333% - $_8unit);
+    max-width: calc(33.3333% - $_8unit);
     font-size: $_14unit;
     height: $table-cell-size;
     margin: $_4unit;
   }
 
   .p-yearpicker {
-    padding: $_16unit;
+    display: flex;
+    flex-wrap: wrap;
+    padding: $_14unit;
   }
 
   .p-yearpicker-year {
+    flex: 1 0 calc(33.3333% - $_8unit);
+    max-width: calc(33.3333% - $_8unit);
     font-size: $_14unit;
-    height: $table-cell-size - $_2unit;
-    margin: $_2unit;
+    height: $table-cell-size;
+    margin: $_4unit;
   }
 }
