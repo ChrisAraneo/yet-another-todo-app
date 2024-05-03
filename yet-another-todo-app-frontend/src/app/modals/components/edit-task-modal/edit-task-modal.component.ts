@@ -1,8 +1,10 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { BehaviorSubject, Observable, Subscription, first, map } from 'rxjs';
+import { Observable, Subscription, distinct, first, map, shareReplay, tap } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
@@ -18,70 +20,121 @@ import {
 import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
 import { TaskForm } from './edit-task-modal.types';
 
+// TODO Handle case when there is no tasks
+
 @Component({
   selector: 'yata-edit-task-modal',
   templateUrl: './edit-task-modal.component.html',
   styleUrls: ['./edit-task-modal.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(
+          '300ms',
+          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
+        ),
+      ]),
+      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
-export class EditTaskModalComponent implements OnInit, OnDestroy {
+export class EditTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
 
   tasks!: Observable<Option<Task>[]>;
-  isAnyTaskDefined!: Observable<boolean>;
-  showStartDateControl!: BehaviorSubject<boolean>;
-  showEndDateControl!: BehaviorSubject<boolean>;
-  taskForm!: FormGroup<TaskForm>;
+  form!: FormGroup<TaskForm>;
+  showDatePicker!: Observable<boolean>;
+  isDateRange: boolean = false;
   states: Option<TaskState>[] = [];
+  step: number = 1;
+  total: number = 5;
+  task?: Task;
 
   private subscription: Subscription = new Subscription();
-  private selectedTaskId = new BehaviorSubject<string | null>(null);
-  private creationDate?: Date;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any, // TODO Type
     public dialogRef: MatDialogRef<EditTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
-    private dateUtilsService: DateUtilsService,
     private taskStateTranslatorService: TaskStateTranslatorService,
     private taskCreator: TaskCreatorService,
+    private dateUtilsService: DateUtilsService,
+    private navigationService: NavigationService,
   ) {
     this.initializeStates();
+    this.initializeTasks();
     this.initializeForm();
-
-    this.initializeShowStartDateControlSubject(this.taskForm);
-    this.initializeShowEndDateControlSubject(this.taskForm);
-    this.initializeTasksObservable();
-
-    this.subscribeToShowStartDateControlChanges();
-    this.subscribeToShowEndDateControlChanges();
-    this.subscribeToSelectedTaskChanges(this.taskForm);
+    this.updateFormValuesWithInitialTask();
+    this.initializeObservables();
+    this.subscribeToTaskControlChanges();
+    this.subscribeToShowDatePickerControlChanges();
+    this.subscribeToStartTimeControlChanges();
+    this.subscribeToEndTimeControlChanges();
   }
 
-  ngOnInit(): void {
-    this.updateFormValuesWithInitialTask();
-    this.initializeIsAnyTaskDefinedObservable();
+  get startDate(): string | null {
+    const dateRange = this.form.value.dateRange;
+
+    return this.formatDate(Array.isArray(dateRange) ? dateRange[0] : dateRange);
+  }
+
+  get endDate(): string | null {
+    const dateRange = this.form.value.dateRange;
+
+    return this.formatDate(Array.isArray(dateRange) ? dateRange[1] : null);
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
+  next = async (): Promise<void> => {
+    switch (this.step) {
+      case 1: {
+        return this.handleGoNextToSecondStep();
+      }
+      case 2: {
+        return this.handleGoNextToThirdStep();
+      }
+      case 3: {
+        return this.handleGoNextToFourthStep();
+      }
+      case 4: {
+        return this.handleGoNextToFifthStep();
+      }
+    }
+  };
+
+  back = async (): Promise<void> => {
+    if (this.step === 1) {
+      return;
+    } else if (this.step >= 3 && this.shouldSkipDateTimeSelection()) {
+      this.step = 2;
+    } else {
+      this.step--;
+    }
+  };
+
   submit = async (): Promise<void> => {
-    if (!this.taskForm || this.taskForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
-    const id = this.taskForm.controls.task.value?.getId();
-    const task: Task = this.taskCreator.create({
-      ...this.taskForm.value,
-      task: undefined,
-      id,
-      creationDate: this.creationDate,
-    });
+    let validTask = true;
+    try {
+      this.task = this.createTask();
+    } catch (_) {
+      validTask = false;
+    }
+
+    if (!validTask) {
+      return;
+    }
 
     return new Promise((resolve) => {
-      this.tasksService.updateTask(task).subscribe(() => {
+      this.tasksService.addTask(this.task as Task).subscribe(() => {
         resolve();
 
         this.dialogRef.close();
@@ -97,15 +150,42 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
     this.states = this.taskStateTranslatorService.getTranslatedTaskStateSelectOptions();
   }
 
+  private initializeTasks(): void {
+    this.tasks = this.tasksService.getTasks().pipe(
+      map((tasks) =>
+        tasks.map((task) => ({
+          label: `${task.getTitle()} (${task.getShortId()})`,
+          value: task,
+        })),
+      ),
+    );
+  }
+
   private initializeForm(): void {
-    this.taskForm = this.formBuilder.group<TaskForm>({
-      task: new FormControl(),
+    this.form = this.formBuilder.group<TaskForm>({
+      task: new FormControl(null, { validators: [Validators.required] }),
       title: new FormControl('', { validators: [Validators.required], nonNullable: true }),
       description: new FormControl('', { validators: [Validators.required], nonNullable: true }),
-      state: new FormControl(new NotStartedTaskState(), { nonNullable: true }),
-      startDate: new FormControl(null),
-      endDate: new FormControl(null),
+      state: new FormControl(new NotStartedTaskState(), {
+        validators: [Validators.required],
+        nonNullable: true,
+      }),
+      dateRange: new FormControl(null),
+      startTime: new FormControl('00:00', { nonNullable: true }),
+      endTime: new FormControl('00:00', { nonNullable: true }),
     });
+  }
+
+  private updateFormValuesWithInitialTask(): void {
+    this.subscription.add(
+      this.tasks.pipe(first()).subscribe((tasks) => {
+        const initialTask = this.getInitialTask(tasks, this.data);
+
+        if (initialTask) {
+          this.updateFormValues(this.form, initialTask);
+        }
+      }),
+    );
   }
 
   private getInitialTask(tasks: Option<Task>[], data: any): Task | undefined {
@@ -120,139 +200,231 @@ export class EditTaskModalComponent implements OnInit, OnDestroy {
       : tasks[0].value;
   }
 
-  private initializeTasksObservable(): void {
-    this.tasks = this.tasksService.getTasks().pipe(
-      map((tasks) =>
-        tasks.map((task) => ({
-          label: `${task.getTitle()} (${task.getShortId()})`,
-          value: task,
-        })),
-      ),
-    );
-  }
-
-  private updateFormValues(form: FormGroup<TaskForm>, task: Task | null): void {
-    const id = task?.getId() || null;
-
-    if (id === this.selectedTaskId.getValue()) {
-      return;
-    }
-
-    this.selectedTaskId.next(id);
-
+  private updateFormValues(form: FormGroup<TaskForm>, task: Task): void {
     form.controls.task.setValue(task);
     form.controls.title.setValue(task?.getTitle() || '');
     form.controls.description.setValue(task?.getDescription() || '');
     form.controls.state.setValue(task?.getState() || new NotStartedTaskState());
 
-    if (task instanceof StartedTask || task instanceof EndedTask) {
-      form.controls.startDate.setValue(
-        this.dateUtilsService.formatDate(task.getStartDate(), 'yyyy-MM-dd'),
-      );
-    }
-
     if (task instanceof EndedTask) {
-      form.controls.endDate.setValue(
-        this.dateUtilsService.formatDate(task.getEndDate(), 'yyyy-MM-dd'),
+      form.controls.dateRange.setValue([
+        task.getStartDate().toISOString(),
+        task.getEndDate().toISOString(),
+      ]);
+      form.controls.startTime.setValue(
+        `${task.getStartDate().getHours()}:${task.getStartDate().getMinutes()}`,
+      );
+      form.controls.endTime.setValue(
+        `${task.getEndDate().getHours()}:${task.getEndDate().getMinutes()}`,
+      );
+    } else if (task instanceof StartedTask) {
+      form.controls.dateRange.setValue([task.getStartDate().toISOString()]);
+      form.controls.startTime.setValue(
+        `${task.getStartDate().getHours()}:${task.getStartDate().getMinutes()}`,
       );
     }
 
     form.updateValueAndValidity();
   }
 
-  private initializeShowStartDateControlSubject(form: FormGroup<TaskForm>): void {
-    const isVisibleFn = (state: TaskState): boolean =>
-      state instanceof InProgressTaskState ||
-      state instanceof SuspendedTaskState ||
-      state instanceof CompletedTaskState ||
-      state instanceof RejectedTaskState;
-
-    this.showStartDateControl = new BehaviorSubject<boolean>(
-      isVisibleFn(form.controls.state.value),
-    );
-
-    this.subscription.add(
-      form.controls.state.valueChanges.subscribe((state: TaskState) => {
-        this.showStartDateControl.next(isVisibleFn(state));
+  private initializeObservables(): void {
+    this.showDatePicker = this.form.controls.state.valueChanges.pipe(
+      tap((state: TaskState) => {
+        this.isDateRange =
+          state instanceof CompletedTaskState || state instanceof RejectedTaskState;
       }),
+      map((state: TaskState) => {
+        return (
+          state instanceof InProgressTaskState ||
+          state instanceof SuspendedTaskState ||
+          state instanceof CompletedTaskState ||
+          state instanceof RejectedTaskState
+        );
+      }),
+      shareReplay(1),
     );
   }
 
-  private initializeShowEndDateControlSubject(form: FormGroup<TaskForm>): void {
-    const isVisibleFn = (state: TaskState): boolean =>
-      state instanceof CompletedTaskState || state instanceof RejectedTaskState;
-
-    this.showEndDateControl = new BehaviorSubject<boolean>(isVisibleFn(form.controls.state.value));
-
+  private subscribeToTaskControlChanges(): void {
     this.subscription.add(
-      form.controls.state.valueChanges.subscribe((state: TaskState) => {
-        this.showEndDateControl.next(isVisibleFn(state));
-      }),
+      this.form.controls.task.valueChanges
+        .pipe(distinct((task) => task?.getId()))
+        .subscribe((task: Task | null) => {
+          if (task) {
+            this.navigationService.navigateToEditTaskRoute(task?.getId()).then(() => {
+              this.updateFormValues(this.form, task);
+            });
+          } else {
+            this.form.reset();
+          }
+        }),
     );
   }
 
-  private subscribeToShowStartDateControlChanges(): void {
+  private subscribeToShowDatePickerControlChanges(): void {
     this.subscription.add(
-      this.showStartDateControl.subscribe((show: boolean) => {
-        const control = this.taskForm.controls.startDate;
+      this.showDatePicker.subscribe((show: boolean) => {
+        const control = this.form.controls.dateRange;
 
         if (show) {
           this.setValidatorRequired(control);
         } else {
-          this.clearValidators(control);
+          this.clearValidatorsAndSetNullValue(control);
         }
 
-        this.taskForm.updateValueAndValidity();
+        this.form.updateValueAndValidity();
       }),
     );
   }
 
-  private subscribeToShowEndDateControlChanges(): void {
+  private subscribeToStartTimeControlChanges(): void {
     this.subscription.add(
-      this.showEndDateControl.subscribe((show: boolean) => {
-        const control = this.taskForm.controls.endDate;
+      this.form.controls.startTime.valueChanges.subscribe((startTime) => {
+        const parts = startTime.split(':');
+        const dateRange = this.form.value.dateRange;
 
-        if (show) {
-          this.setValidatorRequired(control);
-        } else {
-          this.clearValidators(control);
-        }
+        if (Array.isArray(dateRange)) {
+          const date = new Date(dateRange[0]);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
 
-        this.taskForm.updateValueAndValidity();
-      }),
-    );
-  }
+          this.form.controls.dateRange.setValue([
+            date.toISOString(),
+            dateRange[1] || date.toISOString(),
+          ]);
+        } else if (dateRange) {
+          const date = new Date(dateRange);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
 
-  private subscribeToSelectedTaskChanges(form: FormGroup<TaskForm>): void {
-    this.subscription.add(
-      form.controls.task.valueChanges.subscribe((task: Task | null) => {
-        this.updateFormValues(this.taskForm, task);
-        this.creationDate = task?.getCreationDate();
-      }),
-    );
-  }
-
-  private updateFormValuesWithInitialTask(): void {
-    this.subscription.add(
-      this.tasks.pipe(first()).subscribe((tasks) => {
-        const initialTask = this.getInitialTask(tasks, this.data);
-
-        if (initialTask) {
-          this.updateFormValues(this.taskForm, initialTask);
+          this.form.controls.dateRange.setValue(date.toISOString());
         }
       }),
     );
   }
 
-  private initializeIsAnyTaskDefinedObservable(): void {
-    this.isAnyTaskDefined = this.tasks.pipe(map((tasks) => tasks && tasks.length > 0));
+  private subscribeToEndTimeControlChanges(): void {
+    this.subscription.add(
+      this.form.controls.endTime.valueChanges.subscribe((endTime) => {
+        const parts = endTime.split(':');
+        const dateRange = this.form.value.dateRange;
+
+        if (Array.isArray(dateRange) && dateRange.length > 1) {
+          const date = new Date(dateRange[1] as string);
+          date.setHours(+parts[0]);
+          date.setMinutes(+parts[1]);
+
+          this.form.controls.dateRange.setValue([dateRange[0], date.toISOString()]);
+        }
+      }),
+    );
   }
 
   private setValidatorRequired(control: AbstractControl): void {
     control.setValidators(Validators.required);
   }
 
-  private clearValidators(control: AbstractControl): void {
+  private clearValidatorsAndSetNullValue(control: AbstractControl): void {
     control.clearValidators();
+    control.setValue(null);
+  }
+
+  private handleGoNextToSecondStep(): void {
+    const { task } = this.form.controls;
+
+    task.markAsTouched();
+    task.updateValueAndValidity();
+
+    if (task.value?.getId()) {
+      this.step = 2;
+    }
+  }
+
+  private handleGoNextToThirdStep(): void {
+    const { title, description, state } = this.form.controls;
+
+    title.markAsTouched();
+    title.updateValueAndValidity();
+    description.markAsTouched();
+    description.updateValueAndValidity();
+    state.markAsTouched();
+    state.updateValueAndValidity();
+
+    if (this.shouldSkipDateTimeSelection()) {
+      this.handleGoNextToFifthStep();
+    } else if (title.valid && description.valid && state.valid) {
+      this.step = 3;
+    }
+  }
+
+  private handleGoNextToFourthStep(): void {
+    this.patchDateRange();
+
+    const { dateRange } = this.form.controls;
+
+    dateRange.markAsTouched();
+    dateRange.updateValueAndValidity();
+
+    let validTask = true;
+    try {
+      this.task = this.createTask();
+    } catch (_) {
+      validTask = false;
+    }
+
+    if (dateRange.valid && validTask) {
+      this.step = 4;
+    }
+  }
+
+  private handleGoNextToFifthStep(): void {
+    this.form.updateValueAndValidity();
+
+    if (this.form.valid) {
+      this.task = this.createTask();
+      this.step = 5;
+    }
+  }
+
+  private shouldSkipDateTimeSelection(): boolean {
+    return this.form.controls?.state?.value?.toString() === new NotStartedTaskState().toString();
+  }
+
+  private createTask(): Task {
+    const { dateRange } = this.form.value;
+
+    const input: any = {
+      ...this.form.value,
+      creationDate: new Date(),
+    };
+
+    if (dateRange && typeof dateRange === 'string') {
+      input['startDate'] = dateRange;
+    } else if (dateRange && Array.isArray(dateRange)) {
+      input['startDate'] = dateRange[0];
+      input['endDate'] = dateRange[1];
+    }
+
+    return this.taskCreator.create(input);
+  }
+
+  private formatDate(date: Date | string | number | null | undefined): string | null {
+    return date ? this.dateUtilsService.formatDate(new Date(date), 'dd MMMM yyyy') : null;
+  }
+
+  private patchDateRange(): void {
+    const { dateRange, state } = this.form.value;
+
+    if (state instanceof CompletedTaskState || state instanceof RejectedTaskState) {
+      this.form.controls.dateRange.patchValue(
+        Array.isArray(dateRange) && dateRange.length === 1
+          ? [dateRange[0], dateRange[0]]
+          : dateRange || null,
+      );
+    } else {
+      this.form.controls.dateRange.patchValue(
+        Array.isArray(dateRange) ? dateRange[0] : dateRange || null,
+      );
+    }
   }
 }
