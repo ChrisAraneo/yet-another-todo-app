@@ -56,15 +56,19 @@
   },
   "EditTaskModal": {
     "cancel": "Anuluj",
+    "dateRange": "Data rozpoczęcia i data zakończenia",
     "description": "Opis",
     "emptyCaption": "Brak zadań do edycji",
     "emptyHint": "Najpierw utwórz zadania, aby móc je później edytować",
     "endDate": "Data zakończenia",
+    "endTime": "Czas zakończenia",
     "modalTitle": "Edytuj zadanie",
     "saveChanges": "Zapisz zmiany",
     "selectTask": "Zadanie do edycji",
     "startDate": "Data rozpoczęcia",
+    "startTime": "Czas rozpoczęcia",
     "state": "Stan",
+    "summary": "Podsumowanie",
     "title": "Tytuł"
   },
   "Error": {

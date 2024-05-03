@@ -56,15 +56,19 @@
   },
   "EditTaskModal": {
     "cancel": "Cancel",
+    "dateRange": "Start date and end date",
     "description": "Description",
     "emptyCaption": "There are no defined tasks to edit",
     "emptyHint": "Create tasks first so you can edit them later",
     "endDate": "End date",
+    "endTime": "End time",
     "modalTitle": "Edit task",
     "saveChanges": "Save changes",
     "selectTask": "Task to edit",
     "startDate": "Start date",
+    "startTime": "Start time",
     "state": "State",
+    "summary": "Summary",
     "title": "Title"
   },
   "Error": {
