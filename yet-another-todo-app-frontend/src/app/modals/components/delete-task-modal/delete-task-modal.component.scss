@@ -3,35 +3,62 @@
 
 .delete-task-modal .mat-mdc-dialog-container {
   > div {
-    display: flex;
-    flex-direction: column;
     border: none;
     padding: 0;
     margin: 0;
   }
 
   .mat-mdc-dialog-surface {
-    border: $border;
+    border: none;
     border-radius: $modal-border-radius;
+  }
+
+  yata-delete-task-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+
+    .figure,
+    .form {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: center;
+    }
+
+    .figure {
+      background-image: url('../../../../assets/images/delete-task.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto;
+      height: 100%;
+    }
   }
 
   form {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    padding: $_24unit;
-  }
+    justify-content: space-between;
+    height: 100%;
 
-  .modal-title {
-    h1 {
-      border-bottom: $border;
-      padding: $_24unit $_32unit;
-      font-weight: 500;
-      text-align: center;
+    .controls {
+      width: $_48unit * 10;
+      height: auto;
+
+      yata-page {
+        position: absolute;
+        width: $_48unit * 10;
+
+        yata-select {
+          margin-bottom: $_16unit !important;
+        }
+      }
     }
-  }
-
-  yata-select {
-    margin-bottom: $_16unit;
   }
 }

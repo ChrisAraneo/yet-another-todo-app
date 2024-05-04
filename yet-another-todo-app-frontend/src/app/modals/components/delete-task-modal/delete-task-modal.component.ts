@@ -15,7 +15,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'delete-task-modal';
 
   tasks!: Observable<TaskOption[]>;
-  taskForm?: FormGroup<TaskForm>;
+  form?: FormGroup<TaskForm>;
 
   private subscription: Subscription = new Subscription();
 
@@ -34,11 +34,11 @@ export class DeleteTaskModalComponent implements OnDestroy {
   }
 
   submit: () => Promise<void> = async () => {
-    if (!this.taskForm || this.taskForm.invalid) {
+    if (!this.form || this.form.invalid) {
       return;
     }
 
-    const task = this.taskForm.controls.task.value;
+    const task = this.form.controls.task.value;
 
     return new Promise((resolve, reject) => {
       if (task) {
@@ -73,9 +73,13 @@ export class DeleteTaskModalComponent implements OnDestroy {
       this.tasks.pipe(first()).subscribe((tasks) => {
         const initialTask = this.getInitialTask(tasks, this.data);
 
-        if (initialTask) {
-          this.initializeForm(initialTask);
+        if (!initialTask) {
+          throw new Error("Can't initialize delete task modal form, initial task is undefined");
         }
+
+        this.form = this.formBuilder.group<TaskForm>({
+          task: new FormControl(initialTask, { validators: [Validators.required] }),
+        });
       }),
     );
   }
@@ -90,15 +94,5 @@ export class DeleteTaskModalComponent implements OnDestroy {
     return id
       ? tasks.find((item) => item.value.getId() === id)?.value || tasks[0].value
       : tasks[0].value;
-  }
-
-  private initializeForm(initialTask: Task): void {
-    if (!initialTask) {
-      throw new Error("Can't initialize Edit task modal form, initial task is undefined");
-    }
-
-    this.taskForm = this.formBuilder.group<TaskForm>({
-      task: new FormControl(initialTask, { validators: [Validators.required] }),
-    });
   }
 }

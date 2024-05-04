@@ -1,12 +1,18 @@
-<yata-title class="modal-title">{{ 'DeleteTaskModal.modalTitle' | translate }}</yata-title>
-<form [formGroup]="taskForm" *ngIf="!!taskForm; else empty">
-  <yata-select
-    [formControlName]="'task'"
-    [label]="'DeleteTaskModal.selectTask' | translate"
-    [options]="(tasks | async) || []"></yata-select>
-  <ng-container *ngIf="taskForm.value.task">
+<div class="figure"></div>
+<div class="form">
+  <yata-modal-title>{{ 'DeleteTaskModal.modalTitle' | translate }}</yata-modal-title>
+  <form *ngIf="form; else empty" [formGroup]="form">
+    <div class="controls">
+      <yata-page [@fadeInOut]>
+        <yata-select
+          [formControlName]="'task'"
+          [label]="'DeleteTaskModal.selectTask' | translate"
+          [options]="(tasks | async) || []"></yata-select>
+      </yata-page>
+    </div>
     <yata-modal-action-buttons
-      [form]="taskForm"
+      *ngIf="form.value.task"
+      [form]="form"
       [submitButton]="{
         label: 'DeleteTaskModal.delete',
         click: submit,
@@ -14,8 +20,8 @@
         icon: 'delete'
       }">
     </yata-modal-action-buttons>
-  </ng-container>
-</form>
+  </form>
+</div>
 
 <ng-template #empty>
   <yata-empty-info-box
