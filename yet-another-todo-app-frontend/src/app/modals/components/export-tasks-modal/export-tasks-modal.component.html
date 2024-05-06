@@ -1,18 +1,34 @@
-<yata-title class="modal-title">{{ 'ExportTasksModal.modalTitle' | translate }}</yata-title>
-<form
-  [formGroup]="form"
-  *ngIf="(!!form && (tasks | async)) || [] as _tasks"
-  (submit)="$event.preventDefault()">
-  <yata-password-input
-    [formControlName]="'password'"
-    [label]="'ExportTasksModal.password' | translate"
-    [parentForm]="form"></yata-password-input>
-  <yata-password-input
-    [formControlName]="'repeatPassword'"
-    [label]="'ExportTasksModal.repeatPassword' | translate"
-    [parentForm]="form"></yata-password-input>
-  <yata-modal-action-buttons
-    [form]="form"
-    [submitButton]="{ label: 'ExportTasksModal.submit', click: submit(_tasks) }">
-  </yata-modal-action-buttons>
-</form>
+<div class="figure"></div>
+<div class="form">
+  <yata-modal-title>{{ 'ExportTasksModal.modalTitle' | translate }}</yata-modal-title>
+  <form
+    *ngIf="(!!form && (tasks | async)) || [] as _tasks; else empty"
+    [formGroup]="form"
+    (submit)="$event.preventDefault()">
+    <div class="controls">
+      <yata-page [@fadeInOut]>
+        <yata-password-input
+          [formControlName]="'password'"
+          [label]="'ExportTasksModal.password' | translate"
+          [parentForm]="form"></yata-password-input>
+        <yata-password-input
+          [formControlName]="'repeatPassword'"
+          [label]="'ExportTasksModal.repeatPassword' | translate"
+          [parentForm]="form"></yata-password-input>
+      </yata-page>
+    </div>
+    <yata-modal-action-buttons
+      [form]="form"
+      [submitButton]="{
+        label: 'ExportTasksModal.submit',
+        click: submit(_tasks),
+      }">
+    </yata-modal-action-buttons>
+  </form>
+</div>
+
+<ng-template #empty>
+  <yata-empty-info-box
+    [caption]="'ExportTasksModal.emptyCaption' | translate"
+    [hint]="'ExportTasksModal.emptyHint' | translate"></yata-empty-info-box>
+</ng-template>
