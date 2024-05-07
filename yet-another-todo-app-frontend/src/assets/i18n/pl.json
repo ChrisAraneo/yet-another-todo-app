@@ -69,6 +69,7 @@
     "startTime": "Czas rozpoczęcia",
     "state": "Stan",
     "summary": "Podsumowanie",
+    "task": "Zadanie do edycji",
     "title": "Tytuł"
   },
   "Error": {

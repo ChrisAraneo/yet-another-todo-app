@@ -69,6 +69,7 @@
     "startTime": "Start time",
     "state": "State",
     "summary": "Summary",
+    "task": "Task to edit",
     "title": "Title"
   },
   "Error": {
