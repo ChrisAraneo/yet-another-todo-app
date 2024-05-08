@@ -3,15 +3,25 @@
 @import '../../../shared/styles/variables.__generated.scss';
 
 $table-cell-size: $_26unit;
+$box-shadow-radius: $_4unit;
 
 .calendar-wrapper {
   margin-top: $_8unit !important;
 }
 
 ::ng-deep p-calendar {
+  *:focus {
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
+  }
+
   .p-calendar {
     width: 100% !important;
     height: auto;
+  }
+
+  .p-highlight {
+    color: map.get($yata-palette-primary, 600);
+    background-color: $form-input-focus-background;
   }
 
   .p-datepicker-calendar-container {
@@ -27,7 +37,15 @@ $table-cell-size: $_26unit;
   }
 
   .p-datepicker-month {
-    padding-right: $_8unit;
+    margin-right: $_2unit;
+  }
+
+  .p-datepicker-month,.p-datepicker-year {
+    padding: $_4unit;
+  }
+
+  .p-datepicker-month:hover, .p-datepicker-year:hover {
+    color: map.get($yata-palette-primary, 600);
   }
 
   .p-datepicker table th {
