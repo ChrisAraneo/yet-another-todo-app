@@ -2,6 +2,7 @@
   <yata-back-button *ngIf="backButton && step > 1" [back]="backButton.click">
     {{ backButton.label || ('ModalActionButtons.back' | translate) }}
   </yata-back-button>
+  <ng-content></ng-content>
   <ng-container *ngIf="step < total; else submit">
     <yata-next-button *ngIf="nextButton" [next]="nextButton.click">
       {{ nextButton.label || ('ModalActionButtons.next' | translate) }}
