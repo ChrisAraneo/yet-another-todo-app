@@ -3,20 +3,28 @@
 </div>
 <div class="form">
   <yata-title class="app-title">{{ 'App.title' | translate }}</yata-title>
-  <form [formGroup]="form" *ngIf="!!form">
+  <form [formGroup]="form">
     <div class="controls">
-      <yata-text-input
-        [formControlName]="'username'"
-        [label]="'SignInModal.username' | translate"></yata-text-input>
-      <yata-password-input
-        [formControlName]="'password'"
-        [label]="'SignInModal.password' | translate"
-        [parentForm]="form"></yata-password-input>
+      <yata-page [@fadeInOut]>
+        <yata-text-input
+          [formControlName]="'username'"
+          [label]="'SignInModal.username' | translate"></yata-text-input>
+        <yata-password-input
+          [formControlName]="'password'"
+          [label]="'SignInModal.password' | translate"
+          [parentForm]="form"></yata-password-input>
+      </yata-page>
     </div>
-    <!-- TODO Add "stay offline" button!! -->
     <yata-modal-action-buttons
       [form]="form"
       [submitButton]="{ label: 'SignInModal.signIn', click: submit }">
+      <div class="offline-button-wrapper">
+        <button mat-button (click)="cancel()">
+          <div class="button-content">
+            {{ 'SignInModal.dontSignIn' | translate }}
+          </div>
+        </button>
+      </div>
     </yata-modal-action-buttons>
   </form>
 </div>
