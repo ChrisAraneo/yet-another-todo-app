@@ -12,7 +12,7 @@
 
 <ng-template #submit>
   <yata-submit-button
-    *ngIf="submitButton && submitButton.label"
+    *ngIf="submitButton?.label"
     [invalid]="!!form?.invalid"
     [pending]="!!form?.pending"
     [submit]="submitButton.click"
