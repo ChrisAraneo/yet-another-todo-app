@@ -29,22 +29,21 @@ $box-shadow-radius: $_4unit;
   }
 
   .p-component.p-datepicker-inline {
-    border-color: $border-color;
+    border-color: $form-input-border-color;
   }
 
   .p-datepicker-header {
     padding: $_8unit $_8unit;
+    border-bottom-color: $border-color;
   }
 
-  .p-datepicker-month {
-    margin-right: $_2unit;
-  }
-
-  .p-datepicker-month,.p-datepicker-year {
+  .p-datepicker-month,
+  .p-datepicker-year {
     padding: $_4unit;
   }
 
-  .p-datepicker-month:hover, .p-datepicker-year:hover {
+  .p-datepicker-month:hover,
+  .p-datepicker-year:hover {
     color: map.get($yata-palette-primary, 600);
   }
 
