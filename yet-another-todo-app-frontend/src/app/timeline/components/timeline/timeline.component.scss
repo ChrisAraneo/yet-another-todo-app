@@ -32,7 +32,7 @@
 }
 
 .timeline-header-date {
-  background-color: white;
+  background-color: $background-color;
 
   &:last-of-type {
     padding-right: $_64unit;
