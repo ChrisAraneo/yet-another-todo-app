@@ -28,11 +28,17 @@ $box-shadow-radius: $_4unit;
     padding: $_16unit $_8unit;
   }
 
+  .p-datepicker-group {
+    background-color: $form-input-background;
+  }
+
   .p-component.p-datepicker-inline {
+    background-color: transparent;
     border-color: $form-input-border-color;
   }
 
   .p-datepicker-header {
+    background-color: transparent;
     padding: $_8unit $_8unit;
     border-bottom-color: $border-color;
   }
@@ -91,6 +97,7 @@ $box-shadow-radius: $_4unit;
   }
 
   .p-monthpicker {
+    background-color: $form-input-background;
     display: flex;
     flex-wrap: wrap;
     padding: $_14unit;
@@ -105,6 +112,7 @@ $box-shadow-radius: $_4unit;
   }
 
   .p-yearpicker {
+    background-color: $form-input-background;
     display: flex;
     flex-wrap: wrap;
     padding: $_14unit;
