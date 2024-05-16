@@ -6,6 +6,7 @@ import { ImageModule } from 'primeng/image';
 import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
+import { ImageComponent } from './components/image/image.component';
 import { LabelComponent } from './components/label/label.component';
 import { LabelModule } from './components/label/label.module';
 import { LogoComponent } from './components/logo/logo.component';
@@ -36,7 +37,13 @@ import { ViewConfigurationService } from './services/view-configuration/view-con
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
 @NgModule({
-  declarations: [EmptyInfoBoxComponent, SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
+  declarations: [
+    EmptyInfoBoxComponent,
+    SubtitleComponent,
+    ErrorSnackbarComponent,
+    ImageComponent,
+    LogoComponent,
+  ],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
