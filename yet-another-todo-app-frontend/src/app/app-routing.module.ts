@@ -56,6 +56,14 @@ const commonModalRoutes: Routes = [
     },
   },
   {
+    path: `${EDIT_TASK_PATH}`,
+    component: ModalLauncherComponent,
+    canActivate: [canActivateAuth],
+    data: {
+      modal: EditTaskModalComponent,
+    },
+  },
+  {
     path: `${DELETE_TASK_PATH}/:id`,
     component: ModalLauncherComponent,
     canActivate: [canActivateAuth],
