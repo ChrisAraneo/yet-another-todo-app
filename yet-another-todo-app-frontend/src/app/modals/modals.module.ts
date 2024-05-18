@@ -21,6 +21,7 @@ import { ConfigureTimelineModalComponent } from './components/configure-timeline
 import { DragDropTaskOrderListComponent } from './components/configure-timeline-modal/drag-drop-task-order-list/drag-drop-task-order-list.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
+import { EmptyDialogComponent } from './components/empty-dialog/empty-dialog.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
@@ -45,6 +46,7 @@ import { DialogService } from './services/dialog/dialog.service';
     DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
     ConfigureTableModalComponent,
+    EmptyDialogComponent,
     ModalLauncherComponent,
     PageComponent,
   ],
