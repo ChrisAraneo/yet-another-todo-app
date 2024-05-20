@@ -33,8 +33,8 @@ export class TimePickerComponent implements ControlValueAccessor, AfterViewInit 
   }
 
   ngAfterViewInit(): void {
-    this.hoursInput.nativeElement.value = this.hours;
-    this.minutesInput.nativeElement.value = this.minutes;
+    this.hoursInput && (this.hoursInput.nativeElement.value = this.hours);
+    this.minutesInput && (this.minutesInput.nativeElement.value = this.minutes);
   }
 
   onHoursChange(event: InputEvent | Event | string): void {
