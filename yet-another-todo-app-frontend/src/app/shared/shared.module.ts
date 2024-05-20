@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -60,6 +61,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     TitleModule,
     ParagraphModule,
     LabelModule,
+    NgOptimizedImage,
   ],
   providers: [
     ApiClientService,

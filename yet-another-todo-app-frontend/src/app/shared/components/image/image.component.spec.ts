@@ -11,6 +11,9 @@ describe('ImageComponent', () => {
     });
     fixture = TestBed.createComponent(ImageComponent);
     component = fixture.componentInstance;
+    component.src = 'assets/example.jpg';
+    component.height = 10;
+    component.width = 10;
     fixture.detectChanges();
   });
 
