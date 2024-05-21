@@ -101,6 +101,9 @@
   "LoggedUserInformation": {
     "loggedAs": "Jesteś zalogowany jako"
   },
+  "Logo": {
+    "alt": "Drzewo bonsai"
+  },
   "ModalActionButtons": {
     "back": "Wstecz",
     "next": "Dalej"

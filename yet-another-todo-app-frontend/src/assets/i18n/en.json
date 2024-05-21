@@ -101,6 +101,9 @@
   "LoggedUserInformation": {
     "loggedAs": "Logged as"
   },
+  "Logo": {
+    "alt": "Bonsai tree"
+  },
   "ModalActionButtons": {
     "back": "Back",
     "next": "Next"
