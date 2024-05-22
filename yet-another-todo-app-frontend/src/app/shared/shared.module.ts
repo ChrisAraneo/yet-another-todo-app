@@ -1,13 +1,11 @@
-import { NgOptimizedImage } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ImageModule } from 'primeng/image';
 import { HttpLoaderFactory } from '../app.module';
 import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
-import { ImageComponent } from './components/image/image.component';
+import { ImageModule } from './components/image/image.module';
 import { LabelComponent } from './components/label/label.component';
 import { LabelModule } from './components/label/label.module';
 import { LogoComponent } from './components/logo/logo.component';
@@ -38,13 +36,7 @@ import { ViewConfigurationService } from './services/view-configuration/view-con
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
 @NgModule({
-  declarations: [
-    EmptyInfoBoxComponent,
-    SubtitleComponent,
-    ErrorSnackbarComponent,
-    ImageComponent,
-    LogoComponent,
-  ],
+  declarations: [EmptyInfoBoxComponent, SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -56,12 +48,11 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     }),
     BrowserModule,
     MaterialModule,
-    ImageModule,
     TaskStateIconModule,
     TitleModule,
     ParagraphModule,
     LabelModule,
-    NgOptimizedImage,
+    ImageModule,
   ],
   providers: [
     ApiClientService,
