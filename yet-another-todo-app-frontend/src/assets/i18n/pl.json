@@ -5,6 +5,7 @@
     "description": "Opis",
     "endDate": "Data zakończenia",
     "endTime": "Czas zakończenia",
+    "imageAlt": "Pusta strona w notesie",
     "modalTitle": "Dodaj nowe zadanie",
     "startDate": "Data rozpoczęcia",
     "startTime": "Czas rozpoczęcia",

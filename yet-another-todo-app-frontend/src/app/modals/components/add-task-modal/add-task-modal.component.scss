@@ -23,7 +23,6 @@
     align-items: stretch;
     align-content: center;
 
-    .figure,
     .form {
       width: 50%;
       display: flex;
@@ -31,14 +30,6 @@
       justify-content: flex-start;
       align-items: stretch;
       align-content: center;
-    }
-
-    .figure {
-      background-image: url('../../../../assets/images/add-task.jpg');
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: auto;
-      height: 100%;
     }
   }
 

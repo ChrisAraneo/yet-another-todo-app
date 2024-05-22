@@ -5,6 +5,7 @@
     "description": "Description",
     "endDate": "End date",
     "endTime": "End time",
+    "imageAlt": "Empty page in notebook",
     "modalTitle": "Add new task",
     "startDate": "Start date",
     "startTime": "Start time",

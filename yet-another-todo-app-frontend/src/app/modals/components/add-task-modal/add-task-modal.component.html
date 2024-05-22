@@ -1,4 +1,10 @@
-<div class="figure"></div>
+<div class="figure">
+  <yata-image
+    [src]="'../../../../assets/images/add-task.jpg'"
+    [width]="480"
+    [height]="576"
+    [alt]="'AddTaskModal.imageAlt' | translate"></yata-image>
+</div>
 <div class="form">
   <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
   <form [formGroup]="form">
