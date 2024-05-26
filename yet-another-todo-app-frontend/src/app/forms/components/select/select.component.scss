@@ -2,38 +2,28 @@
 @use 'sass:math';
 @import '../../../shared/styles/variables.__generated.scss';
 
-$box-shadow-radius: $_4unit;
-$padding: $_10unit $_10unit;
-
-::ng-deep p-dropdown {
-  display: flex;
-  margin-top: $_6unit;
+select,
+select:focus {
+  box-sizing: border-box;
   width: 100%;
-  color: $form-input-text-color;
-
-  .p-dropdown {
-    width: 100%;
-    padding: $padding;
-    font-size: $_16unit;
-    border: $form-input-border;
-    border-radius: $form-input-border-radius;
-  }
-
-  .p-dropdown.p-focus {
-    border-color: $form-input-focus-border-color !important;
-    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
-    background-color: $form-input-focus-background;
-  }
+  padding: $_64unit / 6 $_64unit / 6;
+  font-size: 16px;
+  border-radius: $form-input-border-radius;
+  outline: none;
+  margin: 0;
+  margin-top: 6px;
+  background: url('../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat
+    right #ddd;
+  -webkit-appearance: none;
+  background-position-x: calc(100% - $_64unit / 8);
 }
 
-::ng-deep p-dropdownitem {
-  li span {
-    display: block;
-    padding: $padding;
-  }
+select:not(:focus) {
+  border: $form-input-border;
+  background-color: $form-input-background;
+}
 
-  .p-highlight {
-    background-color: $form-input-focus-background;
-    color: $primary-color;
-  }
+select:focus {
+  border: $form-input-focus-border;
+  background-color: $form-input-focus-background;
 }
