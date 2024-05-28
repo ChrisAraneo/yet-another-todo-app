@@ -18,9 +18,7 @@ import {
   TaskState,
 } from '../../../shared/models/task-state.model';
 import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
-import { TaskForm } from './edit-task-modal.types';
-
-// TODO Handle case when there is no tasks
+import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
 
 @Component({
   selector: 'yata-edit-task-modal',
@@ -54,7 +52,7 @@ export class EditTaskModalComponent implements OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, // TODO Type
+    @Inject(MAT_DIALOG_DATA) public data: EditTaskModalData,
     public dialogRef: MatDialogRef<EditTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
@@ -87,7 +85,7 @@ export class EditTaskModalComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   next = async (): Promise<void> => {
@@ -188,12 +186,12 @@ export class EditTaskModalComponent implements OnDestroy {
     );
   }
 
-  private getInitialTask(tasks: Option<Task>[], data: any): Task | undefined {
+  private getInitialTask(tasks: Option<Task>[], data: EditTaskModalData): Task | undefined {
     if (!tasks || !tasks.length) {
       return;
     }
 
-    const id = data && data['initialTaskId'];
+    const id = data.initialTaskId;
 
     return id
       ? tasks.find((item) => item.value.getId() === id)?.value || tasks[0].value
