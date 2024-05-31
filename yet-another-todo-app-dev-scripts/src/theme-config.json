@@ -30,7 +30,7 @@
   "columnWidthInUnits": 3,
   "modals": {
     "widthInUnits": 15,
-    "heightInUnits": 10,
+    "heightInUnits": 9,
     "borderRadius": "16px"
   },
   "unit": 64

@@ -120,8 +120,9 @@ export const DISABLED_COLOR = '${hslToHex(gray['400'])}';
 export const BORDER_COLOR = '${hslToHex(gray['200'])}';
 export const BORDER = \`1px solid ${hslToHex(gray['200'])}\`;
 
-export const DIALOG_WIDTH = \`\${UNIT * 15}px\`; // TODO
-export const DIALOG_HEIGHT = \`\${UNIT * 9}px\`; // TODO
+export const DIALOG_WIDTH = \`\${UNIT * ${modals.widthInUnits}}px\`;
+export const DIALOG_HEIGHT = \`\${UNIT * ${modals.heightInUnits}}px\`;
+export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
   writeFile('src/app/shared/styles/theme.__generated.ts', tsConsts);
@@ -197,7 +198,7 @@ $column-width: $_64unit * ${columnWidthInUnits};
 // MODALS & DIALOG WINDOWS
 $dialog-width: $_64unit * ${modals.widthInUnits};
 $dialog-height: $_64unit * ${modals.heightInUnits};
-$modal-border-radius: ${modals.borderRadius};
+$dialog-border-radius: ${modals.borderRadius};
 
 // FORMS
 $form-input-border-radius: $_6unit;
