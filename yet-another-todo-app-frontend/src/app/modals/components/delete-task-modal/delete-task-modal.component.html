@@ -1,7 +1,8 @@
 <div class="figure"></div>
 <div class="form">
   <yata-modal-title>{{ 'DeleteTaskModal.modalTitle' | translate }}</yata-modal-title>
-  <form *ngIf="form; else empty" [formGroup]="form">
+  <!-- TODO Handle empty -->
+  <form *ngIf="form" [formGroup]="form">
     <div class="controls">
       <yata-page [@fadeInOut]>
         <yata-select
@@ -22,9 +23,3 @@
     </yata-modal-action-buttons>
   </form>
 </div>
-
-<ng-template #empty>
-  <yata-empty-info-box
-    [caption]="'DeleteTaskModal.emptyCaption' | translate"
-    [hint]="'DeleteTaskModal.emptyHint' | translate"></yata-empty-info-box>
-</ng-template>

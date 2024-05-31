@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
-import { EmptyInfoBoxComponent } from './components/empty-info-box/empty-info-box.component';
 import { ErrorSnackbarComponent } from './components/error-snackbar/error-snackbar.component';
 import { ImageModule } from './components/image/image.module';
 import { LabelComponent } from './components/label/label.component';
@@ -36,7 +35,7 @@ import { ViewConfigurationService } from './services/view-configuration/view-con
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
 
 @NgModule({
-  declarations: [EmptyInfoBoxComponent, SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
+  declarations: [SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -74,7 +73,6 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     NavigationService,
   ],
   exports: [
-    EmptyInfoBoxComponent,
     TaskStateIconComponent,
     TitleComponent,
     SubtitleComponent,

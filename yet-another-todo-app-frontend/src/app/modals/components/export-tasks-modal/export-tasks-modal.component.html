@@ -1,8 +1,9 @@
 <div class="figure"></div>
 <div class="form">
   <yata-modal-title>{{ 'ExportTasksModal.modalTitle' | translate }}</yata-modal-title>
+  <!-- TODO Handle empty -->
   <form
-    *ngIf="(!!form && (tasks | async)) || [] as _tasks; else empty"
+    *ngIf="(!!form && (tasks | async)) || [] as _tasks"
     [formGroup]="form"
     (submit)="$event.preventDefault()">
     <div class="controls">
@@ -26,9 +27,3 @@
     </yata-modal-action-buttons>
   </form>
 </div>
-
-<ng-template #empty>
-  <yata-empty-info-box
-    [caption]="'ExportTasksModal.emptyCaption' | translate"
-    [hint]="'ExportTasksModal.emptyHint' | translate"></yata-empty-info-box>
-</ng-template>
