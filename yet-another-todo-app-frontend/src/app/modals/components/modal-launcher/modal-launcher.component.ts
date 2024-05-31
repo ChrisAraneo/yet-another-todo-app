@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription, debounceTime, map, mergeMap } from 'rxjs';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DialogService } from '../../services/dialog/dialog.service';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from '../configure-table-modal/configure-table-modal.component';
@@ -25,6 +26,7 @@ export class ModalLauncherComponent {
     private dialogService: DialogService,
     private navigationService: NavigationService,
     private activatedRoute: ActivatedRoute,
+    private tasksService: TasksService,
   ) {}
 
   ngOnInit(): void {
@@ -53,12 +55,24 @@ export class ModalLauncherComponent {
         );
       }),
       mergeMap(({ data, params }) => {
+        return this.tasksService.getTasks().pipe(map((tasks) => ({ data, params, tasks })));
+      }),
+      mergeMap(({ data, params, tasks }) => {
         switch (data['modal']['name']) {
           case AddTaskModalComponent.name: {
             return this.dialogService.openAddTaskModal();
           }
           case EditTaskModalComponent.name: {
-            return this.dialogService.openEditTaskModal(params['id']);
+            if (params['id'] && tasks?.length) {
+              return this.dialogService.openEditTaskModal(params['id']);
+            } else if (!params['id'] && tasks?.length) {
+              return this.navigationService.navigateToEditTaskRoute(tasks[0].getId());
+            } else {
+              return this.dialogService.openEmptyDialog(
+                'EditTaskModal.empty',
+                'EditTaskModal.emptyHint',
+              );
+            }
           }
           case DeleteTaskModalComponent.name: {
             return this.dialogService.openDeleteTaskModal(params['id']);

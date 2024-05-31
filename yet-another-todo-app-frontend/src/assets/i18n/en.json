@@ -46,7 +46,7 @@
   "DeleteTaskModal": {
     "cancel": "Cancel",
     "delete": "Delete",
-    "emptyCaption": "There are no defined tasks to delete",
+    "empty": "There are no defined tasks to delete",
     "emptyHint": "Create tasks first so you can delete them later",
     "modalTitle": "Delete task",
     "selectTask": "Task to delete"
@@ -59,7 +59,7 @@
     "cancel": "Cancel",
     "dateRange": "Start date and end date",
     "description": "Description",
-    "emptyCaption": "There are no defined tasks to edit",
+    "empty": "There are no defined tasks to edit",
     "emptyHint": "Create tasks first so you can edit them later",
     "endDate": "End date",
     "endTime": "End time",
@@ -73,6 +73,10 @@
     "summary": "Summary",
     "task": "Task to edit",
     "title": "Title"
+  },
+  "EmptyDialog": {
+    "imageAlt": "Cat in the box",
+    "ok": "Ok"
   },
   "Error": {
     "matchOther": "Passwords do not match.",

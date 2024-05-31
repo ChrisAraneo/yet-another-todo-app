@@ -46,7 +46,7 @@
   "DeleteTaskModal": {
     "cancel": "Anuluj",
     "delete": "Usuń",
-    "emptyCaption": "Brak zadań do usunięcia",
+    "empty": "Brak zadań do usunięcia",
     "emptyHint": "Najpierw utwórz zadania, aby móc je później usunąć",
     "modalTitle": "Usuń zadanie",
     "selectTask": "Zadanie do usunięcia"
@@ -59,7 +59,7 @@
     "cancel": "Anuluj",
     "dateRange": "Data rozpoczęcia i data zakończenia",
     "description": "Opis",
-    "emptyCaption": "Brak zadań do edycji",
+    "empty": "Brak zadań do edycji",
     "emptyHint": "Najpierw utwórz zadania, aby móc je później edytować",
     "endDate": "Data zakończenia",
     "endTime": "Czas zakończenia",
@@ -73,6 +73,10 @@
     "summary": "Podsumowanie",
     "task": "Zadanie do edycji",
     "title": "Tytuł"
+  },
+  "EmptyDialog": {
+    "imageAlt": "Kot w pudełku",
+    "ok": "Ok"
   },
   "Error": {
     "matchOther": "Hasła są różne.",

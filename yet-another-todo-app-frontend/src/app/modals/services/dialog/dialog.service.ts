@@ -13,6 +13,8 @@ import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme.__gener
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ConfigureTimelineModalData } from '../../components/configure-timeline-modal/configure-timeline-modal.types';
+import { EmptyDialogComponent } from '../../components/empty-dialog/empty-dialog.component';
+import { EmptyDialogData } from '../../components/empty-dialog/empty-dialog.types';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
@@ -86,6 +88,13 @@ export class DialogService {
         });
       }),
     );
+  }
+
+  openEmptyDialog(title: string, hint: string): Observable<any> {
+    return this.openDialog<EmptyDialogData>(EmptyDialogComponent, {
+      titleKey: title,
+      hintKey: hint,
+    });
   }
 
   private openDialog<T>(component: ComponentType<any>, data?: T): Observable<any> {
