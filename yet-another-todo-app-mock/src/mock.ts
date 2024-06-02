@@ -5,7 +5,7 @@ import cors from 'cors';
 import jsonDiff from 'json-diff';
 import log4js from 'log4js';
 import bodyParser from 'body-parser';
-import { Task } from './types/task.type';
+import { Task } from '../../yet-another-todo-app-shared';
 
 let data: Task[] | null = null;
 
@@ -152,7 +152,7 @@ server.delete('/task', (request, response) => {
     });
   }
 
-  const updatedData = data?.filter((item) => item.id !== task.id) || null;
+  const updatedData = data?.filter((item) => item.getId() !== task.id) || null;
 
   if (jsonDiff.diff(updatedData, data)) {
     logger.debug('Updating store data');
@@ -200,7 +200,7 @@ function createOrUpdateTask(task: Task): typeof DIFF | typeof NOT_DIFF {
     return DIFF;
   }
 
-  const existingTaskIndex = data.findIndex((item) => item.id === task.id);
+  const existingTaskIndex = data.findIndex((item) => item.getId() === task.getId());
 
   if (existingTaskIndex >= 0) {
     const existingTask = data[existingTaskIndex];

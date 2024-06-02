@@ -9,8 +9,8 @@ import {
   SuspendedTaskState,
   Task,
   TaskState,
-} from '../../../../../yet-another-todo-app-shared';
-import { TaskStateCreator } from './task-state-creator.model';
+  TaskStateCreator,
+} from '../..';
 
 export class TaskCreator {
   static create(data: any): Task {

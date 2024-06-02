@@ -1,5 +1,4 @@
-import { Task } from '../../../../../yet-another-todo-app-shared';
-import { TaskCreator } from './task-creator.model';
+import { Task, TaskCreator } from '../..';
 
 export class TaskTransformer {
   static transform(task: Task, changes: object): Task {

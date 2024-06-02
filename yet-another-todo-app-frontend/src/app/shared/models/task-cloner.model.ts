@@ -1,4 +1,4 @@
-import { TaskCreator } from './task-creator.model';
+import { TaskCreator } from '../../../../../yet-another-todo-app-shared/src/models/task-creator.model';
 import { Task } from './task.model';
 
 export class TaskCloner {

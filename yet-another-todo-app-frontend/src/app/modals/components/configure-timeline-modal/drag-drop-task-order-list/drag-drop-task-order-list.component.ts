@@ -1,7 +1,8 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { TaskStateCreator } from 'src/app/shared/models/task-state-creator.model';
-import { TaskState } from '../../../../../../../yet-another-todo-app-shared';
+import { TaskState, TaskStateCreator } from '../../../../../../../yet-another-todo-app-shared';
+
+// TODO Task state creator service in shared
 
 @Component({
   selector: 'yata-drag-drop-task-order-list',

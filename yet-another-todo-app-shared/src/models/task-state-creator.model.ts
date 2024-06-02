@@ -5,7 +5,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../../../../yet-another-todo-app-shared';
+} from '../..';
 
 export class TaskStateCreator {
   static create(data: any): TaskState {

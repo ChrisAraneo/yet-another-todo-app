@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task } from '../../../../../../yet-another-todo-app-shared';
-import { TaskTransformer } from '../../models/task-transformer.model';
+import { Task, TaskTransformer } from '../../../../../../yet-another-todo-app-shared';
 
 @Injectable({
   providedIn: 'root',
