@@ -7,7 +7,7 @@ import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { EndedTask, StartedTask, Task } from '../../../shared/models/task.model';
+import { EndedTask, StartedTask, Task } from '../../../../../../yet-another-todo-app-shared';
 import { TasksSorterService } from '../../services/tasks-sorter/tasks-sorter.service';
 import { SortActive } from '../../services/tasks-sorter/tasks-sorter.types';
 import { TasksDataSource } from '../../table.types';

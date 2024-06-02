@@ -1,5 +1,5 @@
 import { MatSortable } from '@angular/material/sort';
-import { TaskState } from '../../models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 
 export enum AppMode {
   Timeline = 'TIMELINE',

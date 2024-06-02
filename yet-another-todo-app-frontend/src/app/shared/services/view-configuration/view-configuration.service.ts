@@ -4,7 +4,7 @@ import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, Subscription, first, map, timer } from 'rxjs';
 import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
-import { TaskState } from '../../models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import {
   setAppMode,
   setTableSort,

@@ -7,16 +7,16 @@ import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.
 import { TaskCreatorService } from 'src/app/shared/services/task-creator/task-creator.service';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Option } from '../../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
+  Task,
   TaskState,
-} from '../../../shared/models/task-state.model';
-import { Task } from '../../../shared/models/task.model';
+} from '../../../../../../yet-another-todo-app-shared';
+import { Option } from '../../../forms/components/select/select.types';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({

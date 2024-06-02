@@ -6,7 +6,7 @@ import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
 import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
 import { BORDER, UNIT } from 'src/app/shared/styles/theme.__generated';
-import { Task } from '../../../shared/models/task.model';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationItem } from './side-navigation.types';
 
 @Component({

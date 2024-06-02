@@ -1,13 +1,16 @@
-import { TaskStateCreator } from './task-state-creator.model';
 import {
   CompletedTaskState,
+  EndedTask,
   InProgressTaskState,
   NotStartedTaskState,
+  PendingTask,
   RejectedTaskState,
+  StartedTask,
   SuspendedTaskState,
+  Task,
   TaskState,
-} from './task-state.model';
-import { EndedTask, PendingTask, StartedTask, Task } from './task.model';
+} from '../../../../../yet-another-todo-app-shared';
+import { TaskStateCreator } from './task-state-creator.model';
 
 export class TaskCreator {
   static create(data: any): Task {

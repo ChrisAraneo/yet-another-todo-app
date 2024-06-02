@@ -17,7 +17,6 @@ import { ViewConfigurationService } from './shared/services/view-configuration/v
 import { CurrentUser } from './shared/store/types/current-user.type';
 import { COLUMN_WIDTH, UNIT } from './shared/styles/theme.__generated';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
-import { Test } from '../../../yet-another-todo-app-shared';
 
 @Component({
   selector: 'app-root',
@@ -47,8 +46,6 @@ export class AppComponent implements OnDestroy {
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
     this.subscribeToCenterTimeline();
-
-    new Test();
   }
 
   ngOnDestroy(): void {

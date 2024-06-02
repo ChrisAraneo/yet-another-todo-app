@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import CryptoAES from 'crypto-js/aes';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
-import { Task } from '../../models/task.model';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { ZipFileContent } from '../../models/zip-file-content.type';
 import { DateUtilsService } from '../date-utils/date-utils.service';
 

@@ -5,7 +5,7 @@ import {
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
-} from '../../models/task-state.model';
+} from '../../../../../../yet-another-todo-app-shared';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 import { NavigatorRefService } from '../../services/navigator-ref/navigator-ref.service';
 import { UserLocaleService } from '../../services/user-locale/user-locale.service';

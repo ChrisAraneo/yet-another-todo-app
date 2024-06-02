@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { matchOtherValidator } from 'src/app/forms/validators/match-other.validator';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ZipTasksService } from 'src/app/shared/services/zip-tasks/zip-tasks.service';
-import { Task } from '../../../shared/models/task.model';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { ExportTasksForm } from './export-tasks-modal.types';
 
 @Component({

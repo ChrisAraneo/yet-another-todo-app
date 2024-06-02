@@ -6,7 +6,7 @@ export function readFile(path: string): string {
 }
 
 export function writeFile(path: string, output: string): void {
-  const outputPath = Path.normalize(process.cwd() + '/../yet-another-todo-app-frontend/' + path);
+  const outputPath = Path.normalize(process.cwd() + '/../' + path);
 
   fs.writeFile(outputPath, output, (err) => {
     if (err) {

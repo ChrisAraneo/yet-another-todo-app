@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { ZipFileContent } from 'src/app/shared/models/zip-file-content.type';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../../../shared/models/task.model';
+import { Task } from '../../../../../../../yet-another-todo-app-shared';
 import { ImportAction } from './select-import-action-modal.types';
 
 @Component({

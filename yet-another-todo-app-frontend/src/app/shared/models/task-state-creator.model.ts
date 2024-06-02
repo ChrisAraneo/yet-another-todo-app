@@ -5,7 +5,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from './task-state.model';
+} from '../../../../../yet-another-todo-app-shared';
 
 export class TaskStateCreator {
   static create(data: any): TaskState {

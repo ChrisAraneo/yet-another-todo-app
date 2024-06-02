@@ -83,7 +83,11 @@ ${mapColorPaletteToScssMap(red, 'red')}
 ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
-  writeFile('src/app/shared/styles/palettes.__generated.scss', palettes);
+  writeFile(
+    'yet-another-todo-app-frontend/src/app/shared/styles/palettes.__generated.scss',
+    palettes,
+  );
+  writeFile('yet-another-todo-app-shared/src/styles/palettes.__generated.scss', palettes);
 
   let units = `${disclaimer}
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
@@ -98,7 +102,8 @@ $_192unit: $_64unit * 3;
 $_256unit: $_64unit * 4;
 `;
 
-  writeFile('src/app/shared/styles/units.__generated.scss', units);
+  writeFile('yet-another-todo-app-frontend/src/app/shared/styles/units.__generated.scss', units);
+  writeFile('yet-another-todo-app-shared/src/styles/units.__generated.scss', units);
 
   const tsConsts = `${disclaimer}
 export const UNIT = ${unit};
@@ -125,7 +130,8 @@ export const DIALOG_HEIGHT = \`\${UNIT * ${modals.heightInUnits}}px\`;
 export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
-  writeFile('src/app/shared/styles/theme.__generated.ts', tsConsts);
+  writeFile('yet-another-todo-app-frontend/src/app/shared/styles/theme.__generated.ts', tsConsts);
+  writeFile('yet-another-todo-app-shared/src/styles/theme.__generated.ts', tsConsts);
 
   const colors = `${disclaimer}
 @use "sass:map";
@@ -174,7 +180,8 @@ $theme: mat.define-light-theme(
 @include mat.all-component-themes($theme);  
 `;
 
-  writeFile('src/app/shared/styles/colors.__generated.scss', colors);
+  writeFile('yet-another-todo-app-frontend/src/app/shared/styles/colors.__generated.scss', colors);
+  writeFile('yet-another-todo-app-shared/src/styles/colors.__generated.scss', colors);
 
   const variables = `${disclaimer}
 @use 'sass:map';
@@ -208,7 +215,11 @@ $form-input-background: darken($background-color, 0.7%) !important;
 $form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;  
 `;
 
-  writeFile('src/app/shared/styles/variables.__generated.scss', variables);
+  writeFile(
+    'yet-another-todo-app-frontend/src/app/shared/styles/variables.__generated.scss',
+    variables,
+  );
+  writeFile('yet-another-todo-app-shared/src/styles/variables.__generated.scss', variables);
 }
 
 main();

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
+import { EndedTask, StartedTask, Task } from '../../../../../../yet-another-todo-app-shared';
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 
 @Component({

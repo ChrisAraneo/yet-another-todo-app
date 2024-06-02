@@ -1,6 +1,6 @@
 import { MatSortable } from '@angular/material/sort';
 import { createAction, props } from '@ngrx/store';
-import { TaskState } from '../../models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { AppMode } from '../types/view-configuration.type';
 
 const SET_APP_MODE = 'SET_APP_MODE';

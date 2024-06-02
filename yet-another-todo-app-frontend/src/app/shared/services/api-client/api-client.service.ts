@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { first, map } from 'rxjs';
-import { Task } from 'src/app/shared/models/task.model';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { OPERATION_ID_HEADER_NAME } from '../../models/operation-id-header-name.const';
 import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { TaskCreatorService } from '../task-creator/task-creator.service';
