@@ -25,6 +25,7 @@ import { NavigationService } from './services/navigation/navigation.service';
 import { NavigatorRefService } from './services/navigator-ref/navigator-ref.service';
 import { OperationIdGeneratorService } from './services/operation-id-generator/operation-id-generator.service';
 import { TaskCreatorService } from './services/task-creator/task-creator.service';
+import { TaskStateCreatorService } from './services/task-state-creator/task-state-creator.service';
 import { TaskStateTranslatorService } from './services/task-state-translator/task-state-translator.service';
 import { TaskTransformerService } from './services/task-transformer/task-transformer.service';
 import { TasksService } from './services/tasks/tasks.service';
@@ -57,6 +58,7 @@ import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
     ApiClientService,
     AuthService,
     DateUtilsService,
+    TaskStateCreatorService,
     TaskCreatorService,
     TaskStateTranslatorService,
     TasksService,
