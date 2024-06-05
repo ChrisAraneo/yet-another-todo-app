@@ -4,10 +4,14 @@ import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { first, of } from 'rxjs';
 import { ImportAction } from 'src/app/modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
+import {
+  CompletedTaskState,
+  EndedTask,
+  StartedTask,
+  Task,
+} from '../../../../../../yet-another-todo-app-shared';
 import { TaskCreator } from '../../../../../../yet-another-todo-app-shared/src/models/task-creator.model';
-import { CompletedTaskState } from '../../models/task-state.model';
 import { TaskTransformer } from '../../../../../../yet-another-todo-app-shared/src/models/task-transformer.model';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   sendCreateTaskRequest,
   sendHideTaskRequest,
