@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, debounceTime, map, mergeMap } from 'rxjs';
+import { Observable, Subscription, debounceTime, distinct, map, mergeMap } from 'rxjs';
 import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DialogService } from '../../services/dialog/dialog.service';
@@ -57,6 +57,7 @@ export class ModalLauncherComponent {
       mergeMap(({ data, params }) => {
         return this.tasksService.getTasks().pipe(map((tasks) => ({ data, params, tasks })));
       }),
+      distinct(({ data }) => data['modal']['name']),
       mergeMap(({ data, params, tasks }) => {
         switch (data['modal']['name']) {
           case AddTaskModalComponent.name: {
