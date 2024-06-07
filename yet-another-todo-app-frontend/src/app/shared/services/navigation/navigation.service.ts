@@ -126,11 +126,7 @@ export class NavigationService {
   }
 
   private isPotentialUuid(value: string): boolean {
-    // TODO Refactor
-    return (
-      value.replace('-', '').replace('-', '').replace('-', '').replace('-', '').length ===
-      value.length - 4
-    );
+    return value.split('-').join('').length === value.length - 4;
   }
 
   private replaceUrlWithoutEvent(url: string): Promise<boolean> {
