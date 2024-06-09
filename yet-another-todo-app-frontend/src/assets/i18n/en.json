@@ -85,6 +85,7 @@
   },
   "ExportTasksModal": {
     "cancel": "Cancel",
+    "imageAlt": "Packages",
     "modalTitle": "Export tasks",
     "password": "Password",
     "repeatPassword": "Repeat password",

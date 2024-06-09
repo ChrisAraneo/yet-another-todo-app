@@ -85,6 +85,7 @@
   },
   "ExportTasksModal": {
     "cancel": "Anuluj",
+    "imageAlt": "Paczki",
     "modalTitle": "Eksportuj zadania",
     "password": "Hasło",
     "repeatPassword": "Powtórz hasło",
