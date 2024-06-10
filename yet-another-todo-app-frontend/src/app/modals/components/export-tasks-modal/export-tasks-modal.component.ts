@@ -1,4 +1,3 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -7,24 +6,14 @@ import { matchOtherValidator } from 'src/app/forms/validators/match-other.valida
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ZipTasksService } from 'src/app/shared/services/zip-tasks/zip-tasks.service';
 import { Task } from '../../../../../../yet-another-todo-app-shared';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { ExportTasksForm } from './export-tasks-modal.types';
 
 @Component({
   selector: 'yata-export-tasks-modal',
   templateUrl: './export-tasks-modal.component.html',
   styleUrls: ['./export-tasks-modal.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '300ms',
-          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
-        ),
-      ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+  animations: [fadeInOut],
 })
 export class ExportTasksModalComponent {
   static readonly PANEL_CLASS = 'export-tasks-modal';

@@ -1,4 +1,3 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -20,24 +19,14 @@ import {
   TaskState,
 } from '../../../../../../yet-another-todo-app-shared';
 import { Option } from '../../../forms/components/select/select.types';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
 
 @Component({
   selector: 'yata-edit-task-modal',
   templateUrl: './edit-task-modal.component.html',
   styleUrls: ['./edit-task-modal.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '300ms',
-          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
-        ),
-      ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+  animations: [fadeInOut],
 })
 export class EditTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';

@@ -1,4 +1,3 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -17,24 +16,14 @@ import {
   TaskState,
 } from '../../../../../../yet-another-todo-app-shared';
 import { Option } from '../../../forms/components/select/select.types';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({
   selector: 'yata-add-task-modal',
   templateUrl: './add-task-modal.component.html',
   styleUrls: ['./add-task-modal.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '300ms',
-          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
-        ),
-      ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+  animations: [fadeInOut],
 })
 export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';

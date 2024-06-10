@@ -1,28 +1,17 @@
-import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subscription, first, map } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { Task } from '../../../../../../yet-another-todo-app-shared';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { TaskForm, TaskOption } from './delete-task-modal.types';
 
 @Component({
   selector: 'yata-delete-task-modal',
   templateUrl: './delete-task-modal.component.html',
   styleUrls: ['./delete-task-modal.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '300ms',
-          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
-        ),
-      ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+  animations: [fadeInOut],
 })
 export class DeleteTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'delete-task-modal';
