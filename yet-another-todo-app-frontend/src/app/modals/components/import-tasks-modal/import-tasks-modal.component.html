@@ -1,19 +1,32 @@
-<yata-title class="modal-title">{{ 'ImportTasksModal.modalTitle' | translate }}</yata-title>
-<form [formGroup]="form" *ngIf="!!form" (submit)="$event.preventDefault()">
-  <yata-file-input
-    [formControlName]="'file'"
-    [label]="'ImportTasksModal.file' | translate"
-    [selectFileLabel]="'ImportTasksModal.selectFile' | translate"
-    [changeFileLabel]="'ImportTasksModal.changeFile' | translate"></yata-file-input>
-  <yata-password-input
-    [formControlName]="'password'"
-    [label]="'ImportTasksModal.password' | translate"
-    [parentForm]="form"></yata-password-input>
-  <span class="error-label" *ngIf="unzipError">
-    {{ 'ImportTasksModal.unzipError' | translate }}
-  </span>
-  <yata-modal-action-buttons
-    [form]="form"
-    [submitButton]="{ label: 'ImportTasksModal.submit', click: submit }">
-  </yata-modal-action-buttons>
-</form>
+<div class="figure">
+  <yata-image
+    [src]="'../../../../assets/images/import-tasks.jpg'"
+    [width]="480"
+    [height]="576"
+    [alt]="'ImportTasksModal.imageAlt' | translate"></yata-image>
+</div>
+<div class="form">
+  <yata-modal-title>{{ 'ImportTasksModal.modalTitle' | translate }}</yata-modal-title>
+  <form [formGroup]="form" (submit)="$event.preventDefault()">
+    <div class="controls">
+      <yata-page [@fadeInOut]>
+        <yata-file-input
+          [formControlName]="'file'"
+          [label]="'ImportTasksModal.file' | translate"
+          [selectFileLabel]="'ImportTasksModal.selectFile' | translate"
+          [changeFileLabel]="'ImportTasksModal.changeFile' | translate"></yata-file-input>
+        <yata-password-input
+          [formControlName]="'password'"
+          [label]="'ImportTasksModal.password' | translate"
+          [parentForm]="form"></yata-password-input>
+        <span class="error-label" *ngIf="unzipError">
+          {{ 'ImportTasksModal.unzipError' | translate }}
+        </span>
+      </yata-page>
+    </div>
+    <yata-modal-action-buttons
+      [form]="form"
+      [submitButton]="{ label: 'ImportTasksModal.submit', click: submit }">
+    </yata-modal-action-buttons>
+  </form>
+</div>

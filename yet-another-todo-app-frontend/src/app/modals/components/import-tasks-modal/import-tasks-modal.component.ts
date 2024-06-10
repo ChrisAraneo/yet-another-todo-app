@@ -1,3 +1,4 @@
+import { animate, keyframes, style, transition, trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -8,6 +9,18 @@ import { ImportTasksForm } from './import-tasks-modal.types';
   selector: 'yata-import-tasks-modal',
   templateUrl: './import-tasks-modal.component.html',
   styleUrls: ['./import-tasks-modal.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(
+          '300ms',
+          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
+        ),
+      ]),
+      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
 export class ImportTasksModalComponent {
   static readonly PANEL_CLASS = 'import-tasks-modal';
