@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import diff from 'microdiff';
 import { Option } from './select.types';
 
-// TODO Fix hover cursor
 // TODO Fix dropdown icon animation
 // TODO Implement searching items
 
@@ -50,7 +50,8 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.text = this.options.find((item) => item.value === this.value)?.label || '';
+      this.text =
+        this.options?.find((item) => diff(item.value, this.value)?.length === 0)?.label || '';
       this.dropdown.width = `${this.inputElementRef.nativeElement?.offsetWidth || 0}px`;
     });
   }
@@ -86,7 +87,14 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   writeValue(value: any): void {
     this.value = value;
-    this.selectedIndex = this.options.findIndex((item) => item.value === value);
+
+    if (this.options?.length > 0) {
+      this.selectedIndex = this.options.findIndex((item) => diff(item.value, value)?.length === 0);
+      this.text = this.selectedIndex >= 0 ? this.options[this.selectedIndex].label : '';
+    } else {
+      this.selectedIndex = -1;
+      this.text = '';
+    }
   }
 
   registerOnChange(fn: any): void {
