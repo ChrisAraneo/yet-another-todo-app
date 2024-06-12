@@ -1,11 +1,11 @@
-import path from 'path';
-import fs from 'fs';
-import express from 'express';
+import bodyParser from 'body-parser';
 import cors from 'cors';
+import express from 'express';
+import fs from 'fs';
 import jsonDiff from 'json-diff';
 import log4js from 'log4js';
-import bodyParser from 'body-parser';
-import { Task } from '../../yet-another-todo-app-shared';
+import path from 'path';
+import { Task, TaskCreator } from '../../yet-another-todo-app-shared';
 
 let data: Task[] | null = null;
 
@@ -99,7 +99,7 @@ server.post('/task', (request, response) => {
 
   readStoreFileIfDataIsNull();
 
-  const task: Task = request.body;
+  const task: unknown = request.body;
 
   if (createOrUpdateTask(task) === DIFF) {
     logger.debug('Writing store file');
@@ -119,7 +119,7 @@ server.post('/tasks', (request, response) => {
   readStoreFileIfDataIsNull();
 
   let hasChanged = false;
-  (request.body as Task[]).forEach((task: Task) => {
+  ((request.body || []) as unknown[]).forEach((task: unknown) => {
     if (createOrUpdateTask(task) === DIFF) {
       hasChanged = true;
     }
@@ -140,7 +140,7 @@ server.post('/tasks', (request, response) => {
 server.delete('/task', (request, response) => {
   logger.debug('Received DELETE /task request');
 
-  const task = request.body;
+  const task: unknown = request.body;
 
   if (!data) {
     logger.debug('Store data is empty, nothing to delete');
@@ -152,7 +152,7 @@ server.delete('/task', (request, response) => {
     });
   }
 
-  const updatedData = data?.filter((item) => item.getId() !== task.id) || null;
+  const updatedData = data?.filter((item) => item.getId() !== task['id']) || null;
 
   if (jsonDiff.diff(updatedData, data)) {
     logger.debug('Updating store data');
@@ -193,27 +193,27 @@ function readStoreFileIfDataIsNull(): void {
   }
 }
 
-function createOrUpdateTask(task: Task): typeof DIFF | typeof NOT_DIFF {
+function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
   if (data === null) {
-    data = [task];
+    data = [TaskCreator.create(task)];
 
     return DIFF;
   }
 
-  const existingTaskIndex = data.findIndex((item) => item.getId() === task.getId());
+  const existingTaskIndex = data.findIndex((item) => item.getId() === task['id']);
 
   if (existingTaskIndex >= 0) {
     const existingTask = data[existingTaskIndex];
 
     if (jsonDiff.diff(existingTask, task)) {
-      data[existingTaskIndex] = task;
+      data[existingTaskIndex] = TaskCreator.create(task);
 
       return DIFF;
     } else {
       return NOT_DIFF;
     }
   } else if (data !== null) {
-    data.push(task);
+    data.push(TaskCreator.create(task));
 
     return DIFF;
   }
@@ -236,8 +236,9 @@ function writeStoreFile(filePath: string, fileContent: string): string {
   });
 }
 
-function readStoreFile(filePath: string): Task[] {
+function readStoreFile(filePath: string): Task[] | null {
   const content = fs.readFileSync(filePath);
+  const array = JSON.parse(content.toString());
 
-  return JSON.parse(content.toString());
+  return (array || null)?.map((item: unknown) => TaskCreator.create(item));
 }
