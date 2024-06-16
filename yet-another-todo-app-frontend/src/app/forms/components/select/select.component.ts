@@ -9,8 +9,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import diff from 'microdiff';
 import { cloneDeep } from 'src/app/shared/utils/clone-deep.function';
+import { diff } from 'src/app/shared/utils/diff.function';
 import { Option } from './select.types';
 
 // TODO Fix dropdown icon animation
@@ -78,8 +78,8 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
 
     const selectedOption = this.displayedOptions[+selectedIndex];
 
-    this.value = selectedOption.value;
-    this.text = selectedOption.label;
+    this.value = selectedOption?.value || null;
+    this.text = selectedOption?.label || '';
     this.dropdown.isOpened = false;
     this.selectedIndex = selectedIndex;
     this.changed && this.changed(selectedOption.value);
@@ -89,7 +89,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
     const selectedIndex = +(<HTMLInputElement>event.target).value;
     const selectedOption = this.displayedOptions[selectedIndex];
 
-    this.value = selectedOption.value;
+    this.value = selectedOption?.value || null;
     this.selectedIndex = selectedIndex;
     this.changed && this.changed(selectedOption.value);
   }

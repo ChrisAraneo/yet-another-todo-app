@@ -18,6 +18,6 @@
     class="dropdown-item"
     [class.selected]="index === selectedIndex"
     (click)="selectOption($event, index)">
-    {{ option.label }}
+    {{ option?.label || '' }}
   </div>
 </div>
