@@ -7,13 +7,14 @@
     [name]="label"
     [disabled]="isDisabled"
     [(ngModel)]="text"
+    (ngModelChange)="onChangeText($event)"
     (focus)="onFocus()"
     (blur)="onBlur()"
     *yataErrorTooltip="label" />
 </span>
 <div class="dropdown-panel" [style.width]="dropdown.width" [class.opened]="dropdown.isOpened">
   <div
-    *ngFor="let option of options; let index = index"
+    *ngFor="let option of displayedOptions; let index = index"
     class="dropdown-item"
     [class.selected]="index === selectedIndex"
     (click)="selectOption($event, index)">

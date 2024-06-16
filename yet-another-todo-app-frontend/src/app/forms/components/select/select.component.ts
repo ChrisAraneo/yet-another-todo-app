@@ -1,10 +1,19 @@
-import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import diff from 'microdiff';
+import { cloneDeep } from 'src/app/shared/utils/clone-deep.function';
 import { Option } from './select.types';
 
 // TODO Fix dropdown icon animation
-// TODO Implement searching items
 
 @Component({
   selector: 'yata-select',
@@ -18,7 +27,7 @@ import { Option } from './select.types';
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor, AfterViewInit {
+export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
   @ViewChild('input') inputElementRef!: ElementRef;
 
   @Input() label: string = '';
@@ -30,6 +39,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
     width: '0',
     isOpened: false,
   };
+  displayedOptions: Option<any>[] = [];
   isDisabled: boolean;
   selectedIndex: number;
 
@@ -48,10 +58,17 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
     this.selectedIndex = -1;
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      this.displayedOptions = cloneDeep(this.options);
+    }
+  }
+
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.text =
-        this.options?.find((item) => diff(item.value, this.value)?.length === 0)?.label || '';
+        this.displayedOptions?.find((item) => diff(item.value, this.value)?.length === 0)?.label ||
+        '';
       this.dropdown.width = `${this.inputElementRef.nativeElement?.offsetWidth || 0}px`;
     });
   }
@@ -59,7 +76,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   selectOption(event: Event, selectedIndex: number): void {
     event.preventDefault();
 
-    const selectedOption = this.options[+selectedIndex];
+    const selectedOption = this.displayedOptions[+selectedIndex];
 
     this.value = selectedOption.value;
     this.text = selectedOption.label;
@@ -70,11 +87,41 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
 
   onChange(event: Event): void {
     const selectedIndex = +(<HTMLInputElement>event.target).value;
-    const selectedOption = this.options[selectedIndex];
+    const selectedOption = this.displayedOptions[selectedIndex];
 
     this.value = selectedOption.value;
     this.selectedIndex = selectedIndex;
     this.changed && this.changed(selectedOption.value);
+  }
+
+  onChangeText(event: string): void {
+    const selectedValue =
+      this.selectedIndex > -1 ? cloneDeep(this.displayedOptions[this.selectedIndex]).value : null;
+
+    if (event.length < 1) {
+      this.displayedOptions = cloneDeep(this.options);
+      this.selectedIndex =
+        this.displayedOptions?.findIndex((item) => diff(item.value, selectedValue)?.length === 0) ||
+        -1;
+
+      return;
+    }
+
+    const found: Option<any>[] = [];
+    const notFound: Option<any>[] = [];
+
+    this.displayedOptions.forEach((option) => {
+      if (option.label.toLocaleLowerCase().indexOf(event) >= 0) {
+        found.push(option);
+      } else {
+        notFound.push(option);
+      }
+    });
+
+    this.displayedOptions = [...found, ...notFound];
+    this.selectedIndex = this.displayedOptions.findIndex(
+      (item) => diff(item.value, selectedValue)?.length === 0,
+    );
   }
 
   onFocus(): void {
@@ -88,9 +135,11 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit {
   writeValue(value: any): void {
     this.value = value;
 
-    if (this.options?.length > 0) {
-      this.selectedIndex = this.options.findIndex((item) => diff(item.value, value)?.length === 0);
-      this.text = this.selectedIndex >= 0 ? this.options[this.selectedIndex].label : '';
+    if (this.displayedOptions?.length > 0) {
+      this.selectedIndex = this.displayedOptions.findIndex(
+        (item) => diff(item.value, value)?.length === 0,
+      );
+      this.text = this.selectedIndex >= 0 ? this.displayedOptions[this.selectedIndex].label : '';
     } else {
       this.selectedIndex = -1;
       this.text = '';
