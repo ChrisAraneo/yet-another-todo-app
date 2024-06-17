@@ -11,9 +11,10 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { cloneDeep } from 'src/app/shared/utils/clone-deep.function';
 import { diff } from 'src/app/shared/utils/diff.function';
-import { Option } from './select.types';
+import { DisplayedOption, Option } from './select.types';
 
 // TODO Fix dropdown icon animation
+// TODO Implement inline display option
 
 @Component({
   selector: 'yata-select',
@@ -39,7 +40,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
     width: '0',
     isOpened: false,
   };
-  displayedOptions: Option<any>[] = [];
+  displayedOptions: DisplayedOption<any>[] = [];
   isDisabled: boolean;
   selectedIndex: number;
 
@@ -60,7 +61,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['options']) {
-      this.displayedOptions = cloneDeep(this.options);
+      this.updateDisplayedOptions(this.options, this.text);
     }
   }
 
@@ -99,7 +100,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
       this.selectedIndex > -1 ? cloneDeep(this.displayedOptions[this.selectedIndex]).value : null;
 
     if (event.length < 1) {
-      this.displayedOptions = cloneDeep(this.options);
+      this.updateDisplayedOptions(this.options, event);
       this.selectedIndex =
         this.displayedOptions?.findIndex((item) => diff(item.value, selectedValue)?.length === 0) ||
         -1;
@@ -118,7 +119,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
       }
     });
 
-    this.displayedOptions = [...found, ...notFound];
+    this.updateDisplayedOptions([...found, ...notFound], event);
     this.selectedIndex = this.displayedOptions.findIndex(
       (item) => diff(item.value, selectedValue)?.length === 0,
     );
@@ -156,5 +157,22 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
+  }
+
+  private updateDisplayedOptions(options: Option<any>[], searchText: string): void {
+    this.displayedOptions = cloneDeep<Option<any>[]>(options).map((option: Option<any>) => {
+      const indexOf = option.label.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase());
+      const highlightStart = searchText.length > 0 ? indexOf : -1;
+      const highlightEnd = highlightStart > -1 ? highlightStart + searchText.length - 1 : -1;
+
+      return {
+        ...option,
+        symbols: option.label.split(''),
+        highlight: {
+          start: highlightStart,
+          end: highlightEnd,
+        },
+      };
+    });
   }
 }

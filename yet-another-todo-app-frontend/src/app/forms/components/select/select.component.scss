@@ -99,6 +99,8 @@ $box-shadow-radius: $_4unit;
     border: none;
     color: $form-input-text-color;
     cursor: pointer;
+    letter-spacing: -2px;
+    word-spacing: 0;
 
     &.selected {
       color: $primary-color;
@@ -108,5 +110,16 @@ $box-shadow-radius: $_4unit;
 
   .dropdown-item:hover {
     background-color: darken($background-color, 3.75%);
+  }
+
+  span.highlight {
+    background-color: #fde73f !important; // TODO Move to variables ?
+  }
+
+  span.blank {
+    height: auto;
+    color: transparent;
+    overflow-x: hidden;
+    width: 2px;
   }
 }
