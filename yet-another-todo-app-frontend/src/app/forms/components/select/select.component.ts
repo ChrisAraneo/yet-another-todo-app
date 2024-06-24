@@ -130,6 +130,8 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
   }
 
   onBlur(): void {
+    this.dropdown.isOpened = false;
+
     this.touched && this.touched();
   }
 
