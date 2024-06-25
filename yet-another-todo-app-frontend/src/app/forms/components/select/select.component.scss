@@ -93,6 +93,11 @@ $box-shadow-radius: $_4unit;
     opacity: 1;
   }
 
+  &.inline {
+    margin-top: $_16unit;
+    max-height: 4.5 * $_64unit;
+  }
+
   .dropdown-item {
     padding: $_10unit;
     background-color: transparent;

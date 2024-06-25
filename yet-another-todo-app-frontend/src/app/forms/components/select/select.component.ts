@@ -5,6 +5,7 @@ import {
   forwardRef,
   Input,
   OnChanges,
+  OnInit,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -28,11 +29,12 @@ import { DisplayedOption, Option } from './select.types';
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnChanges {
+export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   @ViewChild('input') inputElementRef!: ElementRef;
 
   @Input() label: string = '';
   @Input() options: Option<any>[] = [];
+  @Input() inline: boolean = false;
 
   text: string;
   value: any;
@@ -52,11 +54,17 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
   constructor() {
     this.text = '';
     this.value = null;
-    this.dropdown.width = '0';
-    this.dropdown.isOpened = false;
     this.isDisabled = false;
     this.dropdownStyles = {};
     this.selectedIndex = -1;
+  }
+
+  ngOnInit(): void {
+    if (this.inline) {
+      this.openDropdown();
+    } else {
+      this.closeDropdownWhenNotInline();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -81,8 +89,9 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
 
     this.value = selectedOption?.value || null;
     this.text = selectedOption?.label || '';
-    this.dropdown.isOpened = false;
+    this.closeDropdownWhenNotInline();
     this.selectedIndex = selectedIndex;
+
     this.changed && this.changed(selectedOption.value);
   }
 
@@ -126,11 +135,11 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
   }
 
   onFocus(): void {
-    this.dropdown.isOpened = true;
+    this.openDropdown();
   }
 
   onBlur(): void {
-    this.dropdown.isOpened = false;
+    this.closeDropdownWhenNotInline();
 
     this.touched && this.touched();
   }
@@ -176,5 +185,17 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnC
         },
       };
     });
+  }
+
+  private openDropdown(): void {
+    this.dropdown.isOpened = true;
+  }
+
+  private closeDropdownWhenNotInline(): void {
+    !this.inline && this.closeDropdown();
+  }
+
+  private closeDropdown(): void {
+    this.dropdown.isOpened = false;
   }
 }
