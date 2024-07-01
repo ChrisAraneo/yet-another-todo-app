@@ -9,10 +9,15 @@
     [(ngModel)]="text"
     (ngModelChange)="onChangeText($event)"
     (focus)="onFocus()"
-    (blur)="onBlur()"
+    (blur)="onBlur($event)"
     *yataErrorTooltip="label" />
 </span>
-<div class="dropdown-panel" [style.width]="dropdown.width" [class.opened]="dropdown.isOpened" [class.inline]="inline">
+<div
+  class="dropdown-panel"
+  [style.width]="dropdown.width"
+  [class.opened]="dropdown.isOpened"
+  [class.inline]="inline"
+  (click)="onClick()">
   <div
     *ngFor="let option of displayedOptions; let optionIndex = index"
     class="dropdown-item"

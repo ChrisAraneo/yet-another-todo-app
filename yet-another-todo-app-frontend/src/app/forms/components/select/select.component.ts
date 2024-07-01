@@ -51,6 +51,8 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
   changed?: (value: any) => void;
   touched?: () => void;
 
+  private isClickedOutsideDropdown: boolean = false;
+
   constructor() {
     this.text = '';
     this.value = null;
@@ -138,10 +140,25 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     this.openDropdown();
   }
 
-  onBlur(): void {
-    this.closeDropdownWhenNotInline();
+  onBlur(event: Event): void {
+    event.preventDefault();
+
+    this.isClickedOutsideDropdown = true;
+
+    setTimeout(() => {
+      if (this.isClickedOutsideDropdown) {
+        this.closeDropdownWhenNotInline();
+      }
+      this.isClickedOutsideDropdown = false;
+    }, 150);
 
     this.touched && this.touched();
+  }
+
+  onClick(): void {
+    setTimeout(() => {
+      this.isClickedOutsideDropdown = false;
+    });
   }
 
   writeValue(value: any): void {
