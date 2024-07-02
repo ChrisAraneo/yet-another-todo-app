@@ -13,7 +13,8 @@
         <yata-select
           [formControlName]="'task'"
           [label]="'EditTaskModal.task' | translate"
-          [options]="(tasks | async) || []"></yata-select>
+          [options]="(tasks | async) || []"
+          [inline]="true"></yata-select>
       </yata-page>
       <yata-page *ngSwitchCase="2" [@fadeInOut]>
         <yata-text-input
