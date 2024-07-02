@@ -8,7 +8,8 @@
         <yata-select
           [formControlName]="'task'"
           [label]="'DeleteTaskModal.selectTask' | translate"
-          [options]="(tasks | async) || []"></yata-select>
+          [options]="(tasks | async) || []"
+          [inline]="true"></yata-select>
       </yata-page>
     </div>
     <yata-modal-action-buttons
