@@ -97,7 +97,14 @@ export class ModalLauncherComponent {
             return this.dialogService.openConfigureTimelineModal();
           }
           case ExportTasksModalComponent.name: {
-            return this.dialogService.openExportTasksModal();
+            if (isTasksNotEmpty) {
+              return this.dialogService.openExportTasksModal();
+            } else {
+              return this.dialogService.openEmptyDialog(
+                'ExportTasksModal.empty',
+                'ExportTasksModal.emptyHint',
+              );
+            }
           }
           case ImportTasksModalComponent.name: {
             return this.dialogService.openImportTasksModal();

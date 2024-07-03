@@ -85,6 +85,8 @@
   },
   "ExportTasksModal": {
     "cancel": "Cancel",
+    "empty": "There are no defined tasks to export",
+    "emptyHint": "Create tasks first so you can export them later",
     "imageAlt": "Packages",
     "modalTitle": "Export tasks",
     "password": "Password",

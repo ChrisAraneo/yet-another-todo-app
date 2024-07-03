@@ -85,6 +85,8 @@
   },
   "ExportTasksModal": {
     "cancel": "Anuluj",
+    "empty": "Brak zadań do eksportu",
+    "emptyHint": "Najpierw utwórz zadania, a następnie możesz je eksportować",
     "imageAlt": "Paczki",
     "modalTitle": "Eksportuj zadania",
     "password": "Hasło",
