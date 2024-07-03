@@ -59,14 +59,17 @@ export class ModalLauncherComponent {
       }),
       distinct(({ data }) => data['modal']['name']),
       mergeMap(({ data, params, tasks }) => {
+        const isIdDefined = !!params['id'];
+        const isTasksNotEmpty = !!tasks?.length;
+
         switch (data['modal']['name']) {
           case AddTaskModalComponent.name: {
             return this.dialogService.openAddTaskModal();
           }
           case EditTaskModalComponent.name: {
-            if (params['id'] && tasks?.length) {
+            if (isTasksNotEmpty && isIdDefined) {
               return this.dialogService.openEditTaskModal(params['id']);
-            } else if (!params['id'] && tasks?.length) {
+            } else if (!isIdDefined && tasks?.length) {
               return this.navigationService.navigateToEditTaskRoute(tasks[0].getId());
             } else {
               return this.dialogService.openEmptyDialog(
@@ -76,7 +79,16 @@ export class ModalLauncherComponent {
             }
           }
           case DeleteTaskModalComponent.name: {
-            return this.dialogService.openDeleteTaskModal(params['id']);
+            if (isTasksNotEmpty && isIdDefined) {
+              return this.dialogService.openDeleteTaskModal(params['id']);
+            } else if (!isIdDefined && tasks?.length) {
+              return this.navigationService.navigateToDeleteTaskRoute(tasks[0].getId());
+            } else {
+              return this.dialogService.openEmptyDialog(
+                'DeleteTaskModal.empty',
+                'DeleteTaskModal.emptyHint',
+              );
+            }
           }
           case ConfigureTableModalComponent.name: {
             return this.dialogService.openConfigureTableModal();

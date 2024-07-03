@@ -79,6 +79,14 @@ const commonModalRoutes: Routes = [
     },
   },
   {
+    path: `${DELETE_TASK_PATH}`,
+    component: ModalLauncherComponent,
+    canActivate: [canActivateAuth],
+    data: {
+      modal: DeleteTaskModalComponent,
+    },
+  },
+  {
     path: EXPORT_TASKS_PATH,
     component: ModalLauncherComponent,
     canActivate: [canActivateAuth],
