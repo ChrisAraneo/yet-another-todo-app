@@ -123,7 +123,7 @@ export class EditTaskModalComponent implements OnDestroy {
     }
 
     return new Promise((resolve) => {
-      this.tasksService.addTask(this.task as Task).subscribe(() => {
+      this.tasksService.updateTask(this.task as Task).subscribe(() => {
         resolve();
 
         this.dialogRef.close();
@@ -392,6 +392,10 @@ export class EditTaskModalComponent implements OnDestroy {
     } else if (dateRange && Array.isArray(dateRange)) {
       input['startDate'] = dateRange[0];
       input['endDate'] = dateRange[1];
+    }
+
+    if (this.form.value?.task?.getId()) {
+      input['id'] = this.form.value?.task?.getId();
     }
 
     return this.taskCreator.create(input);
