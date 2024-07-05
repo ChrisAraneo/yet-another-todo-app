@@ -53,7 +53,12 @@ export class TimelineTaskManagerService {
     timelineEndDate: Date,
     today: Date,
   ): boolean {
-    if (task instanceof PendingTask) {
+    const isTodayInDateRange =
+      today.valueOf() >= timelineStartDate.valueOf() &&
+      today.valueOf() <= timelineEndDate.valueOf();
+    const isPendingTask = task instanceof PendingTask;
+
+    if (isTodayInDateRange && isPendingTask) {
       return true;
     }
 
