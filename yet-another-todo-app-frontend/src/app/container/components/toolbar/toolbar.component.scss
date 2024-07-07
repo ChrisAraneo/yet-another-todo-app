@@ -6,19 +6,12 @@
   height: $_64unit;
 }
 
-::ng-deep p-toolbar {
-  box-sizing: border-box;
-  height: 100%;
-  max-height: $_64unit;
-}
-
 ::ng-deep .p-toolbar {
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 100%;
-  max-height: $_64unit;
+  height: $_64unit;
   border: none;
   border-bottom: 1px solid map.get($yata-palette-primary, 700);
   border-radius: 0;
