@@ -11,9 +11,10 @@ import { TasksService } from '../shared/services/tasks/tasks.service';
 import { SharedModule } from '../shared/shared.module';
 import { SearchbarComponent } from './components/table/searchbar/searchbar.component';
 import { TableComponent } from './components/table/table.component';
+import { NewTableComponent } from './components/new-table/new-table.component';
 
 @NgModule({
-  declarations: [TableComponent, SearchbarComponent],
+  declarations: [TableComponent, SearchbarComponent, NewTableComponent],
   imports: [
     AppRoutingModule,
     SharedModule,
@@ -29,6 +30,6 @@ import { TableComponent } from './components/table/table.component';
     MaterialModule,
   ],
   providers: [DateUtilsService, DialogService, TasksService],
-  exports: [TableComponent],
+  exports: [TableComponent, NewTableComponent],
 })
 export class TableModule {}
