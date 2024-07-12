@@ -25,7 +25,34 @@
 
   th, td {
     margin: 0;
-    padding: $_8unit;
+    padding: 0 $_16unit;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  td {
+    padding: $_16unit;
+  }
+
+  tr {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  td {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .width-auto {
+    width: auto;
   }
 
   .width-1 {
@@ -42,5 +69,13 @@
 
   .width-4 {
     width: $_256unit;
+  }
+
+  .min-width-3 {
+    min-width: $_128unit;
+  }
+
+  .flex-grow {
+    flex-grow: 1;
   }
 }

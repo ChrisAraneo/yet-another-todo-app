@@ -3,6 +3,7 @@ import { map, Observable } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { EndedTask, StartedTask } from '../../../../../../yet-another-todo-app-shared';
 import { TasksDataSource } from '../../table.types';
+import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 
 @Component({
   selector: 'yata-new-table',
@@ -12,7 +13,10 @@ import { TasksDataSource } from '../../table.types';
 export class NewTableComponent implements OnInit {
   data!: Observable<TasksDataSource[]>;
 
-  constructor(private tasksService: TasksService) {}
+  constructor(
+    private readonly tasksService: TasksService,
+    private readonly dateUtilsService: DateUtilsService,
+  ) {}
 
   ngOnInit(): void {
     this.data = this.tasksService.getTasks().pipe(
@@ -23,11 +27,15 @@ export class NewTableComponent implements OnInit {
           title: item.getTitle(),
           description: item.getDescription(),
           state: item.getState(),
-          creationDate: item.getCreationDate().toISOString(),
-          startDate: item instanceof StartedTask ? item.getStartDate().toISOString() : '-',
-          endDate: item instanceof EndedTask ? item.getEndDate().toISOString() : '-',
+          creationDate: this.formatDate(item.getCreationDate()),
+          startDate: item instanceof StartedTask ? this.formatDate(item.getStartDate()) : '-',
+          endDate: item instanceof EndedTask ? this.formatDate(item.getEndDate()) : '-',
         }));
       }),
     );
+  }
+
+  private formatDate(date: Date): string {
+    return this.dateUtilsService.formatDate(date, 'dd-MM-yyyy HH:mm');
   }
 }

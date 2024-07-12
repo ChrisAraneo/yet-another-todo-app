@@ -1,37 +1,63 @@
 <ng-container *ngIf="data | async as data">
   <p-table
+    id="table"
     [value]="data"
     [paginator]="true"
     [rows]="10"
-    [tableStyle]="{ 'min-width': '50rem' }"
     [rowsPerPageOptions]="[10, 20, 50]">
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 12.5%">{{ 'Table.id' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.title' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.description' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.state' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.creationDate' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.startDate' | translate }}</th>
-        <th style="width: 12.5%">{{ 'Table.endDate' | translate }}</th>
-        <th style="width: 12.5%"></th>
+        <th class="width-2">
+          <yata-subtitle>{{ 'Table.id' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-4">
+          <yata-subtitle>{{ 'Table.title' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-auto flex-grow min-width-3">
+          <yata-subtitle>{{ 'Table.description' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-1">
+          <yata-subtitle>{{ 'Table.state' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-2">
+          <yata-subtitle>{{ 'Table.creationDate' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-2">
+          <yata-subtitle>{{ 'Table.startDate' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-2">
+          <yata-subtitle>{{ 'Table.endDate' | translate }}</yata-subtitle>
+        </th>
+        <th class="width-2"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item>
       <tr>
-        <td>{{ item.shortId }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.description }}</td>
-        <td>
+        <td class="width-2">
+          <yata-label>{{ item.shortId }}</yata-label>
+        </td>
+        <td class="width-4">
+          <yata-subtitle>{{ item.title }}</yata-subtitle>
+        </td>
+        <td class="width-auto flex-grow min-width-3">
+          <yata-paragraph>{{ item.description }}</yata-paragraph>
+        </td>
+        <td class="width-1">
           <yata-task-state-icon
             [state]="item.state"
             [size]="24"
             [opacity]="0.8"></yata-task-state-icon>
         </td>
-        <td>{{ item.creationDate }}</td>
-        <td>{{ item.startDate }}</td>
-        <td>{{ item.endDate }}</td>
-        <td>TODO Actions</td>
+        <td class="width-2">
+          <yata-label>{{ item.creationDate }}</yata-label>
+        </td>
+        <td class="width-2">
+          <yata-label>{{ item.startDate }}</yata-label>
+        </td>
+        <td class="width-2">
+          <yata-label>{{ item.endDate }}</yata-label>
+        </td>
+        <td class="width-2">TODO</td>
       </tr>
     </ng-template>
   </p-table>
