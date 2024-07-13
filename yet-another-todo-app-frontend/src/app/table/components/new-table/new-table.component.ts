@@ -11,6 +11,9 @@ import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.
   styleUrls: ['./new-table.component.scss'],
 })
 export class NewTableComponent implements OnInit {
+  readonly TITLE_MAX_LENGTH = 25;
+  readonly DESCRIPTION_MAX_LENGTH = 75;
+
   data!: Observable<TasksDataSource[]>;
 
   constructor(

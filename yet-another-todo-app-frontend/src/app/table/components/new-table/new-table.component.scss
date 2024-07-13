@@ -78,4 +78,10 @@
   .flex-grow {
     flex-grow: 1;
   }
+
+  .no-wrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

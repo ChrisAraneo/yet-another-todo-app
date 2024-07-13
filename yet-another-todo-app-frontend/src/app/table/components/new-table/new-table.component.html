@@ -36,11 +36,31 @@
         <td class="width-2">
           <yata-label>{{ item.shortId }}</yata-label>
         </td>
-        <td class="width-4">
-          <yata-subtitle>{{ item.title }}</yata-subtitle>
+        <td class="width-4 no-wrap">
+          <yata-subtitle
+            [matTooltip]="item.title"
+            [matTooltipPosition]="'above'"
+            [matTooltipShowDelay]="100"
+            [matTooltipDisabled]="item.title.length <= TITLE_MAX_LENGTH">
+            {{
+              item.title.length > TITLE_MAX_LENGTH
+                ? (item.title | slice : 0 : TITLE_MAX_LENGTH) + '...'
+                : item.title
+            }}
+          </yata-subtitle>
         </td>
-        <td class="width-auto flex-grow min-width-3">
-          <yata-paragraph>{{ item.description }}</yata-paragraph>
+        <td class="width-auto flex-grow min-width-3 no-wrap">
+          <yata-paragraph
+            [matTooltip]="item.description"
+            [matTooltipPosition]="'above'"
+            [matTooltipShowDelay]="100"
+            [matTooltipDisabled]="item.description.length <= DESCRIPTION_MAX_LENGTH">
+            {{
+              item.description.length > DESCRIPTION_MAX_LENGTH
+                ? (item.description | slice : 0 : DESCRIPTION_MAX_LENGTH) + '...'
+                : item.description
+            }}
+          </yata-paragraph>
         </td>
         <td class="width-1">
           <yata-task-state-icon
