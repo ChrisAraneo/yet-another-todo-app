@@ -16,6 +16,10 @@
   width: 100%;
   height: 100%;
 
+  tbody {
+    min-height: 10 * $_64unit;
+  }
+
   th, td, .p-paginator, p-paginator {
     box-sizing: border-box;
     border-color: $border-color !important;
