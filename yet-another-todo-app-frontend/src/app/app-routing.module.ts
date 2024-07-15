@@ -21,7 +21,7 @@ import { ImportTasksModalComponent } from './modals/components/import-tasks-moda
 import { ModalLauncherComponent } from './modals/components/modal-launcher/modal-launcher.component';
 import { SignInModalComponent } from './modals/components/sign-in-modal/sign-in-modal.component';
 import { canActivateAuth } from './shared/guards/auth/auth.guard';
-import { TableComponent } from './table/components/table/table.component';
+import { NewTableComponent } from './table/components/new-table/new-table.component';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 const commonModalRoutes: Routes = [
@@ -151,7 +151,7 @@ const routes: Routes = [
   },
   {
     path: TABLE_PATH,
-    component: TableComponent,
+    component: NewTableComponent,
     canActivate: [canActivateAuth],
     canActivateChild: [canActivateAuth],
     children: [
