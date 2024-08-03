@@ -46,8 +46,6 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
   isDisabled: boolean;
   selectedIndex: number;
 
-  dropdownStyles: { [key: string]: string | number };
-
   changed?: (value: any) => void;
   touched?: () => void;
 
@@ -57,7 +55,6 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     this.text = '';
     this.value = null;
     this.isDisabled = false;
-    this.dropdownStyles = {};
     this.selectedIndex = -1;
   }
 
