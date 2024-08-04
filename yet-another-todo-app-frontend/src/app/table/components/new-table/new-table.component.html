@@ -1,1 +1,24 @@
-<p>new-table</p>
+<table *ngIf="data | async as data">
+  <tr>
+    <th>{{ 'Table.id' | translate }}</th>
+    <th>{{ 'Table.title' | translate }}</th>
+    <th>{{ 'Table.description' | translate }}</th>
+    <th>{{ 'Table.state' | translate }}</th>
+    <th>{{ 'Table.creationDate' | translate }}</th>
+    <th>{{ 'Table.startDate' | translate }}</th>
+    <th>{{ 'Table.endDate' | translate }}</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let task of data">
+    <td>{{ task.shortId }}</td>
+    <td>{{ task.title }}</td>
+    <td>{{ task.description }}</td>
+    <td><yata-task-state-icon [state]="task.state"></yata-task-state-icon></td>
+    <td>{{ task.creationDate }}</td>
+    <td>{{ task.startDate }}</td>
+    <td>{{ task.endDate }}</td>
+  </tr>
+</table>
+<!-- TODO Handle empty -->
+<!-- TODO Search bar -->
+<!-- TODO Paginator -->
