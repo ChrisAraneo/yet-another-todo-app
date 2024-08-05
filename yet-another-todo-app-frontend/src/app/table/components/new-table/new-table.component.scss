@@ -12,6 +12,15 @@ table {
   tr {
     display: flex;
     width: 100%;
+
+    td,
+    th {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      height: $_64unit;
+    }
   }
 
   .flex-grid {
