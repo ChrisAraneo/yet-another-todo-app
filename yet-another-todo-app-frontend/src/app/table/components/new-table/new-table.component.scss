@@ -2,15 +2,23 @@
 @import '../../../shared/styles/variables.__generated.scss';
 
 table {
-    display: flex;
-    flex-direction: column;
-    background-color: $background-color;
-    min-height: 100%;
-    max-height: 100%;
-    overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: $background-color;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
 
-    tr {
-        display: flex;
-        width: 100%;
-    }
+  tr {
+    display: flex;
+    width: 100%;
+  }
+
+  .flex-grid {
+    display: flex;
+  }
+
+  .col {
+    flex: 1;
+  }
 }
