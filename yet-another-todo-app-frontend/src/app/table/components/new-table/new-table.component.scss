@@ -12,6 +12,7 @@ table {
   tr {
     display: flex;
     width: 100%;
+    box-sizing: border-box;
 
     td,
     th {
@@ -20,6 +21,15 @@ table {
       justify-content: flex-start;
       align-items: center;
       height: $_64unit;
+      padding-left: $_16unit;
+      padding-right: $_16unit;
+    }
+
+    &:not(:last-of-type) {
+        border: $border;
+        border-top-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
     }
   }
 
@@ -29,5 +39,21 @@ table {
 
   .col {
     flex: 1;
+  }
+
+  .col-2 {
+    flex: 2;
+  }
+
+  .col-3 {
+    flex: 3;
+  }
+
+  .mw-64 {
+    max-width: $_64unit;
+  }
+
+  .mw-80 {
+    max-width: $_64unit + $_16unit;
   }
 }
