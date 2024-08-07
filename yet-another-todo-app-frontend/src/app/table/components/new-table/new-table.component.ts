@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { EndedTask, StartedTask } from '../../../../../../yet-another-todo-app-shared';
@@ -12,6 +12,8 @@ import { TasksDataSource } from '../../table.types';
 })
 export class NewTableComponent implements OnInit {
   data!: Observable<TasksDataSource[]>;
+  pageSize!: Subject<number>;
+  currentPage!: Subject<number>;
 
   constructor(
     private readonly tasksService: TasksService,
@@ -19,18 +21,27 @@ export class NewTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.data = this.tasksService.getTasks().pipe(
-      map((tasks) =>
-        tasks.map((task) => ({
-          id: task.getId(),
-          shortId: task.getShortId(),
-          title: task.getTitle(),
-          description: task.getDescription(),
-          state: task.getState(),
-          creationDate: this.formatDate(task.getCreationDate()),
-          startDate: task instanceof StartedTask ? this.formatDate(task.getStartDate()) : '-',
-          endDate: task instanceof EndedTask ? this.formatDate(task.getEndDate()) : '-',
-        })),
+    this.pageSize = new BehaviorSubject<number>(10); // TODO Store page sizes in param
+    this.currentPage = new BehaviorSubject<number>(1); // TODO Store current page in param
+
+    this.data = combineLatest([
+      this.pageSize.asObservable(),
+      this.currentPage.asObservable(),
+      this.tasksService.getTasks(),
+    ]).pipe(
+      map(([pageSize, currentPage, tasks]) =>
+        tasks
+          .map((task) => ({
+            id: task.getId(),
+            shortId: task.getShortId(),
+            title: task.getTitle(),
+            description: task.getDescription(),
+            state: task.getState(),
+            creationDate: this.formatDate(task.getCreationDate()),
+            startDate: task instanceof StartedTask ? this.formatDate(task.getStartDate()) : '-',
+            endDate: task instanceof EndedTask ? this.formatDate(task.getEndDate()) : '-',
+          }))
+          .slice((currentPage - 1) * pageSize, currentPage * pageSize),
       ),
     );
   }
