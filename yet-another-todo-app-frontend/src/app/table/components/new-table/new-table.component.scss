@@ -9,51 +9,26 @@ table {
   max-height: 100%;
   overflow-y: scroll;
 
-  tr {
-    display: flex;
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 0;
     width: 100%;
     box-sizing: border-box;
-
-    td,
-    th {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-start;
-      align-items: center;
-      height: $_64unit;
-      padding-left: $_16unit;
-      padding-right: $_16unit;
-    }
-
-    &:not(:last-of-type) {
-        border: $border;
-        border-top-width: 0;
-        border-left-width: 0;
-        border-right-width: 0;
-    }
   }
 
-  .flex-grid {
+  .grid-cell {
     display: flex;
-  }
-
-  .col {
-    flex: 1;
-  }
-
-  .col-2 {
-    flex: 2;
-  }
-
-  .col-3 {
-    flex: 3;
-  }
-
-  .mw-64 {
-    max-width: $_64unit;
-  }
-
-  .mw-80 {
-    max-width: $_64unit + $_16unit;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: $_64unit;
+    padding-left: $_16unit;
+    padding-right: $_16unit;
+    box-sizing: border-box;
+    border: $border;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
   }
 }
