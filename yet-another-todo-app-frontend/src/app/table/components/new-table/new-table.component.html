@@ -1,23 +1,54 @@
 <table *ngIf="data | async as data">
-  <tr>
-    <th>{{ 'Table.id' | translate }}</th>
-    <th>{{ 'Table.title' | translate }}</th>
-    <th>{{ 'Table.description' | translate }}</th>
-    <th>{{ 'Table.state' | translate }}</th>
-    <th>{{ 'Table.creationDate' | translate }}</th>
-    <th>{{ 'Table.startDate' | translate }}</th>
-    <th>{{ 'Table.endDate' | translate }}</th>
-    <th></th>
-  </tr>
-  <tr *ngFor="let task of data">
-    <td>{{ task.shortId }}</td>
-    <td>{{ task.title }}</td>
-    <td>{{ task.description }}</td>
-    <td><yata-task-state-icon [state]="task.state"></yata-task-state-icon></td>
-    <td>{{ task.creationDate }}</td>
-    <td>{{ task.startDate }}</td>
-    <td>{{ task.endDate }}</td>
-  </tr>
+  <thead>
+    <tr class="grid-container">
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.id' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.title' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.description' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.state' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.creationDate' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.startDate' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell">
+        <yata-label>{{ 'Table.endDate' | translate }}</yata-label>
+      </th>
+      <th class="grid-cell"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of data" class="grid-container">
+      <td class="grid-cell">
+        <yata-label>{{ task.shortId }}</yata-label>
+      </td>
+      <td class="grid-cell">
+        <yata-label>{{ task.title }}</yata-label>
+      </td>
+      <td class="grid-cell">
+        <yata-label>{{ task.description }}</yata-label>
+      </td>
+      <td class="grid-cell"><yata-task-state-icon [state]="task.state"></yata-task-state-icon></td>
+      <td class="grid-cell">
+        <yata-label>{{ task.creationDate }}</yata-label>
+      </td>
+      <td class="grid-cell">
+        <yata-label>{{ task.startDate }}</yata-label>
+      </td>
+      <td class="grid-cell">
+        <yata-label>{{ task.endDate }}</yata-label>
+      </td>
+      <td class="grid-cell"></td>
+    </tr>
+  </tbody>
 </table>
 <!-- TODO Handle empty -->
 <!-- TODO Search bar -->
