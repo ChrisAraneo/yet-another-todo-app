@@ -1,55 +1,49 @@
-<table *ngIf="data | async as data">
-  <thead>
-    <tr class="grid-container">
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.id' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.title' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.description' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.state' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.creationDate' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.startDate' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell">
-        <yata-label>{{ 'Table.endDate' | translate }}</yata-label>
-      </th>
-      <th class="grid-cell"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let task of data" class="grid-container">
-      <td class="grid-cell">
-        <yata-label>{{ task.shortId }}</yata-label>
-      </td>
-      <td class="grid-cell">
-        <yata-label>{{ task.title }}</yata-label>
-      </td>
-      <td class="grid-cell">
-        <yata-label>{{ task.description }}</yata-label>
-      </td>
-      <td class="grid-cell"><yata-task-state-icon [state]="task.state"></yata-task-state-icon></td>
-      <td class="grid-cell">
-        <yata-label>{{ task.creationDate }}</yata-label>
-      </td>
-      <td class="grid-cell">
-        <yata-label>{{ task.startDate }}</yata-label>
-      </td>
-      <td class="grid-cell">
-        <yata-label>{{ task.endDate }}</yata-label>
-      </td>
-      <td class="grid-cell"></td>
-    </tr>
-  </tbody>
-</table>
+<div class="grid-table" *ngIf="data | async as data" [ngStyle]="gridTemplateRows">
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.id' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.title' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.description' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.state' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.creationDate' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.startDate' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell">
+    <yata-label>{{ 'Table.endDate' | translate }}</yata-label>
+  </div>
+  <div class="grid-cell"></div>
+  <ng-container *ngFor="let task of data">
+    <div class="grid-cell">
+      <yata-label>{{ task.shortId }}</yata-label>
+    </div>
+    <div class="grid-cell">
+      <yata-label>{{ task.title }}</yata-label>
+    </div>
+    <div class="grid-cell">
+      <yata-label>{{ task.description }}</yata-label>
+    </div>
+    <div class="grid-cell"><yata-task-state-icon [state]="task.state"></yata-task-state-icon></div>
+    <div class="grid-cell">
+      <yata-label>{{ task.creationDate }}</yata-label>
+    </div>
+    <div class="grid-cell">
+      <yata-label>{{ task.startDate }}</yata-label>
+    </div>
+    <div class="grid-cell">
+      <yata-label>{{ task.endDate }}</yata-label>
+    </div>
+    <div class="grid-cell"></div>
+  </ng-container>
+</div>
 <!-- TODO Handle empty -->
 <!-- TODO Search bar -->
 <!-- TODO Paginator -->

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { UNIT } from 'src/app/shared/styles/theme.__generated';
 import { EndedTask, StartedTask } from '../../../../../../yet-another-todo-app-shared';
 import { TasksDataSource } from '../../table.types';
+import { TABLE_PAGE_SIZE_OPTIONS } from '../table/table.config';
 
 @Component({
   selector: 'yata-new-table',
@@ -11,9 +13,14 @@ import { TasksDataSource } from '../../table.types';
   styleUrls: ['./new-table.component.scss'],
 })
 export class NewTableComponent implements OnInit {
+  readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;
+
   data!: Observable<TasksDataSource[]>;
   pageSize!: Subject<number>;
   currentPage!: Subject<number>;
+  gridTemplateRows = {
+    'grid-template-rows': `repeat(${this.pageSizeOptions[0] + 1}, ${UNIT})`,
+  };
 
   constructor(
     private readonly tasksService: TasksService,
@@ -21,7 +28,7 @@ export class NewTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.pageSize = new BehaviorSubject<number>(10); // TODO Store page sizes in param
+    this.pageSize = new BehaviorSubject<number>(this.pageSizeOptions[0]); // TODO Store page sizes in param
     this.currentPage = new BehaviorSubject<number>(1); // TODO Store current page in param
 
     this.data = combineLatest([
