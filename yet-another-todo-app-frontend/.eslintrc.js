@@ -19,7 +19,7 @@ module.exports = {
       parser: "jsonc-eslint-parser",
     },
   ],
-  ignorePatterns: ['.eslintrc.js'],
+  ignorePatterns: ['.eslintrc.js', 'package.json', 'package-lock.json'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
