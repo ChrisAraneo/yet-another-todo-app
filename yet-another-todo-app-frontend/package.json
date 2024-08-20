@@ -1,5 +1,16 @@
 {
-  "author": "Krzysztof Pająk",
+  "name": "yet-another-todo-app-frontend",
+  "version": "0.2.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.spec.ts\" \"src/**/*.json\"",
+    "lint": "eslint \"src/**/*.{ts,json}\" --fix"
+  },
+  "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.00",
     "@angular/cdk": "^16.0.0",
@@ -58,17 +69,6 @@
     "prettier": "^2.8.5",
     "typescript": "^4.9.3"
   },
-  "license": "MIT",
-  "name": "yet-another-todo-app-frontend",
-  "private": true,
-  "scripts": {
-    "build": "ng build",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.spec.ts\" \"src/**/*.json\"",
-    "lint": "eslint \"src/**/*.{ts,json}\" --fix",
-    "ng": "ng",
-    "start": "ng serve",
-    "test": "ng test",
-    "watch": "ng build --watch --configuration development"
-  },
-  "version": "0.2.0"
+  "author": "Krzysztof Pająk",
+  "license": "MIT"
 }
