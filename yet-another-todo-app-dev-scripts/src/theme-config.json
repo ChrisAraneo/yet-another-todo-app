@@ -1,10 +1,25 @@
 {
+  "borderRadius": "6px",
+  "columnWidthInUnits": 3,
+  "modals": {
+    "borderRadius": "16px",
+    "heightInUnits": 9,
+    "widthInUnits": 15
+  },
   "palettes": {
     "gray": {
       "hue": 212,
       "saturation": 10
     },
+    "green": {
+      "hue": 128,
+      "saturation": 100
+    },
     "lightness": 40,
+    "orange": {
+      "hue": 44,
+      "saturation": 100
+    },
     "primary": {
       "hue": 212,
       "saturation": 100
@@ -13,25 +28,10 @@
       "hue": 3,
       "saturation": 100
     },
-    "green": {
-      "hue": 128,
-      "saturation": 100
-    },
-    "orange": {
-      "hue": 44,
-      "saturation": 100
-    },
     "secondary": {
       "hue": 162,
       "saturation": 100
     }
-  },
-  "borderRadius": "6px",
-  "columnWidthInUnits": 3,
-  "modals": {
-    "widthInUnits": 15,
-    "heightInUnits": 9,
-    "borderRadius": "16px"
   },
   "unit": 64
 }
