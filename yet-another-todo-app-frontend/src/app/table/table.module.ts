@@ -13,11 +13,12 @@ import { DateUtilsService } from '../shared/services/date-utils/date-utils.servi
 import { TasksService } from '../shared/services/tasks/tasks.service';
 import { SharedModule } from '../shared/shared.module';
 import { NewTableComponent } from './components/new-table/new-table.component';
+import { PaginatorComponent } from './components/new-table/paginator/paginator.component';
 import { SearchbarComponent } from './components/table/searchbar/searchbar.component';
 import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-  declarations: [TableComponent, SearchbarComponent, NewTableComponent],
+  declarations: [TableComponent, SearchbarComponent, NewTableComponent, PaginatorComponent],
   imports: [
     AppRoutingModule,
     SharedModule,
