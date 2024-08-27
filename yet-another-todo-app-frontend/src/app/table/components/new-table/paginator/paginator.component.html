@@ -1,1 +1,49 @@
-<p>paginator works!</p>
+<div class="first">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'Paginator.firstPage' | translate"
+    [disabled]="isFirstDisabled"
+    (click)="changePage(1)">
+    <mat-icon>first_page</mat-icon>
+  </button>
+</div>
+
+<div class="prev">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'Paginator.prevPage' | translate"
+    [disabled]="isPrevDisabled"
+    (click)="changePage(currentPage - 1)">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+</div>
+
+<div class="page" *ngFor="let index of pages">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Paginator.prevPage' | translate"
+      [disabled]="isPrevDisabled"
+      (click)="changePage(index)">
+      <span>{{ index }}</span>
+    </button>
+  </div>
+
+<div class="next">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'Paginator.nextPage' | translate"
+    [disabled]="isNextDisabled"
+    (click)="changePage(currentPage + 1)">
+    <mat-icon>arrow_forward_ios</mat-icon>
+  </button>
+</div>
+
+<div class="last">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'Paginator.lastPage' | translate"
+    [disabled]="isLastDisabled"
+    (click)="changePage(pages[pages.length - 1])">
+    <mat-icon>last_page</mat-icon>
+  </button>
+</div>
