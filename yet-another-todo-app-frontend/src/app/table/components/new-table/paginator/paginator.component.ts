@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 
 @Component({
   selector: 'yata-paginator',
@@ -19,23 +19,61 @@ export class PaginatorComponent implements OnChanges {
   pages: number[] = [1];
 
   private itemsPerPage: number = 10;
-  private maxPages: number = 11;
+  private maxDisplayedPageButtons: number = 9;
+  private lastPage: number = 1;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.pages = Array.from(
-      Array(Math.ceil(this.totalNumberOfItems / this.itemsPerPage)).keys(),
-    ).map((_, index) => index + 1);
-
-    // TODO Update pages
+  ngOnChanges(): void {
+    this.update();
   }
 
-  changePage(page: number): void {
+  goToPage(page: number): void {
+    if (page < 1 || page > this.lastPage) {
+      return;
+    }
+
     this.onPageChange.emit(page);
     this.currentPage = page;
 
-    this.isFirstDisabled = page === 1;
-    this.isPrevDisabled = page === 1;
-    this.isNextDisabled = page === this.pages.length;
-    this.isLastDisabled = page === this.pages.length;
+    this.update();
+  }
+
+  goToFirstPage(): void {
+    this.goToPage(1);
+  }
+
+  goToLastPage(): void {
+    this.goToPage(this.lastPage);
+  }
+
+  goToPrevPage(): void {
+    this.goToPage(this.currentPage - 1);
+  }
+
+  goToNextPage(): void {
+    this.goToPage(this.currentPage + 1);
+  }
+
+  private update(): void {
+    this.lastPage = Math.ceil(this.totalNumberOfItems / this.itemsPerPage);
+
+    if (this.maxDisplayedPageButtons > this.lastPage) {
+      this.pages = Array.from(Array(this.lastPage).keys()).map((_, index) => index + 1);
+    } else {
+      const half = Math.floor(this.maxDisplayedPageButtons / 2);
+      let min = this.currentPage - half < 1 ? 1 : this.currentPage - half;
+
+      if (this.currentPage + half > this.lastPage) {
+        min = this.lastPage - this.maxDisplayedPageButtons + 1;
+      }
+
+      this.pages = Array.from(Array(this.maxDisplayedPageButtons).keys()).map(
+        (_, index) => min + index,
+      );
+    }
+
+    this.isFirstDisabled = this.currentPage <= 1;
+    this.isPrevDisabled = this.currentPage <= 1;
+    this.isNextDisabled = this.currentPage >= this.lastPage;
+    this.isLastDisabled = this.currentPage >= this.lastPage;
   }
 }

@@ -1,49 +1,52 @@
-<div class="first">
-  <button
-    mat-icon-button
-    [attr.aria-label]="'Paginator.firstPage' | translate"
-    [disabled]="isFirstDisabled"
-    (click)="changePage(1)">
-    <mat-icon>first_page</mat-icon>
-  </button>
-</div>
-
-<div class="prev">
-  <button
-    mat-icon-button
-    [attr.aria-label]="'Paginator.prevPage' | translate"
-    [disabled]="isPrevDisabled"
-    (click)="changePage(currentPage - 1)">
-    <mat-icon>arrow_back_ios</mat-icon>
-  </button>
-</div>
-
-<div class="page" *ngFor="let index of pages">
+<div class="container">
+  <div class="first">
     <button
-      mat-icon-button
-      [attr.aria-label]="'Paginator.prevPage' | translate"
-      [disabled]="isPrevDisabled"
-      (click)="changePage(index)">
-      <span>{{ index }}</span>
+      mat-button
+      [attr.aria-label]="'Paginator.firstPage' | translate"
+      [disabled]="isFirstDisabled"
+      (click)="goToFirstPage()">
+      <mat-icon>first_page</mat-icon>
     </button>
   </div>
 
-<div class="next">
-  <button
-    mat-icon-button
-    [attr.aria-label]="'Paginator.nextPage' | translate"
-    [disabled]="isNextDisabled"
-    (click)="changePage(currentPage + 1)">
-    <mat-icon>arrow_forward_ios</mat-icon>
-  </button>
-</div>
+  <div class="prev">
+    <button
+      mat-button
+      [attr.aria-label]="'Paginator.prevPage' | translate"
+      [disabled]="isPrevDisabled"
+      (click)="goToPrevPage()">
+      <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+  </div>
 
-<div class="last">
-  <button
-    mat-icon-button
-    [attr.aria-label]="'Paginator.lastPage' | translate"
-    [disabled]="isLastDisabled"
-    (click)="changePage(pages[pages.length - 1])">
-    <mat-icon>last_page</mat-icon>
-  </button>
+  <div class="page" *ngFor="let page of pages">
+    <button
+      mat-button
+      [attr.aria-label]="'Paginator.prevPage' | translate"
+      [class.active]="currentPage === page"
+      [disabled]="currentPage === page"
+      (click)="goToPage(page)">
+      <span>{{ page }}</span>
+    </button>
+  </div>
+
+  <div class="next">
+    <button
+      mat-button
+      [attr.aria-label]="'Paginator.nextPage' | translate"
+      [disabled]="isNextDisabled"
+      (click)="goToNextPage()">
+      <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
+  </div>
+
+  <div class="last">
+    <button
+      mat-button
+      [attr.aria-label]="'Paginator.lastPage' | translate"
+      [disabled]="isLastDisabled"
+      (click)="goToLastPage()">
+      <mat-icon>last_page</mat-icon>
+    </button>
+  </div>
 </div>
