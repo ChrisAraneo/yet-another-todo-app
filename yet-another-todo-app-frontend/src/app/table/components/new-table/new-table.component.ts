@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, Subject, tap } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme.__generated';
@@ -16,6 +16,7 @@ export class NewTableComponent implements OnInit {
   readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;
 
   data!: Observable<TasksDataSource[]>;
+  totalNumberOfItems: number = 0;
   pageSize!: Subject<number>;
   currentPage!: Subject<number>;
   gridTemplateRows = {
@@ -36,6 +37,9 @@ export class NewTableComponent implements OnInit {
       this.currentPage.asObservable(),
       this.tasksService.getTasks(),
     ]).pipe(
+      tap((input) => {
+        this.totalNumberOfItems = input[2]?.length;
+      }),
       map(([pageSize, currentPage, tasks]) =>
         tasks
           .map((task) => ({
