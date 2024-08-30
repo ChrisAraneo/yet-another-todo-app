@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 export class PaginatorComponent implements OnChanges {
   @Input() totalNumberOfItems: number = 0;
 
-  @Output() onPageChange = new EventEmitter<number>();
+  @Output() changePage = new EventEmitter<number>();
 
   isFirstDisabled: boolean = true;
   isPrevDisabled: boolean = true;
@@ -31,7 +31,7 @@ export class PaginatorComponent implements OnChanges {
       return;
     }
 
-    this.onPageChange.emit(page);
+    this.changePage.emit(page);
     this.currentPage = page;
 
     this.update();
