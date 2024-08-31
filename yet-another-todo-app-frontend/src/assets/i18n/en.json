@@ -122,6 +122,13 @@
     "offlineMode": "Offline mode",
     "offlineModeHint": "You are offline and data will not be synchronized with the server."
   },
+  "Paginator": {
+    "firstPage": "First page",
+    "itemsPerPage": "{{1}} tasks per page",
+    "lastPage": "Last page",
+    "nextPage": "Next page",
+    "prevPage": "Previous page"
+  },
   "PrimeNG": {
     "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
