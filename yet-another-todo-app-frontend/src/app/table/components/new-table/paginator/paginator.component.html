@@ -22,7 +22,6 @@
   <div class="page" *ngFor="let page of pages">
     <button
       mat-button
-      [attr.aria-label]="'Paginator.prevPage' | translate"
       [class.active]="currentPage === page"
       [disabled]="currentPage === page"
       (click)="goToPage(page)">
@@ -49,4 +48,6 @@
       <mat-icon>last_page</mat-icon>
     </button>
   </div>
+
+  <yata-select [formControl]="select" [options]="(pageSizeOptions | async) || []"></yata-select>
 </div>
