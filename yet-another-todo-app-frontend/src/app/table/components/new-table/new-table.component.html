@@ -1,6 +1,6 @@
 <ng-container *ngIf="data | async as data">
   <div class="table">
-    <div class="grid-table" [ngStyle]="gridTemplateRows">
+    <div class="grid-header">
       <div class="grid-cell">
         <yata-label>{{ 'Table.id' | translate }}</yata-label>
       </div>
@@ -23,6 +23,8 @@
         <yata-label>{{ 'Table.endDate' | translate }}</yata-label>
       </div>
       <div class="grid-cell"></div>
+    </div>
+    <div class="grid-table" [ngStyle]="gridTemplateRows">
       <ng-container *ngFor="let task of data; let last = last">
         <div class="grid-cell" [class.last]="last">
           <yata-label>{{ task.shortId }}</yata-label>

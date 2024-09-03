@@ -20,7 +20,7 @@ export class NewTableComponent implements OnInit {
   pageSize!: Subject<number>;
   currentPage!: Subject<number>;
   gridTemplateRows = {
-    'grid-template-rows': `repeat(${this.pageSizeOptions[0] + 1}, ${UNIT})`,
+    'grid-template-rows': `repeat(${this.pageSizeOptions[0]}, ${UNIT})`,
   };
 
   constructor(
