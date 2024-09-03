@@ -51,7 +51,10 @@
   </div>
 
   <div class="paginator">
-    <yata-paginator [totalNumberOfItems]="totalNumberOfItems"></yata-paginator>
+    <yata-paginator
+      [totalNumberOfItems]="totalNumberOfItems"
+      (changePage)="changePage($event)"
+      (changePageSize)="changePageSize($event)"></yata-paginator>
   </div>
 </ng-container>
 

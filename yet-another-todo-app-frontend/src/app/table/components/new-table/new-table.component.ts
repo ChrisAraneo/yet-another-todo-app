@@ -57,6 +57,14 @@ export class NewTableComponent implements OnInit {
     );
   }
 
+  changePage(page: number): void {
+    this.currentPage.next(page);
+  }
+
+  changePageSize(pageSize: number): void {
+    this.pageSize.next(pageSize);
+  }
+
   // TODO Pipe
   private formatDate(date: Date): string {
     return this.dateUtilsService.formatDate(date, 'yyyy-MM-dd HH:mm');
