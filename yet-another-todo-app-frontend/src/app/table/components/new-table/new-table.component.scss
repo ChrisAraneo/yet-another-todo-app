@@ -30,6 +30,21 @@ $grid-table-height: calc(100vh - $_128unit - $_32unit - $paginator-height - $gri
   border-top: none;
   border-left: none;
   border-right: none;
+
+  .grid-cell {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: $_64unit;
+    padding-left: $_16unit;
+    padding-right: $_16unit;
+    border: $border;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
 }
 
 .grid-table {
