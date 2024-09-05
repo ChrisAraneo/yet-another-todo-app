@@ -47,7 +47,14 @@
         <div class="grid-cell" [class.last]="last">
           <yata-label>{{ task.endDate }}</yata-label>
         </div>
-        <div class="grid-cell" [class.last]="last"></div>
+        <div class="grid-cell" [class.last]="last">
+          <button mat-icon-button (click)="editTask(task.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteTask(task.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
       </ng-container>
     </div>
   </div>

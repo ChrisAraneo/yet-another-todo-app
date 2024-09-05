@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, Subject, tap } from 'rxjs';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { UNIT } from 'src/app/shared/styles/theme.__generated';
 import { EndedTask, StartedTask } from '../../../../../../yet-another-todo-app-shared';
@@ -26,6 +27,7 @@ export class NewTableComponent implements OnInit {
   constructor(
     private readonly tasksService: TasksService,
     private readonly dateUtilsService: DateUtilsService,
+    private readonly navigationService: NavigationService,
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +65,16 @@ export class NewTableComponent implements OnInit {
 
   changePageSize(pageSize: number): void {
     this.pageSize.next(pageSize);
+  }
+
+  editTask(id: string): void {
+    this.navigationService.navigateToEditTaskRoute(id);
+    // TODO Update side nav item
+  }
+
+  deleteTask(id: string): void {
+    this.navigationService.navigateToDeleteTaskRoute(id);
+    // TODO Update side nav item
   }
 
   // TODO Pipe
