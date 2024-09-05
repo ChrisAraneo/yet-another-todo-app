@@ -9,6 +9,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { HttpLoaderFactory } from '../app.module';
+import { LabelModule } from '../shared/components/label/label.module';
 import { MaterialModule } from '../shared/material.module';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { CancelButtonComponent } from './components/cancel-button/cancel-button.component';
@@ -59,6 +60,7 @@ import { DirectivesModule } from './directives/directives.module';
     CalendarModule,
     DropdownModule,
     InputNumberModule,
+    LabelModule,
   ],
   providers: [],
   exports: [
