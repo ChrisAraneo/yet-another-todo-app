@@ -30,22 +30,8 @@
   background-color: $form-input-focus-background;
 }
 
-.label,
 .filename {
   display: block;
-}
-
-.label {
-  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-  padding: 0;
-  margin: 0;
-  margin-bottom: $_2unit;
-  font-size: $_10unit;
-  line-height: $_10unit;
-  font-weight: 400;
-  background-color: transparent;
-  text-transform: uppercase;
-  opacity: 0.75;
 }
 
 .filename {
