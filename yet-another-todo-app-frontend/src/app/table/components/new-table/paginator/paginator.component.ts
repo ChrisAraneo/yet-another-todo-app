@@ -23,6 +23,7 @@ import {
 })
 export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   @Input() totalNumberOfItems: number = 0;
+  @Input() maxDisplayedPageButtons: number = TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS;
 
   @Output() changePage = new EventEmitter<number>();
   @Output() changePageSize = new EventEmitter<number>();
@@ -38,8 +39,6 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   pages: number[] = [1];
 
   select!: FormControl<number>;
-
-  private readonly maxDisplayedPaginatorOptions: number = TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS;
 
   private pageSize: number = TABLE_PAGE_SIZE_OPTIONS[0]; // TODO Query param
   private lastPage: number = 1;
@@ -114,17 +113,17 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
       return;
     }
 
-    if (this.maxDisplayedPaginatorOptions > this.lastPage) {
+    if (this.maxDisplayedPageButtons > this.lastPage) {
       this.pages = Array.from(Array(this.lastPage).keys()).map((_, index) => index + 1);
     } else {
-      const half = Math.floor(this.maxDisplayedPaginatorOptions / 2);
+      const half = Math.floor(this.maxDisplayedPageButtons / 2);
       let min = this.currentPage - half < 1 ? 1 : this.currentPage - half;
 
       if (this.currentPage + half > this.lastPage) {
-        min = this.lastPage - this.maxDisplayedPaginatorOptions + 1;
+        min = this.lastPage - this.maxDisplayedPageButtons + 1;
       }
 
-      this.pages = Array.from(Array(this.maxDisplayedPaginatorOptions).keys()).map(
+      this.pages = Array.from(Array(this.maxDisplayedPageButtons).keys()).map(
         (_, index) => min + index,
       );
     }
