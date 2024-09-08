@@ -64,6 +64,7 @@ import { DirectivesModule } from './directives/directives.module';
   ],
   providers: [],
   exports: [
+    FormLabelComponent,
     NextButtonComponent,
     BackButtonComponent,
     SubmitButtonComponent,
