@@ -1,1 +1,47 @@
-<p>page-size-select works!</p>
+<yata-form-label *ngIf="label" [for]="label"></yata-form-label>
+<span>
+  <input
+    #input
+    pInputText
+    type="text"
+    [name]="label"
+    [disabled]="isDisabled"
+    [(ngModel)]="text"
+    [ngStyle]="!label ? { 'margin-top': '0' } : {}"
+    (ngModelChange)="onChangeText($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur($event)" />
+</span>
+<div
+  class="dropdown-panel"
+  [style.width]="dropdown.width"
+  [class.opened]="dropdown.isOpened"
+  [class.inline]="inline"
+  (click)="onClick()">
+  <div
+    *ngFor="let option of displayedOptions; let optionIndex = index"
+    class="dropdown-item"
+    [class.selected]="optionIndex === selectedIndex"
+    (click)="selectOption($event, optionIndex)">
+    <ng-container *ngFor="let symbol of option.symbols; let symbolIndex = index">
+      <ng-container *ngIf="symbol !== ' '; else blank">
+        <span
+          [class.highlight]="
+            symbolIndex >= option.highlight.start && symbolIndex <= option.highlight.end
+          "
+          [class.blank]="symbol === ' '">
+          {{ symbol }}
+        </span>
+      </ng-container>
+      <ng-template #blank>
+        <span
+          class="blank"
+          [class.highlight]="
+            symbolIndex >= option.highlight.start && symbolIndex <= option.highlight.end
+          ">
+          .
+        </span>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>
