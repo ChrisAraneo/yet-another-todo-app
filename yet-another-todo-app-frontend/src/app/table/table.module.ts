@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { InputTextModule as PrimeNgInputTextModule } from 'primeng/inputtext';
 import { TableModule as PrimeNgTableModule } from 'primeng/table';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpLoaderFactory } from '../app.module';
@@ -40,6 +41,7 @@ import { TableComponent } from './components/table/table.component';
     BrowserModule,
     MaterialModule,
     PrimeNgTableModule,
+    PrimeNgInputTextModule,
     AngularFormsModule,
     ReactiveFormsModule,
     FormsModule,
