@@ -21,7 +21,8 @@
     "format:backend": "npm --prefix ./yet-another-todo-app-backend/ run format",
     "format:dev-scripts": "npm --prefix ./yet-another-todo-app-dev-scripts/ run format",
     "format:mock": "npm --prefix ./yet-another-todo-app-mock/ run format",
-    "format:shared": "npm --prefix ./yet-another-todo-app-shared/ run format"
+    "format:shared": "npm --prefix ./yet-another-todo-app-shared/ run format",
+    "chores": "npm run lint && npm run format"
   },
   "repository": {
     "type": "git",
