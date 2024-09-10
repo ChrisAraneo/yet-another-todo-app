@@ -17,8 +17,8 @@ $box-shadow-radius: $_4unit;
   margin: 0;
   margin-top: $_6unit;
   outline: none;
-  background: url('../../../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg') no-repeat
-    // TODO Animate
+  background: url('../../../../../../assets/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg')
+    no-repeat // TODO Animate
     right #ddd;
   -webkit-appearance: none;
   background-position-x: calc(100% - $_64unit / 8);
@@ -67,11 +67,11 @@ $box-shadow-radius: $_4unit;
   box-sizing: border-box;
   position: fixed;
   z-index: 99999 !important;
-  height: auto;
-  max-height: 4 * $_64unit;
+  height: 2 * $_64unit;
   overflow-x: auto;
   overflow-y: scroll;
   margin: 0;
+  margin-top: -2 * $_64unit - $_32unit - $_12unit;
   padding: 0;
   font-size: $_16unit;
   border: $form-input-border;
