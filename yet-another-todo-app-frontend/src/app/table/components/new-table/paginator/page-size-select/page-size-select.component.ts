@@ -36,7 +36,6 @@ export class PageSizeSelectComponent
 
   @Input() label: string = '';
   @Input() options: Option<any>[] = [];
-  @Input() inline: boolean = false;
 
   text: string;
   value: any;
@@ -61,11 +60,7 @@ export class PageSizeSelectComponent
   }
 
   ngOnInit(): void {
-    if (this.inline) {
-      this.openDropdown();
-    } else {
-      this.closeDropdownWhenNotInline();
-    }
+    this.closeDropdown();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -90,7 +85,7 @@ export class PageSizeSelectComponent
 
     this.value = selectedOption?.value || null;
     this.text = selectedOption?.label || '';
-    this.closeDropdownWhenNotInline();
+    this.closeDropdown();
     this.selectedIndex = selectedIndex;
 
     this.changed && this.changed(selectedOption.value);
@@ -146,7 +141,7 @@ export class PageSizeSelectComponent
 
     setTimeout(() => {
       if (this.isClickedOutsideDropdown) {
-        this.closeDropdownWhenNotInline();
+        this.closeDropdown();
       }
       this.isClickedOutsideDropdown = false;
     }, 150);
@@ -205,10 +200,6 @@ export class PageSizeSelectComponent
 
   private openDropdown(): void {
     this.dropdown.isOpened = true;
-  }
-
-  private closeDropdownWhenNotInline(): void {
-    !this.inline && this.closeDropdown();
   }
 
   private closeDropdown(): void {

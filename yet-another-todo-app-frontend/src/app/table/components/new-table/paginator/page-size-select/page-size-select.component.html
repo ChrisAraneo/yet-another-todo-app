@@ -16,7 +16,6 @@
   class="dropdown-panel"
   [style.width]="dropdown.width"
   [class.opened]="dropdown.isOpened"
-  [class.inline]="inline"
   (click)="onClick()">
   <div
     *ngFor="let option of displayedOptions; let optionIndex = index"
