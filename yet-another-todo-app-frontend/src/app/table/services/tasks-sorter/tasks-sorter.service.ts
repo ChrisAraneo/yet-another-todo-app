@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
-import { TaskState } from 'src/app/shared/models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { TasksDataSource } from '../../table.types';
 import { SortActive, SortOptions } from './tasks-sorter.types';
 

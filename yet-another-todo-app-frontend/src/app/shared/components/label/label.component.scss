@@ -1,8 +1,8 @@
 @use 'sass:math';
-@import '../../styles/variables.scss';
+@import '../../styles/variables.__generated.scss';
 
 span {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   padding: 0;
   margin: 0;
   font-size: $_12unit;
@@ -10,5 +10,5 @@ span {
   font-weight: 400;
   background-color: transparent;
   text-transform: uppercase;
-  opacity: 0.75;
+  color: $label-text-color;
 }

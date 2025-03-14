@@ -1,4 +1,5 @@
-@import '../../../../shared/styles/variables.scss';
+@use "sass:map";
+@import '../../../../shared/styles/variables.__generated.scss';
 
 :host {
   display: inline-block;
@@ -16,5 +17,6 @@ div {
 
   span {
     display: block;
+    color: $label-text-color;
   }
 }

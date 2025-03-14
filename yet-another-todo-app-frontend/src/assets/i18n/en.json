@@ -1,12 +1,17 @@
 {
   "AddTaskModal": {
     "cancel": "Cancel",
+    "dateRange": "Start date and end date",
     "description": "Description",
     "endDate": "End date",
+    "endTime": "End time",
+    "imageAlt": "Empty page in notebook",
     "modalTitle": "Add new task",
     "startDate": "Start date",
+    "startTime": "Start time",
     "state": "State",
     "submit": "Submit",
+    "summary": "Summary",
     "title": "Title"
   },
   "App": {
@@ -41,7 +46,7 @@
   "DeleteTaskModal": {
     "cancel": "Cancel",
     "delete": "Delete",
-    "emptyCaption": "There are no defined tasks to delete",
+    "empty": "There are no defined tasks to delete",
     "emptyHint": "Create tasks first so you can delete them later",
     "modalTitle": "Delete task",
     "selectTask": "Task to delete"
@@ -52,16 +57,26 @@
   },
   "EditTaskModal": {
     "cancel": "Cancel",
+    "dateRange": "Start date and end date",
     "description": "Description",
-    "emptyCaption": "There are no defined tasks to edit",
+    "empty": "There are no defined tasks to edit",
     "emptyHint": "Create tasks first so you can edit them later",
     "endDate": "End date",
+    "endTime": "End time",
+    "imageAlt": "Notes on cork board",
     "modalTitle": "Edit task",
     "saveChanges": "Save changes",
     "selectTask": "Task to edit",
     "startDate": "Start date",
+    "startTime": "Start time",
     "state": "State",
+    "summary": "Summary",
+    "task": "Task to edit",
     "title": "Title"
+  },
+  "EmptyDialog": {
+    "imageAlt": "Cat in the box",
+    "ok": "Ok"
   },
   "Error": {
     "matchOther": "Passwords do not match.",
@@ -70,6 +85,9 @@
   },
   "ExportTasksModal": {
     "cancel": "Cancel",
+    "empty": "There are no defined tasks to export",
+    "emptyHint": "Create tasks first so you can export them later",
+    "imageAlt": "Packages",
     "modalTitle": "Export tasks",
     "password": "Password",
     "repeatPassword": "Repeat password",
@@ -92,10 +110,59 @@
   "LoggedUserInformation": {
     "loggedAs": "Logged as"
   },
+  "Logo": {
+    "alt": "Bonsai tree"
+  },
+  "ModalActionButtons": {
+    "back": "Back",
+    "next": "Next"
+  },
   "NOT_STARTED": "Task not started",
   "OfflineIndicator": {
     "offlineMode": "Offline mode",
     "offlineModeHint": "You are offline and data will not be synchronized with the server."
+  },
+  "Paginator": {
+    "firstPage": "First page",
+    "itemsPerPage": "{{1}} tasks per page",
+    "lastPage": "Last page",
+    "nextPage": "Next page",
+    "prevPage": "Previous page"
+  },
+  "PrimeNG": {
+    "dayNames": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "dayNamesMin": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+    "dayNamesShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "monthNames": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "monthNamesShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "today": "Today",
+    "weekHeader": "Wk"
   },
   "REJECTED": "Task is rejected",
   "SUSPENDED": "Task is suspended",
@@ -122,7 +189,6 @@
   },
   "SignInModal": {
     "dontSignIn": "Don't sign in",
-    "modalTitle": "Sign in",
     "password": "Password",
     "signIn": "Sign in",
     "username": "Username"

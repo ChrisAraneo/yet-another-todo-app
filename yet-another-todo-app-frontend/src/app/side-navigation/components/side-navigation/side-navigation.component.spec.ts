@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { SideNavigationComponent } from './side-navigation.component';
 
 describe('SideNavigationComponent', () => {
@@ -18,6 +19,7 @@ describe('SideNavigationComponent', () => {
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
+        MockProvider(TasksService),
         MockProvider(Store, {
           select: () => {
             return of(undefined);

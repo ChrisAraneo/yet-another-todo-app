@@ -12,11 +12,15 @@ import {
   take,
   tap,
 } from 'rxjs';
+import {
+  CompletedTaskState,
+  EndedTask,
+  StartedTask,
+  Task,
+} from '../../../../../../yet-another-todo-app-shared';
 import { ImportAction } from '../../../modals/components/import-tasks-modal/select-import-action-modal/select-import-action-modal.types';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
-import { CompletedTaskState } from '../../models/task-state.model';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
 import {
   createTask,
   hideTask,

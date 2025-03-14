@@ -1,10 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CancelButton, SubmitButton } from './modal-action-buttons.types';
-
-const NOOP = async (): Promise<void> => {
-  return;
-};
+import { NOOP } from 'src/app/shared/utils/noop.const';
+import { BackButton, NextButton, SubmitButton } from './modal-action-buttons.types';
 
 @Component({
   selector: 'yata-modal-action-buttons',
@@ -13,13 +10,21 @@ const NOOP = async (): Promise<void> => {
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup<any>;
+  @Input() step: number = 1;
+  @Input() total: number = 1;
+  @Input() nextButton: NextButton = {
+    label: '',
+    color: '',
+    click: NOOP,
+  };
+  @Input() backButton: BackButton = {
+    label: '',
+    color: '',
+    click: NOOP,
+  };
   @Input() submitButton: SubmitButton = {
     label: '',
     color: 'primary',
-    click: NOOP,
-  };
-  @Input() cancelButton: CancelButton = {
-    label: '',
     click: NOOP,
   };
 }

@@ -1,6 +1,7 @@
-@import '../../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.__generated.scss';
 
 :host {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -8,6 +9,7 @@
   width: 100%;
   max-width: 100%;
   overflow-x: scroll;
+  background-color: rgba($background-color, 0.9);
 }
 
 .timeline-headers-buttons {
@@ -20,6 +22,7 @@
   display: flex;
   z-index: 999;
   padding-left: $_64unit;
+  background-color: $background-color;
 }
 
 .timeline-header-button {
@@ -30,7 +33,7 @@
 }
 
 .timeline-header-date {
-  background-color: white;
+  background-color: $background-color;
 
   &:last-of-type {
     padding-right: $_64unit;

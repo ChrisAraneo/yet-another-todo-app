@@ -3,7 +3,10 @@ import { MatSortable } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
 import { first, of } from 'rxjs';
-import { InProgressTaskState, NotStartedTaskState } from '../../models/task-state.model';
+import {
+  InProgressTaskState,
+  NotStartedTaskState,
+} from '../../../../../../yet-another-todo-app-shared';
 import {
   setTableSort,
   setTimelineEndDate,

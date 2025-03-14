@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
-import { CompletedTaskState, InProgressTaskState } from '../../models/task-state.model';
-import { EndedTask, PendingTask, StartedTask } from '../../models/task.model';
+import {
+  CompletedTaskState,
+  EndedTask,
+  InProgressTaskState,
+  PendingTask,
+  StartedTask,
+} from '../../../../../../yet-another-todo-app-shared';
 import { TaskTransformerService } from './task-transformer.service';
 
 describe('TaskTransformerService', () => {

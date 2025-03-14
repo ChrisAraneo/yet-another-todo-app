@@ -1,9 +1,10 @@
 @use 'sass:math';
-@import '../../styles/variables.scss';
+@import '../../styles/variables.__generated.scss';
 
 h1 {
-  font-family: 'Spectral', serif;
-  font-size: $_20unit;
+  font-family: 'Gentium Plus', sans-serif;
+  font-size: $_22unit;
   line-height: $_24unit;
   font-weight: 500;
+  color: $title-text-color;
 }

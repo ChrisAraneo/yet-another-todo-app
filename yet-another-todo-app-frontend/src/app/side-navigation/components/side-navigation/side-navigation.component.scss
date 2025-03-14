@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.__generated.scss';
 
 .side-navigation-animated-wrapper {
   overflow: hidden;
@@ -6,6 +6,7 @@
   padding: 0;
   margin: 0;
   height: 100%;
+  background-color: $background-color;
 }
 
 .side-navigation-content {

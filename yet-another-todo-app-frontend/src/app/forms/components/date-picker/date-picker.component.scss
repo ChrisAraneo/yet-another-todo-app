@@ -1,24 +1,128 @@
+@use 'sass:map';
 @use 'sass:math';
-@import '../../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.__generated.scss';
 
-input,
-input:focus {
-  box-sizing: border-box;
-  width: 100%;
-  padding: $_6unit $_6unit;
-  font-size: $_16unit;
-  border-radius: $form-input-border-radius;
-  outline: none;
-  margin: 0;
-  margin-top: $_6unit;
+$table-cell-size: $_26unit;
+$box-shadow-radius: $_4unit;
+
+.calendar-wrapper {
+  margin-top: $_8unit !important;
 }
 
-input:not(:focus) {
-  border: $form-input-border;
-  background-color: $form-input-background;
-}
+::ng-deep p-calendar {
+  *:focus {
+    box-shadow: 0 0 0 $box-shadow-radius map.get($yata-palette-primary, 50) !important;
+  }
 
-input:focus {
-  border: $form-input-focus-border;
-  background-color: $form-input-focus-background;
+  .p-calendar {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .p-highlight {
+    color: map.get($yata-palette-primary, 600);
+    background-color: $form-input-focus-background;
+  }
+
+  .p-datepicker-calendar-container {
+    padding: $_16unit $_8unit;
+  }
+
+  .p-datepicker-group {
+    background-color: $form-input-background;
+  }
+
+  .p-component.p-datepicker-inline {
+    background-color: transparent;
+    border-color: $form-input-border-color;
+  }
+
+  .p-datepicker-header {
+    background-color: transparent;
+    padding: $_8unit $_8unit;
+    border-bottom-color: $border-color;
+  }
+
+  .p-datepicker-month,
+  .p-datepicker-year {
+    padding: $_4unit;
+  }
+
+  .p-datepicker-month:hover,
+  .p-datepicker-year:hover {
+    color: map.get($yata-palette-primary, 600);
+  }
+
+  .p-datepicker table th {
+    width: $table-cell-size;
+    height: $table-cell-size + $_4unit;
+    margin-top: $_10unit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .p-datepicker-calendar {
+    tr {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    th {
+      span {
+        font-size: $_14unit;
+      }
+    }
+
+    td {
+      margin-bottom: $_4unit;
+      width: $table-cell-size;
+      height: $table-cell-size;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        width: $table-cell-size;
+        height: $table-cell-size;
+        font-size: $_14unit;
+      }
+    }
+  }
+
+  .p-monthpicker {
+    background-color: $form-input-background;
+    display: flex;
+    flex-wrap: wrap;
+    padding: $_14unit;
+  }
+
+  .p-monthpicker-month {
+    flex: 1 0 calc(33.3333% - $_8unit);
+    max-width: calc(33.3333% - $_8unit);
+    font-size: $_14unit;
+    height: $table-cell-size;
+    margin: $_4unit;
+  }
+
+  .p-yearpicker {
+    background-color: $form-input-background;
+    display: flex;
+    flex-wrap: wrap;
+    padding: $_14unit;
+  }
+
+  .p-yearpicker-year {
+    flex: 1 0 calc(33.3333% - $_8unit);
+    max-width: calc(33.3333% - $_8unit);
+    font-size: $_14unit;
+    height: $table-cell-size;
+    margin: $_4unit;
+  }
 }

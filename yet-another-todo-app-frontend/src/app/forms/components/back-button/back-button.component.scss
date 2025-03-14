@@ -1,0 +1,33 @@
+@import '../../../shared/styles/variables.__generated.scss';
+
+$back-button-wrapper-height: $_48unit;
+$back-button-border-radius: $_10unit;
+
+.back-button-wrapper {
+  width: 100%;
+  max-width: $_192unit;
+  height: $back-button-wrapper-height;
+
+  ::ng-deep {
+    button {
+      margin: 0;
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: $back-button-border-radius;
+    }
+  }
+
+  mat-icon {
+    margin-right: $_12unit;
+  }
+
+  .button-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: auto;
+    padding: 0 $_8unit;
+    padding-right: $_18unit !important;
+  }
+}

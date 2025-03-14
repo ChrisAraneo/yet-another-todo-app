@@ -1,10 +1,10 @@
 # ヤタ YATA - Yet Another Todo App
 
-Developing a simple daily planner that I would personally use</i>
+<i>Developing a simple daily planner that I would personally use</i>
 
-![App with example tasks](/screenshot.png?raw=true "App with example tasks")
+![App with example tasks](/screenshot_v03.png?raw=true "App with example tasks")
 
-# Features (v0.2)
+# Key Features (v0.3)
 
 - Sign up users
 - Log in using username and password
@@ -12,46 +12,68 @@ Developing a simple daily planner that I would personally use</i>
 - View tasks on a timeline
 - Change the time period displayed on the timeline
 - View tasks in a table form
-- Filter and sort displayed tasks (new in v0.2)
-- Export tasks to encrypted zip archive (new in v0.2)
-- Import tasks from zip archive (new in v0.2)
-- Use app in offline mode (new in v0.2)
-- Delete users (new in v0.2)
+- Export tasks to encrypted zip archive
+- Import tasks from zip archive
+- Use app in offline mode
+- Delete users
 
-Version 0.2 also introduces many improvements and bug fixes to existing features.
+Version 0.3 introduces many architectural design changes, refactoring, and code improvements, along with a complete visual design overhaul.
+
+# Major UI visual design changes
+
+v0.2:
+
+![Screenshot of v0.2 app](/screenshot_v02.png?raw=true "App with example tasks (v0.2)")
+
+v0.3:
+
+![Screenshot of v0.3 app](/screenshot_v03.png?raw=true "App with example tasks (v0.3)")
 
 # Roadmap
 
-What is planned in future releases?
+What is planned for future releases?
 
-- Major UI redesign
+- Upgrade of dependencies
+- UI upgrade to Angular 19
+- Use of Nx Smart Monorepo features
+- Backend improvements and framework update
 - Code refactoring
 - More unit tests, e2e tests
-- Use of Angular Routing
-- Upgrade to Angular 16+
 
-All current features will be improved in the near future.
+All current features will be improved in upcoming releases.
 
 # Development setup
 
 ## Required software
 
-- Node.js - recommended v18.13.0
-- npm (recommended v8.19.3) or another package manager
+- Node.js - recommended at least v18.13.0
+- npm - recommended at least v8.19.3
 - Nest.js CLI - recommended v9.2.0
 - Docker
 
-Optional & recommended:
+Optional but recommended:
 
 - Angular CLI
 
 ## Installing dependencies
 
 ```bash
+$ npm install
+```
+```bash
 /yet-another-todo-app-backend$ npm install
 ```
 ```bash
+/yet-another-todo-app-dev-scripts$ npm install
+```
+```bash
 /yet-another-todo-app-frontend$ npm install
+```
+```bash
+/yet-another-todo-app-mock$ npm install
+```
+```bash
+/yet-another-todo-app-shared$ npm install
 ```
 
 ## Creating database container
@@ -91,13 +113,19 @@ curl --location 'http://localhost:9339/signup' \
 
 ## Running the application in development mode
 
-Make sure database is running in docker container and then start backend:
+1. Before starting Angular UI for the first time, you must generate color palettes & theme variables that are used by components (you can modify theme using `theme-config.json`):
+
+```bash
+/yet-another-todo-app-dev-scripts$ npm run theme-generator
+```
+
+2. Make sure database is running in Docker container and then start backend:
 
 ```bash
 /yet-another-todo-app-backend$ npm run start:dev
 ```
 
-Then run Angular UI
+3. Start Angular UI:
 
 ```bash
 /yet-another-todo-app-frontend$ npm run start
@@ -129,7 +157,7 @@ Voila!
 /yet-another-todo-app-backend$ npm run test:cov
 ```
 
-# Why?
+# Motivation
 
 I needed an easy way to write down tasks and things to do while working, so I started developing this hobby project.
 It is also a way to practice programming skills in my free time.

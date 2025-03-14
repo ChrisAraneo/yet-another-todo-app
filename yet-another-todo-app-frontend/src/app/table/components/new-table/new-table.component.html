@@ -1,0 +1,74 @@
+<ng-container *ngIf="data | async as data">
+  <div class="table">
+    <div class="grid-header">
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.id' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.title' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.description' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.state' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.creationDate' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.startDate' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell">
+        <yata-label>{{ 'Table.endDate' | translate }}</yata-label>
+      </div>
+      <div class="grid-cell"></div>
+    </div>
+    <div class="grid-table" [ngStyle]="gridTemplateRows">
+      <ng-container *ngFor="let task of data; let last = last">
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.shortId }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.title }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.description }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-task-state-icon [state]="task.state"></yata-task-state-icon>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.creationDate }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.startDate }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <yata-label>{{ task.endDate }}</yata-label>
+        </div>
+        <div class="grid-cell" [class.last]="last">
+          <button mat-icon-button (click)="editTask(task.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteTask(task.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="paginator">
+    <yata-paginator
+      [totalNumberOfItems]="totalNumberOfItems"
+      [maxDisplayedPageButtons]="maxDisplayedPageButtons"
+      (changePage)="changePage($event)"
+      (changePageSize)="changePageSize($event)"></yata-paginator>
+  </div>
+</ng-container>
+
+<router-outlet></router-outlet>
+
+<!-- TODO Handle empty -->
+<!-- TODO Search bar -->

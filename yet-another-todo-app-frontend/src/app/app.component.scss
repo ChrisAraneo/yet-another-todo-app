@@ -1,23 +1,21 @@
-@import './shared/styles/variables.scss';
+@import './shared/styles/variables.__generated.scss';
 
 main {
   width: 100%;
-  background-color: $theme-background-color;
-  height: calc(100vh - $_64unit * 2 - ($_32unit - $_2unit));
+  height: 100%;
+  max-height: calc(100vh - $_64unit * 2 - $_32unit - 3px);
   display: flex;
   flex-direction: row;
   justify-items: flex-start;
+  background: none;
+  background-color: transparent;
 }
 
 yata-side-navigation {
   height: 100%;
 }
 
-.table-wrapper {
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-.table-wrapper {
-  width: 100%;
+router-outlet {
+  width: 0 !important;
+  height: 0 !important;
 }

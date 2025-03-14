@@ -1,11 +1,18 @@
 <div>
-  <yata-label [for]="label"></yata-label>
-  <input
-    type="date"
-    [name]="label"
-    (input)="onChange($event)"
-    (blur)="onBlur()"
-    [disabled]="isDisabled"
-    [value]="value"
-    *yataErrorTooltip="label" />
+  <yata-form-label [for]="label"></yata-form-label>
+  <div class="calendar-wrapper">
+    <p-calendar
+      class="max-w-full"
+      [name]="label"
+      [(ngModel)]="model"
+      (ngModelChange)="onChangeDate($event)"
+      [icon]="'input'"
+      [showIcon]="true"
+      [disabled]="isDisabled"
+      (blur)="onBlur()"
+      [inline]="true"
+      [showWeek]="true"
+      [selectionMode]="range ? 'range' : 'single'"
+      *yataErrorTooltip="label"></p-calendar>
+  </div>
 </div>

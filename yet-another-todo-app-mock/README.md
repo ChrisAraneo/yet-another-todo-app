@@ -1,3 +1,5 @@
+# `// TODO Update readme`
+
 # YATA - Backend mock
 
 ## What & why?
@@ -24,9 +26,15 @@ npm install
 ```bash
 # Example:
 
-$ node mock.js store.json
+$ npm run mock
 
-# store.json is the file where mock will store task data
+# Mock will use default file store/store.json to store tasks data
+```
+
+```bash
+# You can specify store file:
+
+$ npm run mock your/path/to/store.json
 ```
 
 ## Generating example tasks
@@ -37,7 +45,7 @@ The data is generated using fakerjs.
 ```bash
 # Example:
 
-$ node generate.js store.json 2500
+$ npm run generate 2500 your/path/to/store.json
 
 # store.json is the file where mock will store task data
 # The second argument is the number of tasks to generate

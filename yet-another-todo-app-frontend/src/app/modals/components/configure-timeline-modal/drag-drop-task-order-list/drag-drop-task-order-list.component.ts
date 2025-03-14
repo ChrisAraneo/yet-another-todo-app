@@ -1,7 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { TaskStateCreator } from 'src/app/shared/models/task-state-creator.model';
-import { TaskState } from 'src/app/shared/models/task-state.model';
+import { TaskStateCreatorService } from 'src/app/shared/services/task-state-creator/task-state-creator.service';
+import { TaskState, TaskStateCreator } from '../../../../../../../yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-drag-drop-task-order-list',
@@ -18,7 +18,7 @@ export class DragDropTaskOrderListComponent implements OnChanges {
   values: string[];
   checked: boolean[];
 
-  constructor() {
+  constructor(private taskStateCreator: TaskStateCreatorService) {
     this.values = [];
     this.checked = [];
     this.changeStatesOrder = new EventEmitter<TaskState[]>();
@@ -50,7 +50,7 @@ export class DragDropTaskOrderListComponent implements OnChanges {
 
   emitValues(): void {
     this.changeStatesOrder.next(
-      [...this.values].map((value) => TaskStateCreator.create({ value })),
+      [...this.values].map((value) => this.taskStateCreator.create({ value })),
     );
 
     this.changeStatesFilter.next(

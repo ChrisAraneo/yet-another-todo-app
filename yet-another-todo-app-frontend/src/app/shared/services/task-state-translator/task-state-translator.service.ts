@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Option } from '../../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -8,7 +7,8 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../models/task-state.model';
+} from '../../../../../../yet-another-todo-app-shared';
+import { Option } from '../../../forms/components/select/select.types';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
-import { TaskState } from '../../shared/models/task-state.model';
-import { EndedTask, PendingTask, StartedTask, Task } from '../../shared/models/task.model';
+import {
+  EndedTask,
+  PendingTask,
+  StartedTask,
+  Task,
+  TaskState,
+} from '../../../../../yet-another-todo-app-shared';
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.types';
 
 type Column = { tasks: Task[]; position: number };
@@ -48,7 +53,12 @@ export class TimelineTaskManagerService {
     timelineEndDate: Date,
     today: Date,
   ): boolean {
-    if (task instanceof PendingTask) {
+    const isTodayInDateRange =
+      today.valueOf() >= timelineStartDate.valueOf() &&
+      today.valueOf() <= timelineEndDate.valueOf();
+    const isPendingTask = task instanceof PendingTask;
+
+    if (isTodayInDateRange && isPendingTask) {
       return true;
     }
 

@@ -1,5 +1,6 @@
+@use "sass:map";
 @use 'sass:math';
-@import '../../../../shared/styles/variables.scss';
+@import '../../../../shared/styles/variables.__generated.scss';
 
 :host {
   display: flex;
@@ -13,13 +14,14 @@
   flex-direction: column;
   justify-content: center;
   align-items: end;
+  color: map.get($yata-palette-gray, 200);
 
   span {
     display: block;
   }
 
   .username {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0;
     margin: 0;
     margin-top: $_4unit;
@@ -27,6 +29,7 @@
     line-height: $_14unit;
     font-weight: 400;
     opacity: 1;
+    color: $background-color;
     background-color: transparent;
     text-transform: uppercase;
   }

@@ -1,8 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { TaskState } from 'src/app/shared/models/task-state.model';
-import { Task } from 'src/app/shared/models/task.model';
-import { COLUMN_WIDTH } from 'src/app/shared/styles/theme';
+import { COLUMN_WIDTH } from 'src/app/shared/styles/theme.__generated';
 import { TimelineTaskManagerService } from 'src/app/timeline/services/timeline-task-manager.service';
+import { Task, TaskState } from '../../../../../../../yet-another-todo-app-shared';
 import { TimelineColumn } from './timeline-content.types';
 
 @Component({
@@ -12,8 +11,8 @@ import { TimelineColumn } from './timeline-content.types';
 })
 export class TimelineContentComponent implements OnChanges {
   @Input() today!: Date;
-  @Input() startDate!: Date;
-  @Input() endDate!: Date;
+  @Input() startDate!: Date | null;
+  @Input() endDate!: Date | null;
   @Input() tasks: Task[] = [];
   @Input() tasksStateSortOrder: TaskState[] = [];
   @Input() tasksStateFilter: TaskState[] = [];

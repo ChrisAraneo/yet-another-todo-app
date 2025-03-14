@@ -1,14 +1,21 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { MatSortable } from '@angular/material/sort';
+import { Component, ElementRef, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, debounceTime, first, map } from 'rxjs';
-import { AppMode } from './app.types';
-import { DialogService } from './modals/services/dialog/dialog.service';
-import { TaskState } from './shared/models/task-state.model';
+import { PrimeNGConfig } from 'primeng/api';
+import {
+  BehaviorSubject,
+  Observable,
+  Subscription,
+  debounceTime,
+  first,
+  map,
+  mergeMap,
+  tap,
+} from 'rxjs';
 import { DateUtilsService } from './shared/services/date-utils/date-utils.service';
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
-import { COLUMN_WIDTH, UNIT } from './shared/styles/theme';
+import { CurrentUser } from './shared/store/types/current-user.type';
+import { COLUMN_WIDTH, UNIT } from './shared/styles/theme.__generated';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 @Component({
@@ -16,62 +23,47 @@ import { TimelineComponent } from './timeline/components/timeline/timeline.compo
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy, AfterViewInit {
-  @ViewChild('timeline') timelineElementRef!: TimelineComponent;
-
-  readonly timelineMode = AppMode.Timeline;
-  readonly tableMode = AppMode.Table;
-
-  appMode: AppMode = AppMode.Timeline;
-  isAppVisible: boolean = false;
+export class AppComponent implements OnDestroy {
   isMenuOpened: boolean = true;
-  timelineStartDate!: Observable<Date>;
-  timelineEndDate!: Observable<Date>;
-  timelineTasksStateSortOrder!: Observable<TaskState[]>;
-  timelineTasksStateFilter!: Observable<TaskState[]>;
-  username!: Observable<string | null>;
+  isAppVisible!: BehaviorSubject<boolean>;
   isOfflineMode!: Observable<boolean>;
-  tableSort!: Observable<MatSortable>;
+  username!: Observable<string | null>;
+  timelineElementRef: ElementRef | null = null;
 
-  private subscription!: Subscription;
+  private centerTimeline = new BehaviorSubject<void>(undefined);
+  private subscription?: Subscription;
 
   constructor(
     private translateService: TranslateService,
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
-    private dialogService: DialogService,
     private viewConfigurationService: ViewConfigurationService,
+    private primeNgConfig: PrimeNGConfig,
   ) {
     this.initializeTranslateService();
-    this.initializeTimelineConfigurationObservables();
-    this.initializeTableConfigurationObservables();
+    this.initializeIsAppVisibleObservable();
     this.initializeUsernameObservable();
     this.initializeIsOfflineModeObservable();
     this.subscribeToUserChanges();
-  }
-
-  ngAfterViewInit(): void {
-    this.centerTimelineScrollOnTodayColumn();
+    this.subscribeToCenterTimeline();
   }
 
   ngOnDestroy(): void {
     this.subscription && this.subscription.unsubscribe();
   }
 
+  onRouterOutletActivated(component: TimelineComponent | unknown): void {
+    if (component instanceof TimelineComponent) {
+      this.timelineElementRef = component.elementRef;
+
+      this.centerTimelineScrollOnTodayColumn();
+    } else {
+      this.timelineElementRef = null;
+    }
+  }
+
   onMenuClick(): void {
     this.isMenuOpened = !this.isMenuOpened;
-  }
-
-  changeAppMode(mode: AppMode): void {
-    this.appMode = mode;
-  }
-
-  changeStartDate(startDate: Date): void {
-    this.viewConfigurationService.changeTimelineStartDate(startDate);
-  }
-
-  changeEndDate(endDate: Date): void {
-    this.viewConfigurationService.changeTimelineEndDate(endDate);
   }
 
   private initializeTranslateService(): void {
@@ -81,30 +73,17 @@ export class AppComponent implements OnDestroy, AfterViewInit {
     const browserCultureLang = this.translateService.getBrowserCultureLang();
 
     this.translateService.use(browserCultureLang || 'en');
+
+    this.translateService
+      .get('PrimeNG')
+      ?.pipe(first())
+      .subscribe((result) => {
+        this.primeNgConfig.setTranslation(result);
+      });
   }
 
-  private initializeTimelineConfigurationObservables(): void {
-    this.timelineStartDate = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.startDate));
-
-    this.timelineEndDate = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.endDate));
-
-    this.timelineTasksStateSortOrder = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.order));
-
-    this.timelineTasksStateFilter = this.viewConfigurationService
-      .getTimelineConfiguration()
-      .pipe(map((config) => config.filter));
-  }
-
-  private initializeTableConfigurationObservables(): void {
-    this.tableSort = this.viewConfigurationService
-      .getTableConfiguration()
-      .pipe(map((config) => config.sort));
+  private initializeIsAppVisibleObservable(): void {
+    this.isAppVisible = new BehaviorSubject(false);
   }
 
   private initializeUsernameObservable(): void {
@@ -116,32 +95,61 @@ export class AppComponent implements OnDestroy, AfterViewInit {
   }
 
   private subscribeToUserChanges(): void {
-    this.subscription = this.userService
-      .getUserData()
-      .pipe(debounceTime(200))
-      .subscribe((state) => {
-        if (!state.isLogged && !state.isOfflineMode) {
-          this.isAppVisible = false;
-          this.dialogService.openSignInModal();
-        } else {
-          this.isAppVisible = true;
-        }
-      });
+    !this.subscription && (this.subscription = new Subscription());
+
+    this.subscription.add(
+      this.userService
+        .getUserData()
+        .pipe(
+          debounceTime(100),
+          tap((currentUser: CurrentUser) => {
+            if (!currentUser.isLogged && !currentUser.isOfflineMode) {
+              this.isAppVisible.next(false);
+            } else {
+              this.isAppVisible.next(true);
+              this.centerTimeline.next();
+            }
+          }),
+        )
+        .subscribe(),
+    );
   }
 
-  private centerTimelineScrollOnTodayColumn(): void {
-    this.timelineStartDate?.pipe(first()).subscribe((startDate) => {
-      const element = this.timelineElementRef.elementRef.nativeElement;
+  private subscribeToCenterTimeline(): void {
+    !this.subscription && (this.subscription = new Subscription());
 
-      const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
-      const timelineContentMargin = UNIT;
-      const elementClientWidth = element.clientWidth;
-      const columnsInView = elementClientWidth / COLUMN_WIDTH;
+    this.subscription.add(
+      this.centerTimeline
+        .asObservable()
+        .pipe(
+          debounceTime(10),
+          mergeMap(() => this.centerTimelineScrollOnTodayColumn()),
+        )
+        .subscribe(),
+    );
+  }
 
-      const scrollLeft =
-        offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
+  private centerTimelineScrollOnTodayColumn(): Observable<void> {
+    return this.viewConfigurationService.getTimelineConfiguration().pipe(
+      map((config) => config.startDate),
+      tap((startDate: Date) => {
+        const element = this.timelineElementRef?.nativeElement;
 
-      element.scrollLeft = scrollLeft;
-    });
+        if (element) {
+          const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
+          const timelineContentMargin = UNIT;
+          const elementClientWidth = element.clientWidth;
+          const columnsInView = elementClientWidth / COLUMN_WIDTH;
+
+          const scrollLeft =
+            offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
+
+          element.scrollLeft = scrollLeft;
+        }
+      }),
+      map(() => {
+        return;
+      }),
+    );
   }
 }

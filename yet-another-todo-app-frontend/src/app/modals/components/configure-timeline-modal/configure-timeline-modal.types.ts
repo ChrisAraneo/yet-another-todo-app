@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { TaskState } from 'src/app/shared/models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 
 export type ConfigureTimelineModalData = {
   startDate: Date;

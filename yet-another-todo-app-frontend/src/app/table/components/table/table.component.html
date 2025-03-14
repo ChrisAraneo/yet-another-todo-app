@@ -23,7 +23,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         <span>{{ 'Table.description' | translate }}</span>
       </th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      <td mat-cell *matCellDef="let element">
+        <yata-paragraph>{{ element.description }}</yata-paragraph>
     </ng-container>
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -78,3 +79,4 @@
     [attr.aria-label]="'Table.paginatorLabel' | translate">
   </mat-paginator>
 </div>
+<router-outlet></router-outlet>

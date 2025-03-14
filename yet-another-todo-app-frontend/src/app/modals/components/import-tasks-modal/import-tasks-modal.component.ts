@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UnzipTasksService } from 'src/app/shared/services/unzip-tasks/unzip-tasks.service';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { ImportTasksForm } from './import-tasks-modal.types';
 
 @Component({
   selector: 'yata-import-tasks-modal',
   templateUrl: './import-tasks-modal.component.html',
   styleUrls: ['./import-tasks-modal.component.scss'],
+  animations: [fadeInOut],
 })
 export class ImportTasksModalComponent {
   static readonly PANEL_CLASS = 'import-tasks-modal';

@@ -1,0 +1,50 @@
+{
+  "name": "yet-another-todo-app",
+  "version": "0.3.0",
+  "description": "Developing a simple daily planner that I would personally use",
+  "scripts": {
+    "start:mock": "concurrently \"npm --prefix ./yet-another-todo-app-mock/ run mock\" \"npm --prefix ./yet-another-todo-app-frontend/ run start\"",
+    "install:frontend": "npm --prefix ./yet-another-todo-app-frontend/ install",
+    "install:backend": "npm --prefix ./yet-another-todo-app-backend/ install",
+    "install:dev-scripts": "npm --prefix ./yet-another-todo-app-dev-scripts/ install",
+    "install:mock": "npm --prefix ./yet-another-todo-app-mock/ install",
+    "install:shared": "npm --prefix ./yet-another-todo-app-shared/ install",
+    "lint": "concurrently \"npm run lint:*\"",
+    "lint:frontend": "npm --prefix ./yet-another-todo-app-frontend/ run lint",
+    "lint:backend": "npm --prefix ./yet-another-todo-app-backend/ run lint",
+    "lint:dev-scripts": "npm --prefix ./yet-another-todo-app-dev-scripts/ run lint",
+    "lint:mock": "npm --prefix ./yet-another-todo-app-mock/ run lint",
+    "lint:shared": "npm --prefix ./yet-another-todo-app-shared/ run lint",
+    "format": "concurrently \"npm run format:*\"",
+    "format:frontend": "npm --prefix ./yet-another-todo-app-frontend/ run format",
+    "format:backend": "npm --prefix ./yet-another-todo-app-backend/ run format",
+    "format:dev-scripts": "npm --prefix ./yet-another-todo-app-dev-scripts/ run format",
+    "format:mock": "npm --prefix ./yet-another-todo-app-mock/ run format",
+    "format:shared": "npm --prefix ./yet-another-todo-app-shared/ run format",
+    "chores": "npm run lint && npm run format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisAraneo/yet-another-todo-app.git"
+  },
+  "keywords": [
+    "angular",
+    "typescript",
+    "rxjs",
+    "ngrx",
+    "todolist",
+    "todoapp",
+    "nestjs",
+    "nestjs-backend",
+    "daily-planner"
+  ],
+  "author": "Krzysztof Pająk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChrisAraneo/yet-another-todo-app/issues"
+  },
+  "homepage": "https://github.com/ChrisAraneo/yet-another-todo-app#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

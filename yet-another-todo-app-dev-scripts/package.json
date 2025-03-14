@@ -1,0 +1,29 @@
+{
+  "name": "yet-another-todo-dev-scripts",
+  "version": "0.3.0",
+  "scripts": {
+    "lint": "eslint \"src/**/*.{ts,json}\" --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.json\" \"src/**/*.js\"",
+    "copy-config": "node src/copy-theme-config-file",
+    "theme-generator": "esbuild src/theme-generator.ts --bundle --platform=node --outfile=dist/theme-generator.js && npm run copy-config && node dist/theme-generator.js"
+  },
+  "author": "Krzysztof Pająk",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "babel-jest": "^29.7.0",
+    "esbuild": "^0.19.5",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jsonc": "^2.10.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.3",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "material-palette": "^1.0.0",
+    "yet-another-todo-app": "file:.."
+  }
+}

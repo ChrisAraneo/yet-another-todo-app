@@ -1,26 +1,12 @@
-<yata-app-wrapper [isAppVisible]="isAppVisible">
+<yata-app-wrapper [isAppVisible]="!!(isAppVisible | async)">
   <yata-toolbar
     [title]="'App.title' | translate"
     [username]="username | async"
     [isOfflineMode]="!!(isOfflineMode | async)"
     (menuClick)="onMenuClick()"></yata-toolbar>
   <main>
-    <yata-side-navigation
-      [isOpened]="isMenuOpened"
-      [mode]="appMode"
-      (modeChange)="changeAppMode($event)"></yata-side-navigation>
-    <yata-timeline
-      #timeline
-      *ngIf="appMode === timelineMode"
-      [startDate]="timelineStartDate | async"
-      [endDate]="timelineEndDate | async"
-      [tasksStateSortOrder]="(timelineTasksStateSortOrder | async) || []"
-      [tasksStateFilter]="(timelineTasksStateFilter | async) || []"
-      (changeStartDate)="changeStartDate($event)"
-      (changeEndDate)="changeEndDate($event)"></yata-timeline>
-    <div class="table-wrapper" *ngIf="appMode === tableMode">
-      <yata-table [sort]="tableSort | async"></yata-table>
-    </div>
+    <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
+    <router-outlet (activate)="onRouterOutletActivated($event)"></router-outlet>
   </main>
   <yata-footer></yata-footer>
 </yata-app-wrapper>

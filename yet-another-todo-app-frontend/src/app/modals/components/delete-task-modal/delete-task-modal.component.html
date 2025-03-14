@@ -1,25 +1,26 @@
-<yata-title class="modal-title">{{ 'DeleteTaskModal.modalTitle' | translate }}</yata-title>
-<form [formGroup]="taskForm" *ngIf="!!taskForm; else empty">
-  <yata-select
-    [formControlName]="'task'"
-    [label]="'DeleteTaskModal.selectTask' | translate"
-    [options]="(tasks | async) || []"></yata-select>
-  <ng-container *ngIf="taskForm.value.task">
+<div class="figure"></div>
+<div class="form">
+  <yata-modal-title>{{ 'DeleteTaskModal.modalTitle' | translate }}</yata-modal-title>
+  <!-- TODO Handle empty -->
+  <form *ngIf="form" [formGroup]="form">
+    <div class="controls">
+      <yata-page [@fadeInOut]>
+        <yata-select
+          [formControlName]="'task'"
+          [label]="'DeleteTaskModal.selectTask' | translate"
+          [options]="(tasks | async) || []"
+          [inline]="true"></yata-select>
+      </yata-page>
+    </div>
     <yata-modal-action-buttons
-      [form]="taskForm"
+      *ngIf="form.value.task"
+      [form]="form"
       [submitButton]="{
         label: 'DeleteTaskModal.delete',
         click: submit,
         color: 'warn',
         icon: 'delete'
-      }"
-      [cancelButton]="{ label: 'DeleteTaskModal.cancel', click: cancel }">
+      }">
     </yata-modal-action-buttons>
-  </ng-container>
-</form>
-
-<ng-template #empty>
-  <yata-empty-info-box
-    [caption]="'DeleteTaskModal.emptyCaption' | translate"
-    [hint]="'DeleteTaskModal.emptyHint' | translate"></yata-empty-info-box>
-</ng-template>
+  </form>
+</div>

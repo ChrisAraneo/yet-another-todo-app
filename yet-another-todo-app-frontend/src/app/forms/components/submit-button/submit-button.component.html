@@ -13,7 +13,7 @@
     <mat-icon>{{ icon }}</mat-icon>
     <ng-content></ng-content>
     <div class="spinner-wrapper">
-      <mat-spinner [diameter]="22" *ngIf="isLoading"></mat-spinner>
+      <mat-spinner [diameter]="spinnerDiameter" *ngIf="isLoading"></mat-spinner>
     </div>
   </div>
 </ng-template>

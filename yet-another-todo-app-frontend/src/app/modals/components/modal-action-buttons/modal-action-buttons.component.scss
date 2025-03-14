@@ -1,12 +1,13 @@
-@import '../../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.__generated.scss';
 
 .actions {
   display: flex;
   flex-direction: row;
-  justify-content: end;
-  margin-top: $_32unit;
+  justify-content: space-between;
+  margin: 0;
+  padding: $_16unit;
 }
 
-yata-cancel-button {
-  margin-right: $_16unit;
+.first-step {
+  justify-content: flex-end;
 }

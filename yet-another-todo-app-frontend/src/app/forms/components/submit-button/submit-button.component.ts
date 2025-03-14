@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-const NOOP = async (): Promise<void> => {
-  return;
-};
+import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
   selector: 'yata-submit-button',
@@ -15,6 +12,8 @@ export class SubmitButtonComponent {
   @Input() submit: (event?: any) => Promise<void> = NOOP;
   @Input() color: string = 'primary';
   @Input() icon?: string;
+
+  readonly spinnerDiameter = 24;
 
   isLoading: boolean = false;
 

@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '../../../../shared/styles/variables.scss';
+@import '../../../../shared/styles/variables.__generated.scss';
 
 ::ng-deep .sign-out-button-wrapper {
   .mdc-icon-button {
@@ -7,6 +7,7 @@
       width: $_24unit;
       height: $_24unit;
       font-size: $_24unit;
+      color: $background-color;
     }
   }
 }

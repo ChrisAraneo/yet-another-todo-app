@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { FormsModule } from '../forms/forms.module';
+import { ImageModule } from '../shared/components/image/image.module';
+import { TaskCardModule } from '../shared/components/task-card/task-card.module';
 import { MaterialModule } from '../shared/material.module';
 import { ApiClientService } from '../shared/services/api-client/api-client.service';
 import { AuthService } from '../shared/services/auth/auth.service';
@@ -20,15 +22,20 @@ import { ConfigureTimelineModalComponent } from './components/configure-timeline
 import { DragDropTaskOrderListComponent } from './components/configure-timeline-modal/drag-drop-task-order-list/drag-drop-task-order-list.component';
 import { DeleteTaskModalComponent } from './components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from './components/edit-task-modal/edit-task-modal.component';
+import { EmptyDialogComponent } from './components/empty-dialog/empty-dialog.component';
 import { ExportTasksModalComponent } from './components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from './components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from './components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { ModalActionButtonsComponent } from './components/modal-action-buttons/modal-action-buttons.component';
+import { ModalLauncherComponent } from './components/modal-launcher/modal-launcher.component';
+import { ModalTitleComponent } from './components/modal-title/modal-title.component';
+import { PageComponent } from './components/page/page.component';
 import { SignInModalComponent } from './components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './services/dialog/dialog.service';
 
 @NgModule({
   declarations: [
+    ModalTitleComponent,
     ModalActionButtonsComponent,
     AddTaskModalComponent,
     DeleteTaskModalComponent,
@@ -40,6 +47,9 @@ import { DialogService } from './services/dialog/dialog.service';
     DragDropTaskOrderListComponent,
     ConfigureTimelineModalComponent,
     ConfigureTableModalComponent,
+    EmptyDialogComponent,
+    ModalLauncherComponent,
+    PageComponent,
   ],
   imports: [
     SharedModule,
@@ -56,6 +66,8 @@ import { DialogService } from './services/dialog/dialog.service';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MaterialModule,
+    TaskCardModule,
+    ImageModule,
   ],
   providers: [
     DateUtilsService,
@@ -67,5 +79,6 @@ import { DialogService } from './services/dialog/dialog.service';
     TaskCreatorService,
     DialogService,
   ],
+  exports: [ModalLauncherComponent],
 })
 export class ModalsModule {}

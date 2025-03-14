@@ -1,8 +1,12 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { AppMode } from 'src/app/app.types';
-import { DialogService } from 'src/app/modals/services/dialog/dialog.service';
-import { BORDER, UNIT } from 'src/app/shared/styles/theme';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subscription, map, mergeMap } from 'rxjs';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
+import { AppMode } from 'src/app/shared/store/types/view-configuration.type';
+import { BORDER, UNIT } from 'src/app/shared/styles/theme.__generated';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationItem } from './side-navigation.types';
 
 @Component({
@@ -30,120 +34,159 @@ import { NavigationItem } from './side-navigation.types';
     ]),
   ],
 })
-export class SideNavigationComponent implements OnChanges {
+export class SideNavigationComponent implements OnInit, OnDestroy {
   @Input() isOpened: boolean = true;
-  @Input() mode: AppMode = AppMode.Timeline;
-
-  @Output() modeChange: EventEmitter<AppMode> = new EventEmitter<AppMode>();
 
   items: NavigationItem[] = [];
 
-  constructor(private dialogService: DialogService) {}
+  private subscription?: Subscription;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    const currentMode = changes['mode'] && changes['mode'].currentValue;
-    const previousMode = changes['mode'] && changes['mode'].previousValue;
+  constructor(
+    private viewConfigurationService: ViewConfigurationService,
+    private tasksService: TasksService,
+    private navigationService: NavigationService,
+  ) {}
 
-    if (currentMode !== previousMode) {
-      this.updateNavigationItems(currentMode);
-    }
+  ngOnInit(): void {
+    this.subscribeToChanges();
   }
 
-  private updateNavigationItems(mode: AppMode): void {
+  ngOnDestroy(): void {
+    this.subscription && this.subscription.unsubscribe();
+  }
+
+  private updateNavigationItems(mode?: AppMode, tasks?: Task[]): void {
+    if (!mode || mode === AppMode.Undefined) {
+      this.items = [];
+
+      return;
+    }
+
+    const firstTask = (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
+
     const showTable = {
       icon: 'list',
       label: 'SideNavigation.tableView',
-      click: (): void => {
-        this.modeChange.emit(AppMode.Table);
+      active: mode === AppMode.Table,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToTableRoute();
       },
     };
 
     const showTimeline = {
       icon: 'event_note',
       label: 'SideNavigation.timelineView',
-      click: (): void => {
-        this.modeChange.emit(AppMode.Timeline);
+      active: mode === AppMode.Timeline,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToTimelineRoute();
       },
     };
 
     const configureTable = {
       icon: 'settings',
       label: 'SideNavigation.configureTable',
-      click: (): void => {
-        this.dialogService.openConfigureTableModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToConfigureRoute();
+        this.activateNavigationItem(2);
       },
     };
 
     const configureTimeline = {
       icon: 'settings',
       label: 'SideNavigation.configureTimeline',
-      click: (): void => {
-        this.dialogService.openConfigureTimelineModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToConfigureRoute();
+        this.activateNavigationItem(2);
       },
     };
 
     const addTask = {
       icon: 'add',
       label: 'SideNavigation.addTask',
-      click: (): void => {
-        this.dialogService.openAddTaskModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToAddTaskRoute();
+        this.activateNavigationItem(3);
       },
     };
 
     const editTask = {
       icon: 'edit',
       label: 'SideNavigation.editTask',
-      click: (): void => {
-        this.dialogService.openEditTaskModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToEditTaskRoute(firstTask?.getId() || '');
+        this.activateNavigationItem(4);
       },
     };
 
     const deleteTask = {
       icon: 'delete',
       label: 'SideNavigation.deleteTask',
-      click: (): void => {
-        this.dialogService.openDeleteTaskModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToDeleteTaskRoute(firstTask?.getId() || '');
+        this.activateNavigationItem(5);
       },
     };
 
     const exportTasks = {
       icon: 'folder_zip',
       label: 'SideNavigation.exportTasks',
-      click: (): void => {
-        this.dialogService.openExportTasksModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToExportTasksRoute();
+        this.activateNavigationItem(6);
       },
     };
 
     const importTasks = {
       icon: 'drive_folder_upload',
       label: 'SideNavigation.importTasks',
-      click: (): void => {
-        this.dialogService.openImportTasksModal();
+      active: false,
+      click: async (): Promise<void> => {
+        await this.navigationService.navigateToImportTasksRoute();
+        this.activateNavigationItem(7);
       },
     };
 
-    if (mode === AppMode.Timeline) {
-      this.items = [
-        showTable,
-        configureTimeline,
-        addTask,
-        editTask,
-        deleteTask,
-        exportTasks,
-        importTasks,
-      ];
-    } else if (mode === AppMode.Table) {
-      this.items = [
-        showTimeline,
-        configureTable,
-        addTask,
-        editTask,
-        deleteTask,
-        exportTasks,
-        importTasks,
-      ];
-    } else {
-      throw Error(`Cannot set side navigation items, the app mode is invalid: ${mode}`);
-    }
+    this.items = [
+      showTimeline,
+      showTable,
+      mode === AppMode.Timeline ? configureTimeline : configureTable,
+      addTask,
+      editTask,
+      deleteTask,
+      exportTasks,
+      importTasks,
+    ];
+  }
+
+  private subscribeToChanges(): void {
+    this.subscription = this.viewConfigurationService
+      .getAppMode()
+      .pipe(
+        mergeMap((mode) => {
+          return this.tasksService.getTasks().pipe(
+            map((tasks) => {
+              return {
+                mode,
+                tasks,
+              };
+            }),
+          );
+        }),
+      )
+      .subscribe(({ mode, tasks }) => {
+        this.updateNavigationItems(mode, tasks);
+      });
+  }
+
+  private activateNavigationItem(index: number): void {
+    this.items.forEach((item, i) => {
+      item.active = i === index;
+    });
   }
 }

@@ -1,4 +1,4 @@
-@import '../../../../shared/styles/variables.scss';
+@import '../../../../shared/styles/variables.__generated.scss';
 
 :host {
   box-sizing: border-box;
@@ -20,4 +20,5 @@ yata-task-card {
   min-height: 100%;
   padding-left: $_8unit;
   padding-right: $_8unit;
+  background-color: transparent;
 }

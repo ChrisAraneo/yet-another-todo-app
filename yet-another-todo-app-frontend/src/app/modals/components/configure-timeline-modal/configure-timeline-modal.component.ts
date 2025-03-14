@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TaskState } from 'src/app/shared/models/task-state.model';
 import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import {
   ConfigureTimelineForm,
   ConfigureTimelineModalData,

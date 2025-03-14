@@ -1,10 +1,12 @@
-@import './variables.scss';
+// Use theme-generator from yet-another-todo-app-dev-scripts
+// to generate theme variables (color palettes, units etc.)
+@import './variables.__generated.scss';
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 400;
   font-size: $_16unit;
 }

@@ -1,12 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import {
   CompletedTaskState,
+  EndedTask,
   InProgressTaskState,
   NotStartedTaskState,
+  PendingTask,
   RejectedTaskState,
+  StartedTask,
   SuspendedTaskState,
-} from 'src/app/shared/models/task-state.model';
-import { EndedTask, PendingTask, StartedTask } from 'src/app/shared/models/task.model';
+} from '../../../../../yet-another-todo-app-shared';
 import { TimelineTaskManagerService } from './timeline-task-manager.service';
 
 describe('TimelineTaskManagerService', () => {

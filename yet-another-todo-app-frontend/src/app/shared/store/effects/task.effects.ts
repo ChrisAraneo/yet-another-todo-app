@@ -4,7 +4,7 @@ import { createAction } from '@ngrx/store';
 import { from, map, mergeMap, of } from 'rxjs';
 import { ApiClientService } from 'src/app/shared/services/api-client/api-client.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { Task } from '../../models/task.model';
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { TaskTransformerService } from '../../services/task-transformer/task-transformer.service';
 import {
   CREATE_TASK_API,

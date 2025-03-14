@@ -1,7 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateTestingModule } from 'ngx-translate-testing';
-import * as json from '../../../../assets/i18n/en.json';
-import { Option } from '../../../forms/components/select/select.types';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -9,7 +7,9 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../models/task-state.model';
+} from '../../../../../../yet-another-todo-app-shared';
+import * as json from '../../../../assets/i18n/en.json';
+import { Option } from '../../../forms/components/select/select.types';
 import { TaskStateTranslatorService } from './task-state-translator.service';
 
 describe('TaskStateTranslatorService', () => {

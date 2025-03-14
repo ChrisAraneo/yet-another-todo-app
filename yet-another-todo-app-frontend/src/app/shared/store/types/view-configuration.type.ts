@@ -1,5 +1,11 @@
 import { MatSortable } from '@angular/material/sort';
-import { TaskState } from '../../models/task-state.model';
+import { TaskState } from '../../../../../../yet-another-todo-app-shared';
+
+export enum AppMode {
+  Timeline = 'TIMELINE',
+  Table = 'TABLE',
+  Undefined = 'UNDEFINED',
+}
 
 export type TimelineConfiguration = {
   startDate: Date;
@@ -13,6 +19,7 @@ export type TableConfiguration = {
 };
 
 export type ViewConfiguration = {
+  mode: AppMode;
   timeline: TimelineConfiguration;
   table: TableConfiguration;
 };

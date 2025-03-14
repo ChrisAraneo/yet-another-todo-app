@@ -1,16 +1,18 @@
 @use 'sass:math';
-@import '../../../shared/styles/variables.scss';
+@import '../../../shared/styles/variables.__generated.scss';
 
 :host {
   box-sizing: border-box;
   border-top: $border;
   padding: $_6unit $_8unit;
   margin: 0;
+  background-color: $background-color;
 
   span,
   a {
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 400;
     font-size: $_12unit;
-    color: #333333;
+    color: $label-text-color;
   }
 }

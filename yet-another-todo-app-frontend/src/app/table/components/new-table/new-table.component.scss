@@ -1,0 +1,90 @@
+@use 'sass:math';
+@import '../../../shared/styles/variables.__generated.scss';
+
+$paginator-height: $_64unit;
+$grid-header-height: $_64unit;
+$grid-table-height: calc(100vh - $_128unit - $_32unit - $paginator-height - $grid-header-height);
+
+:host {
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+}
+
+.grid-table,
+.grid-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 3fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 0;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+.grid-header {
+  box-sizing: border-box;
+  background-color: $background-color;
+  height: $grid-header-height;
+  border: $border;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+
+  .grid-cell {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: $_64unit;
+    padding-left: $_16unit;
+    padding-right: $_16unit;
+    border: $border;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.grid-table {
+  box-sizing: border-box;
+  background-color: $background-color;
+  height: $grid-table-height;
+  overflow-y: scroll;
+
+  .grid-cell {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: $_64unit;
+    padding-left: $_16unit;
+    padding-right: $_16unit;
+    border: $border;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    &.last {
+      border-bottom-color: transparent;
+    }
+  }
+}
+
+.paginator {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: $_64unit;
+  padding-left: $_16unit;
+  padding-right: $_16unit;
+  box-sizing: border-box;
+  border: $border;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  background-color: $background-color;
+}

@@ -17,17 +17,18 @@ import { AddTaskModalComponent } from 'src/app/modals/components/add-task-modal/
 import { DeleteTaskModalComponent } from 'src/app/modals/components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from 'src/app/modals/components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from 'src/app/modals/components/sign-in-modal/sign-in-modal.component';
+import { NavigationService } from 'src/app/shared/services/navigation/navigation.service';
+import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
+import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from 'src/app/shared/styles/theme.__generated';
+import { environment } from 'src/environments/environment';
 import {
   CompletedTaskState,
   InProgressTaskState,
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
-} from 'src/app/shared/models/task-state.model';
-import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
-import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
-import { DIALOG_WIDTH } from 'src/app/shared/styles/theme';
-import { environment } from 'src/environments/environment';
+} from '../../../../../../yet-another-todo-app-shared';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
@@ -37,6 +38,7 @@ import { DialogService } from './dialog.service';
 describe('DialogService', () => {
   let service: DialogService;
   let matDialog: MatDialog;
+  let timeout: number;
   const dummyConfiguration = {
     timeline: {
       startDate: new Date('2023-01-02'),
@@ -92,120 +94,170 @@ describe('DialogService', () => {
           getTimelineConfiguration: () => of(dummyConfiguration.timeline),
           getTableConfiguration: () => of({ ...dummyConfiguration.table } as { sort: MatSortable }),
         }),
+        MockProvider(NavigationService),
         FormBuilder,
       ],
     });
     service = TestBed.inject(DialogService);
     matDialog = service.dialog;
+    timeout = 20;
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#openAddTaskModal should open dialog with AddTaskModalComponent', () => {
+  it('#openAddTaskModal should open dialog with AddTaskModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openAddTaskModal();
+    const subscription = service.openAddTaskModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(AddTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: AddTaskModalComponent.PANEL_CLASS,
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(AddTaskModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: AddTaskModalComponent.PANEL_CLASS,
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openEditTaskModal should open dialog with EditTaskModalComponent', () => {
+  it('#openEditTaskModal should open dialog with EditTaskModalComponent', (done) => {
     const taskId = 'taskId';
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openEditTaskModal(taskId);
+    const subscription = service.openEditTaskModal(taskId).subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(EditTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: EditTaskModalComponent.PANEL_CLASS,
-      data: {
-        initialTaskId: taskId,
-      },
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(EditTaskModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: EditTaskModalComponent.PANEL_CLASS,
+        data: {
+          initialTaskId: taskId,
+        },
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openDeleteTaskModal should open dialog with DeleteTaskModalComponent', () => {
+  it('#openDeleteTaskModal should open dialog with DeleteTaskModalComponent', (done) => {
     const taskId = 'taskId';
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openDeleteTaskModal(taskId);
+    const subscription = service.openDeleteTaskModal(taskId).subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(DeleteTaskModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: DeleteTaskModalComponent.PANEL_CLASS,
-      data: {
-        initialTaskId: taskId,
-      },
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(DeleteTaskModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: DeleteTaskModalComponent.PANEL_CLASS,
+        data: {
+          initialTaskId: taskId,
+        },
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openSignInModal should open dialog with SignInModalComponent', () => {
+  it('#openSignInModal should open dialog with SignInModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openSignInModal();
+    const subscription = service.openSignInModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(SignInModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: SignInModalComponent.PANEL_CLASS,
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(SignInModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: SignInModalComponent.PANEL_CLASS,
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openExportTasksModal should open dialog with ExportTasksModalComponent', () => {
+  it('#openExportTasksModal should open dialog with ExportTasksModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openExportTasksModal();
+    const subscription = service.openExportTasksModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(ExportTasksModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: ExportTasksModalComponent.PANEL_CLASS,
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(ExportTasksModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: ExportTasksModalComponent.PANEL_CLASS,
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openImportTasksModal should open dialog with ImportTasksModalComponent', () => {
+  it('#openImportTasksModal should open dialog with ImportTasksModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openImportTasksModal();
+    const subscription = service.openImportTasksModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(ImportTasksModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: ImportTasksModalComponent.PANEL_CLASS,
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(ImportTasksModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: ImportTasksModalComponent.PANEL_CLASS,
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openConfigureTimelineModal should open dialog with ConfigureTimelineModalComponent', () => {
+  it('#openConfigureTimelineModal should open dialog with ConfigureTimelineModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openConfigureTimelineModal();
+    const subscription = service.openConfigureTimelineModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
-      data: {
-        startDate: dummyConfiguration.timeline.startDate,
-        endDate: dummyConfiguration.timeline.endDate,
-        statesOrder: dummyConfiguration.timeline.order,
-        statesFilter: dummyConfiguration.timeline.filter,
-      },
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(ConfigureTimelineModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: ConfigureTimelineModalComponent.PANEL_CLASS,
+        data: {
+          startDate: dummyConfiguration.timeline.startDate,
+          endDate: dummyConfiguration.timeline.endDate,
+          statesOrder: dummyConfiguration.timeline.order,
+          statesFilter: dummyConfiguration.timeline.filter,
+        },
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 
-  it('#openConfigureTableModal should open dialog with ConfigureTableModalComponent', () => {
+  it('#openConfigureTableModal should open dialog with ConfigureTableModalComponent', (done) => {
     spyOn(matDialog, 'open').and.callThrough();
 
-    service.openConfigureTableModal();
+    const subscription = service.openConfigureTableModal().subscribe();
 
-    expect(matDialog.open).toHaveBeenCalledWith(ConfigureTableModalComponent, {
-      width: DIALOG_WIDTH,
-      panelClass: ConfigureTableModalComponent.PANEL_CLASS,
-      data: {
-        id: dummyConfiguration.table.sort.id,
-        direction: dummyConfiguration.table.sort.start,
-      },
-    });
+    setTimeout(() => {
+      expect(matDialog.open).toHaveBeenCalledWith(ConfigureTableModalComponent, {
+        width: DIALOG_WIDTH,
+        height: DIALOG_HEIGHT,
+        panelClass: ConfigureTableModalComponent.PANEL_CLASS,
+        data: {
+          id: dummyConfiguration.table.sort.id,
+          direction: dummyConfiguration.table.sort.start,
+        },
+      });
+
+      subscription.unsubscribe();
+      done();
+    }, timeout);
   });
 });

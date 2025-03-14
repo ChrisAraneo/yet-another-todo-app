@@ -1,42 +1,60 @@
 @use 'sass:math';
-@import '../../../../shared/styles/variables.scss';
+@import '../../../../shared/styles/variables.__generated.scss';
 
 .select-import-action-modal .mat-mdc-dialog-container {
   > div {
-    display: flex;
-    flex-direction: column;
-    border: $border;
-    border-radius: 0;
+    border: none;
     padding: 0;
     margin: 0;
   }
 
   .mat-mdc-dialog-surface {
-    border-radius: 0;
+    border: none;
+    border-radius: $dialog-border-radius;
+    background-color: $background-color;
+  }
+
+  yata-select-import-action-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+
+    .form {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+      align-content: center;
+    }
   }
 
   form {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    padding: $_32unit;
-  }
+    justify-content: space-between;
+    height: 100%;
 
-  .modal-title {
-    h1 {
-      padding: $_16unit $_32unit;
-      border-bottom: $border;
+    .controls {
+      width: $_48unit * 10;
+      height: auto;
+
+      yata-page {
+        position: absolute;
+        width: $_48unit * 10;
+
+        .mat-mdc-radio-group {
+          .mat-mdc-radio-button {
+            .mdc-form-field {
+              margin-bottom: $_16unit !important;
+            }
+          }
+        }
+      }
     }
-  }
-
-  yata-text-input,
-  yata-textarea,
-  yata-select,
-  yata-date-picker {
-    margin-bottom: $_16unit;
-  }
-
-  button {
-    margin-top: $_32unit;
   }
 }

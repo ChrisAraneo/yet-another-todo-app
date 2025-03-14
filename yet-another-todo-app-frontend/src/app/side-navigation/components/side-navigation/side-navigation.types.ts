@@ -1,5 +1,6 @@
 export type NavigationItem = {
   icon: string;
   label: string;
-  click: () => void;
+  active: boolean;
+  click: (() => void) | (() => Promise<void>);
 };

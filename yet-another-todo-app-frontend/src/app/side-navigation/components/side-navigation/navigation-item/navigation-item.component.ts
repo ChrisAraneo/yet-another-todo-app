@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
   selector: 'yata-navigation-item',
@@ -8,7 +9,6 @@ import { Component, Input } from '@angular/core';
 export class NavigationItemComponent {
   @Input() label: string = '';
   @Input() icon: string = '';
-  @Input() click: (event: any) => any = () => {
-    return null;
-  };
+  @Input() active: boolean = false;
+  @Input() click: (event: any) => any = NOOP;
 }
