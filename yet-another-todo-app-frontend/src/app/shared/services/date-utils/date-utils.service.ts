@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { add, format, getDaysInMonth, sub } from 'date-fns';
-import differenceInDays from 'date-fns/differenceInDays';
+import { differenceInDays } from 'date-fns/differenceInDays';
 import { UserLocaleService } from '../user-locale/user-locale.service';
 
 @Injectable({
