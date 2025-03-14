@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import {
@@ -34,6 +34,7 @@ import { ConfigureTimelineModalComponent } from '../../components/configure-time
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { DialogService } from './dialog.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DialogService', () => {
   let service: DialogService;
@@ -63,7 +64,7 @@ describe('DialogService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
+    declarations: [
         MockComponent(AddTaskModalComponent),
         MockComponent(EditTaskModalComponent),
         MockComponent(DeleteTaskModalComponent),
@@ -72,32 +73,33 @@ describe('DialogService', () => {
         MockComponent(ImportTasksModalComponent),
         MockComponent(ConfigureTimelineModalComponent),
         MockComponent(ConfigureTableModalComponent),
-      ],
-      imports: [
-        MatDialogModule,
+    ],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         { provide: 'API', useValue: environment.api },
         MockProvider(Store, {
-          select: () => {
-            return of({ ...dummyConfiguration });
-          },
+            select: () => {
+                return of({ ...dummyConfiguration });
+            },
         }),
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),
         MockProvider(ViewConfigurationService, {
-          getTimelineConfiguration: () => of(dummyConfiguration.timeline),
-          getTableConfiguration: () => of({ ...dummyConfiguration.table } as { sort: MatSortable }),
+            getTimelineConfiguration: () => of(dummyConfiguration.timeline),
+            getTableConfiguration: () => of({ ...dummyConfiguration.table } as {
+                sort: MatSortable;
+            }),
         }),
         MockProvider(NavigationService),
         FormBuilder,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(DialogService);
     matDialog = service.dialog;
     timeout = 20;

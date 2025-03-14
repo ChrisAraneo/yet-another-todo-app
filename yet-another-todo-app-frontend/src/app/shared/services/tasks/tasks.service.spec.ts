@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
@@ -23,6 +23,7 @@ import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 import { TasksService } from './tasks.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 // TODO Update imports
 
@@ -161,31 +162,34 @@ describe('TasksService', () => {
     hiddenDummyTasks = dummyTasks.filter((task) => task.getIsHidden());
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         MockProvider(ApiClientService, {
-          fetchTasksFromApi: () => new Promise((resolve) => resolve([])),
+            fetchTasksFromApi: () => new Promise((resolve) => resolve([])),
         }),
         MockProvider(UserService, {
-          getIsUserLogged: () => of(true),
-          getIsOfflineMode: () => of(false),
+            getIsUserLogged: () => of(true),
+            getIsOfflineMode: () => of(false),
         }),
         MockProvider(OperationIdGeneratorService, {
-          generate: () => dummyOperationId,
+            generate: () => dummyOperationId,
         }),
         MockProvider(Store, {
-          select: (key: any) => {
-            if (key === 'tasks') {
-              return of([...dummyTasks]);
-            } else if (key === 'httpLog') {
-              return of({ ...httpLogInitialState });
-            }
-            return of(undefined);
-          },
+            select: (key: any) => {
+                if (key === 'tasks') {
+                    return of([...dummyTasks]);
+                }
+                else if (key === 'httpLog') {
+                    return of({ ...httpLogInitialState });
+                }
+                return of(undefined);
+            },
         }),
         TasksService,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     service = TestBed.inject(TasksService);
     store = service.store;

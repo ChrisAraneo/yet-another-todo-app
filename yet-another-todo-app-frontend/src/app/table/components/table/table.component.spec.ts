@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,6 +8,7 @@ import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { TableComponent } from './table.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('TableComponent', () => {
   let component: TableComponent;
@@ -15,22 +16,21 @@ describe('TableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TableComponent, MockPipe(TranslatePipe)],
-      imports: [
-        MatDialogModule,
+    declarations: [TableComponent, MockPipe(TranslatePipe)],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(TasksService, {
-          getTasks: () => of([]),
-          hideTask: () => of(undefined),
+            getTasks: () => of([]),
+            hideTask: () => of(undefined),
         }),
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

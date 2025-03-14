@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SignInModalComponent } from './sign-in-modal.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('SignInModalComponent', () => {
   let component: SignInModalComponent;
@@ -16,22 +17,21 @@ describe('SignInModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SignInModalComponent, MockPipe(TranslatePipe)],
-      imports: [
-        MatDialogModule,
+    declarations: [SignInModalComponent, MockPipe(TranslatePipe)],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(AuthService, {
-          signIn: () => of({ accessToken: '1010', refreshToken: '2020' }),
+            signIn: () => of({ accessToken: '1010', refreshToken: '2020' }),
         }),
         FormBuilder,
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

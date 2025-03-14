@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -18,37 +18,30 @@ import { TimelineHeaderComponent } from './components/timeline/timeline-header/t
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimelineTaskManagerService } from './services/timeline-task-manager.service';
 
-@NgModule({
-  declarations: [
-    TimelineContentComponent,
-    TimelineHeaderComponent,
-    TimelineComponent,
-    ColumnHighlightComponent,
-  ],
-  imports: [
-    AppRoutingModule,
-    CommonModule,
-    SharedModule,
-    FormsModule,
-    TranslateModule.forRoot({
-      defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    MaterialModule,
-    AngularFormsModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    HttpClientModule,
-    MatNativeDateModule,
-    MaterialModule,
-    ReactiveFormsModule,
-    TaskCardModule,
-  ],
-  providers: [TimelineTaskManagerService],
-  exports: [TimelineComponent],
-})
+@NgModule({ declarations: [
+        TimelineContentComponent,
+        TimelineHeaderComponent,
+        TimelineComponent,
+        ColumnHighlightComponent,
+    ],
+    exports: [TimelineComponent], imports: [AppRoutingModule,
+        CommonModule,
+        SharedModule,
+        FormsModule,
+        TranslateModule.forRoot({
+            defaultLanguage: 'en',
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+        }),
+        MaterialModule,
+        AngularFormsModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        MatNativeDateModule,
+        MaterialModule,
+        ReactiveFormsModule,
+        TaskCardModule], providers: [TimelineTaskManagerService, provideHttpClient(withInterceptorsFromDi())] })
 export class TimelineModule {}

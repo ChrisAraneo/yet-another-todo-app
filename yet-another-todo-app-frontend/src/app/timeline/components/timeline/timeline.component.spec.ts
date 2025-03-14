@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,6 +8,7 @@ import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { TimelineComponent } from './timeline.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('TimelineComponent', () => {
   let component: TimelineComponent;
@@ -15,21 +16,20 @@ describe('TimelineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TimelineComponent, MockPipe(TranslatePipe)],
-      imports: [
-        MatDialogModule,
+    declarations: [TimelineComponent, MockPipe(TranslatePipe)],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(TasksService, {
-          getTasks: () => of([]),
+            getTasks: () => of([]),
         }),
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

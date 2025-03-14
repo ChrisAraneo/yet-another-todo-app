@@ -1,10 +1,11 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { environment } from 'src/environments/environment';
 import { Task, TaskCreator } from '../../../../../../yet-another-todo-app-shared';
 import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { ApiClientService } from './api-client.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ApiClientService', () => {
   let service: ApiClientService;
@@ -15,9 +16,9 @@ describe('ApiClientService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [{ provide: 'API', useValue: environment.api }, ApiClientService],
-    });
+    imports: [],
+    providers: [{ provide: 'API', useValue: environment.api }, ApiClientService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+});
     service = TestBed.inject(ApiClientService);
     httpMock = TestBed.inject(HttpTestingController);
     dummyResponseData = [

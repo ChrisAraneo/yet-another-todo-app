@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { DeleteTaskModalComponent } from './delete-task-modal.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DeleteTaskModalComponent', () => {
   let component: DeleteTaskModalComponent;
@@ -16,23 +17,22 @@ describe('DeleteTaskModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DeleteTaskModalComponent, MockPipe(TranslatePipe)],
-      imports: [
-        MatDialogModule,
+    declarations: [DeleteTaskModalComponent, MockPipe(TranslatePipe)],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         FormBuilder,
         MockProvider(TasksService, {
-          hideTask: () => of(undefined),
-          getTasks: () => of([]),
+            hideTask: () => of(undefined),
+            getTasks: () => of([]),
         }),
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

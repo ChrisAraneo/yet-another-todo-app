@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
@@ -8,6 +8,7 @@ import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AuthService', () => {
   const dummyOperationId = '-';
@@ -16,34 +17,37 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, StoreModule.forRoot({})],
-      providers: [
+    imports: [StoreModule.forRoot({})],
+    providers: [
         { provide: 'API', useValue: environment.api },
         MockProvider(ApiClientService, {
-          signIn: async () => ({
-            accessToken: 'acc3sst0k3n',
-            refreshToken: 'r3fr3shT0k3n',
-          }),
-          refreshAccessToken: async (refreshToken) => {
-            if (refreshToken === 'r3fr3shT0k3n') {
-              return {
-                accessToken: 'acc3sst0k3n_2',
-                refreshToken: 'r3fr3shT0k3n_2',
-              };
-            } else {
-              return null;
-            }
-          },
+            signIn: async () => ({
+                accessToken: 'acc3sst0k3n',
+                refreshToken: 'r3fr3shT0k3n',
+            }),
+            refreshAccessToken: async (refreshToken) => {
+                if (refreshToken === 'r3fr3shT0k3n') {
+                    return {
+                        accessToken: 'acc3sst0k3n_2',
+                        refreshToken: 'r3fr3shT0k3n_2',
+                    };
+                }
+                else {
+                    return null;
+                }
+            },
         }),
         MockProvider(UserService, {
-          getUserData: () => of({ username: 'lorem', isLogged: true, isOfflineMode: false }),
-          getUsername: () => of('lorem'),
+            getUserData: () => of({ username: 'lorem', isLogged: true, isOfflineMode: false }),
+            getUsername: () => of('lorem'),
         }),
         MockProvider(OperationIdGeneratorService, {
-          generate: () => dummyOperationId,
+            generate: () => dummyOperationId,
         }),
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
     service = TestBed.inject(AuthService);
   });
 

@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { TaskStateTranslatorService } from 'src/app/shared/services/task-state-translator/task-state-translator.service';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { AddTaskModalComponent } from './add-task-modal.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('AddTaskModalComponent', () => {
   let component: AddTaskModalComponent;
@@ -17,23 +18,22 @@ describe('AddTaskModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AddTaskModalComponent, MockPipe(TranslatePipe)],
-      imports: [
-        MatDialogModule,
+    declarations: [AddTaskModalComponent, MockPipe(TranslatePipe)],
+    imports: [MatDialogModule,
         NoopAnimationsModule,
-        HttpClientTestingModule,
-        StoreModule.forRoot({}),
-      ],
-      providers: [
+        StoreModule.forRoot({})],
+    providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: [] },
         FormBuilder,
         MockProvider(TasksService, {
-          addTask: () => of(undefined),
+            addTask: () => of(undefined),
         }),
         MockProvider(TaskStateTranslatorService, {}),
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
   });
 
   beforeEach(() => {

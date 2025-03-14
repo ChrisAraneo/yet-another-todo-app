@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockProvider } from 'ng-mocks';
@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { setIsLogged, setIsOfflineMode, setUsername } from '../../store/actions/user.actions';
 import { CurrentUser } from '../../store/types/current-user.type';
 import { UserService } from './user.service';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('UserService', () => {
   let service: UserService;
@@ -20,19 +21,21 @@ describe('UserService', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [
+    imports: [],
+    providers: [
         MockProvider(Store, {
-          select: (key: any) => {
-            if (key === 'user') {
-              return of(dummyCurrentUser);
-            }
-            return of(undefined);
-          },
+            select: (key: any) => {
+                if (key === 'user') {
+                    return of(dummyCurrentUser);
+                }
+                return of(undefined);
+            },
         }),
         UserService,
-      ],
-    });
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+});
 
     service = TestBed.inject(UserService);
     store = service.store;
