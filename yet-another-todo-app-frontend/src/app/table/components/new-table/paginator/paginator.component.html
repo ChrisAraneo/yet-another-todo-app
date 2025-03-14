@@ -49,5 +49,7 @@
     </button>
   </div>
 
-  <yata-select [formControl]="select" [options]="(pageSizeOptions | async) || []"></yata-select>
+  <yata-page-size-select
+    [formControl]="select"
+    [options]="(pageSizeOptions | async) || []"></yata-page-size-select>
 </div>
