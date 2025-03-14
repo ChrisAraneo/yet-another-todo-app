@@ -1,6 +1,6 @@
 {
   "name": "yet-another-todo-shared",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "lint": "eslint \"index.ts\" \"src/**/*.{ts,json}\" --fix",
     "format": "prettier --write \"index.ts\" \"src/**/*.ts\""
@@ -22,6 +22,7 @@
     "typescript": "^5.4.0"
   },
   "dependencies": {
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "yet-another-todo-app": "file:.."
   }
 }

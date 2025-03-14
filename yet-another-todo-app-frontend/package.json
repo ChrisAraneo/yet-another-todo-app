@@ -1,6 +1,6 @@
 {
   "name": "yet-another-todo-app-frontend",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -41,6 +41,7 @@
     "rxjs": "^7.8.1",
     "tslib": "2.4.1",
     "uuid": "9.0.0",
+    "yet-another-todo-app": "file:..",
     "zone.js": "0.13.3"
   },
   "devDependencies": {
