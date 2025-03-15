@@ -19,9 +19,10 @@ import { COLUMN_WIDTH, UNIT } from './shared/styles/theme.__generated';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnDestroy {
   isMenuOpened: boolean = true;

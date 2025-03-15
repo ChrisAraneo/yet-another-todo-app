@@ -5,9 +5,10 @@ import { Task, TaskState } from '../../../../../../../yet-another-todo-app-share
 import { TimelineColumn } from './timeline-content.types';
 
 @Component({
-  selector: 'yata-timeline-content',
-  templateUrl: './timeline-content.component.html',
-  styleUrls: ['./timeline-content.component.scss'],
+    selector: 'yata-timeline-content',
+    templateUrl: './timeline-content.component.html',
+    styleUrls: ['./timeline-content.component.scss'],
+    standalone: false
 })
 export class TimelineContentComponent implements OnChanges {
   @Input() today!: Date;

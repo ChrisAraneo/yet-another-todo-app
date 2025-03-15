@@ -20,10 +20,11 @@ import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { TaskForm } from './add-task-modal.types';
 
 @Component({
-  selector: 'yata-add-task-modal',
-  templateUrl: './add-task-modal.component.html',
-  styleUrls: ['./add-task-modal.component.scss'],
-  animations: [fadeInOut],
+    selector: 'yata-add-task-modal',
+    templateUrl: './add-task-modal.component.html',
+    styleUrls: ['./add-task-modal.component.scss'],
+    animations: [fadeInOut],
+    standalone: false
 })
 export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';

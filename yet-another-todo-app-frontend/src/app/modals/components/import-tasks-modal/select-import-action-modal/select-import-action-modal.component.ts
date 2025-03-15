@@ -9,10 +9,11 @@ import { Task } from '../../../../../../../yet-another-todo-app-shared';
 import { ImportAction } from './select-import-action-modal.types';
 
 @Component({
-  selector: 'yata-select-import-action-modal',
-  templateUrl: './select-import-action-modal.component.html',
-  styleUrls: ['./select-import-action-modal.component.scss'],
-  animations: [fadeInOut],
+    selector: 'yata-select-import-action-modal',
+    templateUrl: './select-import-action-modal.component.html',
+    styleUrls: ['./select-import-action-modal.component.scss'],
+    animations: [fadeInOut],
+    standalone: false
 })
 export class SelectImportActionModalComponent {
   static readonly PANEL_CLASS = 'select-import-action-modal';

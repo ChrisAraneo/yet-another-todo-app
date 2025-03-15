@@ -18,16 +18,17 @@ import { DisplayedOption, Option } from './page-size-select.types';
 // TODO Implement inline display option
 
 @Component({
-  selector: 'yata-page-size-select',
-  templateUrl: './page-size-select.component.html',
-  styleUrls: ['./page-size-select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PageSizeSelectComponent),
-      multi: true,
-    },
-  ],
+    selector: 'yata-page-size-select',
+    templateUrl: './page-size-select.component.html',
+    styleUrls: ['./page-size-select.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PageSizeSelectComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class PageSizeSelectComponent
   implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges

@@ -8,10 +8,11 @@ import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { TaskForm, TaskOption } from './delete-task-modal.types';
 
 @Component({
-  selector: 'yata-delete-task-modal',
-  templateUrl: './delete-task-modal.component.html',
-  styleUrls: ['./delete-task-modal.component.scss'],
-  animations: [fadeInOut],
+    selector: 'yata-delete-task-modal',
+    templateUrl: './delete-task-modal.component.html',
+    styleUrls: ['./delete-task-modal.component.scss'],
+    animations: [fadeInOut],
+    standalone: false
 })
 export class DeleteTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'delete-task-modal';

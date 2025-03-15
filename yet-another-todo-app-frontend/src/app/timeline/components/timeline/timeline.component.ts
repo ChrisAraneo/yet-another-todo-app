@@ -8,9 +8,10 @@ import { Task, TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 
 @Component({
-  selector: 'yata-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss'],
+    selector: 'yata-timeline',
+    templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.scss'],
+    standalone: false
 })
 export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly today = new Date();

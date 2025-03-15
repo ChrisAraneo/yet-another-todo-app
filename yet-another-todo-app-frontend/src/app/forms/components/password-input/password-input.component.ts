@@ -8,16 +8,17 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'yata-password-input',
-  templateUrl: './password-input.component.html',
-  styleUrls: ['./password-input.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => PasswordInputComponent),
-      multi: true,
-    },
-  ],
+    selector: 'yata-password-input',
+    templateUrl: './password-input.component.html',
+    styleUrls: ['./password-input.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => PasswordInputComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class PasswordInputComponent implements ControlValueAccessor, OnInit {
   @Input() label: string = '';

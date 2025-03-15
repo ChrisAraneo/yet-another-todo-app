@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs';
 import { ErrorTooltipComponent } from './components/error-tooltip/error-tooltip.component';
 
 @Directive({
-  selector: '[yataErrorTooltip]',
+    selector: '[yataErrorTooltip]',
+    standalone: false
 })
 export class ErrorTooltipDirective implements OnInit, AfterViewInit, OnDestroy {
   @Input('yataErrorTooltip') label?: string = '';

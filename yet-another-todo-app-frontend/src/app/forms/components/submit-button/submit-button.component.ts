@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
-  selector: 'yata-submit-button',
-  templateUrl: './submit-button.component.html',
-  styleUrls: ['./submit-button.component.scss'],
+    selector: 'yata-submit-button',
+    templateUrl: './submit-button.component.html',
+    styleUrls: ['./submit-button.component.scss'],
+    standalone: false
 })
 export class SubmitButtonComponent {
   @Input() invalid: boolean = false;

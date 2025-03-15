@@ -10,29 +10,24 @@ import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationItem } from './side-navigation.types';
 
 @Component({
-  selector: 'yata-side-navigation',
-  templateUrl: './side-navigation.component.html',
-  styleUrls: ['./side-navigation.component.scss'],
-  animations: [
-    trigger('openClose', [
-      state(
-        'open',
-        style({
-          width: `${UNIT * 4}px`,
-          borderRight: BORDER,
-        }),
-      ),
-      state(
-        'closed',
-        style({
-          width: '0px',
-          borderRight: '0px solid black',
-        }),
-      ),
-      transition('open => closed', [animate('0.175s')]),
-      transition('closed => open', [animate('0.175s')]),
-    ]),
-  ],
+    selector: 'yata-side-navigation',
+    templateUrl: './side-navigation.component.html',
+    styleUrls: ['./side-navigation.component.scss'],
+    animations: [
+        trigger('openClose', [
+            state('open', style({
+                width: `${UNIT * 4}px`,
+                borderRight: BORDER,
+            })),
+            state('closed', style({
+                width: '0px',
+                borderRight: '0px solid black',
+            })),
+            transition('open => closed', [animate('0.175s')]),
+            transition('closed => open', [animate('0.175s')]),
+        ]),
+    ],
+    standalone: false
 })
 export class SideNavigationComponent implements OnInit, OnDestroy {
   @Input() isOpened: boolean = true;

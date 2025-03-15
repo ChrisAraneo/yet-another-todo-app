@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
-  selector: 'yata-next-button',
-  templateUrl: './next-button.component.html',
-  styleUrls: ['./next-button.component.scss'],
+    selector: 'yata-next-button',
+    templateUrl: './next-button.component.html',
+    styleUrls: ['./next-button.component.scss'],
+    standalone: false
 })
 export class NextButtonComponent {
   @Input() next: (event?: any) => Promise<void> = NOOP;

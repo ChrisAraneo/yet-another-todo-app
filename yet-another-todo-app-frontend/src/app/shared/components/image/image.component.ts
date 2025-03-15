@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
-  selector: 'yata-image',
-  templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
+    selector: 'yata-image',
+    templateUrl: './image.component.html',
+    styleUrls: ['./image.component.scss'],
+    standalone: false
 })
 export class ImageComponent implements AfterViewInit {
   @Input({ required: true }) src: string = '';

@@ -14,9 +14,10 @@ import { ImportTasksModalComponent } from '../import-tasks-modal/import-tasks-mo
 import { SignInModalComponent } from '../sign-in-modal/sign-in-modal.component';
 
 @Component({
-  selector: 'yata-modal-launcher',
-  templateUrl: './modal-launcher.component.html',
-  styleUrls: ['./modal-launcher.component.scss'],
+    selector: 'yata-modal-launcher',
+    templateUrl: './modal-launcher.component.html',
+    styleUrls: ['./modal-launcher.component.scss'],
+    standalone: false
 })
 export class ModalLauncherComponent {
   private observable?: Observable<any>;

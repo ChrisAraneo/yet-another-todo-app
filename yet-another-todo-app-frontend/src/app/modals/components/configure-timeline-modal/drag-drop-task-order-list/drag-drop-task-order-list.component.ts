@@ -4,9 +4,10 @@ import { TaskStateCreatorService } from 'src/app/shared/services/task-state-crea
 import { TaskState, TaskStateCreator } from '../../../../../../../yet-another-todo-app-shared';
 
 @Component({
-  selector: 'yata-drag-drop-task-order-list',
-  templateUrl: './drag-drop-task-order-list.component.html',
-  styleUrls: ['./drag-drop-task-order-list.component.scss'],
+    selector: 'yata-drag-drop-task-order-list',
+    templateUrl: './drag-drop-task-order-list.component.html',
+    styleUrls: ['./drag-drop-task-order-list.component.scss'],
+    standalone: false
 })
 export class DragDropTaskOrderListComponent implements OnChanges {
   @Input() orderedStates: TaskState[] = [];

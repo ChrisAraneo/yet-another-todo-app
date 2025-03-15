@@ -12,9 +12,10 @@ import {
 } from '../table/table.config';
 
 @Component({
-  selector: 'yata-new-table',
-  templateUrl: './new-table.component.html',
-  styleUrls: ['./new-table.component.scss'],
+    selector: 'yata-new-table',
+    templateUrl: './new-table.component.html',
+    styleUrls: ['./new-table.component.scss'],
+    standalone: false
 })
 export class NewTableComponent implements OnInit {
   readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;

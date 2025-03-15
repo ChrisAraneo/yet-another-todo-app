@@ -18,16 +18,17 @@ import { DisplayedOption, Option } from './select.types';
 // TODO Implement inline display option
 
 @Component({
-  selector: 'yata-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => SelectComponent),
-      multi: true,
-    },
-  ],
+    selector: 'yata-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SelectComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   @ViewChild('input') inputElementRef!: ElementRef;

@@ -2,16 +2,17 @@ import { AfterViewInit, Component, ElementRef, forwardRef, Input, ViewChild } fr
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'yata-time-picker',
-  templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => TimePickerComponent),
-      multi: true,
-    },
-  ],
+    selector: 'yata-time-picker',
+    templateUrl: './time-picker.component.html',
+    styleUrls: ['./time-picker.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => TimePickerComponent),
+            multi: true,
+        },
+    ],
+    standalone: false
 })
 export class TimePickerComponent implements ControlValueAccessor, AfterViewInit {
   @Input() label: string = '';

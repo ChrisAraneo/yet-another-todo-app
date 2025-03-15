@@ -2,9 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 
 @Component({
-  selector: 'yata-sign-out-button',
-  templateUrl: './sign-out-button.component.html',
-  styleUrls: ['./sign-out-button.component.scss'],
+    selector: 'yata-sign-out-button',
+    templateUrl: './sign-out-button.component.html',
+    styleUrls: ['./sign-out-button.component.scss'],
+    standalone: false
 })
 export class SignOutButtonComponent {
   constructor(@Inject(DOCUMENT) private document: Document) {}

@@ -5,9 +5,10 @@ import { EndedTask, StartedTask, Task } from '../../../../../../yet-another-todo
 import { DateUtilsService } from '../../services/date-utils/date-utils.service';
 
 @Component({
-  selector: 'yata-task-card',
-  templateUrl: './task-card.component.html',
-  styleUrls: ['./task-card.component.scss'],
+    selector: 'yata-task-card',
+    templateUrl: './task-card.component.html',
+    styleUrls: ['./task-card.component.scss'],
+    standalone: false
 })
 export class TaskCardComponent implements OnChanges, OnDestroy {
   @Input() task!: Task;

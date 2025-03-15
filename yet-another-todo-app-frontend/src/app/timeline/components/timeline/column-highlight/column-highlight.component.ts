@@ -3,9 +3,10 @@ import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.
 import { UNIT } from 'src/app/shared/styles/theme.__generated';
 
 @Component({
-  selector: 'yata-column-highlight',
-  templateUrl: './column-highlight.component.html',
-  styleUrls: ['./column-highlight.component.scss'],
+    selector: 'yata-column-highlight',
+    templateUrl: './column-highlight.component.html',
+    styleUrls: ['./column-highlight.component.scss'],
+    standalone: false
 })
 export class ColumnHighlightComponent implements OnChanges {
   @Input() highlightedDate: Date | null = null;

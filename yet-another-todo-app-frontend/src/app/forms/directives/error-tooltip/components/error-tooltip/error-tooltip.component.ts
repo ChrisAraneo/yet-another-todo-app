@@ -3,9 +3,10 @@ import { ValidationErrors } from '@angular/forms';
 import { ErrorTooltipItem } from './error-tooltip.types';
 
 @Component({
-  selector: 'yata-error-tooltip',
-  templateUrl: './error-tooltip.component.html',
-  styleUrls: ['./error-tooltip.component.scss'],
+    selector: 'yata-error-tooltip',
+    templateUrl: './error-tooltip.component.html',
+    styleUrls: ['./error-tooltip.component.scss'],
+    standalone: false
 })
 export class ErrorTooltipComponent implements OnChanges {
   @Input() errors: ValidationErrors | null = null;

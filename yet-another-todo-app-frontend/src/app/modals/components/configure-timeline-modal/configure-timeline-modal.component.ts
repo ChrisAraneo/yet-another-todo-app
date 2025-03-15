@@ -10,9 +10,10 @@ import {
 } from './configure-timeline-modal.types';
 
 @Component({
-  selector: 'yata-configure-timeline-modal',
-  templateUrl: './configure-timeline-modal.component.html',
-  styleUrls: ['./configure-timeline-modal.component.scss'],
+    selector: 'yata-configure-timeline-modal',
+    templateUrl: './configure-timeline-modal.component.html',
+    styleUrls: ['./configure-timeline-modal.component.scss'],
+    standalone: false
 })
 export class ConfigureTimelineModalComponent {
   static readonly PANEL_CLASS = 'configure-timeline-modal';

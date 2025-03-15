@@ -17,9 +17,10 @@ import {
 } from '../../table/table.config';
 
 @Component({
-  selector: 'yata-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss'],
+    selector: 'yata-paginator',
+    templateUrl: './paginator.component.html',
+    styleUrls: ['./paginator.component.scss'],
+    standalone: false
 })
 export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   @Input() totalNumberOfItems: number = 0;

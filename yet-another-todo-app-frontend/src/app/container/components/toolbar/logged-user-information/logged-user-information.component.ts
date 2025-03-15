@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'yata-logged-user-information',
-  templateUrl: './logged-user-information.component.html',
-  styleUrls: ['./logged-user-information.component.scss'],
+    selector: 'yata-logged-user-information',
+    templateUrl: './logged-user-information.component.html',
+    styleUrls: ['./logged-user-information.component.scss'],
+    standalone: false
 })
 export class LoggedUserInformationComponent {
   @Input() username: string | null = null;

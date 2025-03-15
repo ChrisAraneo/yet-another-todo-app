@@ -4,9 +4,10 @@ import { NOOP } from 'src/app/shared/utils/noop.const';
 import { BackButton, NextButton, SubmitButton } from './modal-action-buttons.types';
 
 @Component({
-  selector: 'yata-modal-action-buttons',
-  templateUrl: './modal-action-buttons.component.html',
-  styleUrls: ['./modal-action-buttons.component.scss'],
+    selector: 'yata-modal-action-buttons',
+    templateUrl: './modal-action-buttons.component.html',
+    styleUrls: ['./modal-action-buttons.component.scss'],
+    standalone: false
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup<any>;

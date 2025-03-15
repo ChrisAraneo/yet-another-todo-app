@@ -8,9 +8,10 @@ import { Option } from '../../../forms/components/select/select.types';
 import { ConfigureTableForm, SortDirection } from './configure-table-modal.types';
 
 @Component({
-  selector: 'yata-configure-table-modal',
-  templateUrl: './configure-table-modal.component.html',
-  styleUrls: ['./configure-table-modal.component.scss'],
+    selector: 'yata-configure-table-modal',
+    templateUrl: './configure-table-modal.component.html',
+    styleUrls: ['./configure-table-modal.component.scss'],
+    standalone: false
 })
 export class ConfigureTableModalComponent {
   static readonly PANEL_CLASS = 'configure-table-modal';

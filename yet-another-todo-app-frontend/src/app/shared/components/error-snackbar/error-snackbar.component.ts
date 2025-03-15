@@ -2,9 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'yata-error-snackbar',
-  templateUrl: './error-snackbar.component.html',
-  styleUrls: ['./error-snackbar.component.scss'],
+    selector: 'yata-error-snackbar',
+    templateUrl: './error-snackbar.component.html',
+    styleUrls: ['./error-snackbar.component.scss'],
+    standalone: false
 })
 export class ErrorSnackbarComponent {
   message: string = '';

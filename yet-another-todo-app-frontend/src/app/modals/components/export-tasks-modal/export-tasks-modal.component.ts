@@ -10,10 +10,11 @@ import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { ExportTasksForm } from './export-tasks-modal.types';
 
 @Component({
-  selector: 'yata-export-tasks-modal',
-  templateUrl: './export-tasks-modal.component.html',
-  styleUrls: ['./export-tasks-modal.component.scss'],
-  animations: [fadeInOut],
+    selector: 'yata-export-tasks-modal',
+    templateUrl: './export-tasks-modal.component.html',
+    styleUrls: ['./export-tasks-modal.component.scss'],
+    animations: [fadeInOut],
+    standalone: false
 })
 export class ExportTasksModalComponent {
   static readonly PANEL_CLASS = 'export-tasks-modal';

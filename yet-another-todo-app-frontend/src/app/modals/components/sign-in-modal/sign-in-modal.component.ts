@@ -7,21 +7,19 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { SignInForm } from './sign-in-modal.types';
 
 @Component({
-  selector: 'yata-sign-in-modal',
-  templateUrl: './sign-in-modal.component.html',
-  styleUrls: ['./sign-in-modal.component.scss'],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '300ms',
-          keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })]),
-        ),
-      ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
-    ]),
-  ],
+    selector: 'yata-sign-in-modal',
+    templateUrl: './sign-in-modal.component.html',
+    styleUrls: ['./sign-in-modal.component.scss'],
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('300ms', keyframes([style({ opacity: 0 }), style({ opacity: 0 }), style({ opacity: 1 })])),
+            ]),
+            transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+        ]),
+    ],
+    standalone: false
 })
 export class SignInModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'sign-in-modal';

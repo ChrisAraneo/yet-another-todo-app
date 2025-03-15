@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
-  selector: 'yata-cancel-button',
-  templateUrl: './cancel-button.component.html',
-  styleUrls: ['./cancel-button.component.scss'],
+    selector: 'yata-cancel-button',
+    templateUrl: './cancel-button.component.html',
+    styleUrls: ['./cancel-button.component.scss'],
+    standalone: false
 })
 export class CancelButtonComponent {
   @Input() disabled: boolean = false;

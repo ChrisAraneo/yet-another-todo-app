@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { NOOP } from 'src/app/shared/utils/noop.const';
 
 @Component({
-  selector: 'yata-navigation-item',
-  templateUrl: './navigation-item.component.html',
-  styleUrls: ['./navigation-item.component.scss'],
+    selector: 'yata-navigation-item',
+    templateUrl: './navigation-item.component.html',
+    styleUrls: ['./navigation-item.component.scss'],
+    standalone: false
 })
 export class NavigationItemComponent {
   @Input() label: string = '';

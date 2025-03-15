@@ -3,9 +3,10 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EmptyDialogData } from './empty-dialog.types';
 
 @Component({
-  selector: 'yata-empty-dialog',
-  templateUrl: './empty-dialog.component.html',
-  styleUrls: ['./empty-dialog.component.scss'],
+    selector: 'yata-empty-dialog',
+    templateUrl: './empty-dialog.component.html',
+    styleUrls: ['./empty-dialog.component.scss'],
+    standalone: false
 })
 export class EmptyDialogComponent implements OnInit {
   static readonly PANEL_CLASS = 'empty-dialog';

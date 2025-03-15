@@ -23,10 +23,11 @@ import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
 
 @Component({
-  selector: 'yata-edit-task-modal',
-  templateUrl: './edit-task-modal.component.html',
-  styleUrls: ['./edit-task-modal.component.scss'],
-  animations: [fadeInOut],
+    selector: 'yata-edit-task-modal',
+    templateUrl: './edit-task-modal.component.html',
+    styleUrls: ['./edit-task-modal.component.scss'],
+    animations: [fadeInOut],
+    standalone: false
 })
 export class EditTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
