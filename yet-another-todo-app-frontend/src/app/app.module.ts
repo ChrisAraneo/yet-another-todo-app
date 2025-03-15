@@ -1,4 +1,9 @@
-import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule as AngularFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -42,53 +47,59 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
-@NgModule({ declarations: [AppComponent],
-    bootstrap: [AppComponent], imports: [SharedModule,
-        FormsModule,
-        ModalsModule,
-        SideNavigationModule,
-        TimelineModule,
-        TableModule,
-        ContainerModule,
-        StoreModule.forRoot({
-            viewConfiguration: viewConfigurationReducer,
-            tasks: tasksReducer,
-            user: userReducer,
-            httpLog: httpLogReducer,
-        }),
-        StoreDevtoolsModule.instrument({
-            maxAge: 25,
-            logOnly: environment.production,
-        }),
-        EffectsModule.forRoot([TaskEffects]),
-        TranslateModule.forRoot({
-            defaultLanguage: 'en',
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient],
-            },
-        }),
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        BrowserModule,
-        AngularFormsModule,
-        MatNativeDateModule,
-        MaterialModule,
-        ReactiveFormsModule], providers: [
-        { provide: 'API', useValue: environment.api },
-        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
-        { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
-        DateUtilsService,
-        DialogService,
-        ApiClientService,
-        TasksService,
-        UserService,
-        AuthService,
-        TaskStateTranslatorService,
-        TaskCreatorService,
-        TasksSorterService,
-        provideHttpClient(withInterceptorsFromDi()),
-    ] })
+@NgModule({
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    SharedModule,
+    FormsModule,
+    ModalsModule,
+    SideNavigationModule,
+    TimelineModule,
+    TableModule,
+    ContainerModule,
+    StoreModule.forRoot({
+      viewConfiguration: viewConfigurationReducer,
+      tasks: tasksReducer,
+      user: userReducer,
+      httpLog: httpLogReducer,
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([TaskEffects]),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    BrowserModule,
+    AngularFormsModule,
+    MatNativeDateModule,
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
+  providers: [
+    { provide: 'API', useValue: environment.api },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
+    DateUtilsService,
+    DialogService,
+    ApiClientService,
+    TasksService,
+    UserService,
+    AuthService,
+    TaskStateTranslatorService,
+    TaskCreatorService,
+    TasksSorterService,
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
+})
 export class AppModule {}

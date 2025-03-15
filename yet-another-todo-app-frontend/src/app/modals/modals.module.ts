@@ -55,7 +55,7 @@ import { DialogService } from './services/dialog/dialog.service';
     SharedModule,
     FormsModule,
     AngularFormsModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

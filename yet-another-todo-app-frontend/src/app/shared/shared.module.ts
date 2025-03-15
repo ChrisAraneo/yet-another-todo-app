@@ -12,7 +12,6 @@ import { ParagraphComponent } from './components/paragraph/paragraph.component';
 import { ParagraphModule } from './components/paragraph/paragraph.module';
 import { SubtitleComponent } from './components/subtitle/subtitle.component';
 import { TaskStateIconComponent } from './components/task-state-icon/task-state-icon.component';
-import { TaskStateIconModule } from './components/task-state-icon/task-state-icon.module';
 import { TitleComponent } from './components/title/title.component';
 import { TitleModule } from './components/title/title.module';
 import { MaterialModule } from './material.module';
@@ -34,11 +33,12 @@ import { UserLocaleService } from './services/user-locale/user-locale.service';
 import { UserService } from './services/user/user.service';
 import { ViewConfigurationService } from './services/view-configuration/view-configuration.service';
 import { ZipTasksService } from './services/zip-tasks/zip-tasks.service';
+import { TaskStateIconModule } from './components/task-state-icon/task-state-icon.module';
 
 @NgModule({
   declarations: [SubtitleComponent, ErrorSnackbarComponent, LogoComponent],
   imports: [
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

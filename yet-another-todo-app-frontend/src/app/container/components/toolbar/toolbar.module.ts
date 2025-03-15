@@ -22,7 +22,7 @@ import { ToolbarComponent } from './toolbar.component';
   imports: [
     CommonModule,
     SharedModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

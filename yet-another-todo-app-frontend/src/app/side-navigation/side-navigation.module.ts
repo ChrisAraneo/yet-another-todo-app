@@ -16,7 +16,7 @@ import { SideNavigationComponent } from './components/side-navigation/side-navig
     SharedModule,
     FormsModule,
     MaterialModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

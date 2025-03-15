@@ -28,7 +28,7 @@ import { TimelineTaskManagerService } from './services/timeline-task-manager.ser
         CommonModule,
         SharedModule,
         FormsModule,
-        TranslateModule.forRoot({
+        TranslateModule.forChild({
             defaultLanguage: 'en',
             loader: {
                 provide: TranslateLoader,

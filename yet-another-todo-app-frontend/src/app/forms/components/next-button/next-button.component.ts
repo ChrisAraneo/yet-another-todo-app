@@ -8,7 +8,6 @@ import { NOOP } from 'src/app/shared/utils/noop.const';
 })
 export class NextButtonComponent {
   @Input() next: (event?: any) => Promise<void> = NOOP;
-  @Input() color?: string = '';
   @Input() icon?: string = 'navigate_next';
 
   isLoading: boolean = false;

@@ -16,13 +16,9 @@ import { ToolbarModule } from './components/toolbar/toolbar.module';
     ToolbarModule,
     CommonModule,
     SharedModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
+      useDefaultLang: false,
     }),
     MaterialModule,
   ],

@@ -8,7 +8,6 @@ import { NOOP } from 'src/app/shared/utils/noop.const';
 })
 export class BackButtonComponent {
   @Input() back: (event?: any) => Promise<void> = NOOP;
-  @Input() color?: string = '';
   @Input() icon?: string = 'navigate_before';
 
   isLoading: boolean = false;

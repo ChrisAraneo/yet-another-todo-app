@@ -30,7 +30,7 @@ import { TableComponent } from './components/table/table.component';
   imports: [
     AppRoutingModule,
     SharedModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

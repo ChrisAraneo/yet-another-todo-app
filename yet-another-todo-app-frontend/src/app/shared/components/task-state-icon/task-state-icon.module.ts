@@ -13,7 +13,7 @@ import { TaskStateIconComponent } from './task-state-icon.component';
     CommonModule,
     MatIconModule,
     MatTooltipModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

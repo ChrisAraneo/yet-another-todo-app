@@ -16,7 +16,7 @@ import { TaskCardComponent } from './task-card.component';
 @NgModule({
   declarations: [TaskCardComponent],
   imports: [
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,

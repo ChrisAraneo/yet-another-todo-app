@@ -7,7 +7,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import { HttpLoaderFactory } from '../app.module';
 import { LabelModule } from '../shared/components/label/label.module';
 import { MaterialModule } from '../shared/material.module';
@@ -25,6 +25,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
 import { TextareaComponent } from './components/textarea/textarea.component';
 import { TimePickerComponent } from './components/time-picker/time-picker.component';
 import { DirectivesModule } from './directives/directives.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -43,11 +44,12 @@ import { DirectivesModule } from './directives/directives.module';
     TimePickerComponent,
   ],
   imports: [
+    MatIconModule,
     BrowserModule,
     DirectivesModule,
     MaterialModule,
     AngularFormsModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
@@ -56,7 +58,7 @@ import { DirectivesModule } from './directives/directives.module';
       },
     }),
     InputTextModule,
-    InputTextareaModule,
+    TextareaModule,
     CalendarModule,
     DropdownModule,
     InputNumberModule,

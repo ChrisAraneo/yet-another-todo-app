@@ -1,7 +1,6 @@
 import { HttpEvent, HttpEventType, HttpRequest } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ActionCreator, Store } from '@ngrx/store';
-import { TypedAction } from '@ngrx/store/src/models';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
 import { OPERATION_ID_HEADER_NAME } from '../../models/operation-id-header-name.const';
@@ -101,7 +100,7 @@ export class HttpLoggingService {
   }
 
   private dispatchLogRequestAction(
-    actionCreator: ActionCreator<any, (props: HttpLogItem) => HttpLogItem & TypedAction<any>>,
+    actionCreator: any, // TODO Fix any
     request: HttpRequest<unknown>,
     creationDate: Date,
   ): void {
@@ -119,7 +118,7 @@ export class HttpLoggingService {
   }
 
   private dispatchLogResponseAction(
-    actionCreator: ActionCreator<any, (props: HttpLogItem) => HttpLogItem & TypedAction<any>>,
+    actionCreator: any, // TODO Fix any
     operationId: string,
     response: HttpEvent<unknown>,
     creationDate: Date,

@@ -12,7 +12,7 @@ import { ErrorTooltipDirective } from './error-tooltip/error-tooltip.directive';
   imports: [
     SharedModule,
     CommonModule,
-    TranslateModule.forRoot({
+    TranslateModule.forChild({
       defaultLanguage: 'en',
       loader: {
         provide: TranslateLoader,
