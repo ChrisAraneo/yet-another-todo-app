@@ -1,53 +1,34 @@
-import nx from "@nx/eslint-plugin";
+import eslint from '@eslint/js';
+import eslintPluginJsonc from 'eslint-plugin-jsonc';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tseslint from 'typescript-eslint';
 
-export default [
-    ...nx.configs["flat/base"],
-    ...nx.configs["flat/typescript"],
-    ...nx.configs["flat/javascript"],
-    {
-        ignores: [
-            "**/dist"
-        ]
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
+  ...eslintPluginJsonc.configs['flat/recommended-with-jsonc'],
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
     },
-    {
-        files: [
-            "**/*.ts",
-            "**/*.tsx",
-            "**/*.js",
-            "**/*.jsx"
-        ],
-        rules: {
-            "@nx/enforce-module-boundaries": [
-                "error",
-                {
-                    enforceBuildableLibDependency: true,
-                    allow: [
-                        "^.*/eslint(\\.base)?\\.config\\.[cm]?js$"
-                    ],
-                    depConstraints: [
-                        {
-                            sourceTag: "*",
-                            onlyDependOnLibsWithTags: [
-                                "*"
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+      'jsonc/no-comments': 'error',
+      'jsonc/sort-keys': 'error',
     },
-    {
-        files: [
-            "**/*.ts",
-            "**/*.tsx",
-            "**/*.cts",
-            "**/*.mts",
-            "**/*.js",
-            "**/*.jsx",
-            "**/*.cjs",
-            "**/*.mjs"
-        ],
-        // Override or add rules here
-        rules: {}
-    }
-];
+  },
+  {
+    ignores: [
+      'node_modules/',
+      '.git/',
+      'reports/',
+      '.stryker-tmp/',
+      'package.json',
+      'package-lock.json',
+      'packages/**/package.json',
+      'packages/**/package-lock.json',
+    ],
+  },
+);

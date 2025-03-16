@@ -1,13 +1,16 @@
 {
-  "extends": "./tsconfig.base.json",
   "compileOnSave": false,
+  "extends": "./tsconfig.base.json",
   "files": [],
   "references": [
     {
-      "path": "./apps/yet-another-todo-app-e2e"
+      "path": "./packages/yet-another-todo-app-shared"
     },
     {
-      "path": "./apps/yet-another-todo-app"
+      "path": "./packages/yet-another-todo-app-backend"
+    },
+    {
+      "path": "./packages/yet-another-todo-app-frontend"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "name": "@chris.araneo/yet-another-todo-app-shared",
+  "version": "0.3.1",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc --build tsconfig.lib.json",
+    "chores": "npm run lint && npm run format",
+    "format": "cd ../../ && node scripts/format-package yet-another-todo-app-shared",
+    "lint": "cd ../../ && node scripts/lint-package yet-another-todo-app-shared",
+    "test": "cd ../../ && npm run test -- ./packages/yet-another-todo-app-shared --collectCoverage=false",
+    "typecheck": "tsc"
+  },
+  "dependencies": {}
+}
