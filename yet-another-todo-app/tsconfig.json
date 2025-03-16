@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/yet-another-todo-app-e2e"
+    },
+    {
+      "path": "./apps/yet-another-todo-app"
+    }
+  ]
+}
