@@ -5,10 +5,10 @@ module.exports = {
   testEnvironment: 'node',
   collectCoverage: true,
   coverageDirectory: 'coverage',
-  collectCoverageFrom: ['packages/**/*.{ts,js}'],
+  collectCoverageFrom: ['apps/**/*.{ts,js}'],
   coveragePathIgnorePatterns: ['jest.config.js', '/node_modules/', '/dist/'],
   moduleNameMapper: {
-    '^@chris.araneo/(.*)$': '<rootDir>/packages/$1/',
+    '^@chris.araneo/(.*)$': '<rootDir>/apps/$1/',
   },
   modulePathIgnorePatterns: ['dist', '.stryker-tmp'],
 };

@@ -4,13 +4,13 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/yet-another-todo-app-shared"
+      "path": "./apps/yet-another-todo-app-shared"
     },
     {
-      "path": "./packages/yet-another-todo-app-backend"
+      "path": "./apps/yet-another-todo-app-backend"
     },
     {
-      "path": "./packages/yet-another-todo-app-frontend"
+      "path": "./apps/yet-another-todo-app-frontend"
     }
   ]
 }

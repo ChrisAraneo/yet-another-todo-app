@@ -1,5 +1,5 @@
 {
-  "name": "@chris.araneo/yet-another-todo-app-frontend",
+  "name": "@chris.araneo/yet-another-todo-app-backend",
   "version": "0.3.1",
   "description": "",
   "keywords": [],
@@ -14,9 +14,9 @@
   "scripts": {
     "build": "tsc --build tsconfig.lib.json",
     "chores": "npm run lint && npm run format",
-    "format": "cd ../../ && node scripts/format-package yet-another-todo-app-frontend",
-    "lint": "cd ../../ && node scripts/lint-package yet-another-todo-app-frontend",
-    "test": "cd ../../ && npm run test -- ./packages/yet-another-todo-app-frontend --collectCoverage=false",
+    "format": "cd ../../ && node scripts/format-package yet-another-todo-app-backend",
+    "lint": "cd ../../ && node scripts/lint-package yet-another-todo-app-backend",
+    "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-backend --collectCoverage=false",
     "typecheck": "tsc"
   },
   "dependencies": {}

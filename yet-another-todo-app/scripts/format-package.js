@@ -7,7 +7,7 @@ const { sortPatternsFile } = require('./sort-patterns-file');
 const { print } = require('./print');
 const packageJson = require('../package.json');
 
-const PACKAGES_PATH = normalize(`${__filename}/../../packages/`);
+const APPS_PATH = normalize(`${__filename}/../../apps/`);
 
 const JSON_FILES = ['tsconfig.lib.json', 'tsconfig.json', 'package.json'];
 
@@ -18,12 +18,12 @@ async function formatPackage(package) {
   const sortPackageJsonVersion =
     packageJson.devDependencies['sort-package-json'];
 
-  const directory = normalize(`${PACKAGES_PATH}${package}`);
+  const directory = normalize(`${APPS_PATH}${package}`);
 
   const patterns =
     `${[...JSON_FILES, ...SOURCE_FILES].map((pattern) => `"${normalize(directory + '/' + pattern)}"`).join(' ')}`.trimEnd();
 
-  const sortPackageJsonCommand = `npx sort-package-json@${sortPackageJsonVersion} "./packages/${package}/package.json"`;
+  const sortPackageJsonCommand = `npx sort-package-json@${sortPackageJsonVersion} "./apps/${package}/package.json"`;
   const prettierCommand = `npx prettier@${prettierVersion} --write ${patterns}`;
   const command = `${sortPackageJsonCommand} && ${prettierCommand}`;
 
@@ -34,19 +34,19 @@ async function formatPackage(package) {
 }
 
 async function main() {
-  let packages = [];
+  let apps = [];
 
   process.argv.forEach(function (value, index) {
     if (index >= 2) {
-      packages.push(value);
+      apps.push(value);
     }
   });
 
-  if (!packages.length) {
+  if (!apps.length) {
     return;
   }
 
-  packages.forEach((package) => formatPackage(package));
+  apps.forEach((app) => formatPackage(app));
 }
 
 main();

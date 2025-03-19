@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Krzysztof Pająk (Chris Araneo) <chris.araneo@gmail.com>",
   "workspaces": [
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
@@ -15,6 +16,7 @@
     "test": "npx rimraf strykerTmp && node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
-    "nx": "^20.6.0"
+    "nx": "^20.6.0",
+    "sort-package-json": "^3.0.0"
   }
 }

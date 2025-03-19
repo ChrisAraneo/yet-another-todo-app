@@ -8,7 +8,7 @@ const { lintPackage } = require('./lint-package');
 const { print } = require('./print');
 const packageJson = require('../package.json');
 
-const PACKAGES_PATH = normalize(`${__filename}/../../packages/`);
+const APPS_PATH = normalize(`${__filename}/../../apps/`);
 
 const JSON_FILES = [
   '.vscode/*.json',
@@ -35,24 +35,24 @@ async function lintAll() {
 
   exec(command, (error, stdout, stderr) => print(error, stdout, stderr, true));
 
-  (await getDirectories(PACKAGES_PATH)).map((directory) =>
+  (await getDirectories(APPS_PATH)).map((directory) =>
     lintPackage(directory),
   );
 }
 
 async function main() {
-  let packages = [];
+  let apps = [];
 
   process.argv.forEach(function (value, index) {
     if (index >= 2 && value) {
-      packages.push(value);
+      apps.push(value);
     }
   });
 
-  if (!packages.length) {
+  if (!apps.length) {
     lintAll();
   } else {
-    packages.forEach((package) => lintPackage(package));
+    apps.forEach((package) => lintPackage(package));
   }
 }
 
