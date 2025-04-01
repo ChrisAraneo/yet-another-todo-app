@@ -16,7 +16,7 @@
     "test": "npx rimraf strykerTmp && node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
-    "@chris.araneo/sort-patterns-file": "0.0.4",
+    "@chris.araneo/sort-patterns-file": "^0.0.8",
     "eslint": "^9.22.0",
     "eslint-plugin-jsonc": "^2.19.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
