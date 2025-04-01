@@ -35,9 +35,7 @@ async function lintAll() {
 
   exec(command, (error, stdout, stderr) => print(error, stdout, stderr, true));
 
-  (await getDirectories(APPS_PATH)).map((directory) =>
-    lintPackage(directory),
-  );
+  (await getDirectories(APPS_PATH)).map((directory) => lintPackage(directory));
 }
 
 async function main() {

@@ -4,7 +4,6 @@
 const { normalize } = require('node:path');
 const { exec } = require('node:child_process');
 const { readdir } = require('node:fs/promises');
-const { sortPatternsFile } = require('./sort-patterns-file');
 const { formatPackage } = require('./format-package');
 const { print } = require('./print');
 const packageJson = require('../package.json');
@@ -36,11 +35,10 @@ async function formatAll() {
 
   const prettierCommand = `npx prettier@${prettierVersion} --write ${[...JSON_FILES, ...SOURCE_FILES].map((pattern) => `"${pattern}"`).join(' ')}`;
   const sortPackageJsonCommand = `npx sort-package-json@${sortPackageJsonVersion} "package.json"`;
-  const command = `${sortPackageJsonCommand} && ${prettierCommand}`;
+  const sortPatternsFileCommand = `npx @chris.araneo/sort-patterns-file ${normalize(`${__filename}/../../.gitignore`)}`;
+  const command = `${sortPackageJsonCommand} && ${prettierCommand} && ${sortPatternsFileCommand}`;
 
   exec(command, (error, stdout, stderr) => print(error, stdout, stderr));
-
-  sortPatternsFile(normalize(`${__filename}/../../.gitignore`));
 
   (await getDirectories(APPS_PATH)).map((directory) =>
     formatPackage(directory),
