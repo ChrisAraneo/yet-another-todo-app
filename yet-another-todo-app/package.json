@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@chris.araneo/sort-patterns-file": "^0.0.8",
+    "@types/node": "^22.13.17",
     "eslint": "^9.22.0",
     "eslint-plugin-jsonc": "^2.19.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
