@@ -1,9 +1,30 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "include": [],
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "compileOnSave": false,
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "isolatedModules": true,
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "outDir": "./dist/out-tsc",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022"
+  },
   "references": [
     {
-      "path": "./tsconfig.lib.json"
+      "path": "../yet-another-todo-app-shared/tsconfig.lib.json"
     }
   ]
 }

@@ -8,7 +8,7 @@ const packageJson = require('../package.json');
 
 const APPS_PATH = normalize(`${__filename}/../../apps/`);
 
-const JSON_FILES = ['tsconfig.lib.json', 'tsconfig.json', 'package.json'];
+const JSON_FILES = ['tsconfig.lib.json', 'tsconfig.json', 'tsconfig.app.json', 'package.json', 'angular.json'];
 
 const SOURCE_FILES = ['*.{ts,js,mjs,cjs}', 'src/**/*.ts'];
 
