@@ -19,5 +19,7 @@
     "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-shared --collectCoverage=false",
     "typecheck": "tsc"
   },
-  "dependencies": {}
+  "dependencies": {
+    "uuid": "^11.1.0"
+  }
 }
