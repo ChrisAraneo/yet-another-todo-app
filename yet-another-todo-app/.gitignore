@@ -16,3 +16,4 @@ testem.log
 Thumbs.db
 tsconfig.tsbuildinfo
 yarn-error.log
+*__generated*
