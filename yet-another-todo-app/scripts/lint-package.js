@@ -8,16 +8,29 @@ const packageJson = require('../package.json');
 
 const APPS_PATH = normalize(`${__filename}/../../apps/`);
 
-const JSON_FILES = ['tsconfig.lib.json', 'tsconfig.json'];
+const JSON_FILES = [
+  'tsconfig.app.json',
+  'tsconfig.json',
+  'tsconfig.spec.json',
+  'angular.json',
+];
 
-const SOURCE_FILES = ['*.{ts,js,mjs,cjs}', 'src/**/*.ts'];
+const SOURCE_FILES = ['index.ts', 'src/**/*.ts'];
 
 async function lintPackage(package) {
   const eslintVersion = packageJson.devDependencies.eslint;
   const directory = normalize(`${APPS_PATH}${package}`);
 
-  const patterns =
-    `${[...JSON_FILES, ...SOURCE_FILES].map((pattern) => `"${normalize(directory + '/' + pattern)}"`).join(' ')}`.trimEnd();
+  const patterns = `${[
+    ...JSON_FILES,
+    ...SOURCE_FILES.filter((pattern) => {
+      return package === 'yet-another-todo-app-frontend'
+        ? pattern !== 'index.ts'
+        : true;
+    }),
+  ]
+    .map((pattern) => `"${normalize(directory + '/' + pattern)}"`)
+    .join(' ')}`.trimEnd();
 
   const command = `npx eslint@${eslintVersion} ${patterns} --fix`;
 

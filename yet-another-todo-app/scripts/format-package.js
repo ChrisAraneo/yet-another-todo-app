@@ -8,9 +8,15 @@ const packageJson = require('../package.json');
 
 const APPS_PATH = normalize(`${__filename}/../../apps/`);
 
-const JSON_FILES = ['tsconfig.lib.json', 'tsconfig.json', 'tsconfig.app.json', 'package.json', 'angular.json'];
+const JSON_FILES = [
+  'tsconfig.app.json',
+  'tsconfig.json',
+  'tsconfig.spec.json',
+  'package.json',
+  'angular.json',
+];
 
-const SOURCE_FILES = ['*.{ts,js,mjs,cjs}', 'src/**/*.ts'];
+const SOURCE_FILES = ['index.ts', 'src/**/*.ts'];
 
 async function formatPackage(package) {
   const prettierVersion = packageJson.devDependencies.prettier;
@@ -19,8 +25,16 @@ async function formatPackage(package) {
 
   const directory = normalize(`${APPS_PATH}${package}`);
 
-  const patterns =
-    `${[...JSON_FILES, ...SOURCE_FILES].map((pattern) => `"${normalize(directory + '/' + pattern)}"`).join(' ')}`.trimEnd();
+  const patterns = `${[
+    ...JSON_FILES,
+    ...SOURCE_FILES.filter((pattern) => {
+      return package === 'yet-another-todo-app-frontend'
+        ? pattern !== 'index.ts'
+        : true;
+    }),
+  ]
+    .map((pattern) => `"${normalize(directory + '/' + pattern)}"`)
+    .join(' ')}`.trimEnd();
 
   const sortPackageJsonCommand = `npx sort-package-json@${sortPackageJsonVersion} "./apps/${package}/package.json"`;
   const prettierCommand = `npx prettier@${prettierVersion} --write ${patterns}`;
