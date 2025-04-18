@@ -3,6 +3,7 @@
 .nx/workspace-data
 .sass-cache/
 .stryker-tmp
+*__generated*
 apps/yet-another-todo-app-frontend/.angular/cache
 build
 coverage
@@ -16,4 +17,3 @@ testem.log
 Thumbs.db
 tsconfig.tsbuildinfo
 yarn-error.log
-*__generated*
