@@ -25,6 +25,7 @@
     "@angular/router": "^19.0.0",
     "@ngrx/store": "^19.1.0",
     "@ngx-translate/core": "^16.0.4",
+    "date-fns": "^4.1.0",
     "ng-mocks": "^14.13.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
