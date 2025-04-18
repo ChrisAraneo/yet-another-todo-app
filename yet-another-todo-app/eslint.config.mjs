@@ -17,6 +17,7 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
       'jsonc/no-comments': 'error',
       'jsonc/sort-keys': 'error',
+      '@typescript-eslint/no-extraneous-class': 'off',
     },
   },
   {

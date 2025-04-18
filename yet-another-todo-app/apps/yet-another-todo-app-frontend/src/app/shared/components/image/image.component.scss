@@ -1,0 +1,40 @@
+@use 'sass:map';
+@import '../../styles/variables.__generated.scss';
+
+img {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+
+  &.loaded {
+    opacity: 1;
+  }
+}
+
+@keyframes loading {
+  to {
+    background-position: 315px 0, 0 0, 0 190px, 50px 195px;
+  }
+}
+
+@keyframes color {
+  0% {
+    background: map.get($yata-palette-gray, 100);
+  }
+  50% {
+    background: map.get($yata-palette-gray, 300);
+  }
+  100% {
+    background: map.get($yata-palette-gray, 100);
+  }
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+.skeleton:not(.loaded) {
+  animation: color 1.5s infinite linear;
+}

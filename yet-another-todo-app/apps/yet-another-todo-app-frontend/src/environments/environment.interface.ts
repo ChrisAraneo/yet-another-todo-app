@@ -1,0 +1,11 @@
+export interface Environment {
+  host: string;
+  port: number;
+  origin: string;
+  signupEndpoint: string;
+  loginEndpoint: string;
+  refreshEndpoint: string;
+  taskEndpoint: string;
+  tasksEndpoint: string;
+  userEndpoint: string;
+}
