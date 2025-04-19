@@ -105,7 +105,7 @@ describe('ApiClientService', () => {
   });
 
   it('#fetchTasksFromApi should reject promise on invalid response', () => {
-    const invalidResponse: any = `<h1>Invalid response</h1>`;
+    const invalidResponse = `<h1>Invalid response</h1>`;
 
     service.fetchTasksFromApi('-').catch((error) => {
       expect(error).toEqual(invalidResponse);
@@ -147,7 +147,7 @@ describe('ApiClientService', () => {
   });
 
   it('#postTaskToApi should reject promise on invalid response', () => {
-    const invalidResponse: any = `<h1>Invalid response</h1>`;
+    const invalidResponse = `<h1>Invalid response</h1>`;
 
     service.postTaskToApi(dummyTask, '-').catch((error) => {
       expect(error).toBe(invalidResponse);
@@ -189,7 +189,7 @@ describe('ApiClientService', () => {
   });
 
   it('#postTasksToApi should reject promise on invalid response', () => {
-    const invalidResponse: any = `<h1>Invalid response</h1>`;
+    const invalidResponse = `<h1>Invalid response</h1>`;
 
     service.postTasksToApi(dummyTasks, '-').catch((error) => {
       expect(error).toBe(invalidResponse);
@@ -235,7 +235,7 @@ describe('ApiClientService', () => {
   });
 
   it('#signIn should reject promise on invalid response', () => {
-    const invalidResponse: any = `<h1>Invalid response</h1>`;
+    const invalidResponse = `<h1>Invalid response</h1>`;
 
     service.signIn('test', 'password', '-').catch((error) => {
       expect(error).toBe(invalidResponse);
@@ -281,7 +281,7 @@ describe('ApiClientService', () => {
   });
 
   it('#refreshAccessToken should reject promise on invalid response', () => {
-    const invalidResponse: any = `<h1>Invalid response</h1>`;
+    const invalidResponse = `<h1>Invalid response</h1>`;
 
     service.refreshAccessToken('current-token', '-').catch((error) => {
       expect(error).toBe(invalidResponse);
