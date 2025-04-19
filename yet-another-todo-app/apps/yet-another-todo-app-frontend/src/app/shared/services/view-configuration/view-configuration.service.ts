@@ -10,9 +10,9 @@ import {
   Subscription,
   timer,
 } from 'rxjs';
-import { TABLE_PATH, TIMELINE_PATH } from 'src/app/app-routing.consts';
 
 import { TaskState } from '../../../../../../yet-another-todo-app-shared';
+import { TABLE_PATH, TIMELINE_PATH } from '../../../app.routes';
 import {
   setAppMode,
   setTableSort,
