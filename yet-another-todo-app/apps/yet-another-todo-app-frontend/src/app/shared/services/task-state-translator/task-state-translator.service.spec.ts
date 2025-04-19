@@ -19,7 +19,8 @@ describe('TaskStateTranslatorService', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateTestingModule.withTranslations({
-          en: require('src/assets/i18n/en.json'),
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          en: require('public/i18n/en.json'),
         }),
       ],
     });
