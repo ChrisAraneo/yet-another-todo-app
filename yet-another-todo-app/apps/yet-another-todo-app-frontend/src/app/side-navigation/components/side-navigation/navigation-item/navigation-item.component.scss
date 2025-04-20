@@ -1,0 +1,58 @@
+@use 'sass:map';
+@import '../../../../shared/styles/variables.__generated.scss';
+
+:host {
+  box-sizing: border-box;
+  width: 100%;
+  height: $_64unit;
+
+  .mdc-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 $_24unit;
+    margin: 0;
+    width: 100%;
+    height: $_64unit;
+    border-radius: 0;
+    text-align: left;
+    background-color: $background-color;
+  }
+
+  .mdc-button:disabled {
+    animation-name: colors;
+    animation-duration: 0.4s;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes colors {
+    from {
+      background-color: #c9c9c9;
+      color: inherit;
+    }
+    to {
+      background-color: map.get($yata-palette-primary, 50);
+      color: $primary-color;
+    }
+  }
+
+  .navigation-item-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    margin-right: $_16unit;
+    font-size: $_24unit;
+    height: $_24unit;
+    width: auto;
+  }
+
+  span,
+  .navigation-activated-item > span {
+    display: block;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: $_14unit !important;
+    font-weight: 400;
+    letter-spacing: 1px !important;
+  }
+}
