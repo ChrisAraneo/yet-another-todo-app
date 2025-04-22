@@ -1,0 +1,18 @@
+<div>
+  <yata-form-label [for]="label"></yata-form-label>
+  <div class="calendar-wrapper">
+    <p-datepicker
+      class="max-w-full"
+      [name]="label"
+      [(ngModel)]="model"
+      (ngModelChange)="onChangeDate($event)"
+      [icon]="'input'"
+      [showIcon]="true"
+      [disabled]="isDisabled"
+      (blur)="onBlur()"
+      [inline]="true"
+      [showWeek]="true"
+      [selectionMode]="range ? 'range' : 'single'"
+      *yataErrorTooltip="label"></p-datepicker>
+  </div>
+</div>
