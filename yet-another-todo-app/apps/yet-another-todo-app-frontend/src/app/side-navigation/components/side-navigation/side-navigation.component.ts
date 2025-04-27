@@ -1,36 +1,51 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription, map, mergeMap } from 'rxjs';
 import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationItem } from './side-navigation.types';
-import { BORDER, UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
+import {
+  BORDER,
+  UNIT,
+} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
 import { NavigationService } from '../../../shared/services/navigation/navigation.service';
 import { AppMode } from '../../../shared/store/types/view-configuration.type';
-import { NavigationItemComponent } from "./navigation-item/navigation-item.component";
+import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'yata-side-navigation',
-    templateUrl: './side-navigation.component.html',
-    styleUrls: ['./side-navigation.component.scss'],
-    animations: [
-        trigger('openClose', [
-            state('open', style({
-                width: `${UNIT * 4}px`,
-                borderRight: BORDER,
-            })),
-            state('closed', style({
-                width: '0px',
-                borderRight: '0px solid black',
-            })),
-            transition('open => closed', [animate('0.175s')]),
-            transition('closed => open', [animate('0.175s')]),
-        ]),
-    ],
-    standalone: true,
-    imports: [NavigationItemComponent, TranslatePipe]
+  selector: 'yata-side-navigation',
+  templateUrl: './side-navigation.component.html',
+  styleUrls: ['./side-navigation.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state(
+        'open',
+        style({
+          width: `${UNIT * 4}px`,
+          borderRight: BORDER,
+        }),
+      ),
+      state(
+        'closed',
+        style({
+          width: '0px',
+          borderRight: '0px solid black',
+        }),
+      ),
+      transition('open => closed', [animate('0.175s')]),
+      transition('closed => open', [animate('0.175s')]),
+    ]),
+  ],
+  standalone: true,
+  imports: [NavigationItemComponent, TranslatePipe],
 })
 export class SideNavigationComponent implements OnInit, OnDestroy {
   @Input() isOpened: boolean = true;
@@ -60,7 +75,8 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const firstTask = (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
+    const firstTask =
+      (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
 
     const showTable = {
       icon: 'list',
@@ -115,7 +131,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.editTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.navigationService.navigateToEditTaskRoute(firstTask?.getId() || '');
+        await this.navigationService.navigateToEditTaskRoute(
+          firstTask?.getId() || '',
+        );
         this.activateNavigationItem(4);
       },
     };
@@ -125,7 +143,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       label: 'SideNavigation.deleteTask',
       active: false,
       click: async (): Promise<void> => {
-        await this.navigationService.navigateToDeleteTaskRoute(firstTask?.getId() || '');
+        await this.navigationService.navigateToDeleteTaskRoute(
+          firstTask?.getId() || '',
+        );
         this.activateNavigationItem(5);
       },
     };

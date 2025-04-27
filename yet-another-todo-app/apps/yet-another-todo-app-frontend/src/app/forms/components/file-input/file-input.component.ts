@@ -7,18 +7,24 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'yata-file-input',
-    templateUrl: './file-input.component.html',
-    styleUrls: ['./file-input.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => FileInputComponent),
-            multi: true,
-        },
-    ],
-    standalone: true,
-    imports: [MatIconModule, FormLabelComponent, LabelComponent, TranslatePipe, NgIf]
+  selector: 'yata-file-input',
+  templateUrl: './file-input.component.html',
+  styleUrls: ['./file-input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FileInputComponent),
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [
+    MatIconModule,
+    FormLabelComponent,
+    LabelComponent,
+    TranslatePipe,
+    NgIf,
+  ],
 })
 export class FileInputComponent implements ControlValueAccessor {
   @Input() label: string = '';

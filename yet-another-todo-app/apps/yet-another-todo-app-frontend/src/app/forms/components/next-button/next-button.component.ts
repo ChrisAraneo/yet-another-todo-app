@@ -3,11 +3,11 @@ import { NOOP } from '../../../shared/utils/noop.const';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'yata-next-button',
-    templateUrl: './next-button.component.html',
-    styleUrls: ['./next-button.component.scss'],
-    standalone: true,
-    imports: [MatIconModule]
+  selector: 'yata-next-button',
+  templateUrl: './next-button.component.html',
+  styleUrls: ['./next-button.component.scss'],
+  standalone: true,
+  imports: [MatIconModule],
 })
 export class NextButtonComponent {
   @Input() next: (event?: any) => Promise<void> = NOOP;

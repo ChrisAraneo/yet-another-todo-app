@@ -5,11 +5,11 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-    selector: 'yata-sign-out-button',
-    templateUrl: './sign-out-button.component.html',
-    styleUrls: ['./sign-out-button.component.scss'],
-    standalone: true,
-    imports: [MatIcon, TranslatePipe, MatTooltip]
+  selector: 'yata-sign-out-button',
+  templateUrl: './sign-out-button.component.html',
+  styleUrls: ['./sign-out-button.component.scss'],
+  standalone: true,
+  imports: [MatIcon, TranslatePipe, MatTooltip],
 })
 export class SignOutButtonComponent {
   constructor(@Inject(DOCUMENT) private document: Document) {}

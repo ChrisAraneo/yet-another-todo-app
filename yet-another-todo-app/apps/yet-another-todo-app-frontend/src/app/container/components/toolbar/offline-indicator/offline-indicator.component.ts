@@ -5,10 +5,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'yata-offline-indicator',
-    templateUrl: './offline-indicator.component.html',
-    styleUrls: ['./offline-indicator.component.scss'],
-    standalone: true,
-    imports: [LabelComponent, MatIcon, TranslatePipe, MatTooltip]
+  selector: 'yata-offline-indicator',
+  templateUrl: './offline-indicator.component.html',
+  styleUrls: ['./offline-indicator.component.scss'],
+  standalone: true,
+  imports: [LabelComponent, MatIcon, TranslatePipe, MatTooltip],
 })
 export class OfflineIndicatorComponent {}
