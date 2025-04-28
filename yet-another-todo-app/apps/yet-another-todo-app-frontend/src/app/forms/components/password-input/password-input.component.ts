@@ -8,8 +8,9 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormLabelComponent } from '../form-label/form-label.component';
+
 import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tooltip.directive';
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-password-input',
@@ -31,7 +32,7 @@ import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tool
   ],
 })
 export class PasswordInputComponent implements ControlValueAccessor, OnInit {
-  @Input() label: string = '';
+  @Input() label = '';
   @Input() formControlName?: string;
   @Input() parentForm?: FormGroup;
 

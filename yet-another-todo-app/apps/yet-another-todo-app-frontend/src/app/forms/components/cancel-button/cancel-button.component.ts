@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { NOOP } from '../../../shared/utils/noop.const';
 import { MatButtonModule } from '@angular/material/button';
+
+import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-cancel-button',
@@ -10,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [MatButtonModule],
 })
 export class CancelButtonComponent {
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
   @Input() cancel: (() => Promise<void>) | (() => void) = NOOP;
 
   onButtonClick(): void {

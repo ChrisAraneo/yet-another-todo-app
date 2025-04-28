@@ -6,19 +6,20 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, map, mergeMap } from 'rxjs';
-import { Task } from '../../../../../../yet-another-todo-app-shared';
-import { NavigationItem } from './side-navigation.types';
 import {
   BORDER,
   UNIT,
 } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
-import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
-import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { map, mergeMap, Subscription } from 'rxjs';
+
+import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationService } from '../../../shared/services/navigation/navigation.service';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { AppMode } from '../../../shared/store/types/view-configuration.type';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { NavigationItem } from './side-navigation.types';
 
 @Component({
   selector: 'yata-side-navigation',
@@ -48,7 +49,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [NavigationItemComponent, TranslatePipe],
 })
 export class SideNavigationComponent implements OnInit, OnDestroy {
-  @Input() isOpened: boolean = true;
+  @Input() isOpened = true;
 
   items: NavigationItem[] = [];
 

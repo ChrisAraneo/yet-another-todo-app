@@ -9,8 +9,9 @@ import { Store } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { SideNavigationComponent } from './side-navigation.component';
+
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { SideNavigationComponent } from './side-navigation.component';
 
 describe('SideNavigationComponent', () => {
   let component: SideNavigationComponent;

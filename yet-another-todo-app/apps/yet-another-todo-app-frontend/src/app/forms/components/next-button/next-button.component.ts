@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { NOOP } from '../../../shared/utils/noop.const';
 import { MatIconModule } from '@angular/material/icon';
+
+import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-next-button',
@@ -13,7 +14,7 @@ export class NextButtonComponent {
   @Input() next: (event?: any) => Promise<void> = NOOP;
   @Input() icon?: string = 'navigate_next';
 
-  isLoading: boolean = false;
+  isLoading = false;
 
   onButtonClick(event?: any): void {
     this.isLoading = true;

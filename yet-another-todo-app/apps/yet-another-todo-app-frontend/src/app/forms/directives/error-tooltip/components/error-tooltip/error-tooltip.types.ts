@@ -1,4 +1,4 @@
-export type ErrorTooltipItem = {
+export interface ErrorTooltipItem {
   key: string;
   value: object;
-};
+}

@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { TranslatePipe } from '@ngx-translate/core';
-import { TitleComponent } from '../../../shared/components/title/title.component';
-import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
-import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
 import { ToolbarModule } from 'primeng/toolbar';
+
+import { TitleComponent } from '../../../shared/components/title/title.component';
+import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
+import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
 
 @Component({
   selector: 'yata-toolbar',
@@ -24,9 +25,9 @@ import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator
   standalone: true,
 })
 export class ToolbarComponent {
-  @Input() title: string = '';
+  @Input() title = '';
   @Input() username: string | null = null;
-  @Input() isOfflineMode: boolean = false;
+  @Input() isOfflineMode = false;
 
   @Output() menuClick = new EventEmitter();
 

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { LabelComponent } from '../../../../shared/components/label/label.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabelComponent } from '../../../../shared/components/label/label.component';
 
 @Component({
   selector: 'yata-logged-user-information',

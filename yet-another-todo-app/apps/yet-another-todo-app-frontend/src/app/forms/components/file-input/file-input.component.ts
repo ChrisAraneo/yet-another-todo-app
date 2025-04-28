@@ -1,10 +1,11 @@
+import { NgIf } from '@angular/common';
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { FormLabelComponent } from '../form-label/form-label.component';
-import { LabelComponent } from '../../../shared/components/label/label.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+
+import { LabelComponent } from '../../../shared/components/label/label.component';
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-file-input',
@@ -27,9 +28,9 @@ import { NgIf } from '@angular/common';
   ],
 })
 export class FileInputComponent implements ControlValueAccessor {
-  @Input() label: string = '';
-  @Input() selectFileLabel: string = '';
-  @Input() changeFileLabel: string = '';
+  @Input() label = '';
+  @Input() selectFileLabel = '';
+  @Input() changeFileLabel = '';
 
   value: ArrayBuffer | null;
   filename: string;
@@ -51,7 +52,7 @@ export class FileInputComponent implements ControlValueAccessor {
       return;
     }
 
-    const inputElement: HTMLInputElement = <HTMLInputElement>event.target;
+    const inputElement: HTMLInputElement = event.target as HTMLInputElement;
 
     if (typeof FileReader !== 'undefined') {
       this.filename = '';

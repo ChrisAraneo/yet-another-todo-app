@@ -1,3 +1,4 @@
+import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -7,10 +8,10 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
-import { ErrorTooltipItem } from './error-tooltip.types';
-import { NgFor, NgIf } from '@angular/common';
-import { LabelComponent } from '../../../../../shared/components/label/label.component';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabelComponent } from '../../../../../shared/components/label/label.component';
+import { ErrorTooltipItem } from './error-tooltip.types';
 
 @Component({
   selector: 'yata-error-tooltip',
@@ -21,7 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class ErrorTooltipComponent implements OnChanges {
   @Input() errors: ValidationErrors | null = null;
-  @Input() label: string = '';
+  @Input() label = '';
 
   list: ErrorTooltipItem[] = [];
 

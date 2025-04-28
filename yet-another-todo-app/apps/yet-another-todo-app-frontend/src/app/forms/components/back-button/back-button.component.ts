@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { NOOP } from '../../../shared/utils/noop.const';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+
+import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-back-button',
@@ -14,7 +15,7 @@ export class BackButtonComponent {
   @Input() back: (event?: any) => Promise<void> = NOOP;
   @Input() icon?: string = 'navigate_before';
 
-  isLoading: boolean = false;
+  isLoading = false;
 
   onButtonClick(event?: any): void {
     this.isLoading = true;

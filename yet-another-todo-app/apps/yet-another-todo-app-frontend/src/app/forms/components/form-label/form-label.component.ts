@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   standalone: true,
 })
 export class FormLabelComponent {
-  @Input() for: string = '';
+  @Input() for = '';
 }

@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   standalone: true,
 })
 export class AppWrapperComponent {
-  @Input() isAppVisible: boolean = true;
+  @Input() isAppVisible = true;
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { LabelComponent } from '../../../../shared/components/label/label.component';
 import { MatIcon } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
 import { MatTooltip } from '@angular/material/tooltip';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { LabelComponent } from '../../../../shared/components/label/label.component';
 
 @Component({
   selector: 'yata-offline-indicator',

@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
-import { NOOP } from '../../../../shared/utils/noop.const';
-import { MatIcon } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
+
+import { NOOP } from '../../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-navigation-item',
@@ -11,8 +12,8 @@ import { NgIf } from '@angular/common';
   imports: [MatIcon, NgIf],
 })
 export class NavigationItemComponent {
-  @Input() label: string = '';
-  @Input() icon: string = '';
-  @Input() active: boolean = false;
+  @Input() label = '';
+  @Input() icon = '';
+  @Input() active = false;
   @Input() click: (event: any) => any = NOOP;
 }

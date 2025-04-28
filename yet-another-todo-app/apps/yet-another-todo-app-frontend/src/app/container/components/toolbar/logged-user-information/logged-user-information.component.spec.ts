@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe } from 'ng-mocks';
+
 import { LoggedUserInformationComponent } from './logged-user-information.component';
 
 describe('LoggedUserInformationComponent', () => {

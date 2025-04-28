@@ -4,8 +4,9 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { FormLabelComponent } from '../form-label/form-label.component';
 import { DatePickerModule } from 'primeng/datepicker';
+
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-date-picker',
@@ -22,8 +23,8 @@ import { DatePickerModule } from 'primeng/datepicker';
   imports: [FormLabelComponent, DatePickerModule, FormsModule],
 })
 export class DatePickerComponent implements ControlValueAccessor {
-  @Input() label: string = '';
-  @Input() range: boolean = false;
+  @Input() label = '';
+  @Input() range = false;
 
   model?: Date | (Date | null)[];
 
