@@ -1,0 +1,3 @@
+.nx/
+apps/yet-another-todo-app-frontend/.angular/vite/
+package-lock.json
