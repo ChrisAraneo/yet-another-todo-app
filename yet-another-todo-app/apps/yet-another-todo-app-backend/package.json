@@ -14,8 +14,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.lib.json",
     "chores": "npm run lint && npm run format",
-    "format": "npx sort-package-json && cd ../../ && npx prettier apps/yet-another-todo-app-backend/ --write",
-    "lint": "cd ../../ && npx eslint apps/yet-another-todo-app-backend/ --fix",
+    "format": "sort-package-json && cd ../../ && prettier apps/yet-another-todo-app-backend/ --write",
+    "lint": "cd ../../ && eslint apps/yet-another-todo-app-backend/ --fix",
     "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-backend --collectCoverage=false",
     "typecheck": "tsc"
   },

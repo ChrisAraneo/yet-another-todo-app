@@ -5,8 +5,8 @@
   "scripts": {
     "build": "ng build",
     "chores": "npm run lint && npm run format",
-    "format": "sort-package-json && cd ../../ && npx prettier apps/yet-another-todo-app-frontend/ --write",
-    "lint": "cd ../../ && npx eslint apps/yet-another-todo-app-frontend/ --fix",
+    "format": "sort-package-json && cd ../../ && prettier apps/yet-another-todo-app-frontend/ --write",
+    "lint": "cd ../../ && eslint apps/yet-another-todo-app-frontend/ --fix",
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
