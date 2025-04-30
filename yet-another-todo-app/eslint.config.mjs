@@ -5,14 +5,8 @@ import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
 
 export default tseslint.config(
-  // TODO Regular .ts files
   {
-    files: [
-      '**/*.component.ts',
-      '**/*.component.spec.ts',
-      '**/*.directive.ts',
-      '**/*.directive.spec.ts',
-    ],
+    files: ['**/*.ts'],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.strict,
@@ -46,7 +40,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/*.component.html'],
+    files: ['**/*.html'],
     extends: [
       ...angular.configs.templateRecommended,
       ...angular.configs.templateAccessibility,

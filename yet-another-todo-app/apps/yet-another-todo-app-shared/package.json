@@ -14,8 +14,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.lib.json",
     "chores": "npm run lint && npm run format",
-    "format": "cd ../../ && node scripts/format-package yet-another-todo-app-shared",
-    "lint": "cd ../../ && node scripts/lint-package yet-another-todo-app-shared",
+    "format": "sort-package-json && cd ../../ && prettier apps/yet-another-todo-app-shared/ --write",
+    "lint": "cd ../../ && npx eslint apps/yet-another-todo-app-shared/ --fix",
     "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-shared --collectCoverage=false",
     "typecheck": "tsc"
   },

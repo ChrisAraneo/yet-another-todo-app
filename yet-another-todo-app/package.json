@@ -10,21 +10,31 @@
   ],
   "scripts": {
     "chores": "npm run lint && npm run format",
-    "format": "node scripts/format",
-    "lint": "node scripts/lint",
+    "chores:backend": "npm run lint:backend && npm run format:backend",
+    "chores:frontend": "npm run lint:frontend && npm run format:frontend",
+    "chores:shared": "npm run lint:shared && npm run format:shared",
+    "format": "sort-package-json && prettier . --write && sort-patterns-file .gitignore .prettierignore",
+    "format:backend": "npx nx format yet-another-todo-app-backend",
+    "format:frontend": "npx nx format yet-another-todo-app-frontend",
+    "format:shared": "npx nx format yet-another-todo-app-shared",
+    "lint": "eslint --fix",
+    "lint:backend": "npx nx lint yet-another-todo-app-backend",
+    "lint:frontend": "npx nx lint yet-another-todo-app-frontend",
+    "lint:shared": "npx nx lint yet-another-todo-app-shared",
     "stryker": "npx rimraf strykerTmp && npx stryker run",
     "test": "npx rimraf strykerTmp && node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "devDependencies": {
     "@chris.araneo/sort-patterns-file": "0.0.9",
+    "@nx/jest": "^20.8.1",
     "@types/node": "^22.13.17",
     "angular-eslint": "^19.3.0",
     "eslint": "^9.22.0",
     "eslint-plugin-jsonc": "^2.19.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "jest": "^29.7.0",
     "nx": "^20.6.0",
     "prettier": "^3.5.3",
-    "sort-package-json": "^3.0.0",
     "typescript-eslint": "^8.26.1"
   }
 }
