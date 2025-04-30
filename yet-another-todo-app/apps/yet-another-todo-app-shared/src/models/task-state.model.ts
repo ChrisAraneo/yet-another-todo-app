@@ -51,7 +51,12 @@ export class NotStartedTaskState extends TaskState {
 
 export class InProgressTaskState extends TaskState {
   constructor(id?: string) {
-    super('IN_PROGRESS', 'autorenew', WARNING_COLOR, id || '17fc6138-53c6-41d9-b3dd-83ef2ed032ab');
+    super(
+      'IN_PROGRESS',
+      'autorenew',
+      WARNING_COLOR,
+      id || '17fc6138-53c6-41d9-b3dd-83ef2ed032ab',
+    );
   }
 }
 
@@ -68,12 +73,22 @@ export class SuspendedTaskState extends TaskState {
 
 export class CompletedTaskState extends TaskState {
   constructor(id?: string) {
-    super('COMPLETED', 'task_alt', SUCCESS_COLOR, id || '09be771f-6df5-465e-a77a-0c002ca51278');
+    super(
+      'COMPLETED',
+      'task_alt',
+      SUCCESS_COLOR,
+      id || '09be771f-6df5-465e-a77a-0c002ca51278',
+    );
   }
 }
 
 export class RejectedTaskState extends TaskState {
   constructor(id?: string) {
-    super('REJECTED', 'not_interested', DANGER_COLOR, id || '0ee65977-e7ff-4f94-aeb3-1b395b808637');
+    super(
+      'REJECTED',
+      'not_interested',
+      DANGER_COLOR,
+      id || '0ee65977-e7ff-4f94-aeb3-1b395b808637',
+    );
   }
 }

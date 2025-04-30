@@ -23,7 +23,9 @@ export class TaskStateCreator {
       case new RejectedTaskState().toString():
         return new RejectedTaskState();
       default:
-        throw Error(`Task state cannot be created from object: ${JSON.stringify(data)}`);
+        throw Error(
+          `Task state cannot be created from object: ${JSON.stringify(data)}`,
+        );
     }
   }
 }

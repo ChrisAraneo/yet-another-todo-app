@@ -130,7 +130,15 @@
     "prevPage": "Poprzednia strona"
   },
   "PrimeNG": {
-    "dayNames": ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+    "dayNames": [
+      "Niedziela",
+      "Poniedziałek",
+      "Wtorek",
+      "Środa",
+      "Czwartek",
+      "Piątek",
+      "Sobota"
+    ],
     "dayNamesMin": ["Ndz", "Pn", "Wt", "Śr", "Czw", "Pt", "Sob"],
     "dayNamesShort": ["Niedz", "Pon", "Wto", "Śro", "Czw", "Piąt", "Sob"],
     "monthNames": [

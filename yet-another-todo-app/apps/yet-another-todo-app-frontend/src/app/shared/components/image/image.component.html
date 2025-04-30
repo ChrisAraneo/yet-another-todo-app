@@ -3,7 +3,7 @@
   [class.loaded]="!isLoading"
   [ngStyle]="{
     width: maxWidth ? maxWidth + 'px' : '100%',
-    height: maxHeight ? maxHeight + 'px' : '100%'
+    height: maxHeight ? maxHeight + 'px' : '100%',
   }">
   <img
     #image
@@ -12,7 +12,7 @@
     height="{{ height }}"
     [ngStyle]="{
       'max-width': maxWidth ? maxWidth + 'px' : '100%',
-      'max-height': maxHeight ? maxHeight + 'px' : '100%'
+      'max-height': maxHeight ? maxHeight + 'px' : '100%',
     }"
     alt="{{ alt }}"
     [class.loaded]="!isLoading" />

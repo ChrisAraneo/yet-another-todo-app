@@ -34,7 +34,8 @@ export class TaskCreator {
         isHidden,
       );
     } else if (
-      (state instanceof InProgressTaskState || state instanceof SuspendedTaskState) &&
+      (state instanceof InProgressTaskState ||
+        state instanceof SuspendedTaskState) &&
       !!startDate
     ) {
       return this.createStartedTask(
@@ -48,7 +49,8 @@ export class TaskCreator {
         isHidden,
       );
     } else if (
-      (state instanceof CompletedTaskState || state instanceof RejectedTaskState) &&
+      (state instanceof CompletedTaskState ||
+        state instanceof RejectedTaskState) &&
       !!startDate &&
       !!endDate
     ) {
@@ -63,7 +65,9 @@ export class TaskCreator {
         isHidden,
       );
     } else {
-      throw Error(`Task cannot be created from object: ${JSON.stringify(data)}`);
+      throw Error(
+        `Task cannot be created from object: ${JSON.stringify(data)}`,
+      );
     }
   }
 
@@ -76,7 +80,10 @@ export class TaskCreator {
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
-    this.throwErrorWhenInvalidString(title, new Error(`Incorrect pending task title: ${title}`));
+    this.throwErrorWhenInvalidString(
+      title,
+      new Error(`Incorrect pending task title: ${title}`),
+    );
 
     this.throwErrorWhenNotEmpty(
       startDate,
@@ -119,14 +126,20 @@ export class TaskCreator {
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
-    this.throwErrorWhenInvalidString(title, new Error(`Incorrect started task title: ${title}`));
+    this.throwErrorWhenInvalidString(
+      title,
+      new Error(`Incorrect started task title: ${title}`),
+    );
 
     this.throwErrorWhenInvalidString(
       description,
       new Error(`Incorrect started task description: ${description}`),
     );
 
-    this.throwErrorWhenInvalidTaskState(state, new Error(`Incorrect started task state: ${state}`));
+    this.throwErrorWhenInvalidTaskState(
+      state,
+      new Error(`Incorrect started task state: ${state}`),
+    );
 
     this.throwErrorWhenNotEmpty(
       endDate,
@@ -168,14 +181,20 @@ export class TaskCreator {
     id?: unknown,
     isHidden?: unknown,
   ): PendingTask {
-    this.throwErrorWhenInvalidString(title, new Error(`Incorrect ended task title: ${title}`));
+    this.throwErrorWhenInvalidString(
+      title,
+      new Error(`Incorrect ended task title: ${title}`),
+    );
 
     this.throwErrorWhenInvalidString(
       description,
       new Error(`Incorrect ended task description: ${description}`),
     );
 
-    this.throwErrorWhenInvalidTaskState(state, new Error(`Incorrect ended task state: ${state}`));
+    this.throwErrorWhenInvalidTaskState(
+      state,
+      new Error(`Incorrect ended task state: ${state}`),
+    );
 
     this.throwErrorWhenInvalidDateString(
       startDate,
@@ -206,13 +225,19 @@ export class TaskCreator {
     return task;
   }
 
-  private static throwErrorWhenInvalidString(value: unknown, error: Error): void {
+  private static throwErrorWhenInvalidString(
+    value: unknown,
+    error: Error,
+  ): void {
     if (!value || (!!value && typeof value !== 'string')) {
       throw error;
     }
   }
 
-  private static throwErrorWhenInvalidDateString(value: unknown, error: Error): void {
+  private static throwErrorWhenInvalidDateString(
+    value: unknown,
+    error: Error,
+  ): void {
     if (
       !value ||
       (!!value && !(new Date(value as string) instanceof Date)) ||
@@ -222,7 +247,10 @@ export class TaskCreator {
     }
   }
 
-  private static throwErrorWhenInvalidTaskState(value: unknown, error: Error): void {
+  private static throwErrorWhenInvalidTaskState(
+    value: unknown,
+    error: Error,
+  ): void {
     if (!value || !(value instanceof TaskState)) {
       throw error;
     }

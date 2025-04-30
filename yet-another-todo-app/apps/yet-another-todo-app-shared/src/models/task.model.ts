@@ -82,7 +82,14 @@ export class PendingTask extends Task {
     id?: string,
     isHidden?: boolean,
   ) {
-    super(title, description, new NotStartedTaskState(), creationDate, id, isHidden);
+    super(
+      title,
+      description,
+      new NotStartedTaskState(),
+      creationDate,
+      id,
+      isHidden,
+    );
   }
 }
 
@@ -136,7 +143,15 @@ export class EndedTask extends StartedTask {
     id?: string,
     isHidden?: boolean,
   ) {
-    super(title, description, new InProgressTaskState(), startDate, creationDate, id, isHidden);
+    super(
+      title,
+      description,
+      new InProgressTaskState(),
+      startDate,
+      creationDate,
+      id,
+      isHidden,
+    );
 
     this.setState(state);
     this.endDate = endDate;

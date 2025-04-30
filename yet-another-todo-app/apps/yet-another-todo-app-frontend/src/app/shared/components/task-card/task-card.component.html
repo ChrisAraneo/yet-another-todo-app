@@ -4,7 +4,10 @@
       [state]="task.getState()"
       [size]="24"
       [opacity]="0.4"></yata-task-state-icon>
-    <button mat-icon-button *ngIf="showEditButton" (click)="openEditTaskModal(task.getId())">
+    <button
+      mat-icon-button
+      *ngIf="showEditButton"
+      (click)="openEditTaskModal(task.getId())">
       <!-- TODO Use another icon library -->
       <mat-icon>edit</mat-icon>
     </button>
@@ -25,6 +28,8 @@
     </div>
   </div>
   <div class="description">
-    <yata-paragraph [textAlign]="'center'">{{ task.getDescription() }}</yata-paragraph>
+    <yata-paragraph [textAlign]="'center'">{{
+      task.getDescription()
+    }}</yata-paragraph>
   </div>
 </div>

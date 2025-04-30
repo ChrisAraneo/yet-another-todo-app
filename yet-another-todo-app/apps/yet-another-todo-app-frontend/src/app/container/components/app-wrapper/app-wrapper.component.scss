@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 @import '../../../shared/styles/variables.__generated.scss';
 
 :host {
@@ -53,11 +53,15 @@
 .hidden {
   visibility: hidden;
   opacity: 0;
-  transition: opacity 1s, visibility 0s;
+  transition:
+    opacity 1s,
+    visibility 0s;
 }
 
 *:not(.hidden) {
   visibility: visible;
   opacity: 1;
-  transition: opacity 1s, visibility 0s;
+  transition:
+    opacity 1s,
+    visibility 0s;
 }
