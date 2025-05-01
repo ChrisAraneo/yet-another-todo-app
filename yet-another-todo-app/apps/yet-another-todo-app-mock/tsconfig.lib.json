@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "emitDeclarationOnly": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "types": ["node"]
+  },
+  "exclude": ["dist", "src/**/*.spec.ts", "src/**/*.spec.js"],
+  "extends": "../../tsconfig.base.json",
+  "include": ["**/*.ts"],
+  "references": [
+    {
+      "path": "../yet-another-todo-app-shared/tsconfig.lib.json"
+    }
+  ]
+}

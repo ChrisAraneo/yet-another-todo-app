@@ -11,6 +11,9 @@
     },
     {
       "path": "./apps/yet-another-todo-app-frontend"
-    }
+    },
+    {
+      "path": "./apps/yet-another-todo-app-mock"
+    },
   ]
 }
