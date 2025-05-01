@@ -15,11 +15,18 @@
     "build": "tsc --build tsconfig.lib.json",
     "chores": "npm run lint && npm run format",
     "format": "sort-package-json && cd ../../ && prettier apps/yet-another-todo-app-shared/ --write",
+    "generate-theme": "ts-node src/scripts/generate-theme",
     "lint": "cd ../../ && eslint apps/yet-another-todo-app-shared/ --fix",
     "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-shared --collectCoverage=false",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "material-palette": "^1.0.0",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "sort-package-json": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }

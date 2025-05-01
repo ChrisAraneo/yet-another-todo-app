@@ -13,6 +13,7 @@ import {
 } from '../..';
 
 export class TaskCreator {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static create(data: any): Task {
     const title = data['title'];
     const description = data['description'];

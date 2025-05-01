@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -8,8 +10,8 @@ import {
 } from '../..';
 
 export class TaskStateCreator {
-  static create(data: any): TaskState {
-    const value = data['value'];
+  static create(data: { value?: string }): TaskState {
+    const value = get(data, 'value');
 
     switch (value) {
       case new NotStartedTaskState().toString():
