@@ -224,7 +224,7 @@ function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
     return DIFF;
   }
 
-  return 'not-diff';
+  return NOT_DIFF;
 }
 
 function writeStoreFile(filePath: string, fileContent: string): string {
