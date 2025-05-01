@@ -1,12 +1,12 @@
+import { Task, TaskCreator } from '@chris.araneo/yet-another-todo-app-shared';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
 import fs from 'fs';
 import jsonDiff from 'json-diff';
+import { get } from 'lodash';
 import log4js from 'log4js';
 import path from 'path';
-import { get } from 'lodash';
-import { Task, TaskCreator } from '@chris.araneo/yet-another-todo-app-shared';
 
 let data: Task[] | null = null;
 
@@ -19,7 +19,9 @@ const NOT_DIFF = 'not-diff';
 
 const server = express();
 const port = 9339;
-const storePath = process.argv[2] ? process.argv[2] : path.join(__dirname, '../store/store.json');
+const storePath = process.argv[2]
+  ? process.argv[2]
+  : path.normalize(process.cwd() + '/assets/store.json');
 const responseHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json',
@@ -153,7 +155,8 @@ server.delete('/task', (request, response) => {
     });
   }
 
-  const updatedData = data?.filter((item) => item.getId() !== get(task, 'id')) || null;
+  const updatedData =
+    data?.filter((item) => item.getId() !== get(task, 'id')) || null;
 
   if (jsonDiff.diff(updatedData, data)) {
     logger.debug('Updating store data');
@@ -201,7 +204,9 @@ function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
     return DIFF;
   }
 
-  const existingTaskIndex = data.findIndex((item) => item.getId() === get(task, 'id'));
+  const existingTaskIndex = data.findIndex(
+    (item) => item.getId() === get(task, 'id'),
+  );
 
   if (existingTaskIndex >= 0) {
     const existingTask = data[existingTaskIndex];
