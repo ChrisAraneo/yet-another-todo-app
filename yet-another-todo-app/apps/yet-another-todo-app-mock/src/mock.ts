@@ -1,12 +1,14 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
+import { Logger } from '@chris.araneo/logger';
 import { Task, TaskCreator } from '@chris.araneo/yet-another-todo-app-shared';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import fs from 'fs';
 import jsonDiff from 'json-diff';
 import { get } from 'lodash';
-import log4js from 'log4js';
-import path from 'path';
+import { forEach } from 'ramda';
 
 let data: Task[] | null = null;
 
@@ -19,16 +21,14 @@ const NOT_DIFF = 'not-diff';
 
 const server = express();
 const port = 9339;
-const storePath = process.argv[2]
-  ? process.argv[2]
-  : path.normalize(process.cwd() + '/assets/store.json');
+const defaultStorePath = path.normalize(process.cwd() + '/assets/store.json');
+const storePath = get(process.argv, 2, defaultStorePath);
 const responseHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json',
 };
 
-const logger = log4js.getLogger();
-logger.level = 'debug';
+const logger = new Logger('debug');
 
 server.use(cors());
 server.use(bodyParser.json({ limit: '4mb' }));
@@ -122,11 +122,13 @@ server.post('/tasks', (request, response) => {
   readStoreFileIfDataIsNull();
 
   let hasChanged = false;
-  ((request.body || []) as unknown[]).forEach((task: unknown) => {
+  const body: unknown[] = request.body || [];
+
+  forEach((task: unknown) => {
     if (createOrUpdateTask(task) === DIFF) {
       hasChanged = true;
     }
-  });
+  }, body);
 
   if (hasChanged) {
     logger.debug('Writing store file');
@@ -208,7 +210,7 @@ function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
     (item) => item.getId() === get(task, 'id'),
   );
 
-  if (existingTaskIndex >= 0) {
+  if (existingTaskIndex !== -1) {
     const existingTask = data[existingTaskIndex];
 
     if (jsonDiff.diff(existingTask, task)) {
@@ -229,11 +231,11 @@ function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
 
 function writeStoreFile(filePath: string, fileContent: string): string {
   try {
-    fs.writeFileSync(filePath, fileContent, 'utf-8');
-  } catch (e) {
+    fs.writeFileSync(filePath, fileContent, 'utf8');
+  } catch (error) {
     return JSON.stringify({
       status: ERROR,
-      message: e,
+      message: error,
       data: null,
     });
   }

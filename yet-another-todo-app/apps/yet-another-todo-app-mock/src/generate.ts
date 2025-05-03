@@ -1,3 +1,6 @@
+import fs from 'node:fs';
+import path from 'node:path';
+
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -10,9 +13,7 @@ import {
 } from '@chris.araneo/yet-another-todo-app-shared';
 import { faker } from '@faker-js/faker';
 import { addDays } from 'date-fns';
-import fs from 'fs';
-import { set } from 'lodash';
-import path from 'path';
+import { get, set } from 'lodash';
 
 import { LOREM_WORDS } from './utils/lorem-words.const';
 
@@ -28,12 +29,10 @@ const tasks: Task[] = [];
 
 function generate(): void {
   const totalNumberOfTasks = process.argv[2] ? +process.argv[2] : 750;
-  const storePath = process.argv[3]
-    ? process.argv[3]
-    : path.normalize(process.cwd() + '/assets/store.json');
+  const defaultStorePath = path.normalize(process.cwd() + '/assets/store.json');
+  const storePath = get(process.argv, '3') || defaultStorePath;
 
-  const numberOfNotStartedTasks =
-    totalNumberOfTasks < 10 ? totalNumberOfTasks : 10;
+  const numberOfNotStartedTasks = Math.min(totalNumberOfTasks, 10);
   const startDate = addDays(new Date(), -365);
   const endDate = addDays(new Date(), 365);
 
@@ -51,7 +50,7 @@ function generate(): void {
     }
   }
 
-  for (let i = 0; i < numberOfNotStartedTasks; i++) {
+  for (let index = 0; index < numberOfNotStartedTasks; index++) {
     tasks.push(createRandomTask(new Date(), null, taskStates[0]));
   }
 
@@ -99,13 +98,13 @@ function getRandomInt(min: number, max: number): number {
 }
 
 function writeStoreFile(filePath: string, fileContent: string): void {
-  fs.writeFileSync(filePath, fileContent, 'utf-8');
+  fs.writeFileSync(filePath, fileContent, 'utf8');
 }
 
 function createRandomLine(): string {
   let line = '';
 
-  for (let i = 0; i < getRandomInt(1, 8); i++) {
+  for (let index = 0; index < getRandomInt(1, 8); index++) {
     line += LOREM_WORDS[getRandomInt(0, LOREM_WORDS.length - 1)] + ' ';
   }
 

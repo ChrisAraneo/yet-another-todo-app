@@ -16,16 +16,21 @@
     "chores": "npm run lint && npm run format",
     "format": "sort-package-json && cd ../../ && prettier apps/yet-another-todo-app-mock/ --write",
     "lint": "cd ../../ && eslint apps/yet-another-todo-app-mock/ --fix",
+    "start:generate": "npm run build && node dist/src/generate",
+    "start:mock": "npm run build && node dist/src/mock",
     "test": "cd ../../ && npm run test -- ./apps/yet-another-todo-app-mock --collectCoverage=false",
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@chris.araneo/logger": "^0.0.2",
     "@faker-js/faker": "^9.7.0",
     "json-diff": "^1.0.6",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "ramda": "^0.30.1"
   },
   "devDependencies": {
     "@types/json-diff": "^1.0.3",
-    "@types/lodash": "^4.17.16"
+    "@types/lodash": "^4.17.16",
+    "@types/ramda": "^0.30.2"
   }
 }
