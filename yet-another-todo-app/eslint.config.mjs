@@ -1,8 +1,9 @@
 import eslint from '@eslint/js';
-import eslintPluginJsonc from 'eslint-plugin-jsonc';
+import jsonc from 'eslint-plugin-jsonc';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
+import unicorn from 'eslint-plugin-unicorn';
 
 export default tseslint.config(
   {
@@ -12,6 +13,7 @@ export default tseslint.config(
       ...tseslint.configs.strict,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      unicorn.configs.all,
     ],
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -37,6 +39,7 @@ export default tseslint.config(
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       '@typescript-eslint/no-extraneous-class': 'off',
+      'unicorn/no-null': 'off'
     },
   },
   {
@@ -49,7 +52,7 @@ export default tseslint.config(
   },
   {
     files: ['**/*.json'],
-    extends: [...eslintPluginJsonc.configs['flat/recommended-with-jsonc']],
+    extends: [...jsonc.configs['flat/recommended-with-jsonc']],
     rules: {
       'jsonc/no-comments': 'error',
       'jsonc/sort-keys': 'error',
