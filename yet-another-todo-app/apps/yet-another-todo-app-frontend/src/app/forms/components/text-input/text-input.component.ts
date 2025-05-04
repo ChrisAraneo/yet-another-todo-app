@@ -4,9 +4,10 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { FormLabelComponent } from '../form-label/form-label.component';
 import { InputTextModule } from 'primeng/inputtext';
+
 import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tooltip.directive';
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-text-input',
@@ -28,7 +29,7 @@ import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tool
   ],
 })
 export class TextInputComponent implements ControlValueAccessor {
-  @Input() label: string = '';
+  @Input() label = '';
 
   value: string;
   isDisabled: boolean;
@@ -55,12 +56,12 @@ export class TextInputComponent implements ControlValueAccessor {
     this.value = value;
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {

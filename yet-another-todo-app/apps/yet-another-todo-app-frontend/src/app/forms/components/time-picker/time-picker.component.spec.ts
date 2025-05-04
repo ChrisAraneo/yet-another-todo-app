@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { TimePickerComponent } from './time-picker.component';
 
 describe('TimePickerComponent', () => {

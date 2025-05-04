@@ -7,9 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormLabelComponent } from '../form-label/form-label.component';
 import { InputTextModule } from 'primeng/inputtext';
+
 import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tooltip.directive';
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-time-picker',
@@ -28,7 +29,7 @@ import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tool
 export class TimePickerComponent
   implements ControlValueAccessor, AfterViewInit
 {
-  @Input() label: string = '';
+  @Input() label = '';
 
   @ViewChild('hours') hoursInput!: ElementRef;
   @ViewChild('minutes') minutesInput!: ElementRef;
@@ -60,7 +61,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let hours: string = '00' + value.replace(/\D/g, '');
+    let hours: string = '00' + value.replaceAll(/\D/g, '');
 
     if (+hours > 23) {
       hours = '23';
@@ -87,7 +88,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let minutes: string = '00' + value.replace(/\D/g, '');
+    let minutes: string = '00' + value.replaceAll(/\D/g, '');
 
     if (+minutes > 59) {
       minutes = '59';
@@ -116,12 +117,12 @@ export class TimePickerComponent
     this.onMinutesChange(parts[1] || '');
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {

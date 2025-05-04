@@ -1,8 +1,9 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FormLabelComponent } from '../form-label/form-label.component';
 import { TextareaModule } from 'primeng/textarea';
+
 import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tooltip.directive';
+import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-textarea',
@@ -19,10 +20,10 @@ import { ErrorTooltipDirective } from '../../directives/error-tooltip/error-tool
   imports: [FormLabelComponent, TextareaModule, ErrorTooltipDirective],
 })
 export class TextareaComponent implements ControlValueAccessor {
-  @Input() label: string = '';
-  @Input() rows: number = 3;
-  @Input() cols: number = 30;
-  @Input() maxLength: number = 9999;
+  @Input() label = '';
+  @Input() rows = 3;
+  @Input() cols = 30;
+  @Input() maxLength = 9999;
 
   value: string;
   isDisabled: boolean;
@@ -36,7 +37,7 @@ export class TextareaComponent implements ControlValueAccessor {
   }
 
   onChange(event: Event): void {
-    const value: string = (<HTMLInputElement>event.target).value;
+    const value: string = (event.target as HTMLInputElement).value;
 
     this.changed && this.changed(value);
   }
@@ -49,12 +50,12 @@ export class TextareaComponent implements ControlValueAccessor {
     this.value = value;
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {
