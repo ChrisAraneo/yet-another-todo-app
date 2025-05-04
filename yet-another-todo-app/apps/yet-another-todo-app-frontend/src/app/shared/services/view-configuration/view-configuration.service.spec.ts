@@ -53,7 +53,7 @@ describe('ViewConfigurationService', () => {
                 table: { ...tableConfiguration },
               });
             }
-            return of(undefined);
+            return of();
           },
         }),
       ],

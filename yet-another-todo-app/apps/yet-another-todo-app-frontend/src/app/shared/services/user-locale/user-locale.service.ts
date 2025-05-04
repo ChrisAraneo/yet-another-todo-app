@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { enGB, Locale, pl } from 'date-fns/locale';
 
-import { NavigatorRefService } from '../navigator-ref/navigator-ref.service';
+import { NavigatorRefService as NavigatorReferenceService } from '../navigator-ref/navigator-ref.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserLocaleService {
-  constructor(private navigatorRefService: NavigatorRefService) {}
+  constructor(private navigatorReferenceService: NavigatorReferenceService) {}
 
   get(): Locale {
     const defaultValue = enGB;
-    const navigator = this.navigatorRefService.get();
+    const navigator = this.navigatorReferenceService.get();
 
     if (!navigator) {
       return defaultValue;
@@ -26,16 +26,19 @@ export class UserLocaleService {
     const resolvedLanguage = localization.split('-')[0];
 
     switch (resolvedLanguage) {
-      case 'en':
+      case 'en': {
         return enGB;
-      case 'pl':
+      }
+      case 'pl': {
         return pl;
-      default:
+      }
+      default: {
         console.error(
           `Application doesn't support users locale: ${resolvedLanguage}`,
         );
 
         return defaultValue;
+      }
     }
   }
 }

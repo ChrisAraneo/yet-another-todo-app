@@ -91,10 +91,10 @@ export class ViewConfigurationService implements OnDestroy {
     const subscription = this.store
       .select('viewConfiguration')
       .subscribe((config) => {
-        if (!this.configuration) {
-          this.configuration = new BehaviorSubject(config);
-        } else {
+        if (this.configuration) {
           this.configuration.next(config);
+        } else {
+          this.configuration = new BehaviorSubject(config);
         }
       });
 
@@ -124,7 +124,7 @@ export class ViewConfigurationService implements OnDestroy {
     const urlParts = url.split('/').filter((part) => !!part);
 
     if (
-      urlParts.length &&
+      urlParts.length > 0 &&
       (urlParts[0] === TIMELINE_PATH || urlParts[0] === TABLE_PATH)
     ) {
       this.changeAppMode(

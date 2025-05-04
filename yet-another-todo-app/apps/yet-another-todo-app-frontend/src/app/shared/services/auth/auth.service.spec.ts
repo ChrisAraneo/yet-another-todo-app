@@ -30,14 +30,10 @@ describe('AuthService', () => {
             refreshToken: 'r3fr3shT0k3n',
           }),
           refreshAccessToken: async (refreshToken) => {
-            if (refreshToken === 'r3fr3shT0k3n') {
-              return {
+            return refreshToken === 'r3fr3shT0k3n' ? {
                 accessToken: 'acc3sst0k3n_2',
                 refreshToken: 'r3fr3shT0k3n_2',
-              };
-            } else {
-              return null;
-            }
+              } : null;
           },
         }),
         MockProvider(UserService, {

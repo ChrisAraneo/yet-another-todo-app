@@ -1,3 +1,4 @@
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -10,12 +11,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DisplayedOption, Option } from './select.types';
-import { diff } from '../../../shared/utils/diff.function';
-import { cloneDeep } from '../../../shared/utils/clone-deep.function';
-import { FormLabelComponent } from '../form-label/form-label.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { NgFor, NgIf, NgStyle } from '@angular/common';
+
+import { cloneDeep } from '../../../shared/utils/clone-deep.function';
+import { diff } from '../../../shared/utils/diff.function';
+import { FormLabelComponent } from '../form-label/form-label.component';
+import { DisplayedOption, Option } from './select.types';
 
 // TODO Fix dropdown icon animation
 // TODO Implement inline display option
@@ -37,9 +38,9 @@ import { NgFor, NgIf, NgStyle } from '@angular/common';
 export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
   @ViewChild('input') inputElementRef!: ElementRef;
 
-  @Input() label: string = '';
+  @Input() label = '';
   @Input() options: Option<any>[] = [];
-  @Input() inline: boolean = false;
+  @Input() inline = false;
 
   text: string;
   value: any;
@@ -54,7 +55,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
   changed?: (value: any) => void;
   touched?: () => void;
 
-  private isClickedOutsideDropdown: boolean = false;
+  private isClickedOutsideDropdown = false;
 
   constructor() {
     this.text = '';
@@ -100,7 +101,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
   }
 
   onChange(event: Event): void {
-    const selectedIndex = +(<HTMLInputElement>event.target).value;
+    const selectedIndex = +(event.target as HTMLInputElement).value;
     const selectedOption = this.displayedOptions[selectedIndex];
 
     this.value = selectedOption?.value || null;
@@ -112,7 +113,7 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     const selectedValue =
       this.selectedIndex > -1 ? cloneDeep(this.displayedOptions[this.selectedIndex]).value : null;
 
-    if (event.length < 1) {
+    if (event.length === 0) {
       this.updateDisplayedOptions(this.options, event);
       this.selectedIndex =
         this.displayedOptions?.findIndex((item) => diff(item.value, selectedValue)?.length === 0) ||
@@ -124,13 +125,13 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     const found: Option<any>[] = [];
     const notFound: Option<any>[] = [];
 
-    this.displayedOptions.forEach((option) => {
-      if (option.label.toLocaleLowerCase().indexOf(event) >= 0) {
+    for (const option of this.displayedOptions) {
+      if (option.label.toLocaleLowerCase().includes(event)) {
         found.push(option);
       } else {
         notFound.push(option);
       }
-    });
+    }
 
     this.updateDisplayedOptions([...found, ...notFound], event);
     this.selectedIndex = this.displayedOptions.findIndex(
@@ -177,12 +178,12 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     }
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {

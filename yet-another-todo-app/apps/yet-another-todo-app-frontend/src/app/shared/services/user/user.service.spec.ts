@@ -36,7 +36,7 @@ describe('UserService', () => {
             if (key === 'user') {
               return of(dummyCurrentUser);
             }
-            return of(undefined);
+            return of();
           },
         }),
         UserService,

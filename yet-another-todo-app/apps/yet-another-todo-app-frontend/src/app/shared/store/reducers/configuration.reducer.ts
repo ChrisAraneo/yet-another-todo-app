@@ -7,8 +7,8 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from '../../../../../../yet-another-todo-app-shared';
-import { DateUtilsService } from '../../services/date-utils/date-utils.service';
-import { NavigatorRefService } from '../../services/navigator-ref/navigator-ref.service';
+import { DateUtilsService as DateUtilitiesService } from '../../services/date-utils/date-utils.service';
+import { NavigatorRefService as NavigatorReferenceService } from '../../services/navigator-ref/navigator-ref.service';
 import { UserLocaleService } from '../../services/user-locale/user-locale.service';
 import {
   setAppMode,
@@ -20,8 +20,8 @@ import {
 } from '../actions/configuration.actions';
 import { AppMode, ViewConfiguration } from '../types/view-configuration.type';
 
-const dateUtilsService = new DateUtilsService(
-  new UserLocaleService(new NavigatorRefService(null as unknown as Document)),
+const dateUtilitiesService = new DateUtilitiesService(
+  new UserLocaleService(new NavigatorReferenceService(null as unknown as Document)),
 );
 
 export const initialState: ViewConfiguration = {
@@ -84,11 +84,11 @@ export const viewConfigurationReducer = createReducer(
 function getInitialTimelineStartDate(): Date {
   const today = new Date();
 
-  return dateUtilsService.getFirstDayOfTheMonth(today);
+  return dateUtilitiesService.getFirstDayOfTheMonth(today);
 }
 
 function getInitialTimelineEndDate(): Date {
   const today = new Date();
 
-  return dateUtilsService.getLastDayOfTheMonth(today);
+  return dateUtilitiesService.getLastDayOfTheMonth(today);
 }

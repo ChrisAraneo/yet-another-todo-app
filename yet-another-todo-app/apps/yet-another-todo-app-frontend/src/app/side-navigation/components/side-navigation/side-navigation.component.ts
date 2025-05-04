@@ -204,8 +204,8 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
   }
 
   private activateNavigationItem(index: number): void {
-    this.items.forEach((item, i) => {
-      item.active = i === index;
-    });
+    for (const [index_, item] of this.items.entries()) {
+      item.active = index_ === index;
+    }
   }
 }

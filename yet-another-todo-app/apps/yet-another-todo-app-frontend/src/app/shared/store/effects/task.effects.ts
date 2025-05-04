@@ -69,7 +69,7 @@ export class TaskEffects {
                 ),
               ).pipe(map(() => action.id));
             } else {
-              return of(undefined);
+              return of();
             }
           }),
         ),

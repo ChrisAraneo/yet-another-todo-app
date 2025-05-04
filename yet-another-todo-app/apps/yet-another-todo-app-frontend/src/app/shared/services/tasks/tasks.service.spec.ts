@@ -185,7 +185,7 @@ describe('TasksService', () => {
             } else if (key === 'httpLog') {
               return of({ ...httpLogInitialState });
             }
-            return of(undefined);
+            return of();
           },
         }),
         TasksService,

@@ -40,7 +40,7 @@ export class NavigationService {
   async navigateToEditTaskRoute(id: string): Promise<boolean> {
     const state = this.router.routerState.snapshot;
     const urlParts = state.url.split('/').filter((part) => !!part);
-    const editPathIndex = urlParts.findIndex((part) => part === EDIT_TASK_PATH);
+    const editPathIndex = urlParts.indexOf(EDIT_TASK_PATH);
 
     if (editPathIndex !== -1) {
       return this.replaceUrlWithoutEvent(
@@ -70,7 +70,7 @@ export class NavigationService {
   ): Promise<boolean> {
     const urlParts = state.url.split('/').filter((part) => !!part);
 
-    if (urlParts.indexOf(SIGN_IN_PATH) >= 0) {
+    if (urlParts.includes(SIGN_IN_PATH)) {
       return true;
     }
 

@@ -61,12 +61,12 @@ export class FileInputComponent implements ControlValueAccessor {
       const reader = new FileReader();
       const file = (inputElement?.files as FileList)[0];
 
-      reader.onload = (event: any): void => {
+      reader.addEventListener('load', (event: any): void => {
         this.isLoading = false;
         this.filename = file.name;
 
         this.changed && this.changed(event.target.result);
-      };
+      });
 
       reader.readAsArrayBuffer(file);
     }
@@ -80,12 +80,12 @@ export class FileInputComponent implements ControlValueAccessor {
     this.value = value;
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {

@@ -31,7 +31,7 @@ export class AuthGuard {
             if (shouldRedirectToSignIn) {
               this.navigationService.navigateToSignInRoute(state);
 
-              return state.url.indexOf(`/${SIGN_IN_PATH}`) >= 0;
+              return state.url.includes(`/${SIGN_IN_PATH}`);
             } else {
               return true;
             }

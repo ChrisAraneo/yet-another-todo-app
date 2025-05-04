@@ -19,7 +19,7 @@ describe('LoggingInterceptor', () => {
             if (key === 'httpLog') {
               return of([]);
             }
-            return of(undefined);
+            return of();
           },
         }),
       ],

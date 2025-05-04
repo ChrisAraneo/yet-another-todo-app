@@ -5,13 +5,13 @@ import JSZip from 'jszip';
 
 import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { ZipFileContent } from '../../models/zip-file-content.type';
-import { DateUtilsService } from '../date-utils/date-utils.service';
+import { DateUtilsService as DateUtilitiesService } from '../date-utils/date-utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ZipTasksService {
-  constructor(private dateUtilsService: DateUtilsService) {}
+  constructor(private dateUtilitiesService: DateUtilitiesService) {}
 
   async zip(tasks: Task[], password: string): Promise<void> {
     const zip = new JSZip();
@@ -28,7 +28,7 @@ export class ZipTasksService {
     return zip.generateAsync({ type: 'blob' }).then((blob: Blob) => {
       FileSaver.saveAs(
         blob,
-        `yata-tasks-${this.dateUtilsService.formatDate(creationDate, 'yyyy-MM-dd-kkmmss')}.zip`,
+        `yata-tasks-${this.dateUtilitiesService.formatDate(creationDate, 'yyyy-MM-dd-kkmmss')}.zip`,
       );
     });
   }

@@ -25,11 +25,11 @@ export class TaskStateTranslatorService {
   constructor(private translateService: TranslateService) {}
 
   getTranslatedTaskStateSelectOptions() {
-    return [
-      ...this.states.map((state) => ({
+    return ( 
+      this.states.map((state) => ({
         label: this.translateService.instant(state.toString()),
         value: state,
-      })),
-    ];
+      }))
+    );
   }
 }

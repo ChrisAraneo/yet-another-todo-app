@@ -63,12 +63,12 @@ export class DatePickerComponent implements ControlValueAccessor {
     this.updateModel(value);
   }
 
-  registerOnChange(fn: any): void {
-    this.changed = fn;
+  registerOnChange(function_: any): void {
+    this.changed = function_;
   }
 
-  registerOnTouched(fn: any): void {
-    this.touched = fn;
+  registerOnTouched(function_: any): void {
+    this.touched = function_;
   }
 
   setDisabledState?(isDisabled: boolean): void {

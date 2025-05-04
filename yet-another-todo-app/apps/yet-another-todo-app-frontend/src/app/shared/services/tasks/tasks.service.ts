@@ -82,7 +82,7 @@ export class TasksService implements OnDestroy {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(createTask({ task }));
 
-      return of(undefined);
+      return of();
     }
 
     const operationId = this.operationIdGeneratorService.generate();
@@ -101,7 +101,7 @@ export class TasksService implements OnDestroy {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(updateTask({ task }));
 
-      return of(undefined);
+      return of();
     }
 
     const operationId = this.operationIdGeneratorService.generate();
@@ -133,7 +133,7 @@ export class TasksService implements OnDestroy {
     if (this.isOfflineMode.getValue()) {
       this.store.dispatch(hideTask({ id: taskId }));
 
-      return of(undefined);
+      return of();
     }
 
     const operationId = this.operationIdGeneratorService.generate();
@@ -158,17 +158,19 @@ export class TasksService implements OnDestroy {
         let updatedTasks: Task[];
 
         switch (action) {
-          case ImportAction.AddNewAndSkipExisting:
+          case ImportAction.AddNewAndSkipExisting: {
             updatedTasks = this.addNewTasks(currentTasks, importedTasks);
             break;
-          case ImportAction.AddNewAndUpdateExisting:
+          }
+          case ImportAction.AddNewAndUpdateExisting: {
             updatedTasks = this.updateExistingTasks(
               currentTasks,
               importedTasks,
             );
             updatedTasks = this.addNewTasks(updatedTasks, importedTasks);
             break;
-          case ImportAction.ReplaceDataSet:
+          }
+          case ImportAction.ReplaceDataSet: {
             updatedTasks = this.hideAllTasks(currentTasks);
             updatedTasks = this.updateExistingTasks(
               updatedTasks,
@@ -176,6 +178,7 @@ export class TasksService implements OnDestroy {
             );
             updatedTasks = this.addNewTasks(updatedTasks, importedTasks);
             break;
+          }
         }
 
         return updatedTasks;
@@ -190,17 +193,17 @@ export class TasksService implements OnDestroy {
         }
       }),
       map(() => {
-        return undefined;
+        return;
       }),
     );
   }
 
   private initializeTasksBehaviorSubject(): void {
     const subscription = this.store.select('tasks').subscribe((tasks) => {
-      if (!this.tasks) {
-        this.tasks = new BehaviorSubject(tasks || []);
-      } else {
+      if (this.tasks) {
         this.tasks.next(tasks || []);
+      } else {
+        this.tasks = new BehaviorSubject(tasks || []);
       }
     });
 
@@ -253,11 +256,11 @@ export class TasksService implements OnDestroy {
   private addNewTasks(currentTasks: Task[], importedTasks: Task[]): Task[] {
     const result = [...currentTasks];
 
-    importedTasks.forEach((importedTask) => {
+    for (const importedTask of importedTasks) {
       if (!currentTasks.find((item) => item.getId() === importedTask.getId())) {
         result.push(importedTask);
       }
-    });
+    }
 
     return result;
   }
@@ -268,7 +271,7 @@ export class TasksService implements OnDestroy {
   ): Task[] {
     const result: Task[] = [];
 
-    currentTasks.forEach((currentTask) => {
+    for (const currentTask of currentTasks) {
       const updatedTask = importedTasks.find(
         (item) => item.getId() === currentTask.getId(),
       );
@@ -278,7 +281,7 @@ export class TasksService implements OnDestroy {
       } else {
         result.push(currentTask);
       }
-    });
+    }
 
     return result;
   }
@@ -297,10 +300,10 @@ export class TasksService implements OnDestroy {
     return this.store.select('httpLog').pipe(
       tap((state) => {
         if (!(state as any)[method]) {
-          throw Error(`HttpLog state unknown method: ${method}`);
+          throw new Error(`HttpLog state unknown method: ${method}`);
         }
         if (!(state as any)[method][collection]) {
-          throw Error(
+          throw new Error(
             `HttpLog state unknown collection: ${method}.${collection}`,
           );
         }

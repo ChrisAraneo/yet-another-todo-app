@@ -27,7 +27,7 @@ describe('SideNavigationComponent', () => {
         MockProvider(TasksService),
         MockProvider(Store, {
           select: () => {
-            return of(undefined);
+            return of();
           },
         }),
       ],

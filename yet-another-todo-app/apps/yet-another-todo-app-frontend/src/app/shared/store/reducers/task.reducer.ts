@@ -28,11 +28,7 @@ export const tasksReducer = createReducer(
   on(hideTask, (state, { id }) =>
     [...state]
       .map((task) => {
-        if (task.getId() === id) {
-          return TaskTransformer.transform(task, { isHidden: true });
-        } else {
-          return task;
-        }
+        return task.getId() === id ? TaskTransformer.transform(task, { isHidden: true }) : task;
       })
       .sort(sortByCreationDate),
   ),

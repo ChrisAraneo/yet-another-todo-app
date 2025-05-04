@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DateUtilsService } from './date-utils.service';
+import { DateUtilsService as DateUtilitiesService } from './date-utils.service';
 
 describe('DateUtilsService', () => {
-  let service: DateUtilsService;
+  let service: DateUtilitiesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DateUtilsService);
+    service = TestBed.inject(DateUtilitiesService);
   });
 
   it('should be created', () => {
@@ -36,9 +36,9 @@ describe('DateUtilsService', () => {
       new Date(2022, 11, 31),
     );
 
-    [...Array(31).keys()].forEach((i) => {
-      expect(+result[i]).toBe(+new Date(2022, 11, i + 1, 0, 0, 0, 0));
-    });
+    for (const index of Array.from({length: 31}).keys()) {
+      expect(+result[index]).toBe(+new Date(2022, 11, index + 1, 0, 0, 0, 0));
+    }
   });
 
   it('#getAllDaysInMonth should return 30 dates for month 2022-11', () => {
@@ -64,9 +64,9 @@ describe('DateUtilsService', () => {
   it('#getAllDaysInMonth should return 31 correct dates for month 2022-12', () => {
     const result = service.getAllDaysInMonth(new Date(2022, 11, 18));
 
-    [...Array(31).keys()].forEach((i) => {
-      expect(+result[i]).toBe(+new Date(2022, 11, i + 1, 0, 0, 0, 0));
-    });
+    for (const index of Array.from({length: 31}).keys()) {
+      expect(+result[index]).toBe(+new Date(2022, 11, index + 1, 0, 0, 0, 0));
+    }
   });
 
   it('#getNumberOfDaysBetweenDates should return 31 for period from 2022-12-01 to 2022-12-31', () => {

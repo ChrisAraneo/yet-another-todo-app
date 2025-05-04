@@ -24,14 +24,14 @@ export class ErrorTooltipDirective implements OnInit, AfterViewInit, OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    private templateRef: TemplateRef<any>,
-    private viewContainerRef: ViewContainerRef,
+    private templateReference: TemplateRef<any>,
+    private viewContainerReference: ViewContainerRef,
     private ngControl: NgControl,
   ) {}
 
   ngOnInit(): void {
-    this.viewContainerRef.createEmbeddedView(this.templateRef);
-    this.component = this.viewContainerRef.createComponent(
+    this.viewContainerReference.createEmbeddedView(this.templateReference);
+    this.component = this.viewContainerReference.createComponent(
       ErrorTooltipComponent,
     );
   }

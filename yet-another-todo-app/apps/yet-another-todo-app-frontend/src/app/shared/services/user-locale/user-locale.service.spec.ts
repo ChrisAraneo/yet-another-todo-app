@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { enGB, pl } from 'date-fns/locale';
 import { MockProvider, MockService } from 'ng-mocks';
 
-import { NavigatorRefService } from '../navigator-ref/navigator-ref.service';
+import { NavigatorRefService as NavigatorReferenceService } from '../navigator-ref/navigator-ref.service';
 import { UserLocaleService } from './user-locale.service';
 
 describe('UserLocaleService', () => {
@@ -11,7 +11,7 @@ describe('UserLocaleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        MockProvider(NavigatorRefService, {
+        MockProvider(NavigatorReferenceService, {
           get: () => {
             return {
               language: 'en-GB',
@@ -30,8 +30,8 @@ describe('UserLocaleService', () => {
   });
 
   it('#get should return enGB locale by default', () => {
-    TestBed.overrideProvider(NavigatorRefService, {
-      useValue: MockService(NavigatorRefService, {
+    TestBed.overrideProvider(NavigatorReferenceService, {
+      useValue: MockService(NavigatorReferenceService, {
         get: () => null,
       }),
     });
@@ -44,8 +44,8 @@ describe('UserLocaleService', () => {
   });
 
   it('#get should return pl locale when browser language is pl-PL', () => {
-    TestBed.overrideProvider(NavigatorRefService, {
-      useValue: MockService(NavigatorRefService, {
+    TestBed.overrideProvider(NavigatorReferenceService, {
+      useValue: MockService(NavigatorReferenceService, {
         get: () =>
           ({
             language: 'pl-PL',
@@ -61,8 +61,8 @@ describe('UserLocaleService', () => {
   });
 
   it('#get should return pl locale when browser language is pl', () => {
-    TestBed.overrideProvider(NavigatorRefService, {
-      useValue: MockService(NavigatorRefService, {
+    TestBed.overrideProvider(NavigatorReferenceService, {
+      useValue: MockService(NavigatorReferenceService, {
         get: () =>
           ({
             language: 'pl',

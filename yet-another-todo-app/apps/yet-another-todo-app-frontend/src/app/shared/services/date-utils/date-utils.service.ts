@@ -15,7 +15,7 @@ export class DateUtilsService {
       this.getNumberOfDaysBetweenDates(endDate, startDate),
     );
 
-    return [...Array(difference).keys()].map((n: number) => {
+    return [...new Array(difference).keys()].map((n: number) => {
       return add(this.getDateAtNoon(startDate), { days: n });
     });
   }

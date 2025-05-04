@@ -83,9 +83,9 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(dummyTasks);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummySuccessResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('GET');
+    request.flush(dummySuccessResponse);
   });
 
   it('#fetchTasksFromApi should reject promise on error response', () => {
@@ -99,9 +99,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(dummyErrorResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyErrorResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('GET');
+    request.flush(dummyErrorResponse);
   });
 
   it('#fetchTasksFromApi should reject promise on invalid response', () => {
@@ -111,9 +111,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(invalidResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('GET');
-    req.flush(invalidResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('GET');
+    request.flush(invalidResponse);
   });
 
   it('#postTaskToApi should handle success response', () => {
@@ -126,9 +126,9 @@ describe('ApiClientService', () => {
       expect(task).toEqual(dummyTask);
     });
 
-    const req = httpMock.expectOne(environment.api.taskEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(dummySuccessResponse);
+    const request = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(dummySuccessResponse);
   });
 
   it('#postTaskToApi should reject promise on error response', () => {
@@ -141,9 +141,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(errorResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.taskEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(errorResponse);
+    const request = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(errorResponse);
   });
 
   it('#postTaskToApi should reject promise on invalid response', () => {
@@ -153,9 +153,9 @@ describe('ApiClientService', () => {
       expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.taskEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(invalidResponse);
+    const request = httpMock.expectOne(environment.api.taskEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(invalidResponse);
   });
 
   it('#postTasksToApi should handle success response', () => {
@@ -168,9 +168,9 @@ describe('ApiClientService', () => {
       expect(tasks).toEqual(dummyTasks);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(dummySuccessResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(dummySuccessResponse);
   });
 
   it('#postTasksToApi should reject promise on error response', () => {
@@ -183,9 +183,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(errorResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(errorResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(errorResponse);
   });
 
   it('#postTasksToApi should reject promise on invalid response', () => {
@@ -195,9 +195,9 @@ describe('ApiClientService', () => {
       expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.tasksEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(invalidResponse);
+    const request = httpMock.expectOne(environment.api.tasksEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(invalidResponse);
   });
 
   it('#signIn should return tokens on successful response', () => {
@@ -214,9 +214,9 @@ describe('ApiClientService', () => {
       expect(response?.refreshToken).toEqual('refreshToken');
     });
 
-    const req = httpMock.expectOne(environment.api.loginEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(dummySuccessResponse);
+    const request = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(dummySuccessResponse);
   });
 
   it('#signIn should reject promise on error response', () => {
@@ -229,9 +229,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(errorResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.loginEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(errorResponse);
+    const request = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(errorResponse);
   });
 
   it('#signIn should reject promise on invalid response', () => {
@@ -241,9 +241,9 @@ describe('ApiClientService', () => {
       expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.loginEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(invalidResponse);
+    const request = httpMock.expectOne(environment.api.loginEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(invalidResponse);
   });
 
   it('#refreshAccessToken should return tokens on successful response', () => {
@@ -260,9 +260,9 @@ describe('ApiClientService', () => {
       expect(response?.refreshToken).toEqual('refreshToken');
     });
 
-    const req = httpMock.expectOne(environment.api.refreshEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(dummySuccessResponse);
+    const request = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(dummySuccessResponse);
   });
 
   it('#refreshAccessToken should reject promise on error response', () => {
@@ -275,9 +275,9 @@ describe('ApiClientService', () => {
       expect(error).toEqual(errorResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.refreshEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(errorResponse);
+    const request = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(errorResponse);
   });
 
   it('#refreshAccessToken should reject promise on invalid response', () => {
@@ -287,8 +287,8 @@ describe('ApiClientService', () => {
       expect(error).toBe(invalidResponse);
     });
 
-    const req = httpMock.expectOne(environment.api.refreshEndpoint);
-    expect(req.request.method).toBe('POST');
-    req.flush(invalidResponse);
+    const request = httpMock.expectOne(environment.api.refreshEndpoint);
+    expect(request.request.method).toBe('POST');
+    request.flush(invalidResponse);
   });
 });

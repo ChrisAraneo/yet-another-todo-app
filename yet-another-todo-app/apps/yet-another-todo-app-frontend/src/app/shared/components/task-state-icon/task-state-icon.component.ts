@@ -16,7 +16,7 @@ import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 export class TaskStateIconComponent implements OnChanges {
   @Input() state!: TaskState;
   @Input() size = 22;
-  @Input() opacity = 1.0;
+  @Input() opacity = 1;
 
   iconName?: string;
   style?: Record<string, string | number>;
