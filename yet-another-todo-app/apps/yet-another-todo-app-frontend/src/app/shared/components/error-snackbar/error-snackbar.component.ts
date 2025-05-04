@@ -22,6 +22,9 @@ export class ErrorSnackbarComponent {
   private updateMessage(data: object): void {
     const json = JSON.stringify(data);
 
-    this.message = json.length > this.maxLength ? json.slice(0, Math.max(0, this.maxLength - 3)) + ' ...' : json;
+    this.message =
+      json.length > this.maxLength
+        ? json.slice(0, Math.max(0, this.maxLength - 3)) + ' ...'
+        : json;
   }
 }

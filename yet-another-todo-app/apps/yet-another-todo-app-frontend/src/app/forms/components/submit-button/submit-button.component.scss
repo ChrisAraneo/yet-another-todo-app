@@ -34,6 +34,7 @@ $submit-button-border-radius: $_10unit;
   .spinner-wrapper {
     height: $submit-button-wrapper-height;
     padding-top: ($submit-button-wrapper-height - $spinner-wrapper-width) * 0.5;
-    padding-bottom: ($submit-button-wrapper-height - $spinner-wrapper-width) * 0.5;
+    padding-bottom: ($submit-button-wrapper-height - $spinner-wrapper-width) *
+      0.5;
   }
 }

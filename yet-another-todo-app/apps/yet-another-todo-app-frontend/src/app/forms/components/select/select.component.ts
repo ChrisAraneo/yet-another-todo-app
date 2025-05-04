@@ -10,7 +10,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 
 import { cloneDeep } from '../../../shared/utils/clone-deep.function';
@@ -22,20 +26,29 @@ import { DisplayedOption, Option } from './select.types';
 // TODO Implement inline display option
 
 @Component({
-    selector: 'yata-select',
-    templateUrl: './select.component.html',
-    styleUrls: ['./select.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => SelectComponent),
-            multi: true,
-        },
-    ],
-    standalone: true,
-    imports: [FormLabelComponent, InputTextModule, NgIf, NgFor, NgStyle, FormsModule]
+  selector: 'yata-select',
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SelectComponent),
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [
+    FormLabelComponent,
+    InputTextModule,
+    NgIf,
+    NgFor,
+    NgStyle,
+    FormsModule,
+  ],
 })
-export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges {
+export class SelectComponent
+  implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
+{
   @ViewChild('input') inputElementRef!: ElementRef;
 
   @Input() label = '';
@@ -81,8 +94,9 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.text =
-        this.displayedOptions?.find((item) => diff(item.value, this.value)?.length === 0)?.label ||
-        '';
+        this.displayedOptions?.find(
+          (item) => diff(item.value, this.value)?.length === 0,
+        )?.label || '';
       this.dropdown.width = `${this.inputElementRef.nativeElement?.offsetWidth || 0}px`;
     });
   }
@@ -111,13 +125,16 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
 
   onChangeText(event: string): void {
     const selectedValue =
-      this.selectedIndex > -1 ? cloneDeep(this.displayedOptions[this.selectedIndex]).value : null;
+      this.selectedIndex > -1
+        ? cloneDeep(this.displayedOptions[this.selectedIndex]).value
+        : null;
 
     if (event.length === 0) {
       this.updateDisplayedOptions(this.options, event);
       this.selectedIndex =
-        this.displayedOptions?.findIndex((item) => diff(item.value, selectedValue)?.length === 0) ||
-        -1;
+        this.displayedOptions?.findIndex(
+          (item) => diff(item.value, selectedValue)?.length === 0,
+        ) || -1;
 
       return;
     }
@@ -171,7 +188,10 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
       this.selectedIndex = this.displayedOptions.findIndex(
         (item) => diff(item.value, value)?.length === 0,
       );
-      this.text = this.selectedIndex >= 0 ? this.displayedOptions[this.selectedIndex].label : '';
+      this.text =
+        this.selectedIndex >= 0
+          ? this.displayedOptions[this.selectedIndex].label
+          : '';
     } else {
       this.selectedIndex = -1;
       this.text = '';
@@ -190,21 +210,29 @@ export class SelectComponent implements ControlValueAccessor, AfterViewInit, OnI
     this.isDisabled = isDisabled;
   }
 
-  private updateDisplayedOptions(options: Option<any>[], searchText: string): void {
-    this.displayedOptions = cloneDeep<Option<any>[]>(options).map((option: Option<any>) => {
-      const indexOf = option.label.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase());
-      const highlightStart = searchText.length > 0 ? indexOf : -1;
-      const highlightEnd = highlightStart > -1 ? highlightStart + searchText.length - 1 : -1;
+  private updateDisplayedOptions(
+    options: Option<any>[],
+    searchText: string,
+  ): void {
+    this.displayedOptions = cloneDeep<Option<any>[]>(options).map(
+      (option: Option<any>) => {
+        const indexOf = option.label
+          .toLocaleLowerCase()
+          .indexOf(searchText.toLocaleLowerCase());
+        const highlightStart = searchText.length > 0 ? indexOf : -1;
+        const highlightEnd =
+          highlightStart > -1 ? highlightStart + searchText.length - 1 : -1;
 
-      return {
-        ...option,
-        symbols: option.label.split(''),
-        highlight: {
-          start: highlightStart,
-          end: highlightEnd,
-        },
-      };
-    });
+        return {
+          ...option,
+          symbols: option.label.split(''),
+          highlight: {
+            start: highlightStart,
+            end: highlightEnd,
+          },
+        };
+      },
+    );
   }
 
   private openDropdown(): void {

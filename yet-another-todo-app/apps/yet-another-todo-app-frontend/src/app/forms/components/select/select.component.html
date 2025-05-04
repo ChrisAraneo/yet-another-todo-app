@@ -24,11 +24,13 @@
     class="dropdown-item"
     [class.selected]="optionIndex === selectedIndex"
     (click)="selectOption($event, optionIndex)">
-    <ng-container *ngFor="let symbol of option.symbols; let symbolIndex = index">
+    <ng-container
+      *ngFor="let symbol of option.symbols; let symbolIndex = index">
       <ng-container *ngIf="symbol !== ' '; else blank">
         <span
           [class.highlight]="
-            symbolIndex >= option.highlight.start && symbolIndex <= option.highlight.end
+            symbolIndex >= option.highlight.start &&
+            symbolIndex <= option.highlight.end
           "
           [class.blank]="symbol === ' '">
           {{ symbol }}
@@ -38,7 +40,8 @@
         <span
           class="blank"
           [class.highlight]="
-            symbolIndex >= option.highlight.start && symbolIndex <= option.highlight.end
+            symbolIndex >= option.highlight.start &&
+            symbolIndex <= option.highlight.end
           ">
           .
         </span>

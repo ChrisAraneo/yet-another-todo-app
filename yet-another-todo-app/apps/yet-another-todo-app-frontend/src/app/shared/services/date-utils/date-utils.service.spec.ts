@@ -36,7 +36,7 @@ describe('DateUtilsService', () => {
       new Date(2022, 11, 31),
     );
 
-    for (const index of Array.from({length: 31}).keys()) {
+    for (const index of Array.from({ length: 31 }).keys()) {
       expect(+result[index]).toBe(+new Date(2022, 11, index + 1, 0, 0, 0, 0));
     }
   });
@@ -64,7 +64,7 @@ describe('DateUtilsService', () => {
   it('#getAllDaysInMonth should return 31 correct dates for month 2022-12', () => {
     const result = service.getAllDaysInMonth(new Date(2022, 11, 18));
 
-    for (const index of Array.from({length: 31}).keys()) {
+    for (const index of Array.from({ length: 31 }).keys()) {
       expect(+result[index]).toBe(+new Date(2022, 11, index + 1, 0, 0, 0, 0));
     }
   });

@@ -21,7 +21,9 @@ import {
 import { AppMode, ViewConfiguration } from '../types/view-configuration.type';
 
 const dateUtilitiesService = new DateUtilitiesService(
-  new UserLocaleService(new NavigatorReferenceService(null as unknown as Document)),
+  new UserLocaleService(
+    new NavigatorReferenceService(null as unknown as Document),
+  ),
 );
 
 export const initialState: ViewConfiguration = {
