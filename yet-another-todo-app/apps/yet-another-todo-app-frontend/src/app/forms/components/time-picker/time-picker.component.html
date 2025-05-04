@@ -1,0 +1,24 @@
+<div>
+  <yata-form-label [for]="label"></yata-form-label>
+  <div class="time-picker-wrapper">
+    <input
+      #hours
+      pInputText
+      type="text"
+      (input)="onHoursChange($event)"
+      (change)="onHoursChange($event)"
+      (blur)="onBlur()"
+      [disabled]="isDisabled"
+      *yataErrorTooltip="label" />
+    <div class="separator">:</div>
+    <input
+      #minutes
+      pInputText
+      type="text"
+      (input)="onMinutesChange($event)"
+      (change)="onMinutesChange($event)"
+      (blur)="onBlur()"
+      [disabled]="isDisabled"
+      *yataErrorTooltip="label" />
+  </div>
+</div>
