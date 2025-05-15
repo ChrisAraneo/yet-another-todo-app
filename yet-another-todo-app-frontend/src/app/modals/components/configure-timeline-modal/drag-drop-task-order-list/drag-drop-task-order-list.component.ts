@@ -7,7 +7,7 @@ import { TaskState, TaskStateCreator } from '../../../../../../../yet-another-to
     selector: 'yata-drag-drop-task-order-list',
     templateUrl: './drag-drop-task-order-list.component.html',
     styleUrls: ['./drag-drop-task-order-list.component.scss'],
-    standalone: false
+    standalone: true
 })
 export class DragDropTaskOrderListComponent implements OnChanges {
   @Input() orderedStates: TaskState[] = [];
