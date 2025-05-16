@@ -6,7 +6,9 @@
     [alt]="'AddTaskModal.imageAlt' | translate"></yata-image>
 </div>
 <div class="form">
-  <yata-modal-title>{{ 'AddTaskModal.modalTitle' | translate }}</yata-modal-title>
+  <yata-modal-title>{{
+    'AddTaskModal.modalTitle' | translate
+  }}</yata-modal-title>
   <form [formGroup]="form">
     <div class="controls" [ngSwitch]="step">
       <yata-page *ngSwitchCase="1" [@fadeInOut]>
@@ -53,7 +55,10 @@
       <yata-page *ngSwitchCase="4" class="summary" [@fadeInOut]>
         <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
         <div class="task-card-wrapper">
-          <yata-task-card *ngIf="task" [task]="task" [showEditButton]="false"></yata-task-card>
+          <yata-task-card
+            *ngIf="task"
+            [task]="task"
+            [showEditButton]="false"></yata-task-card>
         </div>
       </yata-page>
     </div>

@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf, NgSwitch } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
@@ -9,7 +10,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable, Subscription, map, shareReplay, tap } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
+import { map, Observable, shareReplay, Subscription, tap } from 'rxjs';
+
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -19,27 +22,25 @@ import {
   Task,
   TaskState,
 } from '../../../../../../yet-another-todo-app-shared';
-import { Option } from '../../../forms/components/select/select.types';
-import { fadeInOut } from '../../animations/fade-in-out.animation';
-import { TaskForm } from './add-task-modal.types';
-import { TasksService } from '../../../shared/services/tasks/tasks.service';
-import { TaskStateTranslatorService } from '../../../shared/services/task-state-translator/task-state-translator.service';
-import { TaskCreatorService } from '../../../shared/services/task-creator/task-creator.service';
-import { DateUtilsService } from '../../../shared/services/date-utils/date-utils.service';
-import { ImageComponent } from '../../../shared/components/image/image.component';
-import { ModalTitleComponent } from '../modal-title/modal-title.component';
-import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
-import { PageComponent } from '../page/page.component';
-import { TextareaComponent } from '../../../forms/components/textarea/textarea.component';
-import { SelectComponent } from '../../../forms/components/select/select.component';
 import { DatePickerComponent } from '../../../forms/components/date-picker/date-picker.component';
 import { ReadonlyComponent } from '../../../forms/components/readonly/readonly.component';
+import { SelectComponent } from '../../../forms/components/select/select.component';
+import { Option } from '../../../forms/components/select/select.types';
+import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
+import { TextareaComponent } from '../../../forms/components/textarea/textarea.component';
 import { TimePickerComponent } from '../../../forms/components/time-picker/time-picker.component';
+import { ImageComponent } from '../../../shared/components/image/image.component';
 import { SubtitleComponent } from '../../../shared/components/subtitle/subtitle.component';
-import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { TaskCardComponent } from '../../../shared/components/task-card/task-card.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe, NgIf, NgSwitch } from '@angular/common';
+import { DateUtilsService as DateUtilitiesService } from '../../../shared/services/date-utils/date-utils.service';
+import { TaskCreatorService } from '../../../shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from '../../../shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
+import { ModalTitleComponent } from '../modal-title/modal-title.component';
+import { PageComponent } from '../page/page.component';
+import { TaskForm } from './add-task-modal.types';
 
 @Component({
   selector: 'yata-add-task-modal',
@@ -65,7 +66,7 @@ import { AsyncPipe, NgIf, NgSwitch } from '@angular/common';
     SubtitleComponent,
     ModalActionButtonsComponent,
     TaskCardComponent,
-    AsyncPipe
+    AsyncPipe,
   ],
 })
 export class AddTaskModalComponent implements OnDestroy {
@@ -73,21 +74,21 @@ export class AddTaskModalComponent implements OnDestroy {
 
   form!: FormGroup<TaskForm>;
   showDatePicker!: Observable<boolean>;
-  isDateRange: boolean = false;
+  isDateRange = false;
   states: Option<TaskState>[] = [];
-  step: number = 1;
-  total: number = 4;
+  step = 1;
+  total = 4;
   task?: Task;
 
   private subscription: Subscription = new Subscription();
 
   constructor(
-    public dialogRef: MatDialogRef<AddTaskModalComponent>,
+    public dialogReference: MatDialogRef<AddTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private taskStateTranslatorService: TaskStateTranslatorService,
     private taskCreator: TaskCreatorService,
-    private dateUtilsService: DateUtilsService,
+    private dateUtilitiesService: DateUtilitiesService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -145,7 +146,7 @@ export class AddTaskModalComponent implements OnDestroy {
     let validTask = true;
     try {
       this.task = this.createTask();
-    } catch (_) {
+    } catch {
       validTask = false;
     }
 
@@ -309,7 +310,7 @@ export class AddTaskModalComponent implements OnDestroy {
     let validTask = true;
     try {
       this.task = this.createTask();
-    } catch (_) {
+    } catch {
       validTask = false;
     }
 
@@ -356,7 +357,7 @@ export class AddTaskModalComponent implements OnDestroy {
     date: Date | string | number | null | undefined,
   ): string | null {
     return date
-      ? this.dateUtilsService.formatDate(new Date(date), 'dd MMMM yyyy')
+      ? this.dateUtilitiesService.formatDate(new Date(date), 'dd MMMM yyyy')
       : null;
   }
 
