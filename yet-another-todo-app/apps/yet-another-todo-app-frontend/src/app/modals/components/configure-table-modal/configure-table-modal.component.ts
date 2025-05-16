@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
@@ -9,16 +10,16 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+
+import { SelectComponent } from '../../../forms/components/select/select.component';
 import { Option } from '../../../forms/components/select/select.types';
+import { TitleComponent } from '../../../shared/components/title/title.component';
+import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import {
   ConfigureTableForm,
   SortDirection,
 } from './configure-table-modal.types';
-import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
-import { TitleComponent } from '../../../shared/components/title/title.component';
-import { SelectComponent } from '../../../forms/components/select/select.component';
-import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
-import { NgIf } from '@angular/common';
 
 const TABLE_DISPLAYED_COLUMNS: string[] = []; // TODO
 
@@ -46,7 +47,7 @@ export class ConfigureTableModalComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfigureTableModalComponent>,
+    public dialogReference: MatDialogRef<ConfigureTableModalComponent>,
     private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private viewConfigurationService: ViewConfigurationService,
@@ -73,11 +74,11 @@ export class ConfigureTableModalComponent {
       disableClear: false,
     });
 
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   cancel: () => void = () => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private getIdFromData(data: any): string {
@@ -88,7 +89,7 @@ export class ConfigureTableModalComponent {
     const direction = data?.direction;
 
     if (direction !== 'asc' && direction !== 'desc') {
-      throw Error(`Incorrect data object direction: ${direction}`);
+      throw new Error(`Incorrect data object direction: ${direction}`);
     }
 
     return direction;
