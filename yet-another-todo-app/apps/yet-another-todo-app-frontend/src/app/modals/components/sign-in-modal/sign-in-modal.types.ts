@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export type SignInForm = {
+export interface SignInForm {
   username: FormControl<string>;
   password: FormControl<string>;
-};
+}

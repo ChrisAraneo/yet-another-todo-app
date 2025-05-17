@@ -10,6 +10,7 @@
     <yata-title>{{ data.titleKey | translate }}</yata-title>
     <yata-subtitle>{{ data.hintKey | translate }}</yata-subtitle>
   </div>
-  <yata-modal-action-buttons [submitButton]="{ label: 'EmptyDialog.ok', click: close }">
+  <yata-modal-action-buttons
+    [submitButton]="{ label: 'EmptyDialog.ok', click: close }">
   </yata-modal-action-buttons>
 </div>

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { ModalTitleComponent } from './modal-title.component';
 
 describe('ModalTitleComponent', () => {

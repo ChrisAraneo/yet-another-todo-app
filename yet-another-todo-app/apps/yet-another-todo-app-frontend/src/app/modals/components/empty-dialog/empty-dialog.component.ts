@@ -1,12 +1,13 @@
+import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EmptyDialogData } from './empty-dialog.types';
-import { ImageComponent } from '../../../shared/components/image/image.component';
-import { TitleComponent } from '../../../shared/components/title/title.component';
-import { SubtitleComponent } from '../../../shared/components/subtitle/subtitle.component';
-import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+
+import { ImageComponent } from '../../../shared/components/image/image.component';
+import { SubtitleComponent } from '../../../shared/components/subtitle/subtitle.component';
+import { TitleComponent } from '../../../shared/components/title/title.component';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
+import { EmptyDialogData } from './empty-dialog.types';
 
 @Component({
   selector: 'yata-empty-dialog',
@@ -30,7 +31,7 @@ export class EmptyDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EmptyDialogData,
-    public dialogRef: MatDialogRef<EmptyDialogComponent>,
+    public dialogReference: MatDialogRef<EmptyDialogComponent>,
   ) {}
 
   ngOnInit(): void {

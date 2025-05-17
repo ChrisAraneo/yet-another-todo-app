@@ -15,16 +15,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { SignInForm } from './sign-in-modal.types';
-import { AuthService } from '../../../shared/services/auth/auth.service';
+
+import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
+import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
 import { LogoComponent } from '../../../shared/components/logo/logo.component';
 import { TitleComponent } from '../../../shared/components/title/title.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { PageComponent } from '../page/page.component';
-import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
-import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
-import { ModalActionButtonsComponent } from "../modal-action-buttons/modal-action-buttons.component";
+import { SignInForm } from './sign-in-modal.types';
 
 @Component({
   selector: 'yata-sign-in-modal',
@@ -56,8 +57,8 @@ import { ModalActionButtonsComponent } from "../modal-action-buttons/modal-actio
     PageComponent,
     TextInputComponent,
     PasswordInputComponent,
-    ModalActionButtonsComponent
-],
+    ModalActionButtonsComponent,
+  ],
 })
 export class SignInModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'sign-in-modal';
@@ -68,7 +69,7 @@ export class SignInModalComponent implements OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<SignInModalComponent>,
+    public dialogReference: MatDialogRef<SignInModalComponent>,
     private formBuilder: FormBuilder,
     private authService: AuthService,
   ) {

@@ -1,8 +1,15 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,21 +23,22 @@ describe('ConfigureTimelineModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    declarations: [ConfigureTimelineModalComponent, MockPipe(TranslatePipe)],
-    imports: [MatDialogModule,
-        NoopAnimationsModule,
-        StoreModule.forRoot({})],
-    providers: [
+      declarations: [ConfigureTimelineModalComponent, MockPipe(TranslatePipe)],
+      imports: [MatDialogModule, NoopAnimationsModule, StoreModule.forRoot({})],
+      providers: [
         { provide: MatDialogRef, useValue: {} },
         {
-            provide: MAT_DIALOG_DATA,
-            useValue: { startDate: new Date('2023-01-01'), endDate: new Date('2023-02-02') },
+          provide: MAT_DIALOG_DATA,
+          useValue: {
+            startDate: new Date('2023-01-01'),
+            endDate: new Date('2023-02-02'),
+          },
         },
         FormBuilder,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

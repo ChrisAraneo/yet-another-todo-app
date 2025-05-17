@@ -1,16 +1,17 @@
+import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { BackButtonComponent } from '../../../forms/components/back-button/back-button.component';
+import { NextButtonComponent } from '../../../forms/components/next-button/next-button.component';
+import { SubmitButtonComponent } from '../../../forms/components/submit-button/submit-button.component';
+import { NOOP } from '../../../shared/utils/noop.const';
 import {
   BackButton,
   NextButton,
   SubmitButton,
 } from './modal-action-buttons.types';
-import { NOOP } from '../../../shared/utils/noop.const';
-import { BackButtonComponent } from '../../../forms/components/back-button/back-button.component';
-import { NextButtonComponent } from '../../../forms/components/next-button/next-button.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { SubmitButtonComponent } from '../../../forms/components/submit-button/submit-button.component';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'yata-modal-action-buttons',
@@ -27,8 +28,8 @@ import { NgIf } from '@angular/common';
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup<any>;
-  @Input() step: number = 1;
-  @Input() total: number = 1;
+  @Input() step = 1;
+  @Input() total = 1;
   @Input() nextButton: NextButton = {
     label: '',
     color: '',

@@ -1,4 +1,4 @@
-export type EmptyDialogData = {
+export interface EmptyDialogData {
   titleKey: string;
   hintKey: string;
-};
+}

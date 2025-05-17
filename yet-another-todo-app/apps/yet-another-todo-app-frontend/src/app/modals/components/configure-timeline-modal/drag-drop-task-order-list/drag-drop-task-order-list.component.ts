@@ -23,7 +23,13 @@ import { TaskStateCreatorService } from '../../../../shared/services/task-state-
   templateUrl: './drag-drop-task-order-list.component.html',
   styleUrls: ['./drag-drop-task-order-list.component.scss'],
   standalone: true,
-  imports: [CdkDrag, LabelComponent, TranslatePipe, MatCheckboxModule, FormsModule],
+  imports: [
+    CdkDrag,
+    LabelComponent,
+    TranslatePipe,
+    MatCheckboxModule,
+    FormsModule,
+  ],
 })
 export class DragDropTaskOrderListComponent implements OnChanges {
   @Input() orderedStates: TaskState[] = [];
