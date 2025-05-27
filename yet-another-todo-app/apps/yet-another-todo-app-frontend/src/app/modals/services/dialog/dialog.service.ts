@@ -22,6 +22,7 @@ import { DeleteTaskModalComponent } from '../../components/delete-task-modal/del
 import { EditTaskModalComponent } from '../../components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
 
+// TODO Move to shared?
 @Injectable({
   providedIn: 'root',
 })
