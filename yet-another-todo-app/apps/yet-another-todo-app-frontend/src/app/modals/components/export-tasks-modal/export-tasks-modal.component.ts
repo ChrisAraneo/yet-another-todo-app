@@ -1,0 +1,99 @@
+import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { Task } from '@chris.araneo/yet-another-todo-app-shared';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
+import { ExportTasksForm } from './export-tasks-modal.types';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { ZipTasksService } from '../../../shared/services/zip-tasks/zip-tasks.service';
+import { matchOtherValidator } from '../../../forms/validators/match-other.validator';
+import { ImageComponent } from '../../../shared/components/image/image.component';
+import { ModalTitleComponent } from '../modal-title/modal-title.component';
+import { PageComponent } from '../page/page.component';
+import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { AsyncPipe, NgIf } from '@angular/common';
+
+@Component({
+  selector: 'yata-export-tasks-modal',
+  templateUrl: './export-tasks-modal.component.html',
+  styleUrls: ['./export-tasks-modal.component.scss'],
+  animations: [fadeInOut],
+  standalone: true,
+  imports: [
+    TranslatePipe,
+    FormsModule,
+    ReactiveFormsModule,
+    ImageComponent,
+    ModalTitleComponent,
+    PageComponent,
+    PasswordInputComponent,
+    ModalActionButtonsComponent,
+    NgIf,
+    AsyncPipe,
+  ],
+})
+export class ExportTasksModalComponent {
+  static readonly PANEL_CLASS = 'export-tasks-modal';
+
+  readonly MIN_LENGTH = 8;
+
+  form!: FormGroup<ExportTasksForm>;
+  tasks!: Observable<Task[]>;
+
+  constructor(
+    public dialogRef: MatDialogRef<ExportTasksModalComponent>,
+    private tasksService: TasksService,
+    private zipTasksService: ZipTasksService,
+    private formBuilder: FormBuilder,
+  ) {
+    this.initializeTasksObservable();
+    this.initializeForm();
+  }
+
+  submit = (tasks: Task[]) => {
+    return async (event: any): Promise<void> => {
+      event.preventDefault();
+      this.form.updateValueAndValidity();
+
+      if (this.form.valid && this.form.value.password) {
+        await this.zipTasksService.zip(tasks, this.form.value.password);
+
+        this.dialogRef.close();
+      }
+    };
+  };
+
+  cancel = (): void => {
+    this.dialogRef.close();
+  };
+
+  private initializeTasksObservable(): void {
+    this.tasks = this.tasksService.getTasks();
+  }
+
+  private initializeForm(): void {
+    this.form = this.formBuilder.group<ExportTasksForm>({
+      password: new FormControl('', {
+        validators: [
+          Validators.required,
+          Validators.minLength(this.MIN_LENGTH),
+        ],
+        nonNullable: true,
+      }),
+      repeatPassword: new FormControl('', {
+        validators: [Validators.required, matchOtherValidator('password')], // TODO Move validator to shared?
+        nonNullable: true,
+      }),
+    });
+  }
+}
