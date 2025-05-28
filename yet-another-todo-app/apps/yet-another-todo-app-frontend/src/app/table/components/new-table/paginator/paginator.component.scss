@@ -1,0 +1,30 @@
+@use 'sass:map';
+@import '../../../../shared/styles/variables.__generated.scss';
+
+:host {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  height: $_64unit;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+}
+
+.active {
+  background-color: map.get($yata-palette-primary, 50) !important;
+  color: $primary-color;
+}
+
+yata-select {
+  display: flex;
+  flex-direction: column;
+}
