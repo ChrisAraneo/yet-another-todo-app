@@ -8,16 +8,16 @@ import { UserLocaleService } from '../user-locale/user-locale.service';
   providedIn: 'root',
 })
 export class DateUtilsService {
-  constructor(private userLocaleService: UserLocaleService) {}
+  constructor(private readonly userLocaleService: UserLocaleService) {}
 
   getAllDaysInPeriodOfTime(startDate: Date, endDate: Date): Date[] {
     const difference = Math.abs(
       this.getNumberOfDaysBetweenDates(endDate, startDate),
     );
 
-    return [...new Array(difference).keys()].map((n: number) => {
-      return add(this.getDateAtNoon(startDate), { days: n });
-    });
+    return [...new Array(difference).keys()].map((n: number) =>
+      add(this.getDateAtNoon(startDate), { days: n }),
+    );
   }
 
   getAllDaysInMonth(today: Date): Date[] {
