@@ -9,29 +9,41 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { DisplayedOption, Option } from './page-size-select.types';
 import { diff } from '../../../../../shared/utils/diff.function';
 import { cloneDeep } from '../../../../../shared/utils/clone-deep.function';
-import { FormLabelComponent } from "../../../../../forms/components/form-label/form-label.component";
+import { FormLabelComponent } from '../../../../../forms/components/form-label/form-label.component';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 // TODO Fix dropdown icon animation
 // TODO Implement inline display option
 
 @Component({
-    selector: 'yata-page-size-select',
-    templateUrl: './page-size-select.component.html',
-    styleUrls: ['./page-size-select.component.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => PageSizeSelectComponent),
-            multi: true,
-        },
-    ],
-    standalone: true,
-    imports: [NgStyle, NgIf, ReactiveFormsModule, FormsModule, NgFor, FormLabelComponent]
+  selector: 'yata-page-size-select',
+  templateUrl: './page-size-select.component.html',
+  styleUrls: ['./page-size-select.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PageSizeSelectComponent),
+      multi: true,
+    },
+  ],
+  standalone: true,
+  imports: [
+    NgStyle,
+    NgIf,
+    ReactiveFormsModule,
+    FormsModule,
+    NgFor,
+    FormLabelComponent,
+  ],
 })
 export class PageSizeSelectComponent
   implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
@@ -76,8 +88,9 @@ export class PageSizeSelectComponent
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.text =
-        this.displayedOptions?.find((item) => diff(item.value, this.value)?.length === 0)?.label ||
-        '';
+        this.displayedOptions?.find(
+          (item) => diff(item.value, this.value)?.length === 0,
+        )?.label || '';
       this.dropdown.width = `${this.inputElementRef.nativeElement?.offsetWidth || 0}px`;
     });
   }
@@ -106,13 +119,16 @@ export class PageSizeSelectComponent
 
   onChangeText(event: string): void {
     const selectedValue =
-      this.selectedIndex > -1 ? cloneDeep(this.displayedOptions[this.selectedIndex]).value : null;
+      this.selectedIndex > -1
+        ? cloneDeep(this.displayedOptions[this.selectedIndex]).value
+        : null;
 
     if (event.length < 1) {
       this.updateDisplayedOptions(this.options, event);
       this.selectedIndex =
-        this.displayedOptions?.findIndex((item) => diff(item.value, selectedValue)?.length === 0) ||
-        -1;
+        this.displayedOptions?.findIndex(
+          (item) => diff(item.value, selectedValue)?.length === 0,
+        ) || -1;
 
       return;
     }
@@ -166,7 +182,10 @@ export class PageSizeSelectComponent
       this.selectedIndex = this.displayedOptions.findIndex(
         (item) => diff(item.value, value)?.length === 0,
       );
-      this.text = this.selectedIndex >= 0 ? this.displayedOptions[this.selectedIndex].label : '';
+      this.text =
+        this.selectedIndex >= 0
+          ? this.displayedOptions[this.selectedIndex].label
+          : '';
     } else {
       this.selectedIndex = -1;
       this.text = '';
@@ -185,21 +204,29 @@ export class PageSizeSelectComponent
     this.isDisabled = isDisabled;
   }
 
-  private updateDisplayedOptions(options: Option<any>[], searchText: string): void {
-    this.displayedOptions = cloneDeep<Option<any>[]>(options).map((option: Option<any>) => {
-      const indexOf = option.label.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase());
-      const highlightStart = searchText.length > 0 ? indexOf : -1;
-      const highlightEnd = highlightStart > -1 ? highlightStart + searchText.length - 1 : -1;
+  private updateDisplayedOptions(
+    options: Option<any>[],
+    searchText: string,
+  ): void {
+    this.displayedOptions = cloneDeep<Option<any>[]>(options).map(
+      (option: Option<any>) => {
+        const indexOf = option.label
+          .toLocaleLowerCase()
+          .indexOf(searchText.toLocaleLowerCase());
+        const highlightStart = searchText.length > 0 ? indexOf : -1;
+        const highlightEnd =
+          highlightStart > -1 ? highlightStart + searchText.length - 1 : -1;
 
-      return {
-        ...option,
-        symbols: option.label.split(''),
-        highlight: {
-          start: highlightStart,
-          end: highlightEnd,
-        },
-      };
-    });
+        return {
+          ...option,
+          symbols: option.label.split(''),
+          highlight: {
+            start: highlightStart,
+            end: highlightEnd,
+          },
+        };
+      },
+    );
   }
 
   private openDropdown(): void {
