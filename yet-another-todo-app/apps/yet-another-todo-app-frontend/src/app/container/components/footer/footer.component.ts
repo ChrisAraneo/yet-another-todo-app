@@ -4,7 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'yata-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss'],
+  styleUrl: './footer.component.scss',
   imports: [TranslatePipe],
   standalone: true,
 })

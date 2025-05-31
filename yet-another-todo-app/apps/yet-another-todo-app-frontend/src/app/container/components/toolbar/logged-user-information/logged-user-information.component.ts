@@ -6,7 +6,7 @@ import { LabelComponent } from '../../../../shared/components/label/label.compon
 @Component({
   selector: 'yata-logged-user-information',
   templateUrl: './logged-user-information.component.html',
-  styleUrls: ['./logged-user-information.component.scss'],
+  styleUrl: './logged-user-information.component.scss',
   standalone: true,
   imports: [LabelComponent, TranslatePipe],
 })

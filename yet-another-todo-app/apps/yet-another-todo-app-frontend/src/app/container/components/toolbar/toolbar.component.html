@@ -9,15 +9,14 @@
   </div>
   <yata-title [color]="titleColor">{{ title }}</yata-title>
   <div
-    class="logged-user-information-wrapper"
-    *ngIf="!isOfflineMode; else offlineMode">
-    <yata-logged-user-information
-      [username]="username"></yata-logged-user-information>
-    <yata-sign-out-button *ngIf="!isOfflineMode"></yata-sign-out-button>
+    *ngIf="!isOfflineMode; else offlineMode"
+    class="logged-user-information-wrapper">
+    <yata-logged-user-information [username]="username" />
+    <yata-sign-out-button *ngIf="!isOfflineMode" />
   </div>
   <ng-template #offlineMode>
     <div class="offline-mode-wrapper">
-      <yata-offline-indicator></yata-offline-indicator>
+      <yata-offline-indicator />
     </div>
   </ng-template>
 </p-toolbar>

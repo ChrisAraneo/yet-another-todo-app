@@ -12,7 +12,7 @@ import { SignOutButtonComponent } from './sign-out-button/sign-out-button.compon
 @Component({
   selector: 'yata-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+  styleUrl: './toolbar.component.scss',
   imports: [
     TranslatePipe,
     MatIcon,
