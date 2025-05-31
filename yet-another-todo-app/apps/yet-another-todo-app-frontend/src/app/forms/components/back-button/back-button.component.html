@@ -1,8 +1,8 @@
 <div class="back-button-wrapper">
-  <button mat-button (click)="onButtonClick($event)" [disabled]="isLoading">
+  <button mat-button [disabled]="isLoading" (click)="onButtonClick($event)">
     <div class="button-content">
       <mat-icon>{{ icon }}</mat-icon>
-      <ng-content></ng-content>
+      <ng-content />
     </div>
   </button>
 </div>

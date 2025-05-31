@@ -5,7 +5,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-readonly',
   templateUrl: './readonly.component.html',
-  styleUrls: ['./readonly.component.scss'],
+  styleUrl: './readonly.component.scss',
   standalone: true,
   imports: [FormLabelComponent],
 })

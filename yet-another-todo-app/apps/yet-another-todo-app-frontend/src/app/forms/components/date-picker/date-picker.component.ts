@@ -11,7 +11,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-date-picker',
   templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.scss'],
+  styleUrl: './date-picker.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -43,9 +43,7 @@ export class DatePickerComponent implements ControlValueAccessor {
     if (this.range && this.isDateOrNullArray(event)) {
       const dates = event.filter((item: Date | null) => item !== null);
 
-      this.value = dates
-        .map((item) => item?.toISOString())
-        .filter((item) => !!item) as string[];
+      this.value = dates.map((item) => item?.toISOString()).filter(Boolean);
     } else {
       this.value = event instanceof Date ? event.toISOString() : null;
     }

@@ -6,7 +6,7 @@ import { NOOP } from '../../../shared/utils/noop.const';
 @Component({
   selector: 'yata-cancel-button',
   templateUrl: './cancel-button.component.html',
-  styleUrls: ['./cancel-button.component.scss'],
+  styleUrl: './cancel-button.component.scss',
   standalone: true,
   imports: [MatButtonModule],
 })

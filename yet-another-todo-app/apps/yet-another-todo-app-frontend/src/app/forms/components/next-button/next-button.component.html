@@ -1,7 +1,7 @@
 <div class="next-button-wrapper">
-  <button mat-button (click)="onButtonClick($event)" [disabled]="isLoading">
+  <button mat-button [disabled]="isLoading" (click)="onButtonClick($event)">
     <div class="button-content">
-      <ng-content></ng-content>
+      <ng-content />
       <mat-icon>{{ icon }}</mat-icon>
     </div>
   </button>

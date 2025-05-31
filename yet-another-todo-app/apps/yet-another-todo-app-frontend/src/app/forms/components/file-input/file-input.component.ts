@@ -10,7 +10,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-file-input',
   templateUrl: './file-input.component.html',
-  styleUrls: ['./file-input.component.scss'],
+  styleUrl: './file-input.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -59,7 +59,7 @@ export class FileInputComponent implements ControlValueAccessor {
       this.isLoading = true;
 
       const reader = new FileReader();
-      const file = (inputElement?.files as FileList)[0];
+      const file = (inputElement?.files)![0];
 
       reader.addEventListener('load', (event: any): void => {
         this.isLoading = false;

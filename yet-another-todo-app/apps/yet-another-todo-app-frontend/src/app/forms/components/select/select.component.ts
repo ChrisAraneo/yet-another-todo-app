@@ -28,7 +28,7 @@ import { DisplayedOption, Option } from './select.types';
 @Component({
   selector: 'yata-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  styleUrl: './select.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

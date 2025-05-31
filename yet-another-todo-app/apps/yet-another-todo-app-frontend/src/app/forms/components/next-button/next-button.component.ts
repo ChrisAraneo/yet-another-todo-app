@@ -6,7 +6,7 @@ import { NOOP } from '../../../shared/utils/noop.const';
 @Component({
   selector: 'yata-next-button',
   templateUrl: './next-button.component.html',
-  styleUrls: ['./next-button.component.scss'],
+  styleUrl: './next-button.component.scss',
   standalone: true,
   imports: [MatIconModule],
 })
