@@ -6,7 +6,7 @@ import { ImageComponent } from '../image/image.component';
 @Component({
   selector: 'yata-logo',
   templateUrl: './logo.component.html',
-  styleUrls: ['./logo.component.scss'],
+  styleUrl: './logo.component.scss',
   standalone: true,
   imports: [ImageComponent, TranslatePipe],
 })

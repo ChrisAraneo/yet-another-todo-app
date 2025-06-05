@@ -1,24 +1,24 @@
 <div>
-  <yata-form-label [for]="label"></yata-form-label>
+  <yata-form-label [for]="label" />
   <div class="time-picker-wrapper">
     <input
+      *yataErrorTooltip="label"
       #hours
       pInputText
       type="text"
+      [disabled]="isDisabled"
       (input)="onHoursChange($event)"
       (change)="onHoursChange($event)"
-      (blur)="onBlur()"
-      [disabled]="isDisabled"
-      *yataErrorTooltip="label" />
+      (blur)="onBlur()" />
     <div class="separator">:</div>
     <input
+      *yataErrorTooltip="label"
       #minutes
       pInputText
       type="text"
+      [disabled]="isDisabled"
       (input)="onMinutesChange($event)"
       (change)="onMinutesChange($event)"
-      (blur)="onBlur()"
-      [disabled]="isDisabled"
-      *yataErrorTooltip="label" />
+      (blur)="onBlur()" />
   </div>
 </div>

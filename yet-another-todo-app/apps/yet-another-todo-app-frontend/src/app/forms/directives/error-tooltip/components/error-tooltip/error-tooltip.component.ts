@@ -16,7 +16,7 @@ import { ErrorTooltipItem } from './error-tooltip.types';
 @Component({
   selector: 'yata-error-tooltip',
   templateUrl: './error-tooltip.component.html',
-  styleUrls: ['./error-tooltip.component.scss'],
+  styleUrl: './error-tooltip.component.scss',
   standalone: true,
   imports: [NgIf, NgFor, LabelComponent, TranslatePipe],
 })
@@ -27,8 +27,8 @@ export class ErrorTooltipComponent implements OnChanges {
   list: ErrorTooltipItem[] = [];
 
   constructor(
-    private renderer: Renderer2,
-    private hostElement: ElementRef,
+    private readonly renderer: Renderer2,
+    private readonly hostElement: ElementRef,
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -12,7 +12,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-text-input',
   templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.scss'],
+  styleUrl: './text-input.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

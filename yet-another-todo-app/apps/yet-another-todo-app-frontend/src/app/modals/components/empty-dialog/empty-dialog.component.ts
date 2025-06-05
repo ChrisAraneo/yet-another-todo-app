@@ -12,7 +12,7 @@ import { EmptyDialogData } from './empty-dialog.types';
 @Component({
   selector: 'yata-empty-dialog',
   templateUrl: './empty-dialog.component.html',
-  styleUrls: ['./empty-dialog.component.scss'],
+  styleUrl: './empty-dialog.component.scss',
   standalone: true,
   imports: [
     ImageComponent,

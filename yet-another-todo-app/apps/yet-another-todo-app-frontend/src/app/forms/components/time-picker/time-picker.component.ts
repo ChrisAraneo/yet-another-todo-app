@@ -15,7 +15,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-time-picker',
   templateUrl: './time-picker.component.html',
-  styleUrls: ['./time-picker.component.scss'],
+  styleUrl: './time-picker.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -61,7 +61,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let hours: string = '00' + value.replaceAll(/\D/g, '');
+    let hours = `00${value.replaceAll(/\D/g, '')}`;
 
     if (+hours > 23) {
       hours = '23';
@@ -76,7 +76,7 @@ export class TimePickerComponent
       (event.target as HTMLInputElement).value = this.hours;
     }
 
-    this.changed && this.changed(this.hours + ':' + this.minutes);
+    this.changed && this.changed(`${this.hours}:${this.minutes}`);
   }
 
   onMinutesChange(event: InputEvent | Event | string): void {
@@ -88,7 +88,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let minutes: string = '00' + value.replaceAll(/\D/g, '');
+    let minutes = `00${value.replaceAll(/\D/g, '')}`;
 
     if (+minutes > 59) {
       minutes = '59';
@@ -103,7 +103,7 @@ export class TimePickerComponent
       (event.target as HTMLInputElement).value = this.minutes;
     }
 
-    this.changed && this.changed(this.hours + ':' + this.minutes);
+    this.changed && this.changed(`${this.hours}:${this.minutes}`);
   }
 
   onBlur(): void {

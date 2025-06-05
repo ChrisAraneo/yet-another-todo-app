@@ -15,7 +15,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-password-input',
   templateUrl: './password-input.component.html',
-  styleUrls: ['./password-input.component.scss'],
+  styleUrl: './password-input.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

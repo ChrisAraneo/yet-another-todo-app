@@ -9,7 +9,7 @@ import { NOOP } from '../../../shared/utils/noop.const';
 @Component({
   selector: 'yata-submit-button',
   templateUrl: './submit-button.component.html',
-  styleUrls: ['./submit-button.component.scss'],
+  styleUrl: './submit-button.component.scss',
   standalone: true,
   imports: [
     MatButtonModule,

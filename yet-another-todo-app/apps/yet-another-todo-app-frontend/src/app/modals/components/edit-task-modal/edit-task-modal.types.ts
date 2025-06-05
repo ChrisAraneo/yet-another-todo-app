@@ -1,11 +1,11 @@
 import { FormControl } from '@angular/forms';
 import { Task, TaskState } from '@chris.araneo/yet-another-todo-app-shared';
 
-export type EditTaskModalData = {
+export interface EditTaskModalData {
   initialTaskId: string;
-};
+}
 
-export type TaskForm = {
+export interface TaskForm {
   task: FormControl<Task | null>;
   title: FormControl<string>;
   description: FormControl<string>;
@@ -13,4 +13,4 @@ export type TaskForm = {
   dateRange: FormControl<string | [string] | [string, string] | null>;
   startTime: FormControl<string>;
   endTime: FormControl<string>;
-};
+}

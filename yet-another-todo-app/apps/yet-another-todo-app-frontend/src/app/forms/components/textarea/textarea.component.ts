@@ -8,7 +8,7 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 @Component({
   selector: 'yata-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['./textarea.component.scss'],
+  styleUrl: './textarea.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
