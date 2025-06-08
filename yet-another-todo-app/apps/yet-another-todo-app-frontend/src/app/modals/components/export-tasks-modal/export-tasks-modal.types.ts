@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export type ExportTasksForm = {
+export interface ExportTasksForm {
   password: FormControl<string>;
   repeatPassword: FormControl<string>;
-};
+}

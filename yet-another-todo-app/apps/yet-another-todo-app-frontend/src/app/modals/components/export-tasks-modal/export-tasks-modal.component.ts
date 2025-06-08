@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -8,25 +9,25 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
 import { Task } from '@chris.araneo/yet-another-todo-app-shared';
-import { fadeInOut } from '../../animations/fade-in-out.animation';
-import { ExportTasksForm } from './export-tasks-modal.types';
-import { TasksService } from '../../../shared/services/tasks/tasks.service';
-import { ZipTasksService } from '../../../shared/services/zip-tasks/zip-tasks.service';
+import { TranslatePipe } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+
+import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
 import { matchOtherValidator } from '../../../forms/validators/match-other.validator';
 import { ImageComponent } from '../../../shared/components/image/image.component';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { ZipTasksService } from '../../../shared/services/zip-tasks/zip-tasks.service';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
-import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
-import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { ExportTasksForm } from './export-tasks-modal.types';
 
 @Component({
   selector: 'yata-export-tasks-modal',
   templateUrl: './export-tasks-modal.component.html',
-  styleUrls: ['./export-tasks-modal.component.scss'],
+  styleUrl: './export-tasks-modal.component.scss',
   animations: [fadeInOut],
   standalone: true,
   imports: [
@@ -52,16 +53,17 @@ export class ExportTasksModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ExportTasksModalComponent>,
-    private tasksService: TasksService,
-    private zipTasksService: ZipTasksService,
-    private formBuilder: FormBuilder,
+    private readonly tasksService: TasksService,
+    private readonly zipTasksService: ZipTasksService,
+    private readonly formBuilder: FormBuilder,
   ) {
     this.initializeTasksObservable();
     this.initializeForm();
   }
 
-  submit = (tasks: Task[]) => {
-    return async (event: any): Promise<void> => {
+  submit =
+    (tasks: Task[]) =>
+    async (event: any): Promise<void> => {
       event.preventDefault();
       this.form.updateValueAndValidity();
 
@@ -71,7 +73,6 @@ export class ExportTasksModalComponent {
         this.dialogRef.close();
       }
     };
-  };
 
   cancel = (): void => {
     this.dialogRef.close();
