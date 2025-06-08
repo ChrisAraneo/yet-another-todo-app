@@ -26,7 +26,7 @@ import { DragDropTaskOrderListComponent } from './drag-drop-task-order-list/drag
 @Component({
   selector: 'yata-configure-timeline-modal',
   templateUrl: './configure-timeline-modal.component.html',
-  styleUrls: ['./configure-timeline-modal.component.scss'],
+  styleUrl: './configure-timeline-modal.component.scss',
   standalone: true,
   imports: [
     NgIf,
@@ -50,9 +50,9 @@ export class ConfigureTimelineModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ConfigureTimelineModalData,
     public dialogReference: MatDialogRef<ConfigureTimelineModalComponent>,
-    private formBuilder: FormBuilder,
-    private dateUtilitiesService: DateUtilitiesService,
-    private viewConfigurationService: ViewConfigurationService,
+    private readonly formBuilder: FormBuilder,
+    private readonly dateUtilitiesService: DateUtilitiesService,
+    private readonly viewConfigurationService: ViewConfigurationService,
   ) {
     const { startDate, endDate, statesOrder, statesFilter } = this.data;
 
@@ -67,10 +67,10 @@ export class ConfigureTimelineModalComponent {
       return;
     }
 
-    const startDate = new Date(this.form.value.startDate as string);
-    const endDate = new Date(this.form.value.endDate as string);
-    const statesOrder = this.form.value.statesOrder as TaskState[];
-    const statesFilter = this.form.value.statesFilter as TaskState[];
+    const startDate = new Date(this.form.value.startDate!);
+    const endDate = new Date(this.form.value.endDate!);
+    const statesOrder = this.form.value.statesOrder!;
+    const statesFilter = this.form.value.statesFilter!;
 
     this.viewConfigurationService.changeTimelineStartDate(startDate);
     this.viewConfigurationService.changeTimelineEndDate(endDate);

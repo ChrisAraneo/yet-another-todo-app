@@ -1,3 +1,4 @@
+import { AsyncPipe, NgIf, NgSwitch } from '@angular/common';
 import { Component, Inject, OnDestroy } from '@angular/core';
 import {
   AbstractControl,
@@ -9,15 +10,17 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
-  Observable,
-  Subscription,
   distinct,
   first,
   map,
+  Observable,
   shareReplay,
+  Subscription,
   tap,
 } from 'rxjs';
+
 import {
   CompletedTaskState,
   EndedTask,
@@ -29,33 +32,31 @@ import {
   Task,
   TaskState,
 } from '../../../../../../yet-another-todo-app-shared';
-import { Option } from '../../../forms/components/select/select.types';
-import { fadeInOut } from '../../animations/fade-in-out.animation';
-import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
-import { TasksService } from '../../../shared/services/tasks/tasks.service';
-import { TaskStateTranslatorService } from '../../../shared/services/task-state-translator/task-state-translator.service';
-import { TaskCreatorService } from '../../../shared/services/task-creator/task-creator.service';
-import { DateUtilsService } from '../../../shared/services/date-utils/date-utils.service';
-import { NavigationService } from '../../../shared/services/navigation/navigation.service';
-import { ImageComponent } from '../../../shared/components/image/image.component';
-import { ModalTitleComponent } from '../modal-title/modal-title.component';
-import { PageComponent } from '../page/page.component';
-import { SelectComponent } from '../../../forms/components/select/select.component';
-import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
-import { TextareaComponent } from '../../../forms/components/textarea/textarea.component';
 import { DatePickerComponent } from '../../../forms/components/date-picker/date-picker.component';
 import { ReadonlyComponent } from '../../../forms/components/readonly/readonly.component';
+import { SelectComponent } from '../../../forms/components/select/select.component';
+import { Option } from '../../../forms/components/select/select.types';
+import { TextInputComponent } from '../../../forms/components/text-input/text-input.component';
+import { TextareaComponent } from '../../../forms/components/textarea/textarea.component';
 import { TimePickerComponent } from '../../../forms/components/time-picker/time-picker.component';
+import { ImageComponent } from '../../../shared/components/image/image.component';
 import { SubtitleComponent } from '../../../shared/components/subtitle/subtitle.component';
-import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { TaskCardComponent } from '../../../shared/components/task-card/task-card.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AsyncPipe, NgIf, NgSwitch } from '@angular/common';
+import { DateUtilsService } from '../../../shared/services/date-utils/date-utils.service';
+import { NavigationService } from '../../../shared/services/navigation/navigation.service';
+import { TaskCreatorService } from '../../../shared/services/task-creator/task-creator.service';
+import { TaskStateTranslatorService } from '../../../shared/services/task-state-translator/task-state-translator.service';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
+import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
+import { ModalTitleComponent } from '../modal-title/modal-title.component';
+import { PageComponent } from '../page/page.component';
+import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
 
 @Component({
   selector: 'yata-edit-task-modal',
   templateUrl: './edit-task-modal.component.html',
-  styleUrls: ['./edit-task-modal.component.scss'],
+  styleUrl: './edit-task-modal.component.scss',
   animations: [fadeInOut],
   standalone: true,
   imports: [
@@ -85,23 +86,23 @@ export class EditTaskModalComponent implements OnDestroy {
   tasks!: Observable<Option<Task>[]>;
   form!: FormGroup<TaskForm>;
   showDatePicker!: Observable<boolean>;
-  isDateRange: boolean = false;
+  isDateRange = false;
   states: Option<TaskState>[] = [];
-  step: number = 1;
-  total: number = 5;
+  step = 1;
+  total = 5;
   task?: Task;
 
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EditTaskModalData,
     public dialogRef: MatDialogRef<EditTaskModalComponent>,
-    private formBuilder: FormBuilder,
-    private tasksService: TasksService,
-    private taskStateTranslatorService: TaskStateTranslatorService,
-    private taskCreator: TaskCreatorService,
-    private dateUtilsService: DateUtilsService,
-    private navigationService: NavigationService,
+    private readonly formBuilder: FormBuilder,
+    private readonly tasksService: TasksService,
+    private readonly taskStateTranslatorService: TaskStateTranslatorService,
+    private readonly taskCreator: TaskCreatorService,
+    private readonly dateUtilsService: DateUtilsService,
+    private readonly navigationService: NavigationService,
   ) {
     this.initializeStates();
     this.initializeTasks();
@@ -115,13 +116,13 @@ export class EditTaskModalComponent implements OnDestroy {
   }
 
   get startDate(): string | null {
-    const dateRange = this.form.value.dateRange;
+    const { dateRange } = this.form.value;
 
     return this.formatDate(Array.isArray(dateRange) ? dateRange[0] : dateRange);
   }
 
   get endDate(): string | null {
-    const dateRange = this.form.value.dateRange;
+    const { dateRange } = this.form.value;
 
     return this.formatDate(Array.isArray(dateRange) ? dateRange[1] : null);
   }
@@ -149,7 +150,6 @@ export class EditTaskModalComponent implements OnDestroy {
 
   back = async (): Promise<void> => {
     if (this.step === 1) {
-      return;
     } else if (this.step >= 3 && this.shouldSkipDateTimeSelection()) {
       this.step = 2;
     } else {
@@ -165,7 +165,7 @@ export class EditTaskModalComponent implements OnDestroy {
     let validTask = true;
     try {
       this.task = this.createTask();
-    } catch (_) {
+    } catch {
       validTask = false;
     }
 
@@ -174,7 +174,7 @@ export class EditTaskModalComponent implements OnDestroy {
     }
 
     return new Promise((resolve) => {
-      this.tasksService.updateTask(this.task as Task).subscribe(() => {
+      this.tasksService.updateTask(this.task!).subscribe(() => {
         resolve();
 
         this.dialogRef.close();
@@ -239,7 +239,7 @@ export class EditTaskModalComponent implements OnDestroy {
     tasks: Option<Task>[],
     data: EditTaskModalData,
   ): Task | undefined {
-    if (!tasks || !tasks.length) {
+    if (!tasks?.length) {
       return;
     }
 
@@ -284,14 +284,13 @@ export class EditTaskModalComponent implements OnDestroy {
           state instanceof CompletedTaskState ||
           state instanceof RejectedTaskState;
       }),
-      map((state: TaskState) => {
-        return (
+      map(
+        (state: TaskState) =>
           state instanceof InProgressTaskState ||
           state instanceof SuspendedTaskState ||
           state instanceof CompletedTaskState ||
-          state instanceof RejectedTaskState
-        );
-      }),
+          state instanceof RejectedTaskState,
+      ),
       shareReplay(1),
     );
   }
@@ -334,7 +333,7 @@ export class EditTaskModalComponent implements OnDestroy {
     this.subscription.add(
       this.form.controls.startTime.valueChanges.subscribe((startTime) => {
         const parts = startTime.split(':');
-        const dateRange = this.form.value.dateRange;
+        const { dateRange } = this.form.value;
 
         if (Array.isArray(dateRange)) {
           const date = new Date(dateRange[0]);
@@ -360,10 +359,10 @@ export class EditTaskModalComponent implements OnDestroy {
     this.subscription.add(
       this.form.controls.endTime.valueChanges.subscribe((endTime) => {
         const parts = endTime.split(':');
-        const dateRange = this.form.value.dateRange;
+        const { dateRange } = this.form.value;
 
         if (Array.isArray(dateRange) && dateRange.length > 1) {
-          const date = new Date(dateRange[1] as string);
+          const date = new Date(dateRange[1]!);
           date.setHours(+parts[0]);
           date.setMinutes(+parts[1]);
 
@@ -424,7 +423,7 @@ export class EditTaskModalComponent implements OnDestroy {
     let validTask = true;
     try {
       this.task = this.createTask();
-    } catch (_) {
+    } catch {
       validTask = false;
     }
 
@@ -458,14 +457,14 @@ export class EditTaskModalComponent implements OnDestroy {
     };
 
     if (dateRange && typeof dateRange === 'string') {
-      input['startDate'] = dateRange;
+      input.startDate = dateRange;
     } else if (dateRange && Array.isArray(dateRange)) {
-      input['startDate'] = dateRange[0];
-      input['endDate'] = dateRange[1];
+      input.startDate = dateRange[0];
+      input.endDate = dateRange[1];
     }
 
     if (this.form.value?.task?.getId()) {
-      input['id'] = this.form.value?.task?.getId();
+      input.id = this.form.value?.task?.getId();
     }
 
     return this.taskCreator.create(input);

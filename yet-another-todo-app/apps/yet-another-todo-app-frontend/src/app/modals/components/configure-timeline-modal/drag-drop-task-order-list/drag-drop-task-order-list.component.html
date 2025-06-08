@@ -6,7 +6,7 @@
   cdkDropList
   class="drag-drop-task-order-list"
   (cdkDropListDropped)="drop($event)">
-  <mat-card class="row" *ngFor="let item of values; let index = index" cdkDrag>
+  <mat-card *ngFor="let item of values; let index = index" class="row" cdkDrag>
     <mat-checkbox [(ngModel)]="checked[index]" (ngModelChange)="emitValues()">{{
       item | translate
     }}</mat-checkbox>

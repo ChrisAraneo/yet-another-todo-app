@@ -45,7 +45,7 @@ import { TaskForm } from './add-task-modal.types';
 @Component({
   selector: 'yata-add-task-modal',
   templateUrl: './add-task-modal.component.html',
-  styleUrls: ['./add-task-modal.component.scss'],
+  styleUrl: './add-task-modal.component.scss',
   animations: [fadeInOut],
   standalone: true,
   imports: [
@@ -80,15 +80,15 @@ export class AddTaskModalComponent implements OnDestroy {
   total = 4;
   task?: Task;
 
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
     public dialogReference: MatDialogRef<AddTaskModalComponent>,
-    private formBuilder: FormBuilder,
-    private tasksService: TasksService,
-    private taskStateTranslatorService: TaskStateTranslatorService,
-    private taskCreator: TaskCreatorService,
-    private dateUtilitiesService: DateUtilitiesService,
+    private readonly formBuilder: FormBuilder,
+    private readonly tasksService: TasksService,
+    private readonly taskStateTranslatorService: TaskStateTranslatorService,
+    private readonly taskCreator: TaskCreatorService,
+    private readonly dateUtilitiesService: DateUtilitiesService,
   ) {
     this.initializeStates();
     this.initializeForm();
@@ -99,13 +99,13 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   get startDate(): string | null {
-    const dateRange = this.form.value.dateRange;
+    const { dateRange } = this.form.value;
 
     return this.formatDate(Array.isArray(dateRange) ? dateRange[0] : dateRange);
   }
 
   get endDate(): string | null {
-    const dateRange = this.form.value.dateRange;
+    const { dateRange } = this.form.value;
 
     return this.formatDate(Array.isArray(dateRange) ? dateRange[1] : null);
   }
@@ -130,7 +130,6 @@ export class AddTaskModalComponent implements OnDestroy {
 
   back = async (): Promise<void> => {
     if (this.step === 1) {
-      return;
     } else if (this.step >= 3 && this.shouldSkipDateTimeSelection()) {
       this.step = 1;
     } else {
@@ -155,7 +154,7 @@ export class AddTaskModalComponent implements OnDestroy {
     }
 
     return new Promise((resolve) => {
-      this.tasksService.addTask(this.task as Task).subscribe(() => {
+      this.tasksService.addTask(this.task!).subscribe(() => {
         resolve();
 
         this.dialogRef.close();
@@ -199,14 +198,13 @@ export class AddTaskModalComponent implements OnDestroy {
           state instanceof CompletedTaskState ||
           state instanceof RejectedTaskState;
       }),
-      map((state: TaskState) => {
-        return (
+      map(
+        (state: TaskState) =>
           state instanceof InProgressTaskState ||
           state instanceof SuspendedTaskState ||
           state instanceof CompletedTaskState ||
-          state instanceof RejectedTaskState
-        );
-      }),
+          state instanceof RejectedTaskState,
+      ),
       shareReplay(1),
     );
   }
@@ -231,7 +229,7 @@ export class AddTaskModalComponent implements OnDestroy {
     this.subscription.add(
       this.form.controls.startTime.valueChanges.subscribe((startTime) => {
         const parts = startTime.split(':');
-        const dateRange = this.form.value.dateRange;
+        const { dateRange } = this.form.value;
 
         if (Array.isArray(dateRange)) {
           const date = new Date(dateRange[0]);
@@ -257,10 +255,10 @@ export class AddTaskModalComponent implements OnDestroy {
     this.subscription.add(
       this.form.controls.endTime.valueChanges.subscribe((endTime) => {
         const parts = endTime.split(':');
-        const dateRange = this.form.value.dateRange;
+        const { dateRange } = this.form.value;
 
         if (Array.isArray(dateRange) && dateRange.length > 1) {
-          const date = new Date(dateRange[1] as string);
+          const date = new Date(dateRange[1]!);
           date.setHours(+parts[0]);
           date.setMinutes(+parts[1]);
 
@@ -344,10 +342,10 @@ export class AddTaskModalComponent implements OnDestroy {
     };
 
     if (dateRange && typeof dateRange === 'string') {
-      input['startDate'] = dateRange;
+      input.startDate = dateRange;
     } else if (dateRange && Array.isArray(dateRange)) {
-      input['startDate'] = dateRange[0];
-      input['endDate'] = dateRange[1];
+      input.startDate = dateRange[0];
+      input.endDate = dateRange[1];
     }
 
     return this.taskCreator.create(input);

@@ -24,7 +24,7 @@ import { TaskForm, TaskOption } from './delete-task-modal.types';
 @Component({
   selector: 'yata-delete-task-modal',
   templateUrl: './delete-task-modal.component.html',
-  styleUrls: ['./delete-task-modal.component.scss'],
+  styleUrl: './delete-task-modal.component.scss',
   animations: [fadeInOut],
   standalone: true,
   imports: [
@@ -45,13 +45,13 @@ export class DeleteTaskModalComponent implements OnDestroy {
   tasks!: Observable<TaskOption[]>;
   form?: FormGroup<TaskForm>;
 
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogReference: MatDialogRef<DeleteTaskModalComponent>,
-    private formBuilder: FormBuilder,
-    private tasksService: TasksService,
+    private readonly formBuilder: FormBuilder,
+    private readonly tasksService: TasksService,
   ) {
     this.initializeTasksObservable();
     this.initializeFormWithInitialTask();
@@ -121,7 +121,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
       return;
     }
 
-    const id = data && data['initialTaskId'];
+    const id = data?.initialTaskId;
 
     return id
       ? tasks.find((item) => item.value.getId() === id)?.value || tasks[0].value

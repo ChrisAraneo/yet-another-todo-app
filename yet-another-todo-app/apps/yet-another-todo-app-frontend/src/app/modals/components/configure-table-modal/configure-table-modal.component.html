@@ -1,17 +1,16 @@
 <yata-title class="modal-title">{{
   'ConfigureTableModal.modalTitle' | translate
 }}</yata-title>
-<form [formGroup]="form" *ngIf="!!form">
+<form *ngIf="!!form" [formGroup]="form">
   <yata-select
-    [formControlName]="'id'"
+    formControlName="id"
     [label]="'ConfigureTableModal.id' | translate"
-    [options]="ids"></yata-select>
+    [options]="ids" />
   <yata-select
-    [formControlName]="'direction'"
+    formControlName="direction"
     [label]="'ConfigureTableModal.direction' | translate"
-    [options]="directions"></yata-select>
+    [options]="directions" />
   <yata-modal-action-buttons
     [form]="form"
-    [submitButton]="{ label: 'ConfigureTableModal.save', click: submit }">
-  </yata-modal-action-buttons>
+    [submitButton]="{ label: 'ConfigureTableModal.save', click: submit }" />
 </form>

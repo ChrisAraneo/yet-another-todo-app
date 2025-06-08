@@ -1,22 +1,19 @@
 <yata-title class="modal-title">{{
   'ConfigureTimelineModal.modalTitle' | translate
 }}</yata-title>
-<form [formGroup]="form" *ngIf="!!form">
+<form *ngIf="!!form" [formGroup]="form">
   <yata-date-picker
-    [formControlName]="'startDate'"
-    [label]="'ConfigureTimelineModal.startDate' | translate"></yata-date-picker>
+    formControlName="startDate"
+    [label]="'ConfigureTimelineModal.startDate' | translate" />
   <yata-date-picker
-    [formControlName]="'endDate'"
-    [label]="'ConfigureTimelineModal.endDate' | translate"></yata-date-picker>
+    formControlName="endDate"
+    [label]="'ConfigureTimelineModal.endDate' | translate" />
   <yata-drag-drop-task-order-list
     [orderedStates]="orderedStates"
     [filteredStates]="filteredStates"
     (changeStatesOrder)="changeStatesOrder($event)"
-    (changeStatesFilter)="
-      changeStatesFilter($event)
-    "></yata-drag-drop-task-order-list>
+    (changeStatesFilter)="changeStatesFilter($event)" />
   <yata-modal-action-buttons
     [form]="form"
-    [submitButton]="{ label: 'ConfigureTimelineModal.save', click: submit }">
-  </yata-modal-action-buttons>
+    [submitButton]="{ label: 'ConfigureTimelineModal.save', click: submit }" />
 </form>

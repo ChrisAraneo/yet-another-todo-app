@@ -21,7 +21,7 @@ import { TaskStateCreatorService } from '../../../../shared/services/task-state-
 @Component({
   selector: 'yata-drag-drop-task-order-list',
   templateUrl: './drag-drop-task-order-list.component.html',
-  styleUrls: ['./drag-drop-task-order-list.component.scss'],
+  styleUrl: './drag-drop-task-order-list.component.scss',
   standalone: true,
   imports: [
     CdkDrag,
@@ -41,7 +41,7 @@ export class DragDropTaskOrderListComponent implements OnChanges {
   values: string[];
   checked: boolean[];
 
-  constructor(private taskStateCreator: TaskStateCreatorService) {
+  constructor(private readonly taskStateCreator: TaskStateCreatorService) {
     this.values = [];
     this.checked = [];
     this.changeStatesOrder = new EventEmitter<TaskState[]>();
@@ -85,9 +85,7 @@ export class DragDropTaskOrderListComponent implements OnChanges {
 
     this.changeStatesFilter.next(
       [...this.values]
-        .filter((_: string, index: number) => {
-          return this.checked[index] === true;
-        })
+        .filter((_: string, index: number) => this.checked[index])
         .map((value) => TaskStateCreator.create({ value })),
     );
   }

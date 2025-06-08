@@ -1,9 +1,9 @@
 <div class="figure">
   <yata-image
-    [src]="'../../../../public/images/add-task.jpg'"
+    src="../../../../public/images/add-task.jpg"
     [width]="480"
     [height]="576"
-    [alt]="'AddTaskModal.imageAlt' | translate"></yata-image>
+    [alt]="'AddTaskModal.imageAlt' | translate" />
 </div>
 <div class="form">
   <yata-modal-title>{{
@@ -13,52 +13,49 @@
     <div class="controls" [ngSwitch]="step">
       <yata-page *ngSwitchCase="1" [@fadeInOut]>
         <yata-text-input
-          [formControlName]="'title'"
-          [label]="'AddTaskModal.title' | translate"></yata-text-input>
+          formControlName="title"
+          [label]="'AddTaskModal.title' | translate" />
         <yata-textarea
-          [formControlName]="'description'"
+          formControlName="description"
           [label]="'AddTaskModal.description' | translate"
           [rows]="4"
-          [maxLength]="200"></yata-textarea>
+          [maxLength]="200" />
         <yata-select
-          [formControlName]="'state'"
+          formControlName="state"
           [label]="'AddTaskModal.state' | translate"
-          [options]="states"></yata-select>
+          [options]="states" />
       </yata-page>
       <yata-page *ngSwitchCase="2" [@fadeInOut]>
         <yata-date-picker
           *ngIf="!!(showDatePicker | async)"
-          [formControlName]="'dateRange'"
+          formControlName="dateRange"
           [label]="
             isDateRange
               ? ('AddTaskModal.dateRange' | translate)
               : ('AddTaskModal.startDate' | translate)
           "
-          [range]="!!isDateRange"></yata-date-picker>
+          [range]="!!isDateRange" />
       </yata-page>
       <yata-page *ngSwitchCase="3" [@fadeInOut]>
         <yata-readonly
           [label]="'AddTaskModal.startDate' | translate"
-          [value]="startDate"></yata-readonly>
+          [value]="startDate" />
         <yata-time-picker
-          [label]="'AddTaskModal.startTime' | translate"
-          formControlName="startTime"></yata-time-picker>
+          formControlName="startTime"
+          [label]="'AddTaskModal.startTime' | translate" />
         <ng-container *ngIf="isDateRange">
           <yata-readonly
             [label]="'AddTaskModal.endDate' | translate"
-            [value]="endDate"></yata-readonly>
+            [value]="endDate" />
           <yata-time-picker
-            [label]="'AddTaskModal.endTime' | translate"
-            formControlName="endTime"></yata-time-picker>
+            formControlName="endTime"
+            [label]="'AddTaskModal.endTime' | translate" />
         </ng-container>
       </yata-page>
       <yata-page *ngSwitchCase="4" class="summary" [@fadeInOut]>
         <yata-subtitle>{{ 'AddTaskModal.summary' | translate }}:</yata-subtitle>
         <div class="task-card-wrapper">
-          <yata-task-card
-            *ngIf="task"
-            [task]="task"
-            [showEditButton]="false"></yata-task-card>
+          <yata-task-card *ngIf="task" [task]="task" [showEditButton]="false" />
         </div>
       </yata-page>
     </div>
@@ -68,7 +65,6 @@
       [total]="total"
       [backButton]="{ click: back }"
       [nextButton]="{ click: next }"
-      [submitButton]="{ label: 'AddTaskModal.submit', click: submit }">
-    </yata-modal-action-buttons>
+      [submitButton]="{ label: 'AddTaskModal.submit', click: submit }" />
   </form>
 </div>

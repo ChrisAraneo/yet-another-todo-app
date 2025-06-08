@@ -26,7 +26,7 @@ const TABLE_DISPLAYED_COLUMNS: string[] = []; // TODO
 @Component({
   selector: 'yata-configure-table-modal',
   templateUrl: './configure-table-modal.component.html',
-  styleUrls: ['./configure-table-modal.component.scss'],
+  styleUrl: './configure-table-modal.component.scss',
   standalone: true,
   imports: [
     TitleComponent,
@@ -48,9 +48,9 @@ export class ConfigureTableModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogReference: MatDialogRef<ConfigureTableModalComponent>,
-    private formBuilder: FormBuilder,
-    private translateService: TranslateService,
-    private viewConfigurationService: ViewConfigurationService,
+    private readonly formBuilder: FormBuilder,
+    private readonly translateService: TranslateService,
+    private readonly viewConfigurationService: ViewConfigurationService,
   ) {
     const id = this.getIdFromData(this.data);
     const direction = this.getDirectionFromData(this.data);
@@ -69,7 +69,7 @@ export class ConfigureTableModalComponent {
     const direction = this.form.value.direction || 'asc';
 
     this.viewConfigurationService.changeTableSorting({
-      id: id,
+      id,
       start: direction,
       disableClear: false,
     });
