@@ -1,12 +1,14 @@
 <div class="figure">
   <yata-image
-    [src]="'../../../../assets/images/export-tasks.jpg'"
+    src="../../../../public/images/export-tasks.jpg"
     [width]="480"
     [height]="576"
-    [alt]="'ExportTasksModal.imageAlt' | translate"></yata-image>
+    [alt]="'ExportTasksModal.imageAlt' | translate" />
 </div>
 <div class="form">
-  <yata-modal-title>{{ 'ExportTasksModal.modalTitle' | translate }}</yata-modal-title>
+  <yata-modal-title>{{
+    'ExportTasksModal.modalTitle' | translate
+  }}</yata-modal-title>
   <!-- TODO Handle empty -->
   <form
     *ngIf="(!!form && (tasks | async)) || [] as _tasks"
@@ -15,13 +17,13 @@
     <div class="controls">
       <yata-page [@fadeInOut]>
         <yata-password-input
-          [formControlName]="'password'"
+          formControlName="password"
           [label]="'ExportTasksModal.password' | translate"
-          [parentForm]="form"></yata-password-input>
+          [parentForm]="form" />
         <yata-password-input
-          [formControlName]="'repeatPassword'"
+          formControlName="repeatPassword"
           [label]="'ExportTasksModal.repeatPassword' | translate"
-          [parentForm]="form"></yata-password-input>
+          [parentForm]="form" />
       </yata-page>
     </div>
     <yata-modal-action-buttons
@@ -29,7 +31,6 @@
       [submitButton]="{
         label: 'ExportTasksModal.submit',
         click: submit(_tasks),
-      }">
-    </yata-modal-action-buttons>
+      }" />
   </form>
 </div>
