@@ -19,7 +19,7 @@
     </button>
   </div>
 
-  <div class="page" *ngFor="let page of pages">
+  <div *ngFor="let page of pages" class="page">
     <button
       mat-button
       [class.active]="currentPage === page"
@@ -51,5 +51,5 @@
 
   <yata-page-size-select
     [formControl]="select"
-    [options]="(pageSizeOptions | async) || []"></yata-page-size-select>
+    [options]="(pageSizeOptions | async) || []" />
 </div>

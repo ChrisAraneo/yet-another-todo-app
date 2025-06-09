@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SortDirection } from '@angular/material/sort';
 import { TaskState } from '@chris.araneo/yet-another-todo-app-shared';
+
 import { TasksDataSource } from '../../table.types';
 import { SortActive, SortOptions } from './tasks-sorter.types';
 
@@ -22,14 +23,13 @@ export class TasksSorterService {
 
       if (typeof valueA === 'string' && typeof valueB === 'string') {
         return valueA.localeCompare(valueB) * (direction === 'asc' ? 1 : -1);
-      } else {
-        throw new Error(
-          `Can't compare invalid values during sorting. Key: ${key}, direction: ${direction}, values: ${[
-            valueA,
-            valueB,
-          ]}`,
-        );
       }
+      throw new Error(
+        `Can't compare invalid values during sorting. Key: ${key}, direction: ${direction}, values: ${[
+          valueA,
+          valueB,
+        ]}`,
+      );
     });
   }
 
@@ -38,8 +38,7 @@ export class TasksSorterService {
       return value;
     } else if (value instanceof TaskState) {
       return value.toString();
-    } else {
-      throw new Error(`Value has invalid type: ${value}`);
     }
+    throw new Error(`Value has invalid type: ${value}`);
   }
 }

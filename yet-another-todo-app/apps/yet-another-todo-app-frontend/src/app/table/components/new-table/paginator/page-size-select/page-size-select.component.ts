@@ -1,3 +1,4 @@
+import { NgFor, NgIf, NgStyle } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -15,11 +16,11 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { DisplayedOption, Option } from './page-size-select.types';
-import { diff } from '../../../../../shared/utils/diff.function';
-import { cloneDeep } from '../../../../../shared/utils/clone-deep.function';
+
 import { FormLabelComponent } from '../../../../../forms/components/form-label/form-label.component';
-import { NgFor, NgIf, NgStyle } from '@angular/common';
+import { cloneDeep } from '../../../../../shared/utils/clone-deep.function';
+import { diff } from '../../../../../shared/utils/diff.function';
+import { DisplayedOption, Option } from './page-size-select.types';
 
 // TODO Fix dropdown icon animation
 // TODO Implement inline display option
@@ -27,7 +28,7 @@ import { NgFor, NgIf, NgStyle } from '@angular/common';
 @Component({
   selector: 'yata-page-size-select',
   templateUrl: './page-size-select.component.html',
-  styleUrls: ['./page-size-select.component.scss'],
+  styleUrl: './page-size-select.component.scss',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -50,7 +51,7 @@ export class PageSizeSelectComponent
 {
   @ViewChild('input') inputElementRef!: ElementRef;
 
-  @Input() label: string = '';
+  @Input() label = '';
   @Input() options: Option<any>[] = [];
 
   text: string;
@@ -66,7 +67,7 @@ export class PageSizeSelectComponent
   changed?: (value: any) => void;
   touched?: () => void;
 
-  private isClickedOutsideDropdown: boolean = false;
+  private isClickedOutsideDropdown = false;
 
   constructor() {
     this.text = '';
@@ -109,7 +110,7 @@ export class PageSizeSelectComponent
   }
 
   onChange(event: Event): void {
-    const selectedIndex = +(<HTMLInputElement>event.target).value;
+    const selectedIndex = +(event.target as HTMLInputElement).value;
     const selectedOption = this.displayedOptions[selectedIndex];
 
     this.value = selectedOption?.value || null;
@@ -123,7 +124,7 @@ export class PageSizeSelectComponent
         ? cloneDeep(this.displayedOptions[this.selectedIndex]).value
         : null;
 
-    if (event.length < 1) {
+    if (event.length === 0) {
       this.updateDisplayedOptions(this.options, event);
       this.selectedIndex =
         this.displayedOptions?.findIndex(
@@ -136,13 +137,13 @@ export class PageSizeSelectComponent
     const found: Option<any>[] = [];
     const notFound: Option<any>[] = [];
 
-    this.displayedOptions.forEach((option) => {
-      if (option.label.toLocaleLowerCase().indexOf(event) >= 0) {
+    for (const option of this.displayedOptions) {
+      if (option.label.toLocaleLowerCase().includes(event)) {
         found.push(option);
       } else {
         notFound.push(option);
       }
-    });
+    }
 
     this.updateDisplayedOptions([...found, ...notFound], event);
     this.selectedIndex = this.displayedOptions.findIndex(

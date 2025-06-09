@@ -1,9 +1,9 @@
-export type Option<T> = {
+export interface Option<T> {
   label: string;
   value: T;
-};
+}
 
-export type DisplayedOption<T> = {
+export interface DisplayedOption<T> {
   label: string;
   value: T;
   symbols: string[];
@@ -11,4 +11,4 @@ export type DisplayedOption<T> = {
     start: number;
     end: number;
   };
-};
+}

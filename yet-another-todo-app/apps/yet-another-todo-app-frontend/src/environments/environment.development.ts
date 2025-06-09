@@ -15,14 +15,14 @@ const userEndpoint = `${origin}/user`;
 export const environment = {
   production: false,
   api: {
-    host: host,
-    port: port,
-    origin: origin,
-    signupEndpoint: signupEndpoint,
-    loginEndpoint: loginEndpoint,
-    refreshEndpoint: refreshEndpoint,
-    taskEndpoint: taskEndpoint,
-    tasksEndpoint: tasksEndpoint,
-    userEndpoint: userEndpoint,
+    host,
+    port,
+    origin,
+    signupEndpoint,
+    loginEndpoint,
+    refreshEndpoint,
+    taskEndpoint,
+    tasksEndpoint,
+    userEndpoint,
   },
 };

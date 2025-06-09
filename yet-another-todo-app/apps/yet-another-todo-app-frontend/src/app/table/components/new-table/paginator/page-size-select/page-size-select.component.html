@@ -1,4 +1,4 @@
-<yata-form-label *ngIf="label" [for]="label"></yata-form-label>
+<yata-form-label *ngIf="label" [for]="label" />
 <span>
   <input
     #input
@@ -6,8 +6,8 @@
     type="text"
     [name]="label"
     [disabled]="isDisabled"
-    [(ngModel)]="text"
     [ngStyle]="!label ? { 'margin-top': '0' } : {}"
+    [(ngModel)]="text"
     (ngModelChange)="onChangeText($event)"
     (focus)="onFocus()"
     (blur)="onBlur($event)" />

@@ -1,3 +1,4 @@
+import { AsyncPipe, NgFor } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -8,21 +9,21 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { combineLatest, map, Observable, Subscription } from 'rxjs';
+
 import { Option } from '../../../../forms/components/select/select.types';
 import {
   TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS,
   TABLE_PAGE_SIZE_OPTIONS,
 } from '../../table/table.config';
 import { PageSizeSelectComponent } from './page-size-select/page-size-select.component';
-import { AsyncPipe, NgFor } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'yata-paginator',
   templateUrl: './paginator.component.html',
-  styleUrls: ['./paginator.component.scss'],
+  styleUrl: './paginator.component.scss',
   standalone: true,
   imports: [
     MatIconModule,
@@ -35,7 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
   ],
 })
 export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
-  @Input() totalNumberOfItems: number = 0;
+  @Input() totalNumberOfItems = 0;
   @Input() maxDisplayedPageButtons: number =
     TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS;
 
@@ -44,21 +45,21 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
 
   pageSizeOptions!: Observable<Option<number>[]>;
 
-  isFirstDisabled: boolean = true;
-  isPrevDisabled: boolean = true;
-  isNextDisabled: boolean = true;
-  isLastDisabled: boolean = true;
+  isFirstDisabled = true;
+  isPrevDisabled = true;
+  isNextDisabled = true;
+  isLastDisabled = true;
 
-  currentPage: number = 1;
+  currentPage = 1;
   pages: number[] = [1];
 
   select!: FormControl<number>;
 
   private pageSize: number = TABLE_PAGE_SIZE_OPTIONS[0]; // TODO Query param
-  private lastPage: number = 1;
+  private lastPage = 1;
   private subscription?: Subscription;
 
-  constructor(private translateService: TranslateService) {}
+  constructor(private readonly translateService: TranslateService) {}
 
   ngOnInit(): void {
     this.select = new FormControl(this.pageSize, { nonNullable: true });
@@ -128,18 +129,18 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     if (this.maxDisplayedPageButtons > this.lastPage) {
-      this.pages = Array.from(Array(this.lastPage).keys()).map(
+      this.pages = [...new Array(this.lastPage).keys()].map(
         (_, index) => index + 1,
       );
     } else {
       const half = Math.floor(this.maxDisplayedPageButtons / 2);
-      let min = this.currentPage - half < 1 ? 1 : this.currentPage - half;
+      let min = Math.max(this.currentPage - half, 1);
 
       if (this.currentPage + half > this.lastPage) {
         min = this.lastPage - this.maxDisplayedPageButtons + 1;
       }
 
-      this.pages = Array.from(Array(this.maxDisplayedPageButtons).keys()).map(
+      this.pages = [...new Array(this.maxDisplayedPageButtons).keys()].map(
         (_, index) => min + index,
       );
     }

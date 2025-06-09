@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { PageSizeSelectComponent } from './page-size-select.component';
 
 describe('PageSizeSelectComponent', () => {
