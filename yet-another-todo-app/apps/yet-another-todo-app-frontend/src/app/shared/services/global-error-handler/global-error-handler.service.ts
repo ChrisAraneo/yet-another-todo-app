@@ -9,7 +9,7 @@ import { ErrorSnackbarComponent } from '../../components/error-snackbar/error-sn
 export class GlobalErrorHandlerService implements ErrorHandler {
   private readonly durationInSeconds = 5;
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private readonly snackBar: MatSnackBar) {}
 
   handleError(error: any): void {
     console.error(error?.message);

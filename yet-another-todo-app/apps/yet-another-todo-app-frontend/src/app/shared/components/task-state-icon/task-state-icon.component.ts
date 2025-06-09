@@ -9,7 +9,7 @@ import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 @Component({
   selector: 'yata-task-state-icon',
   templateUrl: './task-state-icon.component.html',
-  styleUrls: ['./task-state-icon.component.scss'],
+  styleUrl: './task-state-icon.component.scss',
   standalone: true,
   imports: [MatIcon, NgStyle, MatTooltip, TranslatePipe],
 })
@@ -23,14 +23,12 @@ export class TaskStateIconComponent implements OnChanges {
   value = '';
 
   ngOnChanges(changes: SimpleChanges): void {
-    const currentState = changes['state'] && changes['state'].currentValue;
-    const previousState = changes['state'] && changes['state'].previousValue;
-    const currentSize = changes['size'] && changes['size'].currentValue;
-    const previousSize = changes['size'] && changes['size'].previousValue;
-    const currentOpacity =
-      changes['opacity'] && changes['opacity'].currentValue;
-    const previousOpacity =
-      changes['opacity'] && changes['opacity'].previousValue;
+    const currentState = changes['state']?.currentValue;
+    const previousState = changes['state']?.previousValue;
+    const currentSize = changes['size']?.currentValue;
+    const previousSize = changes['size']?.previousValue;
+    const currentOpacity = changes['opacity']?.currentValue;
+    const previousOpacity = changes['opacity']?.previousValue;
 
     if (currentState !== previousState) {
       this.updateIconName(currentState);
@@ -51,7 +49,7 @@ export class TaskStateIconComponent implements OnChanges {
   }
 
   private updateStyle(state: TaskState, size: number, opacity: number): void {
-    const sizeInPx = size + 'px';
+    const sizeInPx = `${size}px`;
     const color = state.getRelatedColor();
 
     this.style = {
@@ -60,8 +58,8 @@ export class TaskStateIconComponent implements OnChanges {
       'font-size': sizeInPx,
       'line-height': sizeInPx,
       fill: color,
-      color: color,
-      opacity: opacity,
+      color,
+      opacity,
     };
   }
 

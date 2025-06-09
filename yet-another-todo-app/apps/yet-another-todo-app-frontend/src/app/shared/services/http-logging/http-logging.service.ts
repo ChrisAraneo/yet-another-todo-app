@@ -102,11 +102,11 @@ export class HttpLoggingService {
     url: string,
     method: string,
   ): boolean {
-    return !!request && request.url === url && request.method === method;
+    return Boolean(request) && request.url === url && request.method === method;
   }
 
   private isCorrectResponseType(response: any): boolean {
-    return !!response && response.type !== HttpEventType.Sent;
+    return Boolean(response) && response.type !== HttpEventType.Sent;
   }
 
   private getId(request: HttpRequest<unknown>): string {
@@ -123,10 +123,10 @@ export class HttpLoggingService {
 
     this.store.dispatch(
       actionCreator({
-        id: id,
+        id,
         logType: HttpLogType.Request,
-        data: data,
-        creationDate: creationDate,
+        data,
+        creationDate,
       } as any),
     );
   }
@@ -142,7 +142,7 @@ export class HttpLoggingService {
         id: operationId,
         logType: HttpLogType.Response,
         data: response,
-        creationDate: creationDate,
+        creationDate,
       } as any),
     );
   }

@@ -19,8 +19,8 @@ import {
 })
 export class NavigationService {
   constructor(
-    private router: Router,
-    private location: Location,
+    private readonly router: Router,
+    private readonly location: Location,
   ) {}
 
   async navigateToTimelineRoute(): Promise<boolean> {
@@ -39,7 +39,7 @@ export class NavigationService {
 
   async navigateToEditTaskRoute(id: string): Promise<boolean> {
     const state = this.router.routerState.snapshot;
-    const urlParts = state.url.split('/').filter((part) => !!part);
+    const urlParts = state.url.split('/').filter(Boolean);
     const editPathIndex = urlParts.indexOf(EDIT_TASK_PATH);
 
     if (editPathIndex !== -1) {
@@ -68,7 +68,7 @@ export class NavigationService {
   async navigateToSignInRoute(
     state: RouterStateSnapshot = this.router.routerState.snapshot,
   ): Promise<boolean> {
-    const urlParts = state.url.split('/').filter((part) => !!part);
+    const urlParts = state.url.split('/').filter(Boolean);
 
     if (urlParts.includes(SIGN_IN_PATH)) {
       return true;
@@ -94,7 +94,7 @@ export class NavigationService {
   async navigateBack(): Promise<boolean> {
     // TODO Use path from root?
     const urlParts = this.getRouteSnapshotUrlParts();
-    const length = urlParts.length;
+    const { length } = urlParts;
 
     if (length <= 1) {
       return this.navigateToTimelineRoute();
@@ -117,14 +117,11 @@ export class NavigationService {
     return this.navigate([...urlParts]);
   }
 
-  private navigate(
+  private async navigate(
     paths: string[],
     extras?: NavigationExtras,
   ): Promise<boolean> {
-    return this.router.navigate(
-      paths.filter((path) => !!path),
-      extras,
-    );
+    return this.router.navigate(paths.filter(Boolean), extras);
   }
 
   private getFirstRootChild(): string {
@@ -132,18 +129,16 @@ export class NavigationService {
   }
 
   private getRouteSnapshotUrlParts(): string[] {
-    return this.router.routerState.snapshot.url
-      .split('/')
-      .filter((part) => !!part);
+    return this.router.routerState.snapshot.url.split('/').filter(Boolean);
   }
 
   private isPotentialUuid(value: string): boolean {
     return value.split('-').join('').length === value.length - 4;
   }
 
-  private replaceUrlWithoutEvent(url: string): Promise<boolean> {
+  private async replaceUrlWithoutEvent(url: string): Promise<boolean> {
     this.location.go(url);
 
-    return Promise.resolve(true);
+    return true;
   }
 }

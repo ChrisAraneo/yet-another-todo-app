@@ -5,9 +5,9 @@ import { Inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class NavigatorRefService {
-  private window: Window | null;
+  private readonly window: Window | null;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(@Inject(DOCUMENT) private readonly document: Document) {
     this.window = this.document?.defaultView || null;
   }
 

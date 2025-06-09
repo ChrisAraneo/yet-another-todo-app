@@ -42,16 +42,16 @@ import { UserService } from '../user/user.service';
   providedIn: 'root',
 })
 export class TasksService implements OnDestroy {
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
   private tasks!: BehaviorSubject<Task[]>;
   private isOfflineMode!: BehaviorSubject<boolean>;
 
   constructor(
     public store: Store<{ tasks: Task[]; httpLog: HttpLogState }>,
-    private apiClientService: ApiClientService,
-    private userService: UserService,
-    private operationIdGeneratorService: OperationIdGeneratorService,
-    private taskTransformerService: TaskTransformerService,
+    private readonly apiClientService: ApiClientService,
+    private readonly userService: UserService,
+    private readonly operationIdGeneratorService: OperationIdGeneratorService,
+    private readonly taskTransformerService: TaskTransformerService,
   ) {
     this.initializeTasksBehaviorSubject();
     this.initializeIsOfflineModeBehaviorSubject();
@@ -192,9 +192,7 @@ export class TasksService implements OnDestroy {
           );
         }
       }),
-      map(() => {
-        return;
-      }),
+      map(() => {}),
     );
   }
 
@@ -250,7 +248,7 @@ export class TasksService implements OnDestroy {
   }
 
   private setTasks(tasks: Task[]): void {
-    return this.store.dispatch(setTasks({ tasks: tasks }));
+    return this.store.dispatch(setTasks({ tasks }));
   }
 
   private addNewTasks(currentTasks: Task[], importedTasks: Task[]): Task[] {
@@ -314,7 +312,7 @@ export class TasksService implements OnDestroy {
         ),
       ),
       map((logs) => logs.find((item) => item.logType === HttpLogType.Response)),
-      filter((log) => !!log),
+      filter(Boolean),
       take(1),
     );
   }

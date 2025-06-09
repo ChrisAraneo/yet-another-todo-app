@@ -14,11 +14,11 @@ import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 export class ApiClientService {
   constructor(
     @Inject('API') public api: any,
-    private http: HttpClient,
-    private taskCreator: TaskCreatorService,
+    private readonly http: HttpClient,
+    private readonly taskCreator: TaskCreatorService,
   ) {}
 
-  signIn(
+  async signIn(
     username: string,
     password: string,
     operationId: string,
@@ -48,7 +48,7 @@ export class ApiClientService {
     });
   }
 
-  refreshAccessToken(
+  async refreshAccessToken(
     refreshToken: string,
     operationId: string,
   ): Promise<RefreshResponse | null> {
@@ -77,7 +77,7 @@ export class ApiClientService {
     });
   }
 
-  fetchTasksFromApi(operationId: string): Promise<Task[] | undefined> {
+  async fetchTasksFromApi(operationId: string): Promise<Task[] | undefined> {
     return new Promise((resolve, reject) => {
       this.http
         .get<ApiResponse<TaskData[]>>(this.api.tasksEndpoint, {
@@ -104,7 +104,10 @@ export class ApiClientService {
     });
   }
 
-  postTaskToApi(task: Task, operationId: string): Promise<Task | undefined> {
+  async postTaskToApi(
+    task: Task,
+    operationId: string,
+  ): Promise<Task | undefined> {
     return new Promise((resolve, reject) => {
       this.http
         .post<ApiResponse<TaskData>>(this.api.taskEndpoint, task, {
@@ -131,7 +134,7 @@ export class ApiClientService {
     });
   }
 
-  postTasksToApi(
+  async postTasksToApi(
     tasks: Task[],
     operationId: string,
   ): Promise<Task[] | undefined> {

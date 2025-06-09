@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MockProvider } from 'ng-mocks';
 import { TasksService } from 'src/app/shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from 'src/app/shared/services/view-configuration/view-configuration.service';
+
 import { DialogService } from '../../services/dialog/dialog.service';
 import { ModalLauncherComponent } from './modal-launcher.component';
 

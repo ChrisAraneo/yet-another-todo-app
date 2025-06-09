@@ -10,7 +10,7 @@ import {
 @Component({
   selector: 'yata-image',
   templateUrl: './image.component.html',
-  styleUrls: ['./image.component.scss'],
+  styleUrl: './image.component.scss',
   standalone: true,
   imports: [NgStyle, NgOptimizedImage],
 })

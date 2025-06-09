@@ -6,7 +6,7 @@ import { TitleComponent } from '../title/title.component';
 @Component({
   selector: 'yata-error-snackbar',
   templateUrl: './error-snackbar.component.html',
-  styleUrls: ['./error-snackbar.component.scss'],
+  styleUrl: './error-snackbar.component.scss',
   imports: [TitleComponent],
   standalone: true,
 })
@@ -24,7 +24,7 @@ export class ErrorSnackbarComponent {
 
     this.message =
       json.length > this.maxLength
-        ? json.slice(0, Math.max(0, this.maxLength - 3)) + ' ...'
+        ? `${json.slice(0, Math.max(0, this.maxLength - 3))} ...`
         : json;
   }
 }

@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<any> {
     if (request.method === 'OPTIONS') {
@@ -49,16 +49,16 @@ export class TokenInterceptor implements HttpInterceptor {
 
     return this.authService.refresh().pipe(
       delay(250),
-      mergeMap((response) => {
-        return next.handle(
+      mergeMap((response) =>
+        next.handle(
           request.clone({
             headers: request.headers.append(
               'Authorization',
               `Bearer ${response?.accessToken}`,
             ),
           }),
-        );
-      }),
+        ),
+      ),
     );
   }
 }

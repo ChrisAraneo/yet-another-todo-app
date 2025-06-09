@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
-  Observable,
-  Subscription,
   debounceTime,
   distinct,
   map,
   mergeMap,
+  Observable,
+  Subscription,
 } from 'rxjs';
+
+import { NavigationService } from '../../../shared/services/navigation/navigation.service';
+import { TasksService } from '../../../shared/services/tasks/tasks.service';
+import { DialogService } from '../../services/dialog/dialog.service';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from '../configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../configure-timeline-modal/configure-timeline-modal.component';
@@ -16,25 +20,22 @@ import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.compo
 import { ExportTasksModalComponent } from '../export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../import-tasks-modal/import-tasks-modal.component';
 import { SignInModalComponent } from '../sign-in-modal/sign-in-modal.component';
-import { NavigationService } from '../../../shared/services/navigation/navigation.service';
-import { TasksService } from '../../../shared/services/tasks/tasks.service';
-import { DialogService } from '../../services/dialog/dialog.service';
 
 @Component({
   template: '',
   selector: 'yata-modal-launcher',
-  styleUrls: ['./modal-launcher.component.scss'],
+  styleUrl: './modal-launcher.component.scss',
   standalone: true,
 })
-export class ModalLauncherComponent {
+export class ModalLauncherComponent implements OnInit, OnDestroy {
   private observable?: Observable<any>;
   private subscription?: Subscription;
 
   constructor(
-    private dialogService: DialogService,
-    private navigationService: NavigationService,
-    private activatedRoute: ActivatedRoute,
-    private tasksService: TasksService,
+    private readonly dialogService: DialogService,
+    private readonly navigationService: NavigationService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly tasksService: TasksService,
   ) {}
 
   ngOnInit(): void {
@@ -47,32 +48,30 @@ export class ModalLauncherComponent {
   }
 
   private resolveOpenModalObservable(): void {
-    if (!this.activatedRoute || !this.activatedRoute.data) {
+    if (!this.activatedRoute?.data) {
       return;
     }
 
     this.observable = this.activatedRoute.data.pipe(
-      mergeMap((data) => {
-        return this.activatedRoute.params.pipe(
-          map((params) => {
-            return {
-              data,
-              params,
-            };
-          }),
-        );
-      }),
-      mergeMap(({ data, params }) => {
-        return this.tasksService
+      mergeMap((data) =>
+        this.activatedRoute.params.pipe(
+          map((params) => ({
+            data,
+            params,
+          })),
+        ),
+      ),
+      mergeMap(({ data, params }) =>
+        this.tasksService
           .getTasks()
-          .pipe(map((tasks) => ({ data, params, tasks })));
-      }),
-      distinct(({ data }) => data['modal']['name']),
-      mergeMap(({ data, params, tasks }) => {
-        const isIdDefined = !!params['id'];
-        const isTasksNotEmpty = !!tasks?.length;
+          .pipe(map((tasks) => ({ data, params, tasks }))),
+      ),
+      distinct(({ data }) => data['modal'].name),
+      mergeMap(async ({ data, params, tasks }) => {
+        const isIdDefined = Boolean(params['id']);
+        const isTasksNotEmpty = Boolean(tasks?.length);
 
-        switch (data['modal']['name']) {
+        switch (data['modal'].name) {
           case AddTaskModalComponent.name: {
             return this.dialogService.openAddTaskModal();
           }
@@ -83,12 +82,11 @@ export class ModalLauncherComponent {
               return this.navigationService.navigateToEditTaskRoute(
                 tasks[0].getId(),
               );
-            } else {
-              return this.dialogService.openEmptyDialog(
-                'EditTaskModal.empty',
-                'EditTaskModal.emptyHint',
-              );
             }
+            return this.dialogService.openEmptyDialog(
+              'EditTaskModal.empty',
+              'EditTaskModal.emptyHint',
+            );
           }
           case DeleteTaskModalComponent.name: {
             if (isTasksNotEmpty && isIdDefined) {
@@ -97,12 +95,11 @@ export class ModalLauncherComponent {
               return this.navigationService.navigateToDeleteTaskRoute(
                 tasks[0].getId(),
               );
-            } else {
-              return this.dialogService.openEmptyDialog(
-                'DeleteTaskModal.empty',
-                'DeleteTaskModal.emptyHint',
-              );
             }
+            return this.dialogService.openEmptyDialog(
+              'DeleteTaskModal.empty',
+              'DeleteTaskModal.emptyHint',
+            );
           }
           case ConfigureTableModalComponent.name: {
             return this.dialogService.openConfigureTableModal();
@@ -111,14 +108,12 @@ export class ModalLauncherComponent {
             return this.dialogService.openConfigureTimelineModal();
           }
           case ExportTasksModalComponent.name: {
-            if (isTasksNotEmpty) {
-              return this.dialogService.openExportTasksModal();
-            } else {
-              return this.dialogService.openEmptyDialog(
-                'ExportTasksModal.empty',
-                'ExportTasksModal.emptyHint',
-              );
-            }
+            return isTasksNotEmpty
+              ? this.dialogService.openExportTasksModal()
+              : this.dialogService.openEmptyDialog(
+                  'ExportTasksModal.empty',
+                  'ExportTasksModal.emptyHint',
+                );
           }
           case ImportTasksModalComponent.name: {
             return this.dialogService.openImportTasksModal();
@@ -127,7 +122,7 @@ export class ModalLauncherComponent {
             return this.dialogService.openSignInModal();
           }
           default: {
-            throw Error('Unsupported modal class');
+            throw new Error('Unsupported modal class');
           }
         }
       }),

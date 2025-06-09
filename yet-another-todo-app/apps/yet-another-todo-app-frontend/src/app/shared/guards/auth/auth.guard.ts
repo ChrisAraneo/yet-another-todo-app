@@ -15,8 +15,8 @@ import { UserService } from '../../services/user/user.service';
 })
 export class AuthGuard {
   constructor(
-    private userService: UserService,
-    private navigationService: NavigationService,
+    private readonly userService: UserService,
+    private readonly navigationService: NavigationService,
   ) {}
 
   canActivate(
@@ -24,20 +24,19 @@ export class AuthGuard {
     state: RouterStateSnapshot,
   ): boolean | Observable<boolean> {
     return this.userService.getIsOfflineMode().pipe(
-      mergeMap((isOfflineMode) => {
-        return this.userService.getIsUserLogged().pipe(
+      mergeMap((isOfflineMode) =>
+        this.userService.getIsUserLogged().pipe(
           map((isUserLogged) => !isOfflineMode && !isUserLogged),
           map((shouldRedirectToSignIn) => {
             if (shouldRedirectToSignIn) {
               this.navigationService.navigateToSignInRoute(state);
 
               return state.url.includes(`/${SIGN_IN_PATH}`);
-            } else {
-              return true;
             }
+            return true;
           }),
-        );
-      }),
+        ),
+      ),
     );
   }
 }

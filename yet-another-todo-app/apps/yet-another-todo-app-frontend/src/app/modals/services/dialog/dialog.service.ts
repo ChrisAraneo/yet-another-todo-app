@@ -1,25 +1,26 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, filter, first, from, mergeMap } from 'rxjs';
+import {
+  DIALOG_HEIGHT,
+  DIALOG_WIDTH,
+} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
+import { filter, first, from, mergeMap, Observable } from 'rxjs';
+
+import { ZipFileContent } from '../../../shared/models/zip-file-content.type';
+import { NavigationService } from '../../../shared/services/navigation/navigation.service';
+import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
+import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
 import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
 import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { ConfigureTimelineModalData } from '../../components/configure-timeline-modal/configure-timeline-modal.types';
+import { DeleteTaskModalComponent } from '../../components/delete-task-modal/delete-task-modal.component';
+import { EditTaskModalComponent } from '../../components/edit-task-modal/edit-task-modal.component';
 import { EmptyDialogComponent } from '../../components/empty-dialog/empty-dialog.component';
 import { EmptyDialogData } from '../../components/empty-dialog/empty-dialog.types';
 import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
-import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
-import { NavigationService } from '../../../shared/services/navigation/navigation.service';
-import {
-  DIALOG_WIDTH,
-  DIALOG_HEIGHT,
-} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
-import { ZipFileContent } from '../../../shared/models/zip-file-content.type';
-import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
-import { DeleteTaskModalComponent } from '../../components/delete-task-modal/delete-task-modal.component';
-import { EditTaskModalComponent } from '../../components/edit-task-modal/edit-task-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
 
 // TODO Move to shared?
@@ -29,8 +30,8 @@ import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-mod
 export class DialogService {
   constructor(
     public dialog: MatDialog,
-    private viewConfigurationService: ViewConfigurationService,
-    private navigationService: NavigationService,
+    private readonly viewConfigurationService: ViewConfigurationService,
+    private readonly navigationService: NavigationService,
   ) {}
 
   openAddTaskModal(): Observable<any> {
@@ -61,18 +62,18 @@ export class DialogService {
   openImportTasksModal(): Observable<any> {
     return this.openDialog(ImportTasksModalComponent).pipe(
       first(),
-      filter((result: any) => !!result),
-      mergeMap((result: ZipFileContent) => {
-        return this.openDialog(SelectImportActionModalComponent, result);
-      }),
+      filter(Boolean),
+      mergeMap((result: ZipFileContent) =>
+        this.openDialog(SelectImportActionModalComponent, result),
+      ),
     );
   }
 
   openConfigureTimelineModal(): Observable<any> {
     return this.viewConfigurationService.getTimelineConfiguration().pipe(
       first(),
-      mergeMap(({ startDate, endDate, order, filter }) => {
-        return this.openDialog<ConfigureTimelineModalData>(
+      mergeMap(({ startDate, endDate, order, filter }) =>
+        this.openDialog<ConfigureTimelineModalData>(
           ConfigureTimelineModalComponent,
           {
             startDate,
@@ -80,20 +81,20 @@ export class DialogService {
             statesOrder: order,
             statesFilter: filter,
           },
-        );
-      }),
+        ),
+      ),
     );
   }
 
   openConfigureTableModal(): Observable<any> {
     return this.viewConfigurationService.getTableConfiguration().pipe(
       first(),
-      mergeMap(({ sort }) => {
-        return this.openDialog(ConfigureTableModalComponent, {
+      mergeMap(({ sort }) =>
+        this.openDialog(ConfigureTableModalComponent, {
           id: sort.id,
           direction: sort.start,
-        });
-      }),
+        }),
+      ),
     );
   }
 
@@ -112,8 +113,7 @@ export class DialogService {
       .open(component, {
         width: DIALOG_WIDTH,
         height: DIALOG_HEIGHT,
-        panelClass:
-          (component as any)['PANEL_CLASS'] || 'undefined-panel-class',
+        panelClass: (component as any).PANEL_CLASS || 'undefined-panel-class',
         ...(data ? { data: { ...data } } : {}),
       })
       .afterClosed();

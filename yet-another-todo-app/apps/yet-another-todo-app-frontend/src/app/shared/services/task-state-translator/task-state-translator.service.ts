@@ -22,7 +22,7 @@ export class TaskStateTranslatorService {
     new RejectedTaskState(),
   ];
 
-  constructor(private translateService: TranslateService) {}
+  constructor(private readonly translateService: TranslateService) {}
 
   getTranslatedTaskStateSelectOptions() {
     return this.states.map((state) => ({

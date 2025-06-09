@@ -2,18 +2,18 @@
   class="skeleton"
   [class.loaded]="!isLoading"
   [ngStyle]="{
-    width: maxWidth ? maxWidth + 'px' : '100%',
-    height: maxHeight ? maxHeight + 'px' : '100%',
+    width: maxWidth ? `${maxWidth}px` : '100%',
+    height: maxHeight ? `${maxHeight}px` : '100%',
   }">
   <img
     #image
-    [ngSrc]="src"
     width="{{ width }}"
     height="{{ height }}"
-    [ngStyle]="{
-      'max-width': maxWidth ? maxWidth + 'px' : '100%',
-      'max-height': maxHeight ? maxHeight + 'px' : '100%',
-    }"
     alt="{{ alt }}"
+    [ngSrc]="src"
+    [ngStyle]="{
+      'max-width': maxWidth ? `${maxWidth}px` : '100%',
+      'max-height': maxHeight ? `${maxHeight}px` : '100%',
+    }"
     [class.loaded]="!isLoading" />
 </div>

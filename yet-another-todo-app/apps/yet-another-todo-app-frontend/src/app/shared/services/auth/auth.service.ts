@@ -10,16 +10,16 @@ import { LoginResponse, RefreshResponse } from './auth.types';
   providedIn: 'root',
 })
 export class AuthService implements OnDestroy {
-  private username = new BehaviorSubject<string | null>(null);
-  private accessToken = new BehaviorSubject<string | null>(null);
-  private refreshToken = new BehaviorSubject<string | null>(null);
-  private subscription = new Subscription();
+  private readonly username = new BehaviorSubject<string | null>(null);
+  private readonly accessToken = new BehaviorSubject<string | null>(null);
+  private readonly refreshToken = new BehaviorSubject<string | null>(null);
+  private readonly subscription = new Subscription();
 
   constructor(
     @Inject('API') public api: any,
-    private apiClientService: ApiClientService,
-    private userService: UserService,
-    private operationIdGeneratorService: OperationIdGeneratorService,
+    private readonly apiClientService: ApiClientService,
+    private readonly userService: UserService,
+    private readonly operationIdGeneratorService: OperationIdGeneratorService,
   ) {
     this.subscribeToUsernameChanges();
   }
@@ -114,7 +114,7 @@ export class AuthService implements OnDestroy {
   }
 
   private setIsLoggedBasedOnTokenValue(token: string | undefined): void {
-    this.userService.setIsUserLogged(!!token);
+    this.userService.setIsUserLogged(Boolean(token));
   }
 
   private setIsOfflineMode(value: boolean): void {

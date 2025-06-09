@@ -1,3 +1,7 @@
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
@@ -11,12 +15,9 @@ import { StoreModule } from '@ngrx/store';
 import { TranslatePipe } from '@ngx-translate/core';
 import { MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
-import { SelectImportActionModalComponent } from './select-import-action-modal.component';
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
+
 import { TasksService } from '../../../../shared/services/tasks/tasks.service';
+import { SelectImportActionModalComponent } from './select-import-action-modal.component';
 
 describe('SelectImportActionModalComponent', () => {
   let component: SelectImportActionModalComponent;

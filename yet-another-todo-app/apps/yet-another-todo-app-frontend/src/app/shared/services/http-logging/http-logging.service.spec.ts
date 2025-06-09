@@ -51,7 +51,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -83,7 +83,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -115,7 +115,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -147,7 +147,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -166,7 +166,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -198,7 +198,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -217,7 +217,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -249,7 +249,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Request,
       data: null,
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -298,7 +298,7 @@ describe('HttpLoggingService', () => {
       id: '-',
       logType: HttpLogType.Response,
       data: { type: 1, test: 'OK' },
-      creationDate: creationDate,
+      creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 

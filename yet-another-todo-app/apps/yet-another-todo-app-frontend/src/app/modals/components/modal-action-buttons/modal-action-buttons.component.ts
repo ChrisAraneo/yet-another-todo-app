@@ -16,7 +16,7 @@ import {
 @Component({
   selector: 'yata-modal-action-buttons',
   templateUrl: './modal-action-buttons.component.html',
-  styleUrls: ['./modal-action-buttons.component.scss'],
+  styleUrl: './modal-action-buttons.component.scss',
   standalone: true,
   imports: [
     BackButtonComponent,
@@ -27,7 +27,7 @@ import {
   ],
 })
 export class ModalActionButtonsComponent {
-  @Input() form?: FormGroup<any>;
+  @Input() form?: FormGroup;
   @Input() step = 1;
   @Input() total = 1;
   @Input() nextButton: NextButton = {

@@ -30,7 +30,7 @@ import { SignInForm } from './sign-in-modal.types';
 @Component({
   selector: 'yata-sign-in-modal',
   templateUrl: './sign-in-modal.component.html',
-  styleUrls: ['./sign-in-modal.component.scss'],
+  styleUrl: './sign-in-modal.component.scss',
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
@@ -70,8 +70,8 @@ export class SignInModalComponent implements OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogReference: MatDialogRef<SignInModalComponent>,
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private readonly formBuilder: FormBuilder,
+    private readonly authService: AuthService,
   ) {
     this.initializeForm();
   }
@@ -80,8 +80,8 @@ export class SignInModalComponent implements OnDestroy {
     this.subscription && this.subscription.unsubscribe();
   }
 
-  submit = async (): Promise<void> => {
-    return new Promise((resolve, reject) => {
+  submit = async (): Promise<void> =>
+    new Promise((resolve, reject) => {
       if (!this.form || this.form.invalid) {
         reject();
 
@@ -94,14 +94,13 @@ export class SignInModalComponent implements OnDestroy {
         .signIn(username || '', password || '')
         .subscribe(() => {
           resolve();
-          this.dialogRef.close();
+          this.dialogReference.close();
         });
     });
-  };
 
   cancel = (): void => {
     this.authService.signOut();
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeForm(): void {

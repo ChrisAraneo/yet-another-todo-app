@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'yata-title',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.scss'],
+  styleUrl: './title.component.scss',
   standalone: true,
   imports: [NgStyle],
 })

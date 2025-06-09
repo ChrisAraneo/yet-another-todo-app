@@ -13,7 +13,7 @@ import { HttpLoggingService } from '../../services/http-logging/http-logging.ser
 
 @Injectable()
 export class LoggingInterceptor implements HttpInterceptor {
-  constructor(private httpLoggingService: HttpLoggingService) {}
+  constructor(private readonly httpLoggingService: HttpLoggingService) {}
 
   intercept(
     request: HttpRequest<unknown>,

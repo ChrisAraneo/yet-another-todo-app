@@ -169,7 +169,7 @@ describe('TasksService', () => {
       imports: [],
       providers: [
         MockProvider(ApiClientService, {
-          fetchTasksFromApi: () => new Promise((resolve) => resolve([])),
+          fetchTasksFromApi: async () => new Promise((resolve) => resolve([])),
         }),
         MockProvider(UserService, {
           getIsUserLogged: () => of(true),

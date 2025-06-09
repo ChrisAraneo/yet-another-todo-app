@@ -13,9 +13,8 @@ describe('GlobalErrorHandlerService', () => {
       imports: [MatDialogModule],
       providers: [
         MockProvider(MatSnackBar, {
-          openFromComponent: (): MatSnackBarRef<any> => {
-            return null as unknown as MatSnackBarRef<any>;
-          },
+          openFromComponent: (): MatSnackBarRef<any> =>
+            null as unknown as MatSnackBarRef<any>,
         }),
       ],
     });

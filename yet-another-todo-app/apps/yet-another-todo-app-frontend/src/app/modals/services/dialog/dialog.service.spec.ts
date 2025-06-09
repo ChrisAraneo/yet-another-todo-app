@@ -1,3 +1,7 @@
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
@@ -9,10 +13,15 @@ import {
 } from '@angular/material/dialog';
 import { MatSortable } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DIALOG_HEIGHT,
+  DIALOG_WIDTH,
+} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { MockComponent, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
+
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -20,27 +29,19 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
 } from '../../../../../../yet-another-todo-app-shared';
-import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
-import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
-import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
-import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
-import { DialogService } from './dialog.service';
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import {
-  DIALOG_WIDTH,
-  DIALOG_HEIGHT,
-} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { environment } from '../../../../environments/environment.development';
 import { NavigationService } from '../../../shared/services/navigation/navigation.service';
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
+import { ConfigureTableModalComponent } from '../../components/configure-table-modal/configure-table-modal.component';
+import { ConfigureTimelineModalComponent } from '../../components/configure-timeline-modal/configure-timeline-modal.component';
 import { DeleteTaskModalComponent } from '../../components/delete-task-modal/delete-task-modal.component';
 import { EditTaskModalComponent } from '../../components/edit-task-modal/edit-task-modal.component';
+import { ExportTasksModalComponent } from '../../components/export-tasks-modal/export-tasks-modal.component';
+import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
+import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
   let service: DialogService;
@@ -86,9 +87,7 @@ describe('DialogService', () => {
         { provide: MAT_DIALOG_DATA, useValue: [] },
         { provide: 'API', useValue: environment.api },
         MockProvider(Store, {
-          select: () => {
-            return of({ ...dummyConfiguration });
-          },
+          select: () => of({ ...dummyConfiguration }),
         }),
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),

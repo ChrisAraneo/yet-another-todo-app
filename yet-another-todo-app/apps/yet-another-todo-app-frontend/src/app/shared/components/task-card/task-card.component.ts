@@ -17,7 +17,7 @@ import { TitleComponent } from '../title/title.component';
 @Component({
   selector: 'yata-task-card',
   templateUrl: './task-card.component.html',
-  styleUrls: ['./task-card.component.scss'],
+  styleUrl: './task-card.component.scss',
   standalone: true,
   imports: [
     NgIf,
@@ -37,9 +37,9 @@ export class TaskCardComponent implements OnChanges, OnDestroy {
   endDate = '';
   endTime = '';
 
-  private subscription: Subscription;
+  private readonly subscription: Subscription;
 
-  constructor(private dateUtilitiesService: DateUtilitiesService) {
+  constructor(private readonly dateUtilitiesService: DateUtilitiesService) {
     this.subscription = new Subscription();
   }
 
@@ -50,7 +50,10 @@ export class TaskCardComponent implements OnChanges, OnDestroy {
       this.task instanceof EndedTask ? this.task.getEndDate() : null;
 
     if (startDate) {
-      this.startDate = `${this.dateUtilitiesService.formatDate(startDate, 'dd MMM')}`;
+      this.startDate = this.dateUtilitiesService.formatDate(
+        startDate,
+        'dd MMM',
+      );
       this.startTime = this.dateUtilitiesService.formatDate(startDate, 'HH:mm');
     }
 
@@ -66,7 +69,7 @@ export class TaskCardComponent implements OnChanges, OnDestroy {
 
   openEditTaskModal(taskId: string): void {
     // TODO Refactor: Task Card should not use Dialog Service, because it is in different module
-    // this.subscription.add(this.dialogService.navigateToEditTaskModal(taskId).subscribe());
+    // This.subscription.add(this.dialogService.navigateToEditTaskModal(taskId).subscribe());
     console.log(
       'TODO Refactor: Task Card should not use Dialog Service, because it is in different module',
       taskId,

@@ -4,8 +4,10 @@ import { CanActivateFn } from '@angular/router';
 import { canActivateAuth } from './auth.guard';
 
 describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => canActivateAuth(...guardParameters));
+  const executeGuard: CanActivateFn = async (...guardParameters) =>
+    TestBed.runInInjectionContext(async () =>
+      canActivateAuth(...guardParameters),
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
