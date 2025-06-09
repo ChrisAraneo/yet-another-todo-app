@@ -10,7 +10,7 @@ import { TaskCreatorService } from '../task-creator/task-creator.service';
   providedIn: 'root',
 })
 export class UnzipTasksService {
-  constructor(private taskCreatorService: TaskCreatorService) {}
+  constructor(private readonly taskCreatorService: TaskCreatorService) {}
 
   async unzip(data: ArrayBuffer, password: string): Promise<ZipFileContent> {
     const zip = await new JSZip().loadAsync(data);

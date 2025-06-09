@@ -11,7 +11,7 @@ import { DateUtilsService as DateUtilitiesService } from '../date-utils/date-uti
   providedIn: 'root',
 })
 export class ZipTasksService {
-  constructor(private dateUtilitiesService: DateUtilitiesService) {}
+  constructor(private readonly dateUtilitiesService: DateUtilitiesService) {}
 
   async zip(tasks: Task[], password: string): Promise<void> {
     const zip = new JSZip();

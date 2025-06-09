@@ -1,6 +1,6 @@
 import { TaskState } from '@chris.araneo/yet-another-todo-app-shared';
 
-export type TasksDataSource = {
+export interface TasksDataSource {
   id: string;
   shortId: string;
   title: string;
@@ -9,4 +9,4 @@ export type TasksDataSource = {
   creationDate: string;
   startDate: string | '-';
   endDate: string | '-';
-};
+}

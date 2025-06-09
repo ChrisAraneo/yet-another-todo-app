@@ -24,7 +24,7 @@ import { NavigationItem } from './side-navigation.types';
 @Component({
   selector: 'yata-side-navigation',
   templateUrl: './side-navigation.component.html',
-  styleUrls: ['./side-navigation.component.scss'],
+  styleUrl: './side-navigation.component.scss',
   animations: [
     trigger('openClose', [
       state(
@@ -56,9 +56,9 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    private viewConfigurationService: ViewConfigurationService,
-    private tasksService: TasksService,
-    private navigationService: NavigationService,
+    private readonly viewConfigurationService: ViewConfigurationService,
+    private readonly tasksService: TasksService,
+    private readonly navigationService: NavigationService,
   ) {}
 
   ngOnInit(): void {
@@ -76,8 +76,7 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const firstTask =
-      (tasks || []).length > 0 ? (tasks as Task[])[0] : undefined;
+    const firstTask = (tasks || []).length > 0 ? tasks![0] : undefined;
 
     const showTable = {
       icon: 'list',
@@ -187,16 +186,14 @@ export class SideNavigationComponent implements OnInit, OnDestroy {
     this.subscription = this.viewConfigurationService
       .getAppMode()
       .pipe(
-        mergeMap((mode) => {
-          return this.tasksService.getTasks().pipe(
-            map((tasks) => {
-              return {
-                mode,
-                tasks,
-              };
-            }),
-          );
-        }),
+        mergeMap((mode) =>
+          this.tasksService.getTasks().pipe(
+            map((tasks) => ({
+              mode,
+              tasks,
+            })),
+          ),
+        ),
       )
       .subscribe(({ mode, tasks }) => {
         this.updateNavigationItems(mode, tasks);

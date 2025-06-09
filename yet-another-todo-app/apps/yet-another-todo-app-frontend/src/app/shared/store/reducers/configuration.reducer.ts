@@ -59,7 +59,7 @@ export const viewConfigurationReducer = createReducer(
   initialState,
   on(setAppMode, (state, { mode }) => ({
     ...state,
-    mode: mode,
+    mode,
   })),
   on(setTimelineStartDate, (state, { startDate }) => ({
     ...state,

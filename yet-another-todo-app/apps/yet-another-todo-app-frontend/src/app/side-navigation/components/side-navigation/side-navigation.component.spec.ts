@@ -26,9 +26,7 @@ describe('SideNavigationComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: [] },
         MockProvider(TasksService),
         MockProvider(Store, {
-          select: () => {
-            return of();
-          },
+          select: () => of(),
         }),
       ],
     }).compileComponents();

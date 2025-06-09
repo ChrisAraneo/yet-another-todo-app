@@ -33,11 +33,11 @@ import {
 })
 export class ViewConfigurationService implements OnDestroy {
   private configuration!: BehaviorSubject<ViewConfiguration>;
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
     public store: Store<{ viewConfiguration: ViewConfiguration }>,
-    private router: Router,
+    private readonly router: Router,
   ) {
     this.initializeConfigurationSubject();
     this.subscribeToUrlChanges();
@@ -121,7 +121,7 @@ export class ViewConfigurationService implements OnDestroy {
   }
 
   private changeAppModeBasedOnUrl(url: string): void {
-    const urlParts = url.split('/').filter((part) => !!part);
+    const urlParts = url.split('/').filter(Boolean);
 
     if (
       urlParts.length > 0 &&

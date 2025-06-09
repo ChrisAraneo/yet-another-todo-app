@@ -7,7 +7,9 @@ import { NavigatorRefService as NavigatorReferenceService } from '../navigator-r
   providedIn: 'root',
 })
 export class UserLocaleService {
-  constructor(private navigatorReferenceService: NavigatorReferenceService) {}
+  constructor(
+    private readonly navigatorReferenceService: NavigatorReferenceService,
+  ) {}
 
   get(): Locale {
     const defaultValue = enGB;
@@ -20,8 +22,8 @@ export class UserLocaleService {
     const localization: string =
       navigator.language ||
       (navigator.languages ? navigator.languages[0] : defaultValue) ||
-      (navigator as any)['browserLanguage'] ||
-      (navigator as any)['userLanguage'];
+      (navigator as any).browserLanguage ||
+      (navigator as any).userLanguage;
 
     const resolvedLanguage = localization.split('-')[0];
 

@@ -12,11 +12,10 @@ describe('UserLocaleService', () => {
     TestBed.configureTestingModule({
       providers: [
         MockProvider(NavigatorReferenceService, {
-          get: () => {
-            return {
+          get: () =>
+            ({
               language: 'en-GB',
-            } as Navigator;
-          },
+            }) as Navigator,
         }),
       ],
     });

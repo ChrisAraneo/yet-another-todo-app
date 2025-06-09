@@ -1,3 +1,1 @@
-export const NOOP = async (): Promise<void> => {
-  return;
-};
+export const NOOP = async (): Promise<void> => {};

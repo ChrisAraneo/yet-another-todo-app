@@ -68,9 +68,8 @@ export class TaskEffects {
                   action.operationId,
                 ),
               ).pipe(map(() => action.id));
-            } else {
-              return of();
             }
+            return of();
           }),
         ),
       ),
@@ -97,9 +96,9 @@ export class TaskEffects {
   );
 
   constructor(
-    private actions: Actions,
-    private apiClientService: ApiClientService,
-    private tasksService: TasksService,
-    private taskTransformerService: TaskTransformerService,
+    private readonly actions: Actions,
+    private readonly apiClientService: ApiClientService,
+    private readonly tasksService: TasksService,
+    private readonly taskTransformerService: TaskTransformerService,
   ) {}
 }

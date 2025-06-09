@@ -7,7 +7,7 @@ import { NOOP } from '../../../../shared/utils/noop.const';
 @Component({
   selector: 'yata-navigation-item',
   templateUrl: './navigation-item.component.html',
-  styleUrls: ['./navigation-item.component.scss'],
+  styleUrl: './navigation-item.component.scss',
   standalone: true,
   imports: [MatIcon, NgIf],
 })

@@ -28,7 +28,9 @@ export class UserService {
   }
 
   getIsUserLogged(): Observable<boolean> {
-    return this.getUserData().pipe(map((data) => !!(data && data.isLogged)));
+    return this.getUserData().pipe(
+      map((data) => Boolean(data && data.isLogged)),
+    );
   }
 
   setIsUserLogged(value: boolean): void {
@@ -37,7 +39,7 @@ export class UserService {
 
   getIsOfflineMode(): Observable<boolean> {
     return this.getUserData().pipe(
-      map((data) => !!(data && data.isOfflineMode)),
+      map((data) => Boolean(data && data.isOfflineMode)),
     );
   }
 
