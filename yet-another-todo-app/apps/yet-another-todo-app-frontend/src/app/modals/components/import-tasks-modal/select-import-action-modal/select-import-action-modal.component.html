@@ -1,9 +1,9 @@
 <div class="figure">
   <yata-image
-    [src]="'../../../../assets/images/select-import-action.jpg'"
+    src="../../../../public/images/select-import-action.jpg"
     [width]="480"
     [height]="576"
-    [alt]="'SelectImportActionModal.imageAlt' | translate"></yata-image>
+    [alt]="'SelectImportActionModal.imageAlt' | translate" />
 </div>
 <div class="form">
   <yata-modal-title>{{
@@ -13,10 +13,10 @@
     <div class="controls" [ngSwitch]="1">
       <yata-page *ngSwitchCase="1" [@fadeInOut]>
         <mat-radio-group
-          [(ngModel)]="action"
-          [ngModelOptions]="{ standalone: true }">
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="action">
           <mat-radio-button *ngFor="let action of actions" [value]="action">
-            {{ 'SelectImportActionModal.' + action | translate }}
+            {{ `SelectImportActionModal.${action}` | translate }}
           </mat-radio-button>
         </mat-radio-group>
       </yata-page>
@@ -27,7 +27,6 @@
       [submitButton]="{
         label: 'SelectImportActionModal.submit',
         click: submit,
-      }">
-    </yata-modal-action-buttons>
+      }" />
   </form>
 </div>
