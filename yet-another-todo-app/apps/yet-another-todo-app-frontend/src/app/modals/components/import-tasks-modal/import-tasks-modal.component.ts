@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -8,22 +9,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { fadeInOut } from '../../animations/fade-in-out.animation';
-import { ImportTasksForm } from './import-tasks-modal.types';
-import { UnzipTasksService } from '../../../shared/services/unzip-tasks/unzip-tasks.service';
-import { ImageComponent } from '../../../shared/components/image/image.component';
-import { ModalTitleComponent } from '../modal-title/modal-title.component';
-import { PageComponent } from '../page/page.component';
+import { TranslatePipe } from '@ngx-translate/core';
+
 import { FileInputComponent } from '../../../forms/components/file-input/file-input.component';
 import { PasswordInputComponent } from '../../../forms/components/password-input/password-input.component';
+import { ImageComponent } from '../../../shared/components/image/image.component';
+import { UnzipTasksService } from '../../../shared/services/unzip-tasks/unzip-tasks.service';
+import { fadeInOut } from '../../animations/fade-in-out.animation';
 import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
-import { TranslatePipe } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+import { ModalTitleComponent } from '../modal-title/modal-title.component';
+import { PageComponent } from '../page/page.component';
+import { ImportTasksForm } from './import-tasks-modal.types';
 
 @Component({
   selector: 'yata-import-tasks-modal',
   templateUrl: './import-tasks-modal.component.html',
-  styleUrls: ['./import-tasks-modal.component.scss'],
+  styleUrl: './import-tasks-modal.component.scss',
   animations: [fadeInOut],
   standalone: true,
   imports: [
@@ -47,14 +48,14 @@ export class ImportTasksModalComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ImportTasksModalComponent>,
-    private formBuilder: FormBuilder,
-    private unzipTasksService: UnzipTasksService,
+    private readonly formBuilder: FormBuilder,
+    private readonly unzipTasksService: UnzipTasksService,
   ) {
     this.initializeForm();
   }
 
-  submit = async (event: any): Promise<void> => {
-    return new Promise((resolve, reject) => {
+  submit = async (event: any): Promise<void> =>
+    new Promise((resolve, reject) => {
       event.preventDefault();
 
       this.form.updateValueAndValidity();
@@ -63,7 +64,7 @@ export class ImportTasksModalComponent {
         const { file, password } = this.form.value;
 
         this.unzipTasksService
-          .unzip(file as ArrayBuffer, password || '')
+          .unzip(file!, password || '')
           .then((result) => {
             resolve();
             this.dialogRef.close(result);
@@ -75,7 +76,6 @@ export class ImportTasksModalComponent {
           });
       }
     });
-  };
 
   cancel = (): void => {
     this.dialogRef.close();

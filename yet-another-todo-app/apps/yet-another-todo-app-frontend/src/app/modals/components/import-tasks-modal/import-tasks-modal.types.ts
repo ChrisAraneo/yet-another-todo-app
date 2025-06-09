@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-export type ImportTasksForm = {
+export interface ImportTasksForm {
   file: FormControl<ArrayBuffer | null>;
   password: FormControl<string>;
-};
+}
