@@ -1,0 +1,11 @@
+@import '../../../../shared/styles/variables.__generated.scss';
+
+:host {
+  box-sizing: border-box;
+  width: $column-width;
+  height: $_64unit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
