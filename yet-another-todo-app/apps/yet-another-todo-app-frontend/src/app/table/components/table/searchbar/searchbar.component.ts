@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.scss',
   standalone: true,
-  imports: [MatIconModule]
+  imports: [MatIconModule],
 })
 export class SearchbarComponent {
   @Output() change = new EventEmitter<string>();
