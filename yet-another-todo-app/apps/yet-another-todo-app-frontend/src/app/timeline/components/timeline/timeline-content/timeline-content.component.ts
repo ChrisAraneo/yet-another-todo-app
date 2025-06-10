@@ -1,0 +1,69 @@
+import { Component, Input, OnChanges } from '@angular/core';
+
+import {
+  Task,
+  TaskState,
+} from '@chris.araneo/yet-another-todo-app-shared';
+import { TimelineColumn } from './timeline-content.types';
+import { COLUMN_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
+import { TimelineTaskManagerService } from '../../../services/timeline-task-manager.service';
+
+@Component({
+  selector: 'yata-timeline-content',
+  templateUrl: './timeline-content.component.html',
+  styleUrl: './timeline-content.component.scss',
+})
+export class TimelineContentComponent implements OnChanges {
+  @Input() today!: Date;
+  @Input() startDate!: Date | null;
+  @Input() endDate!: Date | null;
+  @Input() tasks: Task[] = [];
+  @Input() tasksStateSortOrder: TaskState[] = [];
+  @Input() tasksStateFilter: TaskState[] = [];
+
+  columns: TimelineColumn[] = [];
+
+  readonly columnWidth = COLUMN_WIDTH;
+
+  constructor(
+    private readonly timelineTaskManager: TimelineTaskManagerService,
+  ) {}
+
+  ngOnChanges(): void {
+    if (
+      this.tasks &&
+      this.today &&
+      this.startDate &&
+      this.endDate &&
+      this.tasksStateFilter &&
+      this.tasksStateSortOrder
+    ) {
+      this.updateColumns(
+        this.tasks,
+        this.today,
+        this.startDate,
+        this.endDate,
+        this.tasksStateFilter,
+        this.tasksStateSortOrder,
+      );
+    }
+  }
+
+  private updateColumns(
+    tasks: Task[],
+    today: Date,
+    startDate: Date,
+    endDate: Date,
+    tasksStateFilter: TaskState[],
+    tasksStateSortOrder: TaskState[],
+  ): void {
+    this.columns = this.timelineTaskManager.mapTasksToTimelineColumns(
+      tasks,
+      today,
+      startDate,
+      endDate,
+      tasksStateFilter,
+      tasksStateSortOrder,
+    );
+  }
+}
