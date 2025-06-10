@@ -14,7 +14,6 @@ describe('LoggingInterceptor', () => {
         { provide: 'API', useValue: environment.api },
         LoggingInterceptor,
         MockProvider(Store, {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           select: (key: any) => {
             if (key === 'httpLog') {
               return of([]);
