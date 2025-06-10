@@ -70,12 +70,14 @@
         <button
           mat-icon-button
           aria-label="Edit icon"
+          [attr.type]="'button'"
           (click)="openEditTaskModal(element.id)">
           <mat-icon>edit</mat-icon>
         </button>
         <button
           mat-icon-button
           aria-label="Delete icon"
+          [attr.type]="'button'"
           (click)="deleteTask(element.id)">
           <mat-icon>delete</mat-icon>
         </button>
