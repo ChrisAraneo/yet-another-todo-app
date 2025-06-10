@@ -29,7 +29,7 @@ const tasks: Task[] = [];
 
 function generate(): void {
   const totalNumberOfTasks = process.argv[2] ? +process.argv[2] : 750;
-  const defaultStorePath = path.normalize(process.cwd() + '/assets/store.json');
+  const defaultStorePath = path.normalize(`${process.cwd()}/assets/store.json`);
   const storePath = get(process.argv, '3') || defaultStorePath;
 
   const numberOfNotStartedTasks = Math.min(totalNumberOfTasks, 10);
@@ -105,7 +105,7 @@ function createRandomLine(): string {
   let line = '';
 
   for (let index = 0; index < getRandomInt(1, 8); index++) {
-    line += LOREM_WORDS[getRandomInt(0, LOREM_WORDS.length - 1)] + ' ';
+    line += `${LOREM_WORDS[getRandomInt(0, LOREM_WORDS.length - 1)]} `;
   }
 
   line = line.trim();

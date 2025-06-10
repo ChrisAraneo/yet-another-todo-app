@@ -21,7 +21,7 @@ const NOT_DIFF = 'not-diff';
 
 const server = express();
 const port = 9339;
-const defaultStorePath = path.normalize(process.cwd() + '/assets/store.json');
+const defaultStorePath = path.normalize(`${process.cwd()}/assets/store.json`);
 const storePath = get(process.argv, 2, defaultStorePath);
 const responseHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -92,7 +92,7 @@ server.get('/tasks', (_, response) => {
   response.set(responseHeaders).send(
     JSON.stringify({
       status: SUCCESS,
-      data: data,
+      data,
     }),
   );
 });
@@ -138,7 +138,7 @@ server.post('/tasks', (request, response) => {
   logger.debug('Sending response to POST /task');
   response.set(responseHeaders).send({
     status: SUCCESS,
-    data: data,
+    data,
   });
 });
 
@@ -217,9 +217,8 @@ function createOrUpdateTask(task: unknown): typeof DIFF | typeof NOT_DIFF {
       data[existingTaskIndex] = TaskCreator.create(task);
 
       return DIFF;
-    } else {
-      return NOT_DIFF;
     }
+    return NOT_DIFF;
   } else if (data !== null) {
     data.push(TaskCreator.create(task));
 
