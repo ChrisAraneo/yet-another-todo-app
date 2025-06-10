@@ -16,9 +16,11 @@ const jsons = [
   'nx.json',
 ];
 
-const sources = ['apps/**/*.ts'];
+const sources = ['^apps\/.*\/[^\/]+(?<!\.spec)\.ts$'];
 
-const htmls = ['apps/**/*.html'];
+const tests = ['apps/**/*.spec.ts']
+
+const templates = ['apps/**/*.html'];
 
 const ignored = [
   'node_modules/',
@@ -33,4 +35,4 @@ const ignored = [
   'package-lock.json',
 ];
 
-export default createConfig(jsons, sources, htmls, ignored);
+export default createConfig(jsons, sources, tests, templates, ignored);
