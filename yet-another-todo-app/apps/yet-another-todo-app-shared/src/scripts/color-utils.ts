@@ -1,8 +1,12 @@
-import { RgbColor } from './types';
+/* eslint-disable no-bitwise */
+/* eslint-disable func-style */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+
+import { RgbColor } from './interfaces';
 
 export function hslToHex(input: { h: number; s: number; l: number }): string {
   const { h, s } = input;
-  let l = input.l;
+  let { l } = input;
 
   l /= 100;
   const a = (s * Math.min(l, 1 - l)) / 100;
@@ -19,7 +23,7 @@ export function hslToHex(input: { h: number; s: number; l: number }): string {
 
 export function hexToRgb(hex: string): RgbColor {
   const _hex = hex.replace('#', '');
-  const bigint = parseInt(_hex, 16);
+  const bigint = Number.parseInt(_hex, 16);
   const red = (bigint >> 16) & 255;
   const green = (bigint >> 8) & 255;
   const blue = bigint & 255;

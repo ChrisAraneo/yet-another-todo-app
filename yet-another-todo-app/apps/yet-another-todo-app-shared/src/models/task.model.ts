@@ -10,11 +10,11 @@ import {
 } from './task-state.model';
 
 export abstract class Task {
-  private id: string;
-  private title: string;
-  private description: string;
+  private readonly id: string;
+  private readonly title: string;
+  private readonly description: string;
   private state: TaskState;
-  private creationDate: Date;
+  private readonly creationDate: Date;
   private isHidden: boolean;
 
   constructor(
@@ -30,7 +30,7 @@ export abstract class Task {
     this.state = state;
     this.creationDate = creationDate || new Date();
     this.id = id || uuidv4();
-    this.isHidden = !!isHidden;
+    this.isHidden = Boolean(isHidden);
   }
 
   getId(): string {
@@ -40,9 +40,9 @@ export abstract class Task {
   getShortId(): string {
     const parts = this.id.split('-');
 
-    return `${parts[0][0]}${parts[0][1]}${parts[1][0]}${parts[2][0]}${parts[3][0]}${
-      parts[4][parts[4].length - 1]
-    }`.toLocaleUpperCase();
+    return `${parts[0][0]}${parts[0][1]}${parts[1][0]}${parts[2][0]}${parts[3][0]}${parts[4].at(
+      -1,
+    )}`.toLocaleUpperCase();
   }
 
   getTitle(): string {
@@ -94,7 +94,7 @@ export class PendingTask extends Task {
 }
 
 export class StartedTask extends Task {
-  private startDate: Date;
+  private readonly startDate: Date;
 
   constructor(
     title: string,
@@ -131,7 +131,7 @@ export class StartedTask extends Task {
 }
 
 export class EndedTask extends StartedTask {
-  private endDate: Date;
+  private readonly endDate: Date;
 
   constructor(
     title: string,

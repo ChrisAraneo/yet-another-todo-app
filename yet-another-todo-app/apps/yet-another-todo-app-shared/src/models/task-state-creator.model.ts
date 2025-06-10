@@ -9,25 +9,31 @@ import {
   TaskState,
 } from '../..';
 
-export class TaskStateCreator {
-  static create(data: { value?: string }): TaskState {
+export const TaskStateCreator = {
+  create(data: { value?: string }): TaskState {
     const value = get(data, 'value');
 
     switch (value) {
-      case new NotStartedTaskState().toString():
+      case new NotStartedTaskState().toString(): {
         return new NotStartedTaskState();
-      case new InProgressTaskState().toString():
+      }
+      case new InProgressTaskState().toString(): {
         return new InProgressTaskState();
-      case new SuspendedTaskState().toString():
+      }
+      case new SuspendedTaskState().toString(): {
         return new SuspendedTaskState();
-      case new CompletedTaskState().toString():
+      }
+      case new CompletedTaskState().toString(): {
         return new CompletedTaskState();
-      case new RejectedTaskState().toString():
+      }
+      case new RejectedTaskState().toString(): {
         return new RejectedTaskState();
-      default:
-        throw Error(
+      }
+      default: {
+        throw new Error(
           `Task state cannot be created from object: ${JSON.stringify(data)}`,
         );
+      }
     }
-  }
-}
+  },
+};

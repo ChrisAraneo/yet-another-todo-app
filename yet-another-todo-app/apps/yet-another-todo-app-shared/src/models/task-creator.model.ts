@@ -15,14 +15,14 @@ import {
 export class TaskCreator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static create(data: any): Task {
-    const title = data['title'];
-    const description = data['description'];
-    const state: TaskState = TaskStateCreator.create(data['state']);
-    const creationDate = data['creationDate'];
-    const startDate = data['startDate'];
-    const endDate = data['endDate'];
-    const id = data['id'];
-    const isHidden = !!data['isHidden'];
+    const { title } = data;
+    const { description } = data;
+    const state: TaskState = TaskStateCreator.create(data.state);
+    const { creationDate } = data;
+    const { startDate } = data;
+    const { endDate } = data;
+    const { id } = data;
+    const isHidden = Boolean(data.isHidden);
 
     if (state instanceof NotStartedTaskState) {
       return this.createPendingTask(
@@ -37,7 +37,7 @@ export class TaskCreator {
     } else if (
       (state instanceof InProgressTaskState ||
         state instanceof SuspendedTaskState) &&
-      !!startDate
+      Boolean(startDate)
     ) {
       return this.createStartedTask(
         title,
@@ -52,8 +52,8 @@ export class TaskCreator {
     } else if (
       (state instanceof CompletedTaskState ||
         state instanceof RejectedTaskState) &&
-      !!startDate &&
-      !!endDate
+      Boolean(startDate) &&
+      Boolean(endDate)
     ) {
       return this.createEndedTask(
         title,
@@ -65,11 +65,10 @@ export class TaskCreator {
         id,
         isHidden,
       );
-    } else {
-      throw Error(
-        `Task cannot be created from object: ${JSON.stringify(data)}`,
-      );
     }
+    throw new Error(
+      `Task cannot be created from object: ${JSON.stringify(data)}`,
+    );
   }
 
   private static createPendingTask(
@@ -110,8 +109,8 @@ export class TaskCreator {
       title as string,
       description as string,
       new Date(creationDate as string | number),
-      !!id && typeof id === 'string' ? id : undefined,
-      !!isHidden,
+      Boolean(id) && typeof id === 'string' ? id : undefined,
+      Boolean(isHidden),
     );
 
     return task;
@@ -165,8 +164,8 @@ export class TaskCreator {
       state as TaskState,
       new Date(startDate as string | number),
       new Date(creationDate as string | number),
-      !!id && typeof id === 'string' ? id : undefined,
-      !!isHidden,
+      Boolean(id) && typeof id === 'string' ? id : undefined,
+      Boolean(isHidden),
     );
 
     return task;
@@ -219,8 +218,8 @@ export class TaskCreator {
       new Date(startDate as string | number),
       new Date(endDate as string | number),
       new Date(creationDate as string | number),
-      !!id && typeof id === 'string' ? id : undefined,
-      !!isHidden,
+      Boolean(id) && typeof id === 'string' ? id : undefined,
+      Boolean(isHidden),
     );
 
     return task;
@@ -230,7 +229,7 @@ export class TaskCreator {
     value: unknown,
     error: Error,
   ): void {
-    if (!value || (!!value && typeof value !== 'string')) {
+    if (!value || (Boolean(value) && typeof value !== 'string')) {
       throw error;
     }
   }
@@ -241,7 +240,7 @@ export class TaskCreator {
   ): void {
     if (
       !value ||
-      (!!value && !(new Date(value as string) instanceof Date)) ||
+      (Boolean(value) && !(new Date(value as string) instanceof Date)) ||
       isNaN(new Date(value as string).getTime())
     ) {
       throw error;

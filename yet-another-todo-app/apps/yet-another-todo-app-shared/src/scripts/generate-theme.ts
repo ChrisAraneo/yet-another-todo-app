@@ -1,11 +1,25 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable max-lines-per-function */
+/* eslint-disable max-statements */
+/* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable guard-for-in */
+/* eslint-disable func-style */
+/* eslint-disable unicorn/prefer-module */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { get } from 'lodash';
 
 import { contrast, hslToHex } from './color-utils';
 import { readFile, writeFile } from './file-system-utils';
-import { Config } from './types';
+import { Config } from './interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-require-imports
 const materialPalette = require('material-palette');
+
+// TODO: Refactor
 
 function mapColorPaletteToScssMap(palette: object, name: string): string {
   let result = `$yata-palette-${name.toLocaleLowerCase()}: (\n`;
@@ -41,11 +55,11 @@ function main(): void {
   ) as Config;
 
   const unit = 64;
-  const borderRadius = config.borderRadius;
-  const columnWidthInUnits = config.columnWidthInUnits;
-  const modals = config.modals;
+  const { borderRadius } = config;
+  const { columnWidthInUnits } = config;
+  const { modals } = config;
 
-  const lightness = config.palettes.lightness;
+  const { lightness } = config.palettes;
   const primary = materialPalette({
     h: config.palettes.primary.hue,
     s: config.palettes.primary.saturation,
@@ -76,8 +90,8 @@ function main(): void {
     s: config.palettes.gray.saturation,
     l: lightness + 12,
   });
-  const successColor = `${hslToHex(green['700'])}`;
-  const warningColor = `${hslToHex(orange['700'])}`;
+  const successColor = hslToHex(green['700']);
+  const warningColor = hslToHex(orange['700']);
 
   const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
 

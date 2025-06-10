@@ -9,10 +9,10 @@ import {
 } from '../styles/theme.__generated';
 
 export abstract class TaskState {
-  private id: string;
-  private value: string;
-  private iconName: string;
-  private color: string;
+  private readonly id: string;
+  private readonly value: string;
+  private readonly iconName: string;
+  private readonly color: string;
 
   constructor(value: string, iconName: string, color: string, id?: string) {
     this.id = id || uuidv4();
