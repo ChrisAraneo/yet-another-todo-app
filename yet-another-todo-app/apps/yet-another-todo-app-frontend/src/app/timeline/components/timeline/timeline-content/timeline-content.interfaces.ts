@@ -1,7 +1,7 @@
 import {
   StartedTask,
   Task,
-} from '../../../../../../../yet-another-todo-app-shared';
+} from '@chris.araneo/yet-another-todo-app-shared';
 
 export interface Column {
   tasks: StartedTask[];

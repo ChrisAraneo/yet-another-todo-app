@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DateUtilsService } from 'src/app/shared/services/date-utils/date-utils.service';
 
 import {
   EndedTask,
@@ -8,7 +7,8 @@ import {
   Task,
   TaskState,
 } from '../../../../../yet-another-todo-app-shared';
-import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.types';
+import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.interfaces';
+import { DateUtilsService } from '../../shared/services/date-utils/date-utils.service';
 
 interface Column {
   tasks: Task[];
