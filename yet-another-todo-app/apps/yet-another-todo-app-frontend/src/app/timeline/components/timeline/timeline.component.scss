@@ -1,0 +1,67 @@
+@import '../../../shared/styles/variables.__generated.scss';
+
+:host {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
+  background-color: rgba($background-color, 0.9);
+}
+
+.timeline-headers-buttons {
+  display: flex;
+}
+
+.timeline-headers-row {
+  position: sticky;
+  top: 0;
+  display: flex;
+  z-index: 999;
+  padding-left: $_64unit;
+  background-color: $background-color;
+}
+
+.timeline-header-button {
+  position: absolute;
+  width: $_64unit;
+  min-width: $_64unit;
+  z-index: 1000;
+}
+
+.timeline-header-date {
+  background-color: $background-color;
+
+  &:last-of-type {
+    padding-right: $_64unit;
+  }
+}
+
+.arrow-back {
+  background: url('../../../../assets/images/timeline-arrow-button-back.png');
+}
+
+.arrow-forward {
+  background: url('../../../../assets/images/timeline-arrow-button-forward.png');
+}
+
+yata-dates-filter {
+  box-sizing: border-box;
+  border-right: $border;
+  border-left: $border;
+  margin-left: $_64unit;
+}
+
+yata-timeline-header {
+  min-width: $column-width;
+  height: $_64unit;
+  border-bottom: $border;
+}
+
+yata-timeline-content {
+  margin-left: $_64unit;
+  min-height: calc(100% - $_64unit);
+}
