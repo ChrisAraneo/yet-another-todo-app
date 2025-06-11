@@ -18,7 +18,7 @@ const jsons = [
 
 const sources = ['^apps\/.*\/[^\/]+(?<!\.spec)\.ts$'];
 
-const tests = ['apps/**/*.spec.ts']
+const tests = ['apps/**/*.spec.ts'];
 
 const templates = ['apps/**/*.html'];
 
