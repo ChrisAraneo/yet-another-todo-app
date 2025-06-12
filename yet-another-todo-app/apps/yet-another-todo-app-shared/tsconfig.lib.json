@@ -11,6 +11,6 @@
   },
   "exclude": ["dist", "src/**/*.spec.ts"],
   "extends": "../../tsconfig.base.json",
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts", "index.ts"],
   "references": []
 }
