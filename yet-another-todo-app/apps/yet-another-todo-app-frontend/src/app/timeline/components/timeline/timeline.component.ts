@@ -23,7 +23,8 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { TimelineHeaderComponent } from './timeline-header/timeline-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-shared';
+// TODO: temporary import fix
+import { UNIT } from '../../../../../../yet-another-todo-app-shared/dist/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-timeline',
