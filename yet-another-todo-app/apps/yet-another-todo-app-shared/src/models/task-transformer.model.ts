@@ -1,6 +1,7 @@
 import { get, set } from 'lodash';
 
 import { Task, TaskCreator } from '../..';
+
 export const TaskTransformer = {
   transform(task: Task, changes: object): Task {
     const json = JSON.stringify(task);
