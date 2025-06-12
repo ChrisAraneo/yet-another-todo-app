@@ -1,6 +1,6 @@
-.nx/
-apps/**/node_modules/
-apps/**/package-lock.json
-apps/yet-another-todo-app-frontend/.angular/vite/
-node_modules/
-package-lock.json
+# Add files here to ignore them from prettier formatting
+/dist
+/coverage
+/.nx/cache
+/.nx/workspace-data
+.angular

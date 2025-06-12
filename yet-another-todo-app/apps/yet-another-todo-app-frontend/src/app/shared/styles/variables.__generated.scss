@@ -1,0 +1,31 @@
+/*
+ * THIS FILE WAS GENERATED USING SCRIPT.
+ * DON'T MODIFY IT.
+ * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.
+ */
+@use 'sass:map';
+@use 'sass:math';
+
+@import './units.__generated.scss';
+@import './palettes.__generated.scss';
+@import './colors.__generated.scss';
+
+// GENERAL VARIABLES
+$border: 1px solid $border-color;
+$border-radius: 6px;
+
+// TIMELINE
+$column-width: $_64unit * 3;
+
+// MODALS & DIALOG WINDOWS
+$dialog-width: $_64unit * 15;
+$dialog-height: $_64unit * 9;
+$dialog-border-radius: 16px;
+
+// FORMS
+$form-input-border-radius: $_6unit;
+$form-input-border: 1px solid $form-input-border-color;
+$form-input-focus-border: 1px solid $form-input-focus-border-color;
+$form-input-background: darken($background-color, 0.7%) !important;
+$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;
+

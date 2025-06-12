@@ -1,38 +1,42 @@
-import createConfig from '@chris.araneo/eslint-config';
+import nx from '@nx/eslint-plugin';
 
-const jsons = [
-  '.vscode/*.json',
-  'apps/**/public/**/*.json',
-  'apps/**/assets/**/*.json',
-  'apps/**/src/**/*.json',
-  'apps/**/tsconfig.json',
-  'apps/**/tsconfig.lib.json',
-  '.prettierrc.json',
-  'angular.json',
-  'tsconfig.app.json',
-  'tsconfig.json',
-  'tsconfig.spec.json',
-  'stryker.config.json',
-  'nx.json',
+export default [
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
+  {
+    ignores: ['**/dist'],
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?js$'],
+          depConstraints: [
+            {
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.cts',
+      '**/*.mts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.cjs',
+      '**/*.mjs',
+    ],
+    // Override or add rules here
+    rules: {},
+  },
 ];
-
-const sources = ['^apps\/.*\/[^\/]+(?<!\.spec)\.ts$'];
-
-const tests = ['apps/**/*.spec.ts'];
-
-const templates = ['apps/**/*.html'];
-
-const ignored = [
-  'node_modules/',
-  'apps/**/.angular/',
-  'apps/**/node_modules/',
-  'apps/**/package.json',
-  'apps/**/package-lock.json',
-  '.stryker-tmp/',
-  'dist/',
-  'reports/',
-  'package.json',
-  'package-lock.json',
-];
-
-export default createConfig(jsons, sources, tests, templates, ignored);
