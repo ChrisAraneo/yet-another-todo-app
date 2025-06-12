@@ -16,7 +16,7 @@ export class EmptyDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EmptyDialogData,
-    public dialogRef: MatDialogRef<EmptyDialogComponent>,
+    public dialogReference: MatDialogRef<EmptyDialogComponent>,
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +25,6 @@ export class EmptyDialogComponent implements OnInit {
   }
 
   close = async (): Promise<void> => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 }

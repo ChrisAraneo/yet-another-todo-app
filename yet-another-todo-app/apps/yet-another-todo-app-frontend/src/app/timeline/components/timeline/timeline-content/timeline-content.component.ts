@@ -5,7 +5,6 @@ import {
   TaskState,
 } from '@chris.araneo/yet-another-todo-app-shared';
 import { TimelineColumn } from './timeline-content.interfaces';
-import { COLUMN_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { TimelineTaskManagerService } from '../../../services/timeline-task-manager.service';
 import { NgFor, NgStyle } from '@angular/common';
 import { TaskCardComponent } from '../../../../shared/components/task-card/task-card.component';
@@ -25,8 +24,7 @@ export class TimelineContentComponent implements OnChanges {
   @Input() tasksStateFilter: TaskState[] = [];
 
   columns: TimelineColumn[] = [];
-
-  readonly columnWidth = COLUMN_WIDTH;
+  styles = {};
 
   constructor(
     private readonly timelineTaskManager: TimelineTaskManagerService,

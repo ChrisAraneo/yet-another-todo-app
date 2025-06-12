@@ -6,9 +6,9 @@ import {
 } from '@angular/router';
 import { map, mergeMap, Observable } from 'rxjs';
 
-import { SIGN_IN_PATH } from '../../../app.routes';
 import { NavigationService } from '../../services/navigation/navigation.service';
 import { UserService } from '../../services/user/user.service';
+import { SIGN_IN_PATH } from '../../../app.consts';
 
 @Injectable({
   providedIn: 'root',

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ToolbarModule } from 'primeng/toolbar';
 
@@ -8,6 +7,7 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
+import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-toolbar',

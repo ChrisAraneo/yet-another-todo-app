@@ -1,10 +1,6 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  DIALOG_HEIGHT,
-  DIALOG_WIDTH,
-} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { filter, first, from, mergeMap, Observable } from 'rxjs';
 
 import { ZipFileContent } from '../../../shared/models/zip-file-content.type';
@@ -22,6 +18,7 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 // TODO Move to shared?
 @Injectable({

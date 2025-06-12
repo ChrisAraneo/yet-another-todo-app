@@ -73,7 +73,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
         this.tasksService.hideTask(task.getId()).subscribe(() => {
           resolve();
 
-          this.dialogRef.close();
+          this.dialogReference.close();
         });
       } else {
         reject();
@@ -82,7 +82,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
   };
 
   cancel: () => void = () => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeTasksObservable(): void {

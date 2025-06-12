@@ -25,7 +25,7 @@ export class ExportTasksModalComponent {
   tasks!: Observable<Task[]>;
 
   constructor(
-    public dialogRef: MatDialogRef<ExportTasksModalComponent>,
+    public dialogReference: MatDialogRef<ExportTasksModalComponent>,
     private tasksService: TasksService,
     private zipTasksService: ZipTasksService,
     private formBuilder: FormBuilder,
@@ -42,13 +42,13 @@ export class ExportTasksModalComponent {
       if (this.form.valid && this.form.value.password) {
         await this.zipTasksService.zip(tasks, this.form.value.password);
 
-        this.dialogRef.close();
+        this.dialogReference.close();
       }
     };
   };
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeTasksObservable(): void {

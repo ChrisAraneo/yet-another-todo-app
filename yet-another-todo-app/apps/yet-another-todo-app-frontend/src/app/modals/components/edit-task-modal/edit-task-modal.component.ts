@@ -96,7 +96,7 @@ export class EditTaskModalComponent implements OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: EditTaskModalData,
-    public dialogRef: MatDialogRef<EditTaskModalComponent>,
+    public dialogReference: MatDialogRef<EditTaskModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly tasksService: TasksService,
     private readonly taskStateTranslatorService: TaskStateTranslatorService,
@@ -177,13 +177,13 @@ export class EditTaskModalComponent implements OnDestroy {
       this.tasksService.updateTask(this.task!).subscribe(() => {
         resolve();
 
-        this.dialogRef.close();
+        this.dialogReference.close();
       });
     });
   };
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeStates(): void {

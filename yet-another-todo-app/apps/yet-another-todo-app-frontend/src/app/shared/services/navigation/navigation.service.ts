@@ -1,18 +1,7 @@
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { NavigationExtras, Router, RouterStateSnapshot } from '@angular/router';
-
-import {
-  ADD_TASK_PATH,
-  CONFIGURE_PATH,
-  DELETE_TASK_PATH,
-  EDIT_TASK_PATH,
-  EXPORT_TASKS_PATH,
-  IMPORT_TASKS_PATH,
-  SIGN_IN_PATH,
-  TABLE_PATH,
-  TIMELINE_PATH,
-} from '../../../app.routes';
+import { ADD_TASK_PATH, CONFIGURE_PATH, DELETE_TASK_PATH, EDIT_TASK_PATH, EXPORT_TASKS_PATH, IMPORT_TASKS_PATH, SIGN_IN_PATH, TABLE_PATH, TIMELINE_PATH } from '../../../app.consts';
 
 @Injectable({
   providedIn: 'root',

@@ -2,7 +2,6 @@ import { AsyncPipe, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   BehaviorSubject,
@@ -28,6 +27,8 @@ import {
   TABLE_PAGE_SIZE_OPTIONS,
 } from '../table/table.config';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { RouterOutlet } from '@angular/router';
+import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-new-table',
@@ -45,6 +46,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
     LabelComponent,
     TaskStateIconComponent,
     PaginatorComponent,
+    RouterOutlet
   ],
 })
 export class NewTableComponent implements OnInit {

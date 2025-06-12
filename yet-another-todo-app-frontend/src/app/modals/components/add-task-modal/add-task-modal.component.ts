@@ -40,7 +40,7 @@ export class AddTaskModalComponent implements OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    public dialogRef: MatDialogRef<AddTaskModalComponent>,
+    public dialogReference: MatDialogRef<AddTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
     private taskStateTranslatorService: TaskStateTranslatorService,
@@ -115,13 +115,13 @@ export class AddTaskModalComponent implements OnDestroy {
       this.tasksService.addTask(this.task as Task).subscribe(() => {
         resolve();
 
-        this.dialogRef.close();
+        this.dialogReference.close();
       });
     });
   };
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeStates(): void {

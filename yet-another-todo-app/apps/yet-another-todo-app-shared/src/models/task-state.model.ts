@@ -1,12 +1,5 @@
+import { DANGER_COLOR, DISABLED_COLOR, STANDARD_TEXT_COLOR, SUCCESS_COLOR, WARNING_COLOR } from 'src/themes/theme.__generated';
 import { v4 as uuidv4 } from 'uuid';
-
-import {
-  DANGER_COLOR,
-  DISABLED_COLOR,
-  STANDARD_TEXT_COLOR,
-  SUCCESS_COLOR,
-  WARNING_COLOR,
-} from '../styles/theme.__generated';
 
 export abstract class TaskState {
   private readonly id: string;

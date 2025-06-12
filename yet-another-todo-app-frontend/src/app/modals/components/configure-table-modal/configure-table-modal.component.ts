@@ -22,7 +22,7 @@ export class ConfigureTableModalComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfigureTableModalComponent>,
+    public dialogReference: MatDialogRef<ConfigureTableModalComponent>,
     private formBuilder: FormBuilder,
     private translateService: TranslateService,
     private viewConfigurationService: ViewConfigurationService,
@@ -49,11 +49,11 @@ export class ConfigureTableModalComponent {
       disableClear: false,
     });
 
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   cancel: () => void = () => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private getIdFromData(data: any): string {

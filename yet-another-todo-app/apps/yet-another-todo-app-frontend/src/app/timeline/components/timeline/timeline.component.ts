@@ -14,9 +14,8 @@ import { BehaviorSubject, map, Observable, of, Subscription } from 'rxjs';
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { DateUtilsService } from '../../../shared/services/date-utils/date-utils.service';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { RouterOutlet } from '@angular/router';
-import { AsyncPipe, NgStyle } from '@angular/common';
+import { AsyncPipe, NgFor, NgStyle } from '@angular/common';
 import { TimelineContentComponent } from './timeline-content/timeline-content.component';
 import { ColumnHighlightComponent } from './column-highlight/column-highlight.component';
 import { SubtitleComponent } from '../../../shared/components/subtitle/subtitle.component';
@@ -24,13 +23,14 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { TimelineHeaderComponent } from './timeline-header/timeline-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
+import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-timeline',
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss',
   standalone: true,
-  imports: [TranslatePipe, NgStyle, RouterOutlet, AsyncPipe, TimelineContentComponent, ColumnHighlightComponent, SubtitleComponent, TitleComponent, MatIconModule, TimelineHeaderComponent]
+  imports: [NgFor, TranslatePipe, NgStyle, RouterOutlet, AsyncPipe, TimelineContentComponent, ColumnHighlightComponent, SubtitleComponent, TitleComponent, MatIconModule, TimelineHeaderComponent]
 })
 export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly today = new Date();

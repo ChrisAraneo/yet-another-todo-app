@@ -13,10 +13,6 @@ import {
 } from '@angular/material/dialog';
 import { MatSortable } from '@angular/material/sort';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  DIALOG_HEIGHT,
-  DIALOG_WIDTH,
-} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { Store, StoreModule } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { MockComponent, MockProvider } from 'ng-mocks';
@@ -42,6 +38,7 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './dialog.service';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 describe('DialogService', () => {
   let service: DialogService;

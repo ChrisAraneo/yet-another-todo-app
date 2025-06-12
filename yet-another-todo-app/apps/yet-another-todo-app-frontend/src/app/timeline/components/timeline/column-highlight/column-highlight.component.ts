@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { DateUtilsService } from '../../../../shared/services/date-utils/date-utils.service';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-column-highlight',

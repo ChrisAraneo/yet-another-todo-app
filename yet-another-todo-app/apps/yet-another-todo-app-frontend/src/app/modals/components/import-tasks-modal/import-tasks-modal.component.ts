@@ -47,7 +47,7 @@ export class ImportTasksModalComponent {
   unzipError?: Error;
 
   constructor(
-    public dialogRef: MatDialogRef<ImportTasksModalComponent>,
+    public dialogReference: MatDialogRef<ImportTasksModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly unzipTasksService: UnzipTasksService,
   ) {
@@ -67,7 +67,7 @@ export class ImportTasksModalComponent {
           .unzip(file!, password || '')
           .then((result) => {
             resolve();
-            this.dialogRef.close(result);
+            this.dialogReference.close(result);
           })
           .catch((error: Error) => {
             this.unzipError = error;
@@ -78,7 +78,7 @@ export class ImportTasksModalComponent {
     });
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeForm(): void {

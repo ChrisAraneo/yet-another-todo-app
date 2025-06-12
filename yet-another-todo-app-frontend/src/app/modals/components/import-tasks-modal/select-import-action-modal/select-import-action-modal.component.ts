@@ -13,7 +13,7 @@ import { ImportAction } from './select-import-action-modal.types';
     templateUrl: './select-import-action-modal.component.html',
     styleUrls: ['./select-import-action-modal.component.scss'],
     animations: [fadeInOut],
-    standalone: false
+    standalone: true,
 })
 export class SelectImportActionModalComponent {
   static readonly PANEL_CLASS = 'select-import-action-modal';
@@ -24,7 +24,7 @@ export class SelectImportActionModalComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ZipFileContent,
-    public dialogRef: MatDialogRef<SelectImportActionModalComponent>,
+    public dialogReference: MatDialogRef<SelectImportActionModalComponent>,
     private tasksService: TasksService,
   ) {}
 
@@ -33,7 +33,7 @@ export class SelectImportActionModalComponent {
       return firstValueFrom(
         this.tasksService.importTasks(this.data?.tasks as Task[], this.action).pipe(
           tap(() => {
-            this.dialogRef.close();
+            this.dialogReference.close();
           }),
         ),
       );

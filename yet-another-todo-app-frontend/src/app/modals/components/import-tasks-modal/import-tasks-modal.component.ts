@@ -10,7 +10,7 @@ import { ImportTasksForm } from './import-tasks-modal.types';
     templateUrl: './import-tasks-modal.component.html',
     styleUrls: ['./import-tasks-modal.component.scss'],
     animations: [fadeInOut],
-    standalone: false
+    standalone: true,
 })
 export class ImportTasksModalComponent {
   static readonly PANEL_CLASS = 'import-tasks-modal';
@@ -19,7 +19,7 @@ export class ImportTasksModalComponent {
   unzipError?: Error;
 
   constructor(
-    public dialogRef: MatDialogRef<ImportTasksModalComponent>,
+    public dialogReference: MatDialogRef<ImportTasksModalComponent>,
     private formBuilder: FormBuilder,
     private unzipTasksService: UnzipTasksService,
   ) {
@@ -39,7 +39,7 @@ export class ImportTasksModalComponent {
           .unzip(file as ArrayBuffer, password || '')
           .then((result) => {
             resolve();
-            this.dialogRef.close(result);
+            this.dialogReference.close(result);
           })
           .catch((error: Error) => {
             this.unzipError = error;
@@ -51,7 +51,7 @@ export class ImportTasksModalComponent {
   };
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeForm(): void {

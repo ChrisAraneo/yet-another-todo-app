@@ -6,10 +6,6 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import {
-  BORDER,
-  UNIT,
-} from '@chris.araneo/yet-another-todo-app-shared/src/styles/theme.__generated';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map, mergeMap, Subscription } from 'rxjs';
 
@@ -20,6 +16,7 @@ import { ViewConfigurationService } from '../../../shared/services/view-configur
 import { AppMode } from '../../../shared/store/types/view-configuration.type';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { NavigationItem } from './side-navigation.types';
+import { BORDER, UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
   selector: 'yata-side-navigation',

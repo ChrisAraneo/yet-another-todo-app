@@ -40,6 +40,6 @@ export class EmptyDialogComponent implements OnInit {
   }
 
   close = async (): Promise<void> => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 }

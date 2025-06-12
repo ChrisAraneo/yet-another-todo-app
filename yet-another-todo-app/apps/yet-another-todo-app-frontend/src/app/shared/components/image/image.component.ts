@@ -4,6 +4,8 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -14,7 +16,8 @@ import {
   standalone: true,
   imports: [NgStyle, NgOptimizedImage],
 })
-export class ImageComponent implements AfterViewInit {
+export class ImageComponent implements AfterViewInit, OnChanges {
+
   @Input({ required: true }) src = '';
   @Input({ required: true }) width = 0;
   @Input({ required: true }) height = 0;
@@ -25,6 +28,16 @@ export class ImageComponent implements AfterViewInit {
   @ViewChild('image') imageRef?: ElementRef;
 
   protected isLoading = true;
+  protected style = {};
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['maxWidth'] || changes['maxHeight']) {
+          this.style = {
+    width: this.maxWidth ? `${this.maxWidth}px` : '100%',
+    height: this.maxHeight ? `${this.maxHeight}px` : '100%',
+  }
+    }
+  }
 
   ngAfterViewInit(): void {
     const nativeImageElement: HTMLImageElement | undefined =

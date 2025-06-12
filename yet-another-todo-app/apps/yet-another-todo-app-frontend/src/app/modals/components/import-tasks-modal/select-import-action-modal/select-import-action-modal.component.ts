@@ -43,7 +43,7 @@ export class SelectImportActionModalComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ZipFileContent,
-    public dialogRef: MatDialogRef<SelectImportActionModalComponent>,
+    public dialogReference: MatDialogRef<SelectImportActionModalComponent>,
     private readonly tasksService: TasksService,
   ) {}
 
@@ -52,7 +52,7 @@ export class SelectImportActionModalComponent {
       ? firstValueFrom(
           this.tasksService.importTasks(this.data?.tasks, this.action).pipe(
             tap(() => {
-              this.dialogRef.close();
+              this.dialogReference.close();
             }),
           ),
         )

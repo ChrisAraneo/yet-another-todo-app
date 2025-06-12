@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 // import { PrimeNGConfig } from 'primeng/api';
 import {
   BehaviorSubject,
@@ -14,14 +14,21 @@ import { DateUtilsService } from './shared/services/date-utils/date-utils.servic
 import { UserService } from './shared/services/user/user.service';
 import { ViewConfigurationService } from './shared/services/view-configuration/view-configuration.service';
 import { CurrentUser } from './shared/store/types/current-user.type';
-import { COLUMN_WIDTH, UNIT } from './shared/styles/theme.__generated';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
+import { FooterComponent } from './container/components/footer/footer.component';
+import { RouterOutlet } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { ToolbarComponent } from './container/components/toolbar/toolbar.component';
+import { SideNavigationComponent } from './side-navigation/components/side-navigation/side-navigation.component';
+import { AppWrapperComponent } from './container/components/app-wrapper/app-wrapper.component';
+import { COLUMN_WIDTH, UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: true
+    standalone: true,
+    imports: [FooterComponent, RouterOutlet, AsyncPipe, TranslatePipe, ToolbarComponent, SideNavigationComponent, AppWrapperComponent]
 })
 export class AppComponent implements OnDestroy {
   isMenuOpened: boolean = true;

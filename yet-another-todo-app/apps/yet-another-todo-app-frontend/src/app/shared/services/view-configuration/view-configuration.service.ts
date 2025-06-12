@@ -12,7 +12,6 @@ import {
 } from 'rxjs';
 
 import { TaskState } from '../../../../../../yet-another-todo-app-shared';
-import { TABLE_PATH, TIMELINE_PATH } from '../../../app.routes';
 import {
   setAppMode,
   setTableSort,
@@ -27,6 +26,7 @@ import {
   TimelineConfiguration,
   ViewConfiguration,
 } from '../../store/types/view-configuration.type';
+import { TIMELINE_PATH, TABLE_PATH } from '../../../app.consts';
 
 @Injectable({
   providedIn: 'root',

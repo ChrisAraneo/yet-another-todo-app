@@ -157,13 +157,13 @@ export class AddTaskModalComponent implements OnDestroy {
       this.tasksService.addTask(this.task!).subscribe(() => {
         resolve();
 
-        this.dialogRef.close();
+        this.dialogReference.close();
       });
     });
   };
 
   cancel = (): void => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeStates(): void {

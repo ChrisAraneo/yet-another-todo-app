@@ -30,7 +30,7 @@ export class SignInModalComponent implements OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<SignInModalComponent>,
+    public dialogReference: MatDialogRef<SignInModalComponent>,
     private formBuilder: FormBuilder,
     private authService: AuthService,
   ) {
@@ -53,14 +53,14 @@ export class SignInModalComponent implements OnDestroy {
 
       this.subscription = this.authService.signIn(username || '', password || '').subscribe(() => {
         resolve();
-        this.dialogRef.close();
+        this.dialogReference.close();
       });
     });
   };
 
   cancel = (): void => {
     this.authService.signOut();
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeForm(): void {

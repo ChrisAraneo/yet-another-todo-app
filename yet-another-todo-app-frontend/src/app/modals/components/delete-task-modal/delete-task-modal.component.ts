@@ -24,7 +24,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<DeleteTaskModalComponent>,
+    public dialogReference: MatDialogRef<DeleteTaskModalComponent>,
     private formBuilder: FormBuilder,
     private tasksService: TasksService,
   ) {
@@ -48,7 +48,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
         this.tasksService.hideTask(task.getId()).subscribe(() => {
           resolve();
 
-          this.dialogRef.close();
+          this.dialogReference.close();
         });
       } else {
         reject();
@@ -57,7 +57,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
   };
 
   cancel: () => void = () => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   private initializeTasksObservable(): void {

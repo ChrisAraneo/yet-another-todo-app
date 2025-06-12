@@ -9,6 +9,7 @@ import {
 } from '../../../../../yet-another-todo-app-shared';
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.interfaces';
 import { DateUtilsService } from '../../shared/services/date-utils/date-utils.service';
+import { COLUMN_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
 
 interface Column {
   tasks: Task[];
@@ -193,14 +194,18 @@ export class TimelineTaskManagerService {
   private mapColumnsToTimelineColumns(columns: Column[]): TimelineColumn[] {
     return columns.map((column: Column, index: number, array: Column[]) => {
       if (index === 0) {
+        const leftMargin = column.position;
         return {
           tasks: column.tasks,
-          leftMargin: column.position,
+          leftMargin: leftMargin,
+          style: { 'margin-left': `${leftMargin * COLUMN_WIDTH}px` }
         };
       }
+      const leftMargin = column.position - array[index - 1].position - 1;
       return {
         tasks: column.tasks,
-        leftMargin: column.position - array[index - 1].position - 1,
+        leftMargin,
+        style: { 'margin-left': `${leftMargin * COLUMN_WIDTH}px` }
       };
     });
   }

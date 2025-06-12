@@ -25,7 +25,7 @@ export class ConfigureTimelineModalComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ConfigureTimelineModalData,
-    public dialogRef: MatDialogRef<ConfigureTimelineModalComponent>,
+    public dialogReference: MatDialogRef<ConfigureTimelineModalComponent>,
     private formBuilder: FormBuilder,
     private dateUtilsService: DateUtilsService,
     private viewConfigurationService: ViewConfigurationService,
@@ -53,11 +53,11 @@ export class ConfigureTimelineModalComponent {
     this.viewConfigurationService.changeTimelineColumnSorting(statesOrder);
     this.viewConfigurationService.changeTimelineFiltering(statesFilter);
 
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   cancel: () => void = () => {
-    this.dialogRef.close();
+    this.dialogReference.close();
   };
 
   changeStatesOrder(event: TaskState[]): void {

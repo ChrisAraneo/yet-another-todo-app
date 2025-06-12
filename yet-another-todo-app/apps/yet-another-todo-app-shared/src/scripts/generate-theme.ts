@@ -102,12 +102,15 @@ ${mapColorPaletteToScssMap(red, 'red')}
 ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
+  const stylesPath = 'yet-another-todo-app-frontend/src/app/shared/styles';
+  const themesPath = 'yet-another-todo-app-shared/src/themes/';
+
   writeFile(
-    'yet-another-todo-app-frontend/src/app/shared/styles/palettes.__generated.scss',
+    `${stylesPath}/palettes.__generated.scss`,
     palettes,
   );
   writeFile(
-    'yet-another-todo-app-shared/src/styles/palettes.__generated.scss',
+    `${stylesPath}/palettes.__generated.scss`,
     palettes,
   );
 
@@ -125,11 +128,11 @@ $_256unit: $_64unit * 4;
 `;
 
   writeFile(
-    'yet-another-todo-app-frontend/src/app/shared/styles/units.__generated.scss',
+    `${stylesPath}/units.__generated.scss`,
     units,
   );
   writeFile(
-    'yet-another-todo-app-shared/src/styles/units.__generated.scss',
+    `${stylesPath}/units.__generated.scss`,
     units,
   );
 
@@ -159,11 +162,11 @@ export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
   writeFile(
-    'yet-another-todo-app-frontend/src/app/shared/styles/theme.__generated.ts',
+    `${themesPath}/theme.__generated.ts`,
     tsConsts,
   );
   writeFile(
-    'yet-another-todo-app-shared/src/styles/theme.__generated.ts',
+    `${themesPath}/theme.__generated.ts`,
     tsConsts,
   );
 
@@ -201,25 +204,25 @@ $form-input-border-color: map.get($yata-palette-gray, 400);
 $form-input-focus-border-color: $primary-color;
 
 // MATERIAL THEME
-$theme: mat.define-light-theme(
-  (
+html {
+  @include mat.theme((
     color: (
-      primary: mat.define-palette($yata-palette-primary),
-      accent: mat.define-palette($yata-palette-secondary),
-      warn: mat.define-palette($yata-palette-red),
+      primary: $yata-palette-primary,
+      tertiary: $yata-palette-secondary,
+      theme-type: light,
     ),
-    typography: mat.define-typography-config(),
-  )
-);
-@include mat.all-component-themes($theme);  
+    typography: Roboto,
+    density: 0
+  ));
+}
 `;
 
   writeFile(
-    'yet-another-todo-app-frontend/src/app/shared/styles/colors.__generated.scss',
+    `${stylesPath}/colors.__generated.scss`,
     colors,
   );
   writeFile(
-    'yet-another-todo-app-shared/src/styles/colors.__generated.scss',
+    `${stylesPath}/colors.__generated.scss`,
     colors,
   );
 
@@ -256,11 +259,11 @@ $form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !im
 `;
 
   writeFile(
-    'yet-another-todo-app-frontend/src/app/shared/styles/variables.__generated.scss',
+    `${stylesPath}/variables.__generated.scss`,
     variables,
   );
   writeFile(
-    'yet-another-todo-app-shared/src/styles/variables.__generated.scss',
+    `${stylesPath}/variables.__generated.scss`,
     variables,
   );
 }

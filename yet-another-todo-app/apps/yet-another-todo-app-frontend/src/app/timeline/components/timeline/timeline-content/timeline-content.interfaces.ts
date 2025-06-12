@@ -11,4 +11,5 @@ export interface Column {
 export interface TimelineColumn {
   leftMargin: number;
   tasks: Task[];
+  style: object;
 }
