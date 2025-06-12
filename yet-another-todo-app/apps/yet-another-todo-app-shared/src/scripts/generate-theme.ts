@@ -105,14 +105,8 @@ ${mapColorPaletteToScssMap(gray, 'gray')}
   const stylesPath = 'yet-another-todo-app-frontend/src/app/shared/styles';
   const themesPath = 'yet-another-todo-app-shared/src/themes/';
 
-  writeFile(
-    `${stylesPath}/palettes.__generated.scss`,
-    palettes,
-  );
-  writeFile(
-    `${stylesPath}/palettes.__generated.scss`,
-    palettes,
-  );
+  writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
+  writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
 
   let units = `${disclaimer}
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
@@ -127,14 +121,8 @@ $_192unit: $_64unit * 3;
 $_256unit: $_64unit * 4;
 `;
 
-  writeFile(
-    `${stylesPath}/units.__generated.scss`,
-    units,
-  );
-  writeFile(
-    `${stylesPath}/units.__generated.scss`,
-    units,
-  );
+  writeFile(`${stylesPath}/units.__generated.scss`, units);
+  writeFile(`${stylesPath}/units.__generated.scss`, units);
 
   const tsConsts = `${disclaimer}
 export const UNIT = ${unit};
@@ -161,14 +149,8 @@ export const DIALOG_HEIGHT = \`\${UNIT * ${modals.heightInUnits}}px\`;
 export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
-  writeFile(
-    `${themesPath}/theme.__generated.ts`,
-    tsConsts,
-  );
-  writeFile(
-    `${themesPath}/theme.__generated.ts`,
-    tsConsts,
-  );
+  writeFile(`${themesPath}/theme.__generated.ts`, tsConsts);
+  writeFile(`${themesPath}/theme.__generated.ts`, tsConsts);
 
   const colors = `${disclaimer}
 @use "sass:map";
@@ -217,14 +199,8 @@ html {
 }
 `;
 
-  writeFile(
-    `${stylesPath}/colors.__generated.scss`,
-    colors,
-  );
-  writeFile(
-    `${stylesPath}/colors.__generated.scss`,
-    colors,
-  );
+  writeFile(`${stylesPath}/colors.__generated.scss`, colors);
+  writeFile(`${stylesPath}/colors.__generated.scss`, colors);
 
   const variables = `${disclaimer}
 @use 'sass:map';
@@ -258,14 +234,8 @@ $form-input-background: darken($background-color, 0.7%) !important;
 $form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;  
 `;
 
-  writeFile(
-    `${stylesPath}/variables.__generated.scss`,
-    variables,
-  );
-  writeFile(
-    `${stylesPath}/variables.__generated.scss`,
-    variables,
-  );
+  writeFile(`${stylesPath}/variables.__generated.scss`, variables);
+  writeFile(`${stylesPath}/variables.__generated.scss`, variables);
 }
 
 main();
