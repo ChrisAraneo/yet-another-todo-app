@@ -155,13 +155,9 @@ export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
   const colors = `${disclaimer}
 @use "sass:map";
 @use 'sass:math';
-@use '@angular/material' as mat;
 
 @import './units.__generated.scss';
 @import './palettes.__generated.scss';
-
-@include mat.all-component-typographies();
-@include mat.core();
 
 // GENERAL COLORS
 $background-color: map.get($yata-palette-gray, 50);
@@ -185,18 +181,6 @@ $form-input-text-color: $standard-text-color;
 $form-input-border-color: map.get($yata-palette-gray, 400);
 $form-input-focus-border-color: $primary-color;
 
-// MATERIAL THEME
-html {
-  @include mat.theme((
-    color: (
-      primary: $yata-palette-primary,
-      tertiary: $yata-palette-secondary,
-      theme-type: light,
-    ),
-    typography: Roboto,
-    density: 0
-  ));
-}
 `;
 
   writeFile(`${stylesPath}/colors.__generated.scss`, colors);
@@ -205,14 +189,10 @@ html {
   const variables = `${disclaimer}
 @use 'sass:map';
 @use 'sass:math';
-@use '@angular/material' as mat;
 
 @import './units.__generated.scss';
 @import './palettes.__generated.scss';
 @import './colors.__generated.scss';
-
-@include mat.all-component-typographies();
-@include mat.core();
 
 // GENERAL VARIABLES
 $border: 1px solid $border-color;
@@ -231,7 +211,8 @@ $form-input-border-radius: $_6unit;
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-focus-border: 1px solid $form-input-focus-border-color;
 $form-input-background: darken($background-color, 0.7%) !important;
-$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;  
+$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;
+
 `;
 
   writeFile(`${stylesPath}/variables.__generated.scss`, variables);
