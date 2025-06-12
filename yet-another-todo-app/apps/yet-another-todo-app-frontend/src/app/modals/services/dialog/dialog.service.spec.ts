@@ -38,7 +38,7 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './dialog.service';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared';
 
 describe('DialogService', () => {
   let service: DialogService;

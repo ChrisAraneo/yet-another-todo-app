@@ -7,7 +7,7 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { LoggedUserInformationComponent } from './logged-user-information/logged-user-information.component';
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
-import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
+import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-toolbar',

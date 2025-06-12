@@ -21,7 +21,7 @@ import { AsyncPipe } from '@angular/common';
 import { ToolbarComponent } from './container/components/toolbar/toolbar.component';
 import { SideNavigationComponent } from './side-navigation/components/side-navigation/side-navigation.component';
 import { AppWrapperComponent } from './container/components/app-wrapper/app-wrapper.component';
-import { COLUMN_WIDTH, UNIT } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
+import { COLUMN_WIDTH, UNIT } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
     selector: 'app-root',

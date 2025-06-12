@@ -9,7 +9,7 @@ import {
 } from '../../../../../yet-another-todo-app-shared';
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.interfaces';
 import { DateUtilsService } from '../../shared/services/date-utils/date-utils.service';
-import { COLUMN_WIDTH } from '@chris.araneo/yet-another-todo-app-shared/src/themes/theme.__generated';
+import { COLUMN_WIDTH } from '@chris.araneo/yet-another-todo-app-shared';
 
 interface Column {
   tasks: Task[];
