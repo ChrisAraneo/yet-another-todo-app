@@ -1,9 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 
-import {
-  Task,
-  TaskState,
-} from '@chris.araneo/yet-another-todo-app-shared';
+import { Task, TaskState } from '@chris.araneo/yet-another-todo-app-shared';
 import { TimelineColumn } from './timeline-content.interfaces';
 import { TimelineTaskManagerService } from '../../../services/timeline-task-manager.service';
 import { NgFor, NgStyle } from '@angular/common';
@@ -11,9 +8,9 @@ import { TaskCardComponent } from '../../../../shared/components/task-card/task-
 
 @Component({
   selector: 'yata-timeline-content',
+  imports: [NgFor, NgStyle, TaskCardComponent],
   templateUrl: './timeline-content.component.html',
   styleUrl: './timeline-content.component.scss',
-  imports: [NgFor, NgStyle, TaskCardComponent]
 })
 export class TimelineContentComponent implements OnChanges {
   @Input() today!: Date;

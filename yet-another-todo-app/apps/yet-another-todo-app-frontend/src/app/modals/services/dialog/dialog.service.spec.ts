@@ -38,7 +38,10 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
 import { DialogService } from './dialog.service';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared';
+import {
+  DIALOG_HEIGHT,
+  DIALOG_WIDTH,
+} from '@chris.araneo/yet-another-todo-app-shared';
 
 describe('DialogService', () => {
   let service: DialogService;
@@ -80,18 +83,32 @@ describe('DialogService', () => {
       ],
       imports: [MatDialogModule, NoopAnimationsModule, StoreModule.forRoot({})],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
-        { provide: 'API', useValue: environment.api },
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: [],
+        },
+        {
+          provide: 'API',
+          useValue: environment.api,
+        },
         MockProvider(Store, {
-          select: () => of({ ...dummyConfiguration }),
+          select: () =>
+            of({
+              ...dummyConfiguration,
+            }),
         }),
         MockProvider(TasksService, {}),
         MockProvider(TranslateService, {}),
         MockProvider(ViewConfigurationService, {
           getTimelineConfiguration: () => of(dummyConfiguration.timeline),
           getTableConfiguration: () =>
-            of({ ...dummyConfiguration.table } as {
+            of({
+              ...dummyConfiguration.table,
+            } as {
               sort: MatSortable;
             }),
         }),

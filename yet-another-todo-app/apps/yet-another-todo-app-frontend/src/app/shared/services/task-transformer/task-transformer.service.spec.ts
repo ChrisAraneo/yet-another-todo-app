@@ -52,13 +52,17 @@ describe('TaskTransformerService', () => {
   });
 
   it('#transform should return new instance with changed title', () => {
-    const result = service.transform(notStartedTask, { title: 'Test' });
+    const result = service.transform(notStartedTask, {
+      title: 'Test',
+    });
 
     expect(result.getTitle()).toEqual('Test');
   });
 
   it('#transform should return new instance with changed description', () => {
-    const result = service.transform(notStartedTask, { description: 'Test' });
+    const result = service.transform(notStartedTask, {
+      description: 'Test',
+    });
 
     expect(result.getDescription()).toEqual('Test');
   });
@@ -66,7 +70,9 @@ describe('TaskTransformerService', () => {
   it('#transform should return new instance with changed creationDate', () => {
     const creationDate = new Date(2012, 4, 12);
 
-    const result = service.transform(notStartedTask, { creationDate });
+    const result = service.transform(notStartedTask, {
+      creationDate,
+    });
 
     expect(result.getCreationDate()).toEqual(creationDate);
   });
@@ -74,13 +80,17 @@ describe('TaskTransformerService', () => {
   it('#transform should return new instance with changed id', () => {
     const id = '123';
 
-    const result = service.transform(notStartedTask, { id });
+    const result = service.transform(notStartedTask, {
+      id,
+    });
 
     expect(result.getId()).toEqual(id);
   });
 
   it('#transform should return new instance with changed isHidden', () => {
-    const result = service.transform(notStartedTask, { isHidden: true });
+    const result = service.transform(notStartedTask, {
+      isHidden: true,
+    });
 
     expect(result.getIsHidden()).toEqual(true);
   });
@@ -89,7 +99,10 @@ describe('TaskTransformerService', () => {
     const state = new InProgressTaskState();
     const startDate = new Date(1999, 5, 22);
 
-    const result = service.transform(notStartedTask, { state, startDate });
+    const result = service.transform(notStartedTask, {
+      state,
+      startDate,
+    });
 
     expect(result).toBeInstanceOf(StartedTask);
   });
@@ -97,7 +110,9 @@ describe('TaskTransformerService', () => {
   it('#transform should return new instance with changed startDate', () => {
     const startDate = new Date(1999, 5, 22);
 
-    const result = service.transform(inProgressTask, { startDate });
+    const result = service.transform(inProgressTask, {
+      startDate,
+    });
 
     expect((result as StartedTask).getStartDate()).toEqual(startDate);
   });
@@ -106,14 +121,19 @@ describe('TaskTransformerService', () => {
     const state = new CompletedTaskState();
     const endDate = new Date(2023, 10, 11);
 
-    const result = service.transform(inProgressTask, { state, endDate });
+    const result = service.transform(inProgressTask, {
+      state,
+      endDate,
+    });
 
     expect(result).toBeInstanceOf(EndedTask);
   });
 
   it('#transform should return new instance with changed endDate', () => {
     const endDate = new Date(2023, 10, 11);
-    const result = service.transform(completedTask, { endDate });
+    const result = service.transform(completedTask, {
+      endDate,
+    });
 
     expect((result as EndedTask).getEndDate()).toEqual(endDate);
   });

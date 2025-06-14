@@ -13,7 +13,9 @@
     <div class="controls" [ngSwitch]="1">
       <yata-page *ngSwitchCase="1" [@fadeInOut]>
         <mat-radio-group
-          [ngModelOptions]="{ standalone: true }"
+          [ngModelOptions]="{
+            standalone: true,
+          }"
           [(ngModel)]="action">
           <mat-radio-button *ngFor="let action of actions" [value]="action">
             {{ `SelectImportActionModal.${action}` | translate }}

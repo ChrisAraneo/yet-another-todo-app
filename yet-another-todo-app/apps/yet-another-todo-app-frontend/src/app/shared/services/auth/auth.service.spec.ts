@@ -23,7 +23,10 @@ describe('AuthService', () => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot({})],
       providers: [
-        { provide: 'API', useValue: environment.api },
+        {
+          provide: 'API',
+          useValue: environment.api,
+        },
         MockProvider(ApiClientService, {
           signIn: async () => ({
             accessToken: 'acc3sst0k3n',
@@ -39,7 +42,11 @@ describe('AuthService', () => {
         }),
         MockProvider(UserService, {
           getUserData: () =>
-            of({ username: 'lorem', isLogged: true, isOfflineMode: false }),
+            of({
+              username: 'lorem',
+              isLogged: true,
+              isOfflineMode: false,
+            }),
           getUsername: () => of('lorem'),
         }),
         MockProvider(OperationIdGeneratorService, {

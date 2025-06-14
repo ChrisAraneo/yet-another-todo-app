@@ -9,7 +9,7 @@ export const writeFile = (path: string, output: string): void => {
 
   fs.writeFile(outputPath, output, (error: unknown) => {
     if (error) {
-      // eslint-disable-next-line no-console
+       
       console.error(error);
     }
   });

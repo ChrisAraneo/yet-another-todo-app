@@ -5,10 +5,10 @@ import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-next-button',
-  templateUrl: './next-button.component.html',
-  styleUrl: './next-button.component.scss',
   standalone: true,
   imports: [MatIconModule],
+  templateUrl: './next-button.component.html',
+  styleUrl: './next-button.component.scss',
 })
 export class NextButtonComponent {
   @Input() next: (event?: any) => Promise<void> = NOOP;

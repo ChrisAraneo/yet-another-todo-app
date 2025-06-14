@@ -11,6 +11,13 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-text-input',
+  standalone: true,
+  imports: [
+    ErrorTooltipDirective,
+    FormLabelComponent,
+    FormsModule,
+    InputTextModule,
+  ],
   templateUrl: './text-input.component.html',
   styleUrl: './text-input.component.scss',
   providers: [
@@ -19,13 +26,6 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       useExisting: forwardRef(() => TextInputComponent),
       multi: true,
     },
-  ],
-  standalone: true,
-  imports: [
-    FormLabelComponent,
-    FormsModule,
-    InputTextModule,
-    ErrorTooltipDirective,
   ],
 })
 export class TextInputComponent implements ControlValueAccessor {

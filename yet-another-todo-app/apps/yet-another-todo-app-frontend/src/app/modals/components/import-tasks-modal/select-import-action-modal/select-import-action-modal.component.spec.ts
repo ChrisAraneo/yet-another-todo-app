@@ -28,8 +28,14 @@ describe('SelectImportActionModalComponent', () => {
       declarations: [SelectImportActionModalComponent, MockPipe(TranslatePipe)],
       imports: [MatDialogModule, NoopAnimationsModule, StoreModule.forRoot({})],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: [],
+        },
         FormBuilder,
         MockProvider(TasksService, {
           getTasks: () => of([]),

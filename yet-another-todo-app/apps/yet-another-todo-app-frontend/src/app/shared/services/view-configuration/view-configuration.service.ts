@@ -36,7 +36,9 @@ export class ViewConfigurationService implements OnDestroy {
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
-    public store: Store<{ viewConfiguration: ViewConfiguration }>,
+    public store: Store<{
+      viewConfiguration: ViewConfiguration;
+    }>,
     private readonly router: Router,
   ) {
     this.initializeConfigurationSubject();
@@ -60,31 +62,51 @@ export class ViewConfigurationService implements OnDestroy {
   }
 
   changeTimelineStartDate(date: Date): void {
-    this.store.dispatch(setTimelineStartDate({ startDate: date }));
+    this.store.dispatch(
+      setTimelineStartDate({
+        startDate: date,
+      }),
+    );
   }
 
   changeTimelineEndDate(date: Date): void {
-    this.store.dispatch(setTimelineEndDate({ endDate: date }));
+    this.store.dispatch(
+      setTimelineEndDate({
+        endDate: date,
+      }),
+    );
   }
 
   changeTimelineColumnSorting(taskStatesInOrder: TaskState[]): void {
     this.store.dispatch(
-      setTimelineTaskStateOrder({ states: taskStatesInOrder }),
+      setTimelineTaskStateOrder({
+        states: taskStatesInOrder,
+      }),
     );
   }
 
   changeTimelineFiltering(taskStatesToDisplay: TaskState[]): void {
     this.store.dispatch(
-      setTimelineTaskStateFilter({ states: taskStatesToDisplay }),
+      setTimelineTaskStateFilter({
+        states: taskStatesToDisplay,
+      }),
     );
   }
 
   changeTableSorting(sort: MatSortable): void {
-    this.store.dispatch(setTableSort({ sort }));
+    this.store.dispatch(
+      setTableSort({
+        sort,
+      }),
+    );
   }
 
   protected changeAppMode(mode: AppMode): void {
-    this.store.dispatch(setAppMode({ mode }));
+    this.store.dispatch(
+      setAppMode({
+        mode,
+      }),
+    );
   }
 
   private initializeConfigurationSubject(): void {

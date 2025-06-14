@@ -6,10 +6,10 @@ import { NOOP } from '../../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-navigation-item',
-  templateUrl: './navigation-item.component.html',
-  styleUrl: './navigation-item.component.scss',
   standalone: true,
   imports: [MatIcon, NgIf],
+  templateUrl: './navigation-item.component.html',
+  styleUrl: './navigation-item.component.scss',
 })
 export class NavigationItemComponent {
   @Input() label = '';

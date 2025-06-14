@@ -10,6 +10,8 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-date-picker',
+  standalone: true,
+  imports: [DatePickerModule, FormLabelComponent, FormsModule],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss',
   providers: [
@@ -19,8 +21,6 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormLabelComponent, DatePickerModule, FormsModule],
 })
 export class DatePickerComponent implements ControlValueAccessor {
   @Input() label = '';

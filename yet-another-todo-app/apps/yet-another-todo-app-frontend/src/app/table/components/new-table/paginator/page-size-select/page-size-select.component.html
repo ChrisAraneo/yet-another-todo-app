@@ -6,7 +6,13 @@
     type="text"
     [name]="label"
     [disabled]="isDisabled"
-    [ngStyle]="!label ? { 'margin-top': '0' } : {}"
+    [ngStyle]="
+      !label
+        ? {
+            'margin-top': '0',
+          }
+        : {}
+    "
     [(ngModel)]="text"
     (ngModelChange)="onChangeText($event)"
     (focus)="onFocus()"

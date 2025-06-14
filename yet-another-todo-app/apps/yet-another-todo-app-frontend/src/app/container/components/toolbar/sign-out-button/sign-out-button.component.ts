@@ -6,13 +6,16 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'yata-sign-out-button',
+  standalone: true,
+  imports: [MatIcon, MatTooltip, TranslatePipe],
   templateUrl: './sign-out-button.component.html',
   styleUrl: './sign-out-button.component.scss',
-  standalone: true,
-  imports: [MatIcon, TranslatePipe, MatTooltip],
 })
 export class SignOutButtonComponent {
-  constructor(@Inject(DOCUMENT) private readonly document: Document) {}
+  constructor(
+    @Inject(DOCUMENT)
+    private readonly document: Document,
+  ) {}
 
   reloadPage(): void {
     const window = this.document.defaultView;

@@ -7,7 +7,6 @@ import {
   OnInit,
 } from '@angular/core';
 
-
 import { Task, TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 import { BehaviorSubject, map, Observable, of, Subscription } from 'rxjs';
@@ -28,10 +27,22 @@ import { UNIT } from '../../../../../../yet-another-todo-app-shared/dist/src/the
 
 @Component({
   selector: 'yata-timeline',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    ColumnHighlightComponent,
+    MatIconModule,
+    NgFor,
+    NgStyle,
+    RouterOutlet,
+    SubtitleComponent,
+    TimelineContentComponent,
+    TimelineHeaderComponent,
+    TitleComponent,
+    TranslatePipe,
+  ],
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss',
-  standalone: true,
-  imports: [NgFor, TranslatePipe, NgStyle, RouterOutlet, AsyncPipe, TimelineContentComponent, ColumnHighlightComponent, SubtitleComponent, TitleComponent, MatIconModule, TimelineHeaderComponent]
 })
 export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly today = new Date();

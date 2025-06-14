@@ -4,7 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "format:package-json": "sort-package-json"
+    "format": "sort-package-json && sort-patterns-file .gitignore .prettierignore -i node_modules && nx run yet-another-todo-app-frontend:format",
+    "lint": "eslint --fix"
   },
   "dependencies": {
     "@angular/common": "~19.2.0",

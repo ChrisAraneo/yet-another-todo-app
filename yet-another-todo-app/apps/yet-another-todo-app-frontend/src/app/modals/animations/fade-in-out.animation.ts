@@ -8,15 +8,30 @@ import {
 
 export const fadeInOut = trigger('fadeInOut', [
   transition(':enter', [
-    style({ opacity: 0 }),
+    style({
+      opacity: 0,
+    }),
     animate(
       '300ms',
       keyframes([
-        style({ opacity: 0 }),
-        style({ opacity: 0 }),
-        style({ opacity: 1 }),
+        style({
+          opacity: 0,
+        }),
+        style({
+          opacity: 0,
+        }),
+        style({
+          opacity: 1,
+        }),
       ]),
     ),
   ]),
-  transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+  transition(':leave', [
+    animate(
+      '150ms',
+      style({
+        opacity: 0,
+      }),
+    ),
+  ]),
 ]);

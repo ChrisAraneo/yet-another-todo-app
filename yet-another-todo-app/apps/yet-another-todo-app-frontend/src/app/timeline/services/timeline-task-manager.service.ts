@@ -98,7 +98,10 @@ export class TimelineTaskManagerService {
   ): Column[] {
     const columnTasksMap = new Map<
       number,
-      { tasks: Task[]; position: number }
+      {
+        tasks: Task[];
+        position: number;
+      }
     >();
 
     for (const task of tasks) {
@@ -198,14 +201,18 @@ export class TimelineTaskManagerService {
         return {
           tasks: column.tasks,
           leftMargin: leftMargin,
-          style: { 'margin-left': `${leftMargin * COLUMN_WIDTH}px` }
+          style: {
+            'margin-left': `${leftMargin * COLUMN_WIDTH}px`,
+          },
         };
       }
       const leftMargin = column.position - array[index - 1].position - 1;
       return {
         tasks: column.tasks,
         leftMargin,
-        style: { 'margin-left': `${leftMargin * COLUMN_WIDTH}px` }
+        style: {
+          'margin-left': `${leftMargin * COLUMN_WIDTH}px`,
+        },
       };
     });
   }

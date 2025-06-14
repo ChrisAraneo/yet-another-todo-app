@@ -16,19 +16,31 @@ const SET_TASKS = 'SET_TASKS';
 
 export const sendCreateTaskRequest = createAction(
   CREATE_TASK_API,
-  props<{ task: Task; operationId: string }>(),
+  props<{
+    task: Task;
+    operationId: string;
+  }>(),
 );
 export const sendUpdateTaskRequest = createAction(
   UPDATE_TASK_API,
-  props<{ task: Task; operationId: string }>(),
+  props<{
+    task: Task;
+    operationId: string;
+  }>(),
 );
 export const sendHideTaskRequest = createAction(
   HIDE_TASK_API,
-  props<{ id: string; operationId: string }>(),
+  props<{
+    id: string;
+    operationId: string;
+  }>(),
 );
 export const sendUpdateTasksRequest = createAction(
   UPDATE_TASKS_API,
-  props<{ tasks: Task[]; operationId: string }>(),
+  props<{
+    tasks: Task[];
+    operationId: string;
+  }>(),
 );
 
 export const createTask = createAction(CREATE_TASK, props<{ task: Task }>());

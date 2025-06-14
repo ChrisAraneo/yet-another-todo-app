@@ -23,21 +23,21 @@ import { TaskForm, TaskOption } from './delete-task-modal.types';
 
 @Component({
   selector: 'yata-delete-task-modal',
-  templateUrl: './delete-task-modal.component.html',
-  styleUrl: './delete-task-modal.component.scss',
-  animations: [fadeInOut],
   standalone: true,
   imports: [
     AsyncPipe,
-    ReactiveFormsModule,
     FormsModule,
-    NgIf,
-    TranslatePipe,
-    ModalTitleComponent,
-    SelectComponent,
-    PageComponent,
     ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgIf,
+    PageComponent,
+    ReactiveFormsModule,
+    SelectComponent,
+    TranslatePipe,
   ],
+  templateUrl: './delete-task-modal.component.html',
+  styleUrl: './delete-task-modal.component.scss',
+  animations: [fadeInOut],
 })
 export class DeleteTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'delete-task-modal';
@@ -48,7 +48,8 @@ export class DeleteTaskModalComponent implements OnDestroy {
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: any,
     public dialogReference: MatDialogRef<DeleteTaskModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly tasksService: TasksService,

@@ -3,10 +3,10 @@
     [title]="'App.title' | translate"
     [username]="username | async"
     [isOfflineMode]="!!(isOfflineMode | async)"
-    (menuClick)="onMenuClick()"></yata-toolbar>
+    (menuClick)="onMenuClick()" />
   <main>
-    <yata-side-navigation [isOpened]="isMenuOpened"></yata-side-navigation>
-    <router-outlet (activate)="onRouterOutletActivated($event)"></router-outlet>
+    <yata-side-navigation [isOpened]="isMenuOpened" />
+    <router-outlet (activate)="onRouterOutletActivated($event)" />
   </main>
-  <yata-footer></yata-footer>
+  <yata-footer />
 </yata-app-wrapper>

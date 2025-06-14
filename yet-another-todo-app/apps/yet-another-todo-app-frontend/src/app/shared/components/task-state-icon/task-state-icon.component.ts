@@ -8,10 +8,10 @@ import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-task-state-icon',
+  standalone: true,
+  imports: [MatIcon, MatTooltip, NgStyle, TranslatePipe],
   templateUrl: './task-state-icon.component.html',
   styleUrl: './task-state-icon.component.scss',
-  standalone: true,
-  imports: [MatIcon, NgStyle, MatTooltip, TranslatePipe],
 })
 export class TaskStateIconComponent implements OnChanges {
   @Input() state!: TaskState;

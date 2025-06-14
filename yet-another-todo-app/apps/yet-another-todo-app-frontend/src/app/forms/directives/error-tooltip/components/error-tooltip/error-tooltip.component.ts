@@ -15,10 +15,10 @@ import { ErrorTooltipItem } from './error-tooltip.types';
 
 @Component({
   selector: 'yata-error-tooltip',
+  standalone: true,
+  imports: [LabelComponent, NgFor, NgIf, TranslatePipe],
   templateUrl: './error-tooltip.component.html',
   styleUrl: './error-tooltip.component.scss',
-  standalone: true,
-  imports: [NgIf, NgFor, LabelComponent, TranslatePipe],
 })
 export class ErrorTooltipComponent implements OnChanges {
   @Input() errors: ValidationErrors | null = null;
@@ -57,7 +57,10 @@ export class ErrorTooltipComponent implements OnChanges {
 
       return {
         key,
-        value: { ...value, label: this.label },
+        value: {
+          ...value,
+          label: this.label,
+        },
       };
     });
   }

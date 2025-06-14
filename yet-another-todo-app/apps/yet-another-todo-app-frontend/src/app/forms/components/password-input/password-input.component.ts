@@ -14,6 +14,13 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-password-input',
+  standalone: true,
+  imports: [
+    ErrorTooltipDirective,
+    FormLabelComponent,
+    FormsModule,
+    InputTextModule,
+  ],
   templateUrl: './password-input.component.html',
   styleUrl: './password-input.component.scss',
   providers: [
@@ -22,13 +29,6 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       useExisting: forwardRef(() => PasswordInputComponent),
       multi: true,
     },
-  ],
-  standalone: true,
-  imports: [
-    InputTextModule,
-    FormLabelComponent,
-    FormsModule,
-    ErrorTooltipDirective,
   ],
 })
 export class PasswordInputComponent implements ControlValueAccessor, OnInit {

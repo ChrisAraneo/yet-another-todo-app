@@ -24,8 +24,11 @@ export class HttpLoggingService {
   private readonly requestMap;
 
   constructor(
-    @Inject('API') public api: Environment,
-    public store: Store<{ httpLog: any }>,
+    @Inject('API')
+    public api: Environment,
+    public store: Store<{
+      httpLog: any;
+    }>,
   ) {
     this.requestMap = {
       [this.api.signupEndpoint]: {

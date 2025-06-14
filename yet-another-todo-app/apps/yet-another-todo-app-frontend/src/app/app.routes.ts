@@ -11,7 +11,17 @@ import { SignInModalComponent } from './modals/components/sign-in-modal/sign-in-
 import { canActivateAuth } from './shared/guards/auth/auth.guard';
 import { NewTableComponent } from './table/components/new-table/new-table.component';
 import { TimelineComponent } from './timeline/components/timeline/timeline.component';
-import { ADD_TASK_PATH, CONFIGURE_PATH, DELETE_TASK_PATH, EDIT_TASK_PATH, EXPORT_TASKS_PATH, IMPORT_TASKS_PATH, SIGN_IN_PATH, TABLE_PATH, TIMELINE_PATH } from './app.consts';
+import {
+  ADD_TASK_PATH,
+  CONFIGURE_PATH,
+  DELETE_TASK_PATH,
+  EDIT_TASK_PATH,
+  EXPORT_TASKS_PATH,
+  IMPORT_TASKS_PATH,
+  SIGN_IN_PATH,
+  TABLE_PATH,
+  TIMELINE_PATH,
+} from './app.consts';
 
 const commonModalRoutes: Routes = [
   {
@@ -162,6 +172,9 @@ export const routes: Routes = [
       modal: SignInModalComponent,
     },
   },
-  { path: '', pathMatch: 'full', redirectTo: SIGN_IN_PATH },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: SIGN_IN_PATH,
+  },
 ];
-

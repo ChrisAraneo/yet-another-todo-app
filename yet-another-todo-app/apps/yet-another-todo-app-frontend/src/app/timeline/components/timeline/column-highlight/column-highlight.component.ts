@@ -5,10 +5,10 @@ import { UNIT } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-column-highlight',
+  standalone: true,
+  imports: [NgClass, NgIf, NgStyle],
   templateUrl: './column-highlight.component.html',
   styleUrl: './column-highlight.component.scss',
-  standalone: true,
-  imports: [NgIf, NgClass, NgStyle]
 })
 export class ColumnHighlightComponent implements OnChanges {
   @Input() highlightedDate: Date | null = null;

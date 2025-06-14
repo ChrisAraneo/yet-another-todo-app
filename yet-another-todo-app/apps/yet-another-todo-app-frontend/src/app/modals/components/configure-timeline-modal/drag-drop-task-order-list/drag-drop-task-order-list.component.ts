@@ -20,23 +20,25 @@ import { TaskStateCreatorService } from '../../../../shared/services/task-state-
 
 @Component({
   selector: 'yata-drag-drop-task-order-list',
-  templateUrl: './drag-drop-task-order-list.component.html',
-  styleUrl: './drag-drop-task-order-list.component.scss',
   standalone: true,
   imports: [
     CdkDrag,
-    LabelComponent,
-    TranslatePipe,
-    MatCheckboxModule,
     FormsModule,
+    LabelComponent,
+    MatCheckboxModule,
+    TranslatePipe,
   ],
+  templateUrl: './drag-drop-task-order-list.component.html',
+  styleUrl: './drag-drop-task-order-list.component.scss',
 })
 export class DragDropTaskOrderListComponent implements OnChanges {
   @Input() orderedStates: TaskState[] = [];
   @Input() filteredStates: TaskState[] = [];
 
-  @Output() changeStatesOrder: EventEmitter<TaskState[]>;
-  @Output() changeStatesFilter: EventEmitter<TaskState[]>;
+  @Output()
+  changeStatesOrder: EventEmitter<TaskState[]>;
+  @Output()
+  changeStatesFilter: EventEmitter<TaskState[]>;
 
   values: string[];
   checked: boolean[];
@@ -80,13 +82,21 @@ export class DragDropTaskOrderListComponent implements OnChanges {
 
   emitValues(): void {
     this.changeStatesOrder.next(
-      [...this.values].map((value) => this.taskStateCreator.create({ value })),
+      [...this.values].map((value) =>
+        this.taskStateCreator.create({
+          value,
+        }),
+      ),
     );
 
     this.changeStatesFilter.next(
       [...this.values]
         .filter((_: string, index: number) => this.checked[index])
-        .map((value) => TaskStateCreator.create({ value })),
+        .map((value) =>
+          TaskStateCreator.create({
+            value,
+          }),
+        ),
     );
   }
 }

@@ -3,13 +3,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'yata-searchbar',
-  templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.scss',
   standalone: true,
   imports: [MatIconModule],
+  templateUrl: './searchbar.component.html',
+  styleUrl: './searchbar.component.scss',
 })
 export class SearchbarComponent {
-  @Output() change = new EventEmitter<string>();
+  @Output()
+  change = new EventEmitter<string>();
 
   isFocused = false;
 

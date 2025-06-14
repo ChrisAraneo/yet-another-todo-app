@@ -5,10 +5,10 @@ import { LabelComponent } from '../../../../shared/components/label/label.compon
 
 @Component({
   selector: 'yata-logged-user-information',
-  templateUrl: './logged-user-information.component.html',
-  styleUrl: './logged-user-information.component.scss',
   standalone: true,
   imports: [LabelComponent, TranslatePipe],
+  templateUrl: './logged-user-information.component.html',
+  styleUrl: './logged-user-information.component.scss',
 })
 export class LoggedUserInformationComponent {
   @Input() username: string | null = null;

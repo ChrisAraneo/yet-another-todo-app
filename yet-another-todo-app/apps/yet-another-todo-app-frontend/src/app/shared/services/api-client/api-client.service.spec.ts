@@ -28,7 +28,10 @@ describe('ApiClientService', () => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        { provide: 'API', useValue: environment.api },
+        {
+          provide: 'API',
+          useValue: environment.api,
+        },
         ApiClientService,
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

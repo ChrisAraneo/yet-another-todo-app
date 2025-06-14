@@ -1,5 +1,10 @@
 <!-- eslint-disable @angular-eslint/template/no-inline-styles -->
 <div
   *ngIf="highlightedDate && startDate && endDate && left && height"
-  [ngClass]="{ hidden: isHidden }"
-  [ngStyle]="{ left: left, height: height }"></div>
+  [ngClass]="{
+    hidden: isHidden,
+  }"
+  [ngStyle]="{
+    left: left,
+    height: height,
+  }"></div>

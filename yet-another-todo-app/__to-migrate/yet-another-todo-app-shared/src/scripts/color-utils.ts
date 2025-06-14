@@ -1,6 +1,6 @@
-/* eslint-disable no-bitwise */
-/* eslint-disable func-style */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+ 
+ 
+ 
 
 import { RgbColor } from './interfaces';
 

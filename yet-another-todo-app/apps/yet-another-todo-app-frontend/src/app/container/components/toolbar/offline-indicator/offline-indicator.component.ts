@@ -7,9 +7,9 @@ import { LabelComponent } from '../../../../shared/components/label/label.compon
 
 @Component({
   selector: 'yata-offline-indicator',
+  standalone: true,
+  imports: [LabelComponent, MatIcon, MatTooltip, TranslatePipe],
   templateUrl: './offline-indicator.component.html',
   styleUrl: './offline-indicator.component.scss',
-  standalone: true,
-  imports: [LabelComponent, MatIcon, TranslatePipe, MatTooltip],
 })
 export class OfflineIndicatorComponent {}

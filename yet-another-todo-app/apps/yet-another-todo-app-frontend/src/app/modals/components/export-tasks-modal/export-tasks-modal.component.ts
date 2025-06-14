@@ -26,22 +26,22 @@ import { ExportTasksForm } from './export-tasks-modal.types';
 
 @Component({
   selector: 'yata-export-tasks-modal',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    FormsModule,
+    ImageComponent,
+    ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgIf,
+    PageComponent,
+    PasswordInputComponent,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
   templateUrl: './export-tasks-modal.component.html',
   styleUrl: './export-tasks-modal.component.scss',
   animations: [fadeInOut],
-  standalone: true,
-  imports: [
-    TranslatePipe,
-    FormsModule,
-    ReactiveFormsModule,
-    ImageComponent,
-    ModalTitleComponent,
-    PageComponent,
-    PasswordInputComponent,
-    ModalActionButtonsComponent,
-    NgIf,
-    AsyncPipe,
-  ],
 })
 export class ExportTasksModalComponent {
   static readonly PANEL_CLASS = 'export-tasks-modal';

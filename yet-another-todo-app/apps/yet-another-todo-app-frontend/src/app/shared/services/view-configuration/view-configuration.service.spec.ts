@@ -49,8 +49,12 @@ describe('ViewConfigurationService', () => {
           select: (key: any) => {
             if (key === 'viewConfiguration') {
               return of({
-                timeline: { ...timelineConfiguration },
-                table: { ...tableConfiguration },
+                timeline: {
+                  ...timelineConfiguration,
+                },
+                table: {
+                  ...tableConfiguration,
+                },
               });
             }
             return of();
@@ -88,7 +92,9 @@ describe('ViewConfigurationService', () => {
   it('#changeTimelineStartDate should dispatch set timeline start date action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const date = new Date('2023-10-01');
-    const action = setTimelineStartDate({ startDate: date });
+    const action = setTimelineStartDate({
+      startDate: date,
+    });
 
     service.changeTimelineStartDate(date);
 
@@ -98,7 +104,9 @@ describe('ViewConfigurationService', () => {
   it('#changeTimelineEndDate should dispatch set timeline end date action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     const date = new Date('2023-10-02');
-    const action = setTimelineEndDate({ endDate: date });
+    const action = setTimelineEndDate({
+      endDate: date,
+    });
 
     service.changeTimelineEndDate(date);
 
@@ -111,7 +119,9 @@ describe('ViewConfigurationService', () => {
       new NotStartedTaskState(),
       new InProgressTaskState(),
     ];
-    const action = setTimelineTaskStateOrder({ states: taskStatesInOrder });
+    const action = setTimelineTaskStateOrder({
+      states: taskStatesInOrder,
+    });
 
     service.changeTimelineColumnSorting(taskStatesInOrder);
 
@@ -124,7 +134,9 @@ describe('ViewConfigurationService', () => {
       new NotStartedTaskState(),
       new InProgressTaskState(),
     ];
-    const action = setTimelineTaskStateFilter({ states: taskStatesToDisplay });
+    const action = setTimelineTaskStateFilter({
+      states: taskStatesToDisplay,
+    });
 
     service.changeTimelineFiltering(taskStatesToDisplay);
 
@@ -138,7 +150,9 @@ describe('ViewConfigurationService', () => {
       start: 'asc',
       disableClear: true,
     };
-    const action = setTableSort({ sort });
+    const action = setTableSort({
+      sort,
+    });
 
     service.changeTableSorting(sort);
 

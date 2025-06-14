@@ -27,6 +27,15 @@ import { DisplayedOption, Option } from './page-size-select.types';
 
 @Component({
   selector: 'yata-page-size-select',
+  standalone: true,
+  imports: [
+    FormLabelComponent,
+    FormsModule,
+    NgFor,
+    NgIf,
+    NgStyle,
+    ReactiveFormsModule,
+  ],
   templateUrl: './page-size-select.component.html',
   styleUrl: './page-size-select.component.scss',
   providers: [
@@ -36,20 +45,12 @@ import { DisplayedOption, Option } from './page-size-select.types';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [
-    NgStyle,
-    NgIf,
-    ReactiveFormsModule,
-    FormsModule,
-    NgFor,
-    FormLabelComponent,
-  ],
 })
 export class PageSizeSelectComponent
   implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
 {
-  @ViewChild('input') inputElementRef!: ElementRef;
+  @ViewChild('input')
+  inputElementRef!: ElementRef;
 
   @Input() label = '';
   @Input() options: Option<any>[] = [];

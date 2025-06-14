@@ -23,22 +23,22 @@ import { ImportTasksForm } from './import-tasks-modal.types';
 
 @Component({
   selector: 'yata-import-tasks-modal',
+  standalone: true,
+  imports: [
+    FileInputComponent,
+    FormsModule,
+    ImageComponent,
+    ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgIf,
+    PageComponent,
+    PasswordInputComponent,
+    ReactiveFormsModule,
+    TranslatePipe,
+  ],
   templateUrl: './import-tasks-modal.component.html',
   styleUrl: './import-tasks-modal.component.scss',
   animations: [fadeInOut],
-  standalone: true,
-  imports: [
-    NgIf,
-    TranslatePipe,
-    FormsModule,
-    ReactiveFormsModule,
-    ImageComponent,
-    ModalTitleComponent,
-    PageComponent,
-    FileInputComponent,
-    PasswordInputComponent,
-    ModalActionButtonsComponent,
-  ],
 })
 export class ImportTasksModalComponent {
   static readonly PANEL_CLASS = 'import-tasks-modal';
@@ -83,8 +83,12 @@ export class ImportTasksModalComponent {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<ImportTasksForm>({
-      file: new FormControl(null, { validators: [Validators.required] }),
-      password: new FormControl('', { nonNullable: true }),
+      file: new FormControl(null, {
+        validators: [Validators.required],
+      }),
+      password: new FormControl('', {
+        nonNullable: true,
+      }),
     });
   }
 }

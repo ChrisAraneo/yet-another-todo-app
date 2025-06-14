@@ -15,13 +15,17 @@
         [sortActionDescription]="'Table.sortById' | translate">
         <span>{{ 'Table.id' | translate }}</span>
       </th>
-      <td *matCellDef="let element" mat-cell>{{ element.shortId }}</td>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.shortId }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="title">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>
         <span>{{ 'Table.title' | translate }}</span>
       </th>
-      <td *matCellDef="let element" mat-cell>{{ element.title }}</td>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.title }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="description">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>
@@ -46,7 +50,9 @@
       <th *matHeaderCellDef mat-header-cell mat-sort-header>
         <span>{{ 'Table.creationDate' | translate }}</span>
       </th>
-      <td *matCellDef="let element" mat-cell>{{ element.creationDate }}</td>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.creationDate }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="startDate">
       <th *matHeaderCellDef mat-header-cell mat-sort-header>

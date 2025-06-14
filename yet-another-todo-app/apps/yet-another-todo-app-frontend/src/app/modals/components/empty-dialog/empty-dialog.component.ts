@@ -11,17 +11,17 @@ import { EmptyDialogData } from './empty-dialog.types';
 
 @Component({
   selector: 'yata-empty-dialog',
-  templateUrl: './empty-dialog.component.html',
-  styleUrl: './empty-dialog.component.scss',
   standalone: true,
   imports: [
     ImageComponent,
-    TitleComponent,
-    SubtitleComponent,
     ModalActionButtonsComponent,
-    TranslatePipe,
     NgIf,
+    SubtitleComponent,
+    TitleComponent,
+    TranslatePipe,
   ],
+  templateUrl: './empty-dialog.component.html',
+  styleUrl: './empty-dialog.component.scss',
 })
 export class EmptyDialogComponent implements OnInit {
   static readonly PANEL_CLASS = 'empty-dialog';
@@ -30,7 +30,8 @@ export class EmptyDialogComponent implements OnInit {
   hintKey!: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: EmptyDialogData,
+    @Inject(MAT_DIALOG_DATA)
+    public data: EmptyDialogData,
     public dialogReference: MatDialogRef<EmptyDialogComponent>,
   ) {}
 

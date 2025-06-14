@@ -55,30 +55,30 @@ import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
 
 @Component({
   selector: 'yata-edit-task-modal',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    DatePickerComponent,
+    FormsModule,
+    ImageComponent,
+    ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgIf,
+    NgSwitch,
+    PageComponent,
+    ReactiveFormsModule,
+    ReadonlyComponent,
+    SelectComponent,
+    SubtitleComponent,
+    TaskCardComponent,
+    TextareaComponent,
+    TextInputComponent,
+    TimePickerComponent,
+    TranslatePipe,
+  ],
   templateUrl: './edit-task-modal.component.html',
   styleUrl: './edit-task-modal.component.scss',
   animations: [fadeInOut],
-  standalone: true,
-  imports: [
-    TranslatePipe,
-    NgSwitch,
-    FormsModule,
-    ReactiveFormsModule,
-    ImageComponent,
-    ModalTitleComponent,
-    PageComponent,
-    SelectComponent,
-    TextInputComponent,
-    TextareaComponent,
-    DatePickerComponent,
-    ReadonlyComponent,
-    TimePickerComponent,
-    SubtitleComponent,
-    ModalActionButtonsComponent,
-    TaskCardComponent,
-    AsyncPipe,
-    NgIf,
-  ],
 })
 export class EditTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'edit-task-modal';
@@ -95,7 +95,8 @@ export class EditTaskModalComponent implements OnDestroy {
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: EditTaskModalData,
+    @Inject(MAT_DIALOG_DATA)
+    public data: EditTaskModalData,
     public dialogReference: MatDialogRef<EditTaskModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly tasksService: TasksService,
@@ -204,7 +205,9 @@ export class EditTaskModalComponent implements OnDestroy {
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<TaskForm>({
-      task: new FormControl(null, { validators: [Validators.required] }),
+      task: new FormControl(null, {
+        validators: [Validators.required],
+      }),
       title: new FormControl('', {
         validators: [Validators.required],
         nonNullable: true,
@@ -218,8 +221,12 @@ export class EditTaskModalComponent implements OnDestroy {
         nonNullable: true,
       }),
       dateRange: new FormControl(null),
-      startTime: new FormControl('00:00', { nonNullable: true }),
-      endTime: new FormControl('00:00', { nonNullable: true }),
+      startTime: new FormControl('00:00', {
+        nonNullable: true,
+      }),
+      endTime: new FormControl('00:00', {
+        nonNullable: true,
+      }),
     });
   }
 

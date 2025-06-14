@@ -28,7 +28,11 @@ export class TaskEffects {
           this.apiClientService.postTaskToApi(action.task, action.operationId),
         ).pipe(
           map((result: Task | undefined) =>
-            result ? createTask({ task: result }) : createAction('')(),
+            result
+              ? createTask({
+                  task: result,
+                })
+              : createAction('')(),
           ),
         ),
       ),
@@ -43,7 +47,11 @@ export class TaskEffects {
           this.apiClientService.postTaskToApi(action.task, action.operationId),
         ).pipe(
           map((result: Task | undefined) =>
-            result ? updateTask({ task: result }) : createAction('')(),
+            result
+              ? updateTask({
+                  task: result,
+                })
+              : createAction('')(),
           ),
         ),
       ),
@@ -73,7 +81,13 @@ export class TaskEffects {
           }),
         ),
       ),
-      map((result) => (result ? hideTask({ id: result }) : createAction('')())),
+      map((result) =>
+        result
+          ? hideTask({
+              id: result,
+            })
+          : createAction('')(),
+      ),
     ),
   );
 
@@ -88,7 +102,11 @@ export class TaskEffects {
           ),
         ).pipe(
           map((result: Task[] | undefined) =>
-            result ? setTasks({ tasks: result }) : createAction('')(),
+            result
+              ? setTasks({
+                  tasks: result,
+                })
+              : createAction('')(),
           ),
         ),
       ),

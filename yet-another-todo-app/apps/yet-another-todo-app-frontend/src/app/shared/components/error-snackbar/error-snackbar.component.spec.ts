@@ -10,7 +10,12 @@ describe('ErrorSnackbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ErrorSnackbarComponent],
-      providers: [{ provide: MAT_SNACK_BAR_DATA, useValue: {} }],
+      providers: [
+        {
+          provide: MAT_SNACK_BAR_DATA,
+          useValue: {},
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ErrorSnackbarComponent);

@@ -22,10 +22,10 @@ import { ImportTasksModalComponent } from '../import-tasks-modal/import-tasks-mo
 import { SignInModalComponent } from '../sign-in-modal/sign-in-modal.component';
 
 @Component({
-  template: '',
   selector: 'yata-modal-launcher',
-  styleUrl: './modal-launcher.component.scss',
   standalone: true,
+  template: '',
+  styleUrl: './modal-launcher.component.scss',
 })
 export class ModalLauncherComponent implements OnInit, OnDestroy {
   private observable?: Observable<any>;
@@ -62,9 +62,13 @@ export class ModalLauncherComponent implements OnInit, OnDestroy {
         ),
       ),
       mergeMap(({ data, params }) =>
-        this.tasksService
-          .getTasks()
-          .pipe(map((tasks) => ({ data, params, tasks }))),
+        this.tasksService.getTasks().pipe(
+          map((tasks) => ({
+            data,
+            params,
+            tasks,
+          })),
+        ),
       ),
       distinct(({ data }) => data['modal'].name),
       mergeMap(async ({ data, params, tasks }) => {

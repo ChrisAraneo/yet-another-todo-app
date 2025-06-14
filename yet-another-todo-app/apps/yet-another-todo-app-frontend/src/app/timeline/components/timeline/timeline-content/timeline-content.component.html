@@ -1,9 +1,6 @@
 <!-- eslint-disable @angular-eslint/template/no-inline-styles -->
 <!-- eslint-disable @angular-eslint/template/use-track-by-function -->
-<div
-  *ngFor="let column of columns"
-  class="column"
-  [ngStyle]="column.style">
+<div *ngFor="let column of columns" class="column" [ngStyle]="column.style">
   <yata-task-card
     *ngFor="let task of column.tasks"
     [task]="task"

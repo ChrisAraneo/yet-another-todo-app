@@ -25,19 +25,19 @@ import { DragDropTaskOrderListComponent } from './drag-drop-task-order-list/drag
 
 @Component({
   selector: 'yata-configure-timeline-modal',
-  templateUrl: './configure-timeline-modal.component.html',
-  styleUrl: './configure-timeline-modal.component.scss',
   standalone: true,
   imports: [
-    NgIf,
-    TranslatePipe,
-    FormsModule,
-    ReactiveFormsModule,
-    TitleComponent,
     DatePickerComponent,
     DragDropTaskOrderListComponent,
+    FormsModule,
     ModalActionButtonsComponent,
+    NgIf,
+    ReactiveFormsModule,
+    TitleComponent,
+    TranslatePipe,
   ],
+  templateUrl: './configure-timeline-modal.component.html',
+  styleUrl: './configure-timeline-modal.component.scss',
 })
 export class ConfigureTimelineModalComponent {
   static readonly PANEL_CLASS = 'configure-timeline-modal';
@@ -48,7 +48,8 @@ export class ConfigureTimelineModalComponent {
   form?: FormGroup<ConfigureTimelineForm>;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ConfigureTimelineModalData,
+    @Inject(MAT_DIALOG_DATA)
+    public data: ConfigureTimelineModalData,
     public dialogReference: MatDialogRef<ConfigureTimelineModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly dateUtilitiesService: DateUtilitiesService,

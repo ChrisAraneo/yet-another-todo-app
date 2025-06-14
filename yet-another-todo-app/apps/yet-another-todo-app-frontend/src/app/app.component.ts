@@ -24,14 +24,22 @@ import { AppWrapperComponent } from './container/components/app-wrapper/app-wrap
 import { COLUMN_WIDTH, UNIT } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [FooterComponent, RouterOutlet, AsyncPipe, TranslatePipe, ToolbarComponent, SideNavigationComponent, AppWrapperComponent]
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    AppWrapperComponent,
+    AsyncPipe,
+    FooterComponent,
+    RouterOutlet,
+    SideNavigationComponent,
+    ToolbarComponent,
+    TranslatePipe,
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
-  isMenuOpened: boolean = true;
+  isMenuOpened = true;
   isAppVisible!: BehaviorSubject<boolean>;
   isOfflineMode!: Observable<boolean>;
   username!: Observable<string | null>;
@@ -143,13 +151,18 @@ export class AppComponent implements OnDestroy {
         const element = this.timelineElementRef?.nativeElement;
 
         if (element) {
-          const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(new Date(), startDate);
+          const offset = this.dateUtilsService.getNumberOfDaysBetweenDates(
+            new Date(),
+            startDate,
+          );
           const timelineContentMargin = UNIT;
           const elementClientWidth = element.clientWidth;
           const columnsInView = elementClientWidth / COLUMN_WIDTH;
 
           const scrollLeft =
-            offset * COLUMN_WIDTH + timelineContentMargin - (columnsInView / 2) * COLUMN_WIDTH;
+            offset * COLUMN_WIDTH +
+            timelineContentMargin -
+            (columnsInView / 2) * COLUMN_WIDTH;
 
           element.scrollLeft = scrollLeft;
         }

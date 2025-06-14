@@ -19,20 +19,20 @@ import { ImportAction } from './select-import-action-modal.types';
 
 @Component({
   selector: 'yata-select-import-action-modal',
-  templateUrl: './select-import-action-modal.component.html',
-  styleUrl: './select-import-action-modal.component.scss',
-  animations: [fadeInOut],
   standalone: true,
   imports: [
     FormsModule,
-    MatRadioModule,
-    NgSwitch,
-    TranslatePipe,
     ImageComponent,
-    ModalTitleComponent,
-    PageComponent,
+    MatRadioModule,
     ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgSwitch,
+    PageComponent,
+    TranslatePipe,
   ],
+  templateUrl: './select-import-action-modal.component.html',
+  styleUrl: './select-import-action-modal.component.scss',
+  animations: [fadeInOut],
 })
 export class SelectImportActionModalComponent {
   static readonly PANEL_CLASS = 'select-import-action-modal';
@@ -42,7 +42,8 @@ export class SelectImportActionModalComponent {
   action: ImportAction = ImportAction.AddNewAndUpdateExisting;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ZipFileContent,
+    @Inject(MAT_DIALOG_DATA)
+    public data: ZipFileContent,
     public dialogReference: MatDialogRef<SelectImportActionModalComponent>,
     private readonly tasksService: TasksService,
   ) {}

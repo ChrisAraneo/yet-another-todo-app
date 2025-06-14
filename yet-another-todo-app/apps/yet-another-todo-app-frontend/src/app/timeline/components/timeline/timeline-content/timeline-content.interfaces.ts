@@ -1,7 +1,4 @@
-import {
-  StartedTask,
-  Task,
-} from '@chris.araneo/yet-another-todo-app-shared';
+import { StartedTask, Task } from '@chris.araneo/yet-another-todo-app-shared';
 
 export interface Column {
   tasks: StartedTask[];

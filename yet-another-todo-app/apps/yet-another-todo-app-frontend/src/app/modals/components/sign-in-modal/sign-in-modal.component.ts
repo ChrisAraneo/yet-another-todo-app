@@ -29,35 +29,50 @@ import { SignInForm } from './sign-in-modal.types';
 
 @Component({
   selector: 'yata-sign-in-modal',
+  standalone: true,
+  imports: [
+    FormsModule,
+    LogoComponent,
+    ModalActionButtonsComponent,
+    PageComponent,
+    PasswordInputComponent,
+    ReactiveFormsModule,
+    TextInputComponent,
+    TitleComponent,
+    TranslatePipe,
+  ],
   templateUrl: './sign-in-modal.component.html',
   styleUrl: './sign-in-modal.component.scss',
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [
-        style({ opacity: 0 }),
+        style({
+          opacity: 0,
+        }),
         animate(
           '300ms',
           keyframes([
-            style({ opacity: 0 }),
-            style({ opacity: 0 }),
-            style({ opacity: 1 }),
+            style({
+              opacity: 0,
+            }),
+            style({
+              opacity: 0,
+            }),
+            style({
+              opacity: 1,
+            }),
           ]),
         ),
       ]),
-      transition(':leave', [animate('150ms', style({ opacity: 0 }))]),
+      transition(':leave', [
+        animate(
+          '150ms',
+          style({
+            opacity: 0,
+          }),
+        ),
+      ]),
     ]),
-  ],
-  standalone: true,
-  imports: [
-    LogoComponent,
-    TitleComponent,
-    TranslatePipe,
-    FormsModule,
-    ReactiveFormsModule,
-    PageComponent,
-    TextInputComponent,
-    PasswordInputComponent,
-    ModalActionButtonsComponent,
   ],
 })
 export class SignInModalComponent implements OnDestroy {
@@ -68,7 +83,8 @@ export class SignInModalComponent implements OnDestroy {
   private subscription?: Subscription;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: any,
     public dialogReference: MatDialogRef<SignInModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,

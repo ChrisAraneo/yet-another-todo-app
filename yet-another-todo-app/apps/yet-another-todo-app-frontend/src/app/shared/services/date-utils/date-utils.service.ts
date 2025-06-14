@@ -16,7 +16,9 @@ export class DateUtilsService {
     );
 
     return [...new Array(difference).keys()].map((n: number) =>
-      add(this.getDateAtNoon(startDate), { days: n }),
+      add(this.getDateAtNoon(startDate), {
+        days: n,
+      }),
     );
   }
 
@@ -51,14 +53,18 @@ export class DateUtilsService {
 
   getFirstDayOfThePreviousMonth(today: Date): Date {
     const firstDayOfCurrentMonth = this.getFirstDayOfTheMonth(today);
-    const dayInPreviousMonth = sub(firstDayOfCurrentMonth, { days: 1 });
+    const dayInPreviousMonth = sub(firstDayOfCurrentMonth, {
+      days: 1,
+    });
 
     return this.getFirstDayOfTheMonth(dayInPreviousMonth);
   }
 
   getFirstDayOfTheNextMonth(today: Date): Date {
     const lastDayOfCurrentMonth = this.getLastDayOfTheMonth(today);
-    const dayInNextMonth = add(lastDayOfCurrentMonth, { days: 1 });
+    const dayInNextMonth = add(lastDayOfCurrentMonth, {
+      days: 1,
+    });
 
     return this.getFirstDayOfTheMonth(dayInNextMonth);
   }
@@ -78,11 +84,17 @@ export class DateUtilsService {
   }
 
   getNextDay(date: Date): Date {
-    return this.getDateAtNoon(add(date, { days: 1 }));
+    return this.getDateAtNoon(
+      add(date, {
+        days: 1,
+      }),
+    );
   }
 
   formatDate(date: Date, pattern: string): string {
-    return format(date, pattern, { locale: this.userLocaleService.get() });
+    return format(date, pattern, {
+      locale: this.userLocaleService.get(),
+    });
   }
 
   private getDateAtNoon(date: Date): Date {

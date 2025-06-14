@@ -8,16 +8,16 @@ import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-submit-button',
-  templateUrl: './submit-button.component.html',
-  styleUrl: './submit-button.component.scss',
   standalone: true,
   imports: [
     MatButtonModule,
-    NgTemplateOutlet,
     MatIconModule,
-    NgIf,
     MatProgressSpinnerModule,
+    NgIf,
+    NgTemplateOutlet,
   ],
+  templateUrl: './submit-button.component.html',
+  styleUrl: './submit-button.component.scss',
 })
 export class SubmitButtonComponent {
   @Input() invalid = false;

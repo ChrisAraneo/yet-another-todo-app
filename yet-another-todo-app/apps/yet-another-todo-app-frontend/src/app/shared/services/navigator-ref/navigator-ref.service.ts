@@ -7,7 +7,10 @@ import { Inject, Injectable } from '@angular/core';
 export class NavigatorRefService {
   private readonly window: Window | null;
 
-  constructor(@Inject(DOCUMENT) private readonly document: Document) {
+  constructor(
+    @Inject(DOCUMENT)
+    private readonly document: Document,
+  ) {
     this.window = this.document?.defaultView || null;
   }
 

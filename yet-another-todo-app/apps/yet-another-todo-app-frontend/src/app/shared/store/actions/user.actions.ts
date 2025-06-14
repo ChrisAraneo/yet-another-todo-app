@@ -6,13 +6,19 @@ const SET_IS_OFFLINE_MODE = 'SET_IS_OFFLINE_MODE';
 
 export const setUsername = createAction(
   SET_USERNAME,
-  props<{ username: string }>(),
+  props<{
+    username: string;
+  }>(),
 );
 export const setIsLogged = createAction(
   SET_IS_LOGGED,
-  props<{ isLogged: boolean }>(),
+  props<{
+    isLogged: boolean;
+  }>(),
 );
 export const setIsOfflineMode = createAction(
   SET_IS_OFFLINE_MODE,
-  props<{ isOfflineMode: boolean }>(),
+  props<{
+    isOfflineMode: boolean;
+  }>(),
 );

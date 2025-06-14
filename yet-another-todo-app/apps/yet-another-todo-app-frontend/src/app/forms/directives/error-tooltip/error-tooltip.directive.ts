@@ -18,7 +18,8 @@ import { ErrorTooltipComponent } from './components/error-tooltip/error-tooltip.
   standalone: true,
 })
 export class ErrorTooltipDirective implements OnInit, AfterViewInit, OnDestroy {
-  @Input('yataErrorTooltip') label?: string = '';
+  @Input('yataErrorTooltip')
+  label?: string = '';
 
   private component?: ComponentRef<any>;
   private subscription?: Subscription;

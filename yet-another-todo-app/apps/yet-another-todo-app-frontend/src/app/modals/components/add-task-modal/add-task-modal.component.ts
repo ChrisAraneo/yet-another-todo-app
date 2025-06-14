@@ -44,30 +44,30 @@ import { TaskForm } from './add-task-modal.types';
 
 @Component({
   selector: 'yata-add-task-modal',
+  standalone: true,
+  imports: [
+    AsyncPipe,
+    DatePickerComponent,
+    FormsModule,
+    ImageComponent,
+    ModalActionButtonsComponent,
+    ModalTitleComponent,
+    NgIf,
+    NgSwitch,
+    PageComponent,
+    ReactiveFormsModule,
+    ReadonlyComponent,
+    SelectComponent,
+    SubtitleComponent,
+    TaskCardComponent,
+    TextareaComponent,
+    TextInputComponent,
+    TimePickerComponent,
+    TranslatePipe,
+  ],
   templateUrl: './add-task-modal.component.html',
   styleUrl: './add-task-modal.component.scss',
   animations: [fadeInOut],
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    ReactiveFormsModule,
-    NgSwitch,
-    TranslatePipe,
-    ImageComponent,
-    ModalTitleComponent,
-    TextInputComponent,
-    PageComponent,
-    TextareaComponent,
-    SelectComponent,
-    DatePickerComponent,
-    ReadonlyComponent,
-    TimePickerComponent,
-    SubtitleComponent,
-    ModalActionButtonsComponent,
-    TaskCardComponent,
-    AsyncPipe,
-  ],
 })
 export class AddTaskModalComponent implements OnDestroy {
   static readonly PANEL_CLASS = 'add-task-modal';
@@ -186,8 +186,12 @@ export class AddTaskModalComponent implements OnDestroy {
         nonNullable: true,
       }),
       dateRange: new FormControl(null),
-      startTime: new FormControl('00:00', { nonNullable: true }),
-      endTime: new FormControl('00:00', { nonNullable: true }),
+      startTime: new FormControl('00:00', {
+        nonNullable: true,
+      }),
+      endTime: new FormControl('00:00', {
+        nonNullable: true,
+      }),
     });
   }
 

@@ -18,7 +18,10 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from '@chris.araneo/yet-another-todo-app-shared';
+import {
+  DIALOG_HEIGHT,
+  DIALOG_WIDTH,
+} from '@chris.araneo/yet-another-todo-app-shared';
 
 // TODO Move to shared?
 @Injectable({
@@ -36,7 +39,9 @@ export class DialogService {
   }
 
   openEditTaskModal(initialTaskId?: string): Observable<any> {
-    return this.openDialog(EditTaskModalComponent, { initialTaskId });
+    return this.openDialog(EditTaskModalComponent, {
+      initialTaskId,
+    });
   }
 
   navigateToEditTaskModal(initialTaskId: string): Observable<boolean> {
@@ -45,7 +50,9 @@ export class DialogService {
   }
 
   openDeleteTaskModal(initialTaskId?: string): Observable<any> {
-    return this.openDialog(DeleteTaskModalComponent, { initialTaskId });
+    return this.openDialog(DeleteTaskModalComponent, {
+      initialTaskId,
+    });
   }
 
   openSignInModal(): Observable<any> {
@@ -111,7 +118,13 @@ export class DialogService {
         width: DIALOG_WIDTH,
         height: DIALOG_HEIGHT,
         panelClass: (component as any).PANEL_CLASS || 'undefined-panel-class',
-        ...(data ? { data: { ...data } } : {}),
+        ...(data
+          ? {
+              data: {
+                ...data,
+              },
+            }
+          : {}),
       })
       .afterClosed();
   }

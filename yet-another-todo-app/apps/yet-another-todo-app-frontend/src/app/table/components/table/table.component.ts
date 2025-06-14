@@ -29,13 +29,15 @@ import {
 
 @Component({
   selector: 'yata-table',
+  standalone: true,
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  standalone: true,
 })
 export class TableComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) matSortDirective?: MatSort;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
+  @ViewChild(MatSort)
+  matSortDirective?: MatSort;
 
   readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;
   readonly displayedColumns = TABLE_DISPLAYED_COLUMNS;

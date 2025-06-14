@@ -22,8 +22,14 @@ describe('SideNavigationComponent', () => {
       declarations: [SideNavigationComponent, MockPipe(TranslatePipe)],
       imports: [MatDialogModule, NoopAnimationsModule],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: [] },
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: [],
+        },
         MockProvider(TasksService),
         MockProvider(Store, {
           select: () => of(),

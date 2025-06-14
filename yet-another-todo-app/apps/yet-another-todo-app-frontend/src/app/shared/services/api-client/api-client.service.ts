@@ -13,7 +13,8 @@ import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
 })
 export class ApiClientService {
   constructor(
-    @Inject('API') public api: any,
+    @Inject('API')
+    public api: any,
     private readonly http: HttpClient,
     private readonly taskCreator: TaskCreatorService,
   ) {}
@@ -27,7 +28,10 @@ export class ApiClientService {
       this.http
         .post<ApiResponse<LoginResponse>>(
           this.api.loginEndpoint,
-          { username, password },
+          {
+            username,
+            password,
+          },
           {
             headers: {
               [OPERATION_ID_HEADER_NAME]: operationId,
@@ -56,7 +60,9 @@ export class ApiClientService {
       this.http
         .post<ApiResponse<RefreshResponse>>(
           this.api.refreshEndpoint,
-          { refreshToken },
+          {
+            refreshToken,
+          },
           {
             headers: {
               [OPERATION_ID_HEADER_NAME]: operationId,

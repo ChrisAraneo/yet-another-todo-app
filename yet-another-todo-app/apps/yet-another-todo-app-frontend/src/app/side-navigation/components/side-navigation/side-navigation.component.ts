@@ -20,6 +20,8 @@ import { BORDER, UNIT } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-side-navigation',
+  standalone: true,
+  imports: [NavigationItemComponent, TranslatePipe],
   templateUrl: './side-navigation.component.html',
   styleUrl: './side-navigation.component.scss',
   animations: [
@@ -42,8 +44,6 @@ import { BORDER, UNIT } from '@chris.araneo/yet-another-todo-app-shared';
       transition('closed => open', [animate('0.175s')]),
     ]),
   ],
-  standalone: true,
-  imports: [NavigationItemComponent, TranslatePipe],
 })
 export class SideNavigationComponent implements OnInit, OnDestroy {
   @Input() isOpened = true;

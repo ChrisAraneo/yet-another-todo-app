@@ -11,7 +11,10 @@ describe('LoggingInterceptor', () => {
     TestBed.configureTestingModule({
       imports: [],
       providers: [
-        { provide: 'API', useValue: environment.api },
+        {
+          provide: 'API',
+          useValue: environment.api,
+        },
         LoggingInterceptor,
         MockProvider(Store, {
           select: (key: any) => {

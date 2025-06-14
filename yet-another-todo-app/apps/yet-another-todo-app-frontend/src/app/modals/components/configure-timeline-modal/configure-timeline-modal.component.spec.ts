@@ -26,7 +26,10 @@ describe('ConfigureTimelineModalComponent', () => {
       declarations: [ConfigureTimelineModalComponent, MockPipe(TranslatePipe)],
       imports: [MatDialogModule, NoopAnimationsModule, StoreModule.forRoot({})],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        },
         {
           provide: MAT_DIALOG_DATA,
           useValue: {

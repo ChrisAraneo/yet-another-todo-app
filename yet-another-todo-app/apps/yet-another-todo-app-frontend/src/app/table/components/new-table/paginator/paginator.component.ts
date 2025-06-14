@@ -22,26 +22,28 @@ import { PageSizeSelectComponent } from './page-size-select/page-size-select.com
 
 @Component({
   selector: 'yata-paginator',
-  templateUrl: './paginator.component.html',
-  styleUrl: './paginator.component.scss',
   standalone: true,
   imports: [
-    MatIconModule,
-    TranslatePipe,
     AsyncPipe,
     FormsModule,
-    ReactiveFormsModule,
+    MatIconModule,
     NgFor,
     PageSizeSelectComponent,
+    ReactiveFormsModule,
+    TranslatePipe,
   ],
+  templateUrl: './paginator.component.html',
+  styleUrl: './paginator.component.scss',
 })
 export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   @Input() totalNumberOfItems = 0;
   @Input() maxDisplayedPageButtons: number =
     TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS;
 
-  @Output() changePage = new EventEmitter<number>();
-  @Output() changePageSize = new EventEmitter<number>();
+  @Output()
+  changePage = new EventEmitter<number>();
+  @Output()
+  changePageSize = new EventEmitter<number>();
 
   pageSizeOptions!: Observable<Option<number>[]>;
 
@@ -62,7 +64,9 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   constructor(private readonly translateService: TranslateService) {}
 
   ngOnInit(): void {
-    this.select = new FormControl(this.pageSize, { nonNullable: true });
+    this.select = new FormControl(this.pageSize, {
+      nonNullable: true,
+    });
 
     this.subscription = this.select.valueChanges.subscribe((value) => {
       this.pageSize = value;
@@ -72,7 +76,9 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
 
     this.pageSizeOptions = combineLatest(
       TABLE_PAGE_SIZE_OPTIONS.map((size) =>
-        this.translateService.get('Paginator.itemsPerPage', { 1: size }),
+        this.translateService.get('Paginator.itemsPerPage', {
+          1: size,
+        }),
       ),
     ).pipe(
       map((translations) =>

@@ -3,10 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'yata-title',
-  templateUrl: './title.component.html',
-  styleUrl: './title.component.scss',
   standalone: true,
   imports: [NgStyle],
+  templateUrl: './title.component.html',
+  styleUrl: './title.component.scss',
 })
 export class TitleComponent implements OnInit {
   @Input() color = '';

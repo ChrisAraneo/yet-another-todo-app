@@ -7,6 +7,8 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-textarea',
+  standalone: true,
+  imports: [ErrorTooltipDirective, FormLabelComponent, TextareaModule],
   templateUrl: './textarea.component.html',
   styleUrl: './textarea.component.scss',
   providers: [
@@ -16,8 +18,6 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormLabelComponent, TextareaModule, ErrorTooltipDirective],
 })
 export class TextareaComponent implements ControlValueAccessor {
   @Input() label = '';

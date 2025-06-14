@@ -25,12 +25,16 @@ export class ZipTasksService {
 
     zip.file('tasks.txt', this.encrypt(JSON.stringify(fileContent), password));
 
-    return zip.generateAsync({ type: 'blob' }).then((blob: Blob) => {
-      FileSaver.saveAs(
-        blob,
-        `yata-tasks-${this.dateUtilitiesService.formatDate(creationDate, 'yyyy-MM-dd-kkmmss')}.zip`,
-      );
-    });
+    return zip
+      .generateAsync({
+        type: 'blob',
+      })
+      .then((blob: Blob) => {
+        FileSaver.saveAs(
+          blob,
+          `yata-tasks-${this.dateUtilitiesService.formatDate(creationDate, 'yyyy-MM-dd-kkmmss')}.zip`,
+        );
+      });
   }
 
   // TODO Extract to new service

@@ -12,7 +12,11 @@ describe('TokenInterceptor', () => {
       providers: [
         MockProvider(AuthService, {
           getAccessToken: () => '1010',
-          refresh: () => of({ accessToken: '10101', refreshToken: '22022' }),
+          refresh: () =>
+            of({
+              accessToken: '10101',
+              refreshToken: '22022',
+            }),
         }),
         TokenInterceptor,
       ],

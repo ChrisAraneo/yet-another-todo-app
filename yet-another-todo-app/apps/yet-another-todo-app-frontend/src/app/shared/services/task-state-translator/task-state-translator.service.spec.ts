@@ -19,7 +19,6 @@ describe('TaskStateTranslatorService', () => {
     TestBed.configureTestingModule({
       imports: [
         TranslateTestingModule.withTranslations({
-          // eslint-disable-next-line @typescript-eslint/no-require-imports
           en: require('public/i18n/en.json'),
         }),
       ],
@@ -33,11 +32,26 @@ describe('TaskStateTranslatorService', () => {
 
   it('#getTranslatedTaskStateSelectOptions should return an Option<TaskState>[] with correct translated states', () => {
     const options = [
-      { label: en.NOT_STARTED, value: new NotStartedTaskState() },
-      { label: en.IN_PROGRESS, value: new InProgressTaskState() },
-      { label: en.SUSPENDED, value: new SuspendedTaskState() },
-      { label: en.COMPLETED, value: new CompletedTaskState() },
-      { label: en.REJECTED, value: new RejectedTaskState() },
+      {
+        label: en.NOT_STARTED,
+        value: new NotStartedTaskState(),
+      },
+      {
+        label: en.IN_PROGRESS,
+        value: new InProgressTaskState(),
+      },
+      {
+        label: en.SUSPENDED,
+        value: new SuspendedTaskState(),
+      },
+      {
+        label: en.COMPLETED,
+        value: new CompletedTaskState(),
+      },
+      {
+        label: en.REJECTED,
+        value: new RejectedTaskState(),
+      },
     ];
 
     expect(service.getTranslatedTaskStateSelectOptions()).toEqual(options);

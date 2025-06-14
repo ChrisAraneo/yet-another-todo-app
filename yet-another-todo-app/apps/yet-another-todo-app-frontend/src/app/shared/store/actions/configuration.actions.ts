@@ -13,25 +13,37 @@ const SET_TABLE_SORT = 'SET_TABLE_SORT';
 
 export const setAppMode = createAction(
   SET_APP_MODE,
-  props<{ mode: AppMode }>(),
+  props<{
+    mode: AppMode;
+  }>(),
 );
 export const setTimelineStartDate = createAction(
   SET_TIMELINE_START_DATE,
-  props<{ startDate: Date }>(),
+  props<{
+    startDate: Date;
+  }>(),
 );
 export const setTimelineEndDate = createAction(
   SET_TIMELINE_END_DATE,
-  props<{ endDate: Date }>(),
+  props<{
+    endDate: Date;
+  }>(),
 );
 export const setTimelineTaskStateOrder = createAction(
   SET_TIMELINE_TASK_STATE_ORDER,
-  props<{ states: TaskState[] }>(),
+  props<{
+    states: TaskState[];
+  }>(),
 );
 export const setTimelineTaskStateFilter = createAction(
   SET_TIMELINE_TASK_STATE_FILTER,
-  props<{ states: TaskState[] }>(),
+  props<{
+    states: TaskState[];
+  }>(),
 );
 export const setTableSort = createAction(
   SET_TABLE_SORT,
-  props<{ sort: MatSortable }>(),
+  props<{
+    sort: MatSortable;
+  }>(),
 );

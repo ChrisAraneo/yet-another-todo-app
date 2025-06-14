@@ -9,6 +9,14 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-file-input',
+  standalone: true,
+  imports: [
+    FormLabelComponent,
+    LabelComponent,
+    MatIconModule,
+    NgIf,
+    TranslatePipe,
+  ],
   templateUrl: './file-input.component.html',
   styleUrl: './file-input.component.scss',
   providers: [
@@ -17,14 +25,6 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       useExisting: forwardRef(() => FileInputComponent),
       multi: true,
     },
-  ],
-  standalone: true,
-  imports: [
-    MatIconModule,
-    FormLabelComponent,
-    LabelComponent,
-    TranslatePipe,
-    NgIf,
   ],
 })
 export class FileInputComponent implements ControlValueAccessor {

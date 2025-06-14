@@ -4,10 +4,10 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-readonly',
-  templateUrl: './readonly.component.html',
-  styleUrl: './readonly.component.scss',
   standalone: true,
   imports: [FormLabelComponent],
+  templateUrl: './readonly.component.html',
+  styleUrl: './readonly.component.scss',
 })
 export class ReadonlyComponent {
   @Input() label = '';

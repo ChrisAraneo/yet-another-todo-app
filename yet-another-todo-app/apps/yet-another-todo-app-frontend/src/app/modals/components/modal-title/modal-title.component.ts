@@ -4,9 +4,9 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 
 @Component({
   selector: 'yata-modal-title',
-  templateUrl: './modal-title.component.html',
-  styleUrl: './modal-title.component.scss',
   standalone: true,
   imports: [TitleComponent],
+  templateUrl: './modal-title.component.html',
+  styleUrl: './modal-title.component.scss',
 })
 export class ModalTitleComponent {}

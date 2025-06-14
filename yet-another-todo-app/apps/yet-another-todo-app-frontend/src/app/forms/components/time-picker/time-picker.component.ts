@@ -14,6 +14,8 @@ import { FormLabelComponent } from '../form-label/form-label.component';
 
 @Component({
   selector: 'yata-time-picker',
+  standalone: true,
+  imports: [ErrorTooltipDirective, FormLabelComponent, InputTextModule],
   templateUrl: './time-picker.component.html',
   styleUrl: './time-picker.component.scss',
   providers: [
@@ -23,16 +25,16 @@ import { FormLabelComponent } from '../form-label/form-label.component';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [FormLabelComponent, InputTextModule, ErrorTooltipDirective],
 })
 export class TimePickerComponent
   implements ControlValueAccessor, AfterViewInit
 {
   @Input() label = '';
 
-  @ViewChild('hours') hoursInput!: ElementRef;
-  @ViewChild('minutes') minutesInput!: ElementRef;
+  @ViewChild('hours')
+  hoursInput!: ElementRef;
+  @ViewChild('minutes')
+  minutesInput!: ElementRef;
 
   hours: string;
   minutes: string;

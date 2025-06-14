@@ -6,10 +6,10 @@ import { NOOP } from '../../../shared/utils/noop.const';
 
 @Component({
   selector: 'yata-back-button',
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule],
   templateUrl: './back-button.component.html',
   styleUrl: './back-button.component.scss',
-  standalone: true,
-  imports: [MatIconModule, MatButtonModule],
 })
 export class BackButtonComponent {
   @Input() back: (event?: any) => Promise<void> = NOOP;

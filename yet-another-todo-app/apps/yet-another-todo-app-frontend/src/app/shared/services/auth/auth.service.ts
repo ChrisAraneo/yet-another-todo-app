@@ -16,7 +16,8 @@ export class AuthService implements OnDestroy {
   private readonly subscription = new Subscription();
 
   constructor(
-    @Inject('API') public api: any,
+    @Inject('API')
+    public api: any,
     private readonly apiClientService: ApiClientService,
     private readonly userService: UserService,
     private readonly operationIdGeneratorService: OperationIdGeneratorService,

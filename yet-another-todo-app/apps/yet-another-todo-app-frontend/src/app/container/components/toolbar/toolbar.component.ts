@@ -11,25 +11,26 @@ import { COLOR_PRIMARY_50 } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-toolbar',
+  standalone: true,
+  imports: [
+    LoggedUserInformationComponent,
+    MatIcon,
+    OfflineIndicatorComponent,
+    SignOutButtonComponent,
+    TitleComponent,
+    ToolbarModule,
+    TranslatePipe,
+  ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.scss',
-  imports: [
-    TranslatePipe,
-    MatIcon,
-    TitleComponent,
-    SignOutButtonComponent,
-    LoggedUserInformationComponent,
-    ToolbarModule,
-    OfflineIndicatorComponent,
-  ],
-  standalone: true,
 })
 export class ToolbarComponent {
   @Input() title = '';
   @Input() username: string | null = null;
   @Input() isOfflineMode = false;
 
-  @Output() menuClick = new EventEmitter();
+  @Output()
+  menuClick = new EventEmitter();
 
   readonly titleColor = COLOR_PRIMARY_50;
 

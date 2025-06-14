@@ -63,23 +63,40 @@ export const viewConfigurationReducer = createReducer(
   })),
   on(setTimelineStartDate, (state, { startDate }) => ({
     ...state,
-    timeline: { ...state.timeline, startDate },
+    timeline: {
+      ...state.timeline,
+      startDate,
+    },
   })),
   on(setTimelineEndDate, (state, { endDate }) => ({
     ...state,
-    timeline: { ...state.timeline, endDate },
+    timeline: {
+      ...state.timeline,
+      endDate,
+    },
   })),
   on(setTimelineTaskStateOrder, (state, { states }) => ({
     ...state,
-    timeline: { ...state.timeline, order: states },
+    timeline: {
+      ...state.timeline,
+      order: states,
+    },
   })),
   on(setTimelineTaskStateFilter, (state, { states }) => ({
     ...state,
-    timeline: { ...state.timeline, filter: states },
+    timeline: {
+      ...state.timeline,
+      filter: states,
+    },
   })),
   on(setTableSort, (state, { sort }) => ({
     ...state,
-    table: { ...state.table, sort: { ...sort } },
+    table: {
+      ...state.table,
+      sort: {
+        ...sort,
+      },
+    },
   })),
 );
 

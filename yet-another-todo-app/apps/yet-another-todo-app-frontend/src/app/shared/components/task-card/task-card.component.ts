@@ -16,17 +16,17 @@ import { TitleComponent } from '../title/title.component';
 
 @Component({
   selector: 'yata-task-card',
-  templateUrl: './task-card.component.html',
-  styleUrl: './task-card.component.scss',
   standalone: true,
   imports: [
+    LabelComponent,
+    MatIcon,
     NgIf,
+    ParagraphComponent,
     TaskStateIconComponent,
     TitleComponent,
-    LabelComponent,
-    ParagraphComponent,
-    MatIcon,
   ],
+  templateUrl: './task-card.component.html',
+  styleUrl: './task-card.component.scss',
 })
 export class TaskCardComponent implements OnChanges, OnDestroy {
   @Input() task!: Task;

@@ -5,17 +5,20 @@ import { TitleComponent } from '../title/title.component';
 
 @Component({
   selector: 'yata-error-snackbar',
+  standalone: true,
+  imports: [TitleComponent],
   templateUrl: './error-snackbar.component.html',
   styleUrl: './error-snackbar.component.scss',
-  imports: [TitleComponent],
-  standalone: true,
 })
 export class ErrorSnackbarComponent {
   message = '';
 
   private readonly maxLength = 600;
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: object) {
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA)
+    public data: object,
+  ) {
     this.updateMessage(data);
   }
 

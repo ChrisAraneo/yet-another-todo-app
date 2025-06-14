@@ -15,8 +15,14 @@ export const initialState: CurrentUser = {
 
 export const userReducer = createReducer(
   initialState,
-  on(setUsername, (state, { username }) => ({ ...state, username })),
-  on(setIsLogged, (state, { isLogged }) => ({ ...state, isLogged })),
+  on(setUsername, (state, { username }) => ({
+    ...state,
+    username,
+  })),
+  on(setIsLogged, (state, { isLogged }) => ({
+    ...state,
+    isLogged,
+  })),
   on(setIsOfflineMode, (state, { isOfflineMode }) => ({
     ...state,
     isOfflineMode,

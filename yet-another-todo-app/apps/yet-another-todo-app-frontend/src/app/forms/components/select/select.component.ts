@@ -27,6 +27,15 @@ import { DisplayedOption, Option } from './select.types';
 
 @Component({
   selector: 'yata-select',
+  standalone: true,
+  imports: [
+    FormLabelComponent,
+    FormsModule,
+    InputTextModule,
+    NgFor,
+    NgIf,
+    NgStyle,
+  ],
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss',
   providers: [
@@ -36,20 +45,12 @@ import { DisplayedOption, Option } from './select.types';
       multi: true,
     },
   ],
-  standalone: true,
-  imports: [
-    FormLabelComponent,
-    InputTextModule,
-    NgIf,
-    NgFor,
-    NgStyle,
-    FormsModule,
-  ],
 })
 export class SelectComponent
   implements ControlValueAccessor, AfterViewInit, OnInit, OnChanges
 {
-  @ViewChild('input') inputElementRef!: ElementRef;
+  @ViewChild('input')
+  inputElementRef!: ElementRef;
 
   @Input() label = '';
   @Input() options: Option<any>[] = [];

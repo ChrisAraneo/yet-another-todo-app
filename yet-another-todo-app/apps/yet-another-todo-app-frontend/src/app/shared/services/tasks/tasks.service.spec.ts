@@ -183,7 +183,9 @@ describe('TasksService', () => {
             if (key === 'tasks') {
               return of([...dummyTasks]);
             } else if (key === 'httpLog') {
-              return of({ ...httpLogInitialState });
+              return of({
+                ...httpLogInitialState,
+              });
             }
             return of();
           },
@@ -323,9 +325,15 @@ describe('TasksService', () => {
     const existingTasks = dummyTasks;
     const inputTasks = dummyTasks3;
     const outputTasks = [
-      TaskTransformer.transform(existingTasks[0], { isHidden: true }),
-      TaskTransformer.transform(existingTasks[1], { isHidden: true }),
-      TaskTransformer.transform(existingTasks[2], { isHidden: true }),
+      TaskTransformer.transform(existingTasks[0], {
+        isHidden: true,
+      }),
+      TaskTransformer.transform(existingTasks[1], {
+        isHidden: true,
+      }),
+      TaskTransformer.transform(existingTasks[2], {
+        isHidden: true,
+      }),
       dummyTasks3[0],
     ];
     const action = sendUpdateTasksRequest({

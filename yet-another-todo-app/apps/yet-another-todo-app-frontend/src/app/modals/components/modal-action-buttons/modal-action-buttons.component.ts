@@ -15,16 +15,16 @@ import {
 
 @Component({
   selector: 'yata-modal-action-buttons',
-  templateUrl: './modal-action-buttons.component.html',
-  styleUrl: './modal-action-buttons.component.scss',
   standalone: true,
   imports: [
     BackButtonComponent,
     NextButtonComponent,
-    TranslatePipe,
-    SubmitButtonComponent,
     NgIf,
+    SubmitButtonComponent,
+    TranslatePipe,
   ],
+  templateUrl: './modal-action-buttons.component.html',
+  styleUrl: './modal-action-buttons.component.scss',
 })
 export class ModalActionButtonsComponent {
   @Input() form?: FormGroup;

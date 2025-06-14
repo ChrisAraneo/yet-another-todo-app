@@ -63,8 +63,15 @@
       [form]="form"
       [step]="step"
       [total]="total"
-      [backButton]="{ click: back }"
-      [nextButton]="{ click: next }"
-      [submitButton]="{ label: 'AddTaskModal.submit', click: submit }" />
+      [backButton]="{
+        click: back,
+      }"
+      [nextButton]="{
+        click: next,
+      }"
+      [submitButton]="{
+        label: 'AddTaskModal.submit',
+        click: submit,
+      }" />
   </form>
 </div>

@@ -72,8 +72,15 @@
       [form]="form"
       [step]="step"
       [total]="total"
-      [backButton]="{ click: back }"
-      [nextButton]="{ click: next }"
-      [submitButton]="{ label: 'EditTaskModal.saveChanges', click: submit }" />
+      [backButton]="{
+        click: back,
+      }"
+      [nextButton]="{
+        click: next,
+      }"
+      [submitButton]="{
+        label: 'EditTaskModal.saveChanges',
+        click: submit,
+      }" />
   </form>
 </div>

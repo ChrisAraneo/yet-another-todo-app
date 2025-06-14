@@ -67,7 +67,9 @@ describe('UserService', () => {
 
   it('#setUsername should dispatch set username action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    const usernameAction = setUsername({ username: 'test-username' });
+    const usernameAction = setUsername({
+      username: 'test-username',
+    });
 
     service.setUsername('test-username');
 
@@ -82,7 +84,9 @@ describe('UserService', () => {
 
   it('#setIsUserLogged should dispatch set is logged action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    const action = setIsLogged({ isLogged: false });
+    const action = setIsLogged({
+      isLogged: false,
+    });
 
     service.setIsUserLogged(false);
 
@@ -97,7 +101,9 @@ describe('UserService', () => {
 
   it('#setIsOfflineMode should dispatch set is offline mode action', () => {
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
-    const action = setIsOfflineMode({ isOfflineMode: true });
+    const action = setIsOfflineMode({
+      isOfflineMode: true,
+    });
 
     service.setIsOfflineMode(true);
 

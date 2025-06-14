@@ -1,12 +1,9 @@
-<div
-  class="skeleton"
-  [class.loaded]="!isLoading"
-  [ngStyle]="style">
+<div class="skeleton" [class.loaded]="!isLoading" [ngStyle]="style">
   <img
     #image
-    width="{{ width }}"
-    height="{{ height }}"
-    alt="{{ alt }}"
+    [width]="width"
+    [height]="height"
+    [alt]="alt"
     [ngSrc]="src"
     [ngStyle]="style"
     [class.loaded]="!isLoading" />

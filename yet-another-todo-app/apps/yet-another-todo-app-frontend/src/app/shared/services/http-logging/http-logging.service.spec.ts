@@ -27,14 +27,19 @@ describe('HttpLoggingService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: 'API', useValue: environment.api },
+        {
+          provide: 'API',
+          useValue: environment.api,
+        },
         MockProvider(Store),
       ],
     });
     service = TestBed.inject(HttpLoggingService);
     store = service.store;
     creationDate = new Date('2023-08-24');
-    dummyHeaders = new HttpHeaders({ [OPERATION_ID_HEADER_NAME]: '-' });
+    dummyHeaders = new HttpHeaders({
+      [OPERATION_ID_HEADER_NAME]: '-',
+    });
   });
 
   it('should be created', () => {
@@ -277,7 +282,9 @@ describe('HttpLoggingService', () => {
     const request = new HttpRequest(method, url, null, {
       headers: dummyHeaders,
     });
-    const response = { type: 0 };
+    const response = {
+      type: 0,
+    };
 
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
 
@@ -292,12 +299,18 @@ describe('HttpLoggingService', () => {
     const request = new HttpRequest(method, url, null, {
       headers: dummyHeaders,
     });
-    const response = { type: 1, test: 'OK' };
+    const response = {
+      type: 1,
+      test: 'OK',
+    };
 
     const action = pushToDeleteUserHttpLog({
       id: '-',
       logType: HttpLogType.Response,
-      data: { type: 1, test: 'OK' },
+      data: {
+        type: 1,
+        test: 'OK',
+      },
       creationDate,
     } as any);
     const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();

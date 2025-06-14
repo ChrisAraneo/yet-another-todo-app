@@ -47,7 +47,10 @@ export class TasksService implements OnDestroy {
   private isOfflineMode!: BehaviorSubject<boolean>;
 
   constructor(
-    public store: Store<{ tasks: Task[]; httpLog: HttpLogState }>,
+    public store: Store<{
+      tasks: Task[];
+      httpLog: HttpLogState;
+    }>,
     private readonly apiClientService: ApiClientService,
     private readonly userService: UserService,
     private readonly operationIdGeneratorService: OperationIdGeneratorService,
@@ -80,7 +83,11 @@ export class TasksService implements OnDestroy {
 
   addTask(task: Task): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
-      this.store.dispatch(createTask({ task }));
+      this.store.dispatch(
+        createTask({
+          task,
+        }),
+      );
 
       return of();
     }
@@ -92,14 +99,23 @@ export class TasksService implements OnDestroy {
       'task',
     );
 
-    this.store.dispatch(sendCreateTaskRequest({ task, operationId }));
+    this.store.dispatch(
+      sendCreateTaskRequest({
+        task,
+        operationId,
+      }),
+    );
 
     return responseObservable;
   }
 
   updateTask(task: Task): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
-      this.store.dispatch(updateTask({ task }));
+      this.store.dispatch(
+        updateTask({
+          task,
+        }),
+      );
 
       return of();
     }
@@ -111,7 +127,12 @@ export class TasksService implements OnDestroy {
       'task',
     );
 
-    this.store.dispatch(sendUpdateTaskRequest({ task, operationId }));
+    this.store.dispatch(
+      sendUpdateTaskRequest({
+        task,
+        operationId,
+      }),
+    );
 
     return responseObservable;
   }
@@ -131,7 +152,11 @@ export class TasksService implements OnDestroy {
 
   hideTask(taskId: string): Observable<HttpLogItem | undefined> {
     if (this.isOfflineMode.getValue()) {
-      this.store.dispatch(hideTask({ id: taskId }));
+      this.store.dispatch(
+        hideTask({
+          id: taskId,
+        }),
+      );
 
       return of();
     }
@@ -143,7 +168,12 @@ export class TasksService implements OnDestroy {
       'task',
     );
 
-    this.store.dispatch(sendHideTaskRequest({ id: taskId, operationId }));
+    this.store.dispatch(
+      sendHideTaskRequest({
+        id: taskId,
+        operationId,
+      }),
+    );
 
     return responseObservable;
   }
@@ -188,7 +218,10 @@ export class TasksService implements OnDestroy {
           this.setTasks(updatedTasks);
         } else {
           this.store.dispatch(
-            sendUpdateTasksRequest({ tasks: updatedTasks, operationId }),
+            sendUpdateTasksRequest({
+              tasks: updatedTasks,
+              operationId,
+            }),
           );
         }
       }),
@@ -248,7 +281,11 @@ export class TasksService implements OnDestroy {
   }
 
   private setTasks(tasks: Task[]): void {
-    return this.store.dispatch(setTasks({ tasks }));
+    return this.store.dispatch(
+      setTasks({
+        tasks,
+      }),
+    );
   }
 
   private addNewTasks(currentTasks: Task[], importedTasks: Task[]): Task[] {
@@ -286,7 +323,9 @@ export class TasksService implements OnDestroy {
 
   private hideAllTasks(tasks: Task[]): Task[] {
     return tasks.map((task) =>
-      this.taskTransformerService.transform(task, { isHidden: true }),
+      this.taskTransformerService.transform(task, {
+        isHidden: true,
+      }),
     );
   }
 

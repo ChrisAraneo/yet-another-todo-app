@@ -32,22 +32,22 @@ import { UNIT } from '@chris.araneo/yet-another-todo-app-shared';
 
 @Component({
   selector: 'yata-new-table',
-  templateUrl: './new-table.component.html',
-  styleUrl: './new-table.component.scss',
   standalone: true,
   imports: [
+    AsyncPipe,
+    LabelComponent,
     MatButtonModule,
     MatIconModule,
-    NgIf,
-    AsyncPipe,
-    TranslatePipe,
-    NgStyle,
     NgFor,
-    LabelComponent,
-    TaskStateIconComponent,
+    NgIf,
+    NgStyle,
     PaginatorComponent,
-    RouterOutlet
+    RouterOutlet,
+    TaskStateIconComponent,
+    TranslatePipe,
   ],
+  templateUrl: './new-table.component.html',
+  styleUrl: './new-table.component.scss',
 })
 export class NewTableComponent implements OnInit {
   readonly pageSizeOptions = TABLE_PAGE_SIZE_OPTIONS;

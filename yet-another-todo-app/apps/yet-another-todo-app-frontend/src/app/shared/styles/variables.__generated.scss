@@ -27,5 +27,7 @@ $form-input-border-radius: $_6unit;
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-focus-border: 1px solid $form-input-focus-border-color;
 $form-input-background: darken($background-color, 0.7%) !important;
-$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;
-
+$form-input-focus-background: rgba(
+  map.get($yata-palette-primary, 50),
+  0.33
+) !important;

@@ -13,7 +13,11 @@ import { CurrentUser } from '../../store/types/current-user.type';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(public store: Store<{ user: CurrentUser }>) {}
+  constructor(
+    public store: Store<{
+      user: CurrentUser;
+    }>,
+  ) {}
 
   getUserData(): Observable<CurrentUser> {
     return this.store.select('user');
@@ -24,7 +28,11 @@ export class UserService {
   }
 
   setUsername(username: string): void {
-    this.store.dispatch(setUsername({ username }));
+    this.store.dispatch(
+      setUsername({
+        username,
+      }),
+    );
   }
 
   getIsUserLogged(): Observable<boolean> {
@@ -34,7 +42,11 @@ export class UserService {
   }
 
   setIsUserLogged(value: boolean): void {
-    this.store.dispatch(setIsLogged({ isLogged: value }));
+    this.store.dispatch(
+      setIsLogged({
+        isLogged: value,
+      }),
+    );
   }
 
   getIsOfflineMode(): Observable<boolean> {
@@ -44,6 +56,10 @@ export class UserService {
   }
 
   setIsOfflineMode(value: boolean): void {
-    this.store.dispatch(setIsOfflineMode({ isOfflineMode: value }));
+    this.store.dispatch(
+      setIsOfflineMode({
+        isOfflineMode: value,
+      }),
+    );
   }
 }

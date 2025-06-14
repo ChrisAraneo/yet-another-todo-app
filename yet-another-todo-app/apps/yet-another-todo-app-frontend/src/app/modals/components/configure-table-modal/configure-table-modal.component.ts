@@ -25,18 +25,18 @@ const TABLE_DISPLAYED_COLUMNS: string[] = []; // TODO
 
 @Component({
   selector: 'yata-configure-table-modal',
-  templateUrl: './configure-table-modal.component.html',
-  styleUrl: './configure-table-modal.component.scss',
   standalone: true,
   imports: [
-    TitleComponent,
-    SelectComponent,
-    ModalActionButtonsComponent,
-    TranslatePipe,
     FormsModule,
-    ReactiveFormsModule,
+    ModalActionButtonsComponent,
     NgIf,
+    ReactiveFormsModule,
+    SelectComponent,
+    TitleComponent,
+    TranslatePipe,
   ],
+  templateUrl: './configure-table-modal.component.html',
+  styleUrl: './configure-table-modal.component.scss',
 })
 export class ConfigureTableModalComponent {
   static readonly PANEL_CLASS = 'configure-table-modal';
@@ -46,7 +46,8 @@ export class ConfigureTableModalComponent {
   directions: Option<SortDirection>[] = [];
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA)
+    public data: any,
     public dialogReference: MatDialogRef<ConfigureTableModalComponent>,
     private readonly formBuilder: FormBuilder,
     private readonly translateService: TranslateService,
@@ -127,7 +128,9 @@ export class ConfigureTableModalComponent {
         validators: [Validators.required],
         nonNullable: true,
       }),
-      direction: new FormControl(direction, { nonNullable: true }),
+      direction: new FormControl(direction, {
+        nonNullable: true,
+      }),
     });
   }
 }

@@ -26,10 +26,16 @@ describe('ConfigureTableModalComponent', () => {
       declarations: [ConfigureTableModalComponent, MockPipe(TranslatePipe)],
       imports: [MatDialogModule, NoopAnimationsModule, StoreModule.forRoot({})],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MatDialogRef,
+          useValue: {},
+        },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { id: 'id', direction: 'asc' },
+          useValue: {
+            id: 'id',
+            direction: 'asc',
+          },
         },
         MockProvider(TranslateService),
         FormBuilder,
