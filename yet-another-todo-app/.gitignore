@@ -29,3 +29,4 @@ testem.log
 Thumbs.db
 tmp
 yarn-error.log
+**/*__generated*

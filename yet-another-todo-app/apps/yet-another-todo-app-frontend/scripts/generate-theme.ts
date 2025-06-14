@@ -6,6 +6,9 @@ import { Config } from './interfaces';
 
 const materialPalette = require('material-palette');
 
+const stylesPath = 'yet-another-todo-app-frontend/src/app/shared/styles';
+const modelsPath = 'yet-another-todo-app-frontend/src/app/shared/models';
+
 // TODO: Refactor
 
 function mapColorPaletteToScssMap(palette: object, name: string): string {
@@ -37,7 +40,7 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 }
 
 function main(): void {
-  const config: Config = JSON.parse(readFile('theme-config.json')) as Config;
+  const config: Config = JSON.parse(readFile('/scripts/theme-config.json')) as Config;
 
   const unit = 64;
   const { borderRadius } = config;
@@ -87,8 +90,7 @@ ${mapColorPaletteToScssMap(red, 'red')}
 ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
-  const stylesPath = 'yet-another-todo-app-frontend/src/app/shared/styles';
-  const themesPath = 'yet-another-todo-app-shared/src/themes/';
+
 
   writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
   writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
@@ -134,8 +136,8 @@ export const DIALOG_HEIGHT = \`\${UNIT * ${modals.heightInUnits}}px\`;
 export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
-  writeFile(`${themesPath}/theme.__generated.ts`, tsConsts);
-  writeFile(`${themesPath}/theme.__generated.ts`, tsConsts);
+  writeFile(`${modelsPath}/theme.__generated.ts`, tsConsts);
+  writeFile(`${modelsPath}/theme.__generated.ts`, tsConsts);
 
   const colors = `${disclaimer}
 @use "sass:map";
