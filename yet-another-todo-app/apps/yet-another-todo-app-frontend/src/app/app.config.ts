@@ -4,9 +4,10 @@ import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
+import { provideStore } from '@ngrx/store';
+import { environment } from '../environments/environment';
 
 import { routes } from './app.routes';
-import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
             preset: Aura,
         },
     }),
-    provideStore()
-],
+    provideStore(),
+    { provide: 'API', useValue: environment.api },
+  ],
 };
