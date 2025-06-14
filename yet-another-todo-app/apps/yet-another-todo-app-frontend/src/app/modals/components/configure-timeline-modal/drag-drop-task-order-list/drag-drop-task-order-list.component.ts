@@ -35,10 +35,8 @@ export class DragDropTaskOrderListComponent implements OnChanges {
   @Input() orderedStates: TaskState[] = [];
   @Input() filteredStates: TaskState[] = [];
 
-  @Output()
-  changeStatesOrder: EventEmitter<TaskState[]>;
-  @Output()
-  changeStatesFilter: EventEmitter<TaskState[]>;
+  @Output() changeStatesOrder: EventEmitter<TaskState[]>;
+  @Output() changeStatesFilter: EventEmitter<TaskState[]>;
 
   values: string[];
   checked: boolean[];

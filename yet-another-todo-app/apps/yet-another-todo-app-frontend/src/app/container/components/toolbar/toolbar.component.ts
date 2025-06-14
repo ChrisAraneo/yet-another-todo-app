@@ -29,8 +29,7 @@ export class ToolbarComponent {
   @Input() username: string | null = null;
   @Input() isOfflineMode = false;
 
-  @Output()
-  menuClick = new EventEmitter();
+  @Output() menuClick = new EventEmitter();
 
   readonly titleColor = COLOR_PRIMARY_50;
 

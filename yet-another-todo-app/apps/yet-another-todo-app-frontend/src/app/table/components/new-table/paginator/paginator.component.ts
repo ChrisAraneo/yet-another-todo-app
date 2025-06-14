@@ -40,10 +40,8 @@ export class PaginatorComponent implements OnChanges, OnInit, OnDestroy {
   @Input() maxDisplayedPageButtons: number =
     TABLE_MAX_DISPLAYED_PAGINATOR_OPTIONS;
 
-  @Output()
-  changePage = new EventEmitter<number>();
-  @Output()
-  changePageSize = new EventEmitter<number>();
+  @Output() changePage = new EventEmitter<number>();
+  @Output() changePageSize = new EventEmitter<number>();
 
   pageSizeOptions!: Observable<Option<number>[]>;
 

@@ -6,11 +6,11 @@ const jsons = [
   'apps/**/public/**/*.json',
   'apps/**/src/**/*.json',
   '.prettierrc.json',
-  'angular.json',
-  'tsconfig.app.json',
-  'tsconfig.json',
-  'tsconfig.spec.json',
-    'tsconfig.editor.json',
+  '**/angular.json',
+  '**/tsconfig.app.json',
+  '**/tsconfig.json',
+  '**/tsconfig.spec.json',
+  '**/tsconfig.editor.json',
 ];
 
 const sources = ['^apps\\/.*(?<!\\.spec)\\.{ts,mjs,js}$'];
@@ -53,4 +53,17 @@ export default [
     },
   },
   ...createConfig(jsons, sources, tests, htmls, ignored),
+  {
+    files: sources,
+    rules: {
+      "@angular-eslint/component-selector": [
+        "error",
+        {
+          "type": "element",
+          "prefix": "yata",
+          "style": "kebab-case"
+        }
+      ]
+    }
+  }
 ];

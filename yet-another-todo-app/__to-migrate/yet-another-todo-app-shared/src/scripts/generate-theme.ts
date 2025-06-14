@@ -1,16 +1,3 @@
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-/* eslint-disable unicorn/prefer-module */
- 
-
 import { get } from 'lodash';
 
 import { contrast, hslToHex } from './color-utils';

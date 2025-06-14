@@ -9,8 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './searchbar.component.scss',
 })
 export class SearchbarComponent {
-  @Output()
-  change = new EventEmitter<string>();
+  @Output() change = new EventEmitter<string>();
 
   isFocused = false;
 

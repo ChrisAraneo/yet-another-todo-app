@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnDestroy } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-// import { PrimeNGConfig } from 'primeng/api';
 import {
   BehaviorSubject,
   Observable,
@@ -64,7 +63,7 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   onRouterOutletActivated(component: TimelineComponent | unknown): void {
