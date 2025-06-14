@@ -12,7 +12,7 @@ const taskEndpoint = `${origin}/task`;
 const tasksEndpoint = `${origin}/tasks`;
 const userEndpoint = `${origin}/user`;
 
-export const environment = {
+export const environment: Environment = {
   production: false,
   api: {
     host,
