@@ -1,4 +1,4 @@
-import { StartedTask, Task } from '@chris.araneo/yet-another-todo-app-shared';
+import { StartedTask, Task } from "../../../../shared/models/task.model";
 
 export interface Column {
   tasks: StartedTask[];

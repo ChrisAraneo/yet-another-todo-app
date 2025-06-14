@@ -6,21 +6,23 @@ import Aura from '@primeng/themes/aura';
 import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
+import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({
-      eventCoalescing: true,
+        eventCoalescing: true,
     }),
     provideRouter(routes),
     provideTranslateService({
-      defaultLanguage: 'en',
+        defaultLanguage: 'en',
     }),
     provideAnimationsAsync(),
     providePrimeNG({
-      theme: {
-        preset: Aura,
-      },
+        theme: {
+            preset: Aura,
+        },
     }),
-  ],
+    provideStore()
+],
 };

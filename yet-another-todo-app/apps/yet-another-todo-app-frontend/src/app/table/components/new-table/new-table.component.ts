@@ -12,10 +12,6 @@ import {
   tap,
 } from 'rxjs';
 
-import {
-  EndedTask,
-  StartedTask,
-} from '../../../../../../yet-another-todo-app-shared';
 import { LabelComponent } from '../../../shared/components/label/label.component';
 import { TaskStateIconComponent } from '../../../shared/components/task-state-icon/task-state-icon.component';
 import { DateUtilsService } from '../../../shared/services/date-utils/date-utils.service';
@@ -28,7 +24,8 @@ import {
 } from '../table/table.config';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { RouterOutlet } from '@angular/router';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-shared';
+import { UNIT } from '../../../shared/models/theme.__generated';
+import { EndedTask, StartedTask } from '../../../shared/models/task.model';
 
 @Component({
   selector: 'yata-new-table',

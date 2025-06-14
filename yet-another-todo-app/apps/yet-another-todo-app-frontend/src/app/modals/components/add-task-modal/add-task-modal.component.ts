@@ -13,15 +13,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map, Observable, shareReplay, Subscription, tap } from 'rxjs';
 
-import {
-  CompletedTaskState,
-  InProgressTaskState,
-  NotStartedTaskState,
-  RejectedTaskState,
-  SuspendedTaskState,
-  Task,
-  TaskState,
-} from '../../../../../../yet-another-todo-app-shared';
 import { DatePickerComponent } from '../../../forms/components/date-picker/date-picker.component';
 import { ReadonlyComponent } from '../../../forms/components/readonly/readonly.component';
 import { SelectComponent } from '../../../forms/components/select/select.component';
@@ -41,6 +32,8 @@ import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-actio
 import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
 import { TaskForm } from './add-task-modal.types';
+import { Task } from '../../../shared/models/task.model';
+import { TaskState, NotStartedTaskState, CompletedTaskState, RejectedTaskState, InProgressTaskState, SuspendedTaskState } from '../../../shared/models/task-state.model';
 
 @Component({
   selector: 'yata-add-task-modal',
@@ -111,7 +104,7 @@ export class AddTaskModalComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   next = async (): Promise<void> => {
@@ -130,6 +123,7 @@ export class AddTaskModalComponent implements OnDestroy {
 
   back = async (): Promise<void> => {
     if (this.step === 1) {
+      return;
     } else if (this.step >= 3 && this.shouldSkipDateTimeSelection()) {
       this.step = 1;
     } else {

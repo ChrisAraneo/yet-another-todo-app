@@ -1,4 +1,4 @@
-import { Task } from '../../../../../yet-another-todo-app-shared';
+import { Task } from "./task.model";
 
 export interface ZipFileContent {
   creationDate: Date;

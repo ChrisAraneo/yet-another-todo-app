@@ -1,16 +1,6 @@
-import {
-  CompletedTaskState,
-  EndedTask,
-  InProgressTaskState,
-  NotStartedTaskState,
-  PendingTask,
-  RejectedTaskState,
-  StartedTask,
-  SuspendedTaskState,
-  Task,
-  TaskState,
-  TaskStateCreator,
-} from '../../../../../../__to-migrate/yet-another-todo-app-shared/dist';
+import { TaskStateCreator } from "./task-state-creator.model";
+import { CompletedTaskState, InProgressTaskState, NotStartedTaskState, RejectedTaskState, SuspendedTaskState, TaskState } from "./task-state.model";
+import { EndedTask, PendingTask, StartedTask, Task } from "./task.model";
 
 export class TaskCreator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

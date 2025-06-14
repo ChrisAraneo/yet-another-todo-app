@@ -3,8 +3,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { TranslatePipe } from '@ngx-translate/core';
-
-import { TaskState } from '../../../../../../yet-another-todo-app-shared';
+import { TaskState } from '../../models/task-state.model';
 
 @Component({
   selector: 'yata-task-state-icon',

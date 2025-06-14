@@ -1,11 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
-import {
-  EndedTask,
-  StartedTask,
-  Task,
-} from '@chris.araneo/yet-another-todo-app-shared';
 import { Subscription } from 'rxjs';
 
 import { DateUtilsService as DateUtilitiesService } from '../../services/date-utils/date-utils.service';
@@ -13,6 +8,7 @@ import { LabelComponent } from '../label/label.component';
 import { ParagraphComponent } from '../paragraph/paragraph.component';
 import { TaskStateIconComponent } from '../task-state-icon/task-state-icon.component';
 import { TitleComponent } from '../title/title.component';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
 
 @Component({
   selector: 'yata-task-card',

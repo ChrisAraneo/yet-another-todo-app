@@ -13,12 +13,6 @@ import {
   tap,
 } from 'rxjs';
 
-import {
-  CompletedTaskState,
-  EndedTask,
-  StartedTask,
-  Task,
-} from '../../../../../../yet-another-todo-app-shared';
 import { HttpLogItem } from '../../models/http-log-item.type';
 import { HttpLogType } from '../../models/http-log-type.enum';
 import { ImportAction } from '../../models/import-action.enum';
@@ -37,6 +31,8 @@ import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { TaskTransformerService } from '../task-transformer/task-transformer.service';
 import { UserService } from '../user/user.service';
+import { EndedTask, StartedTask, Task } from '../../models/task.model';
+import { CompletedTaskState } from '../../models/task-state.model';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +58,7 @@ export class TasksService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   getTasks(): Observable<Task[]> {
@@ -225,7 +221,7 @@ export class TasksService implements OnDestroy {
           );
         }
       }),
-      map(() => {}),
+      map(() => { return; }),
     );
   }
 

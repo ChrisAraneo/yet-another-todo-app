@@ -6,7 +6,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom, tap } from 'rxjs';
 
-import { Task } from '../../../../../../../yet-another-todo-app-shared';
 import { ImageComponent } from '../../../../shared/components/image/image.component';
 import { ZipFileContent } from '../../../../shared/models/zip-file-content.type';
 import { TasksService } from '../../../../shared/services/tasks/tasks.service';

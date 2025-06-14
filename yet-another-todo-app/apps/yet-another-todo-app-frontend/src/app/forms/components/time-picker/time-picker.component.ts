@@ -50,8 +50,12 @@ export class TimePickerComponent
   }
 
   ngAfterViewInit(): void {
-    this.hoursInput && (this.hoursInput.nativeElement.value = this.hours);
-    this.minutesInput && (this.minutesInput.nativeElement.value = this.minutes);
+    if (this.hoursInput) {
+      this.hoursInput.nativeElement.value = this.hours;
+    }
+    if (this.minutesInput) {
+      this.minutesInput.nativeElement.value = this.minutes;
+    }
   }
 
   onHoursChange(event: InputEvent | Event | string): void {
@@ -63,7 +67,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let hours = `00${value.replaceAll(/\D/g, '')}`;
+    let hours = `00${value.replace(/\D/g, '')}`;
 
     if (+hours > 23) {
       hours = '23';
@@ -78,7 +82,9 @@ export class TimePickerComponent
       (event.target as HTMLInputElement).value = this.hours;
     }
 
-    this.changed && this.changed(`${this.hours}:${this.minutes}`);
+    if (this.changed) {
+      this.changed(`${this.hours}:${this.minutes}`);
+    }
   }
 
   onMinutesChange(event: InputEvent | Event | string): void {
@@ -90,7 +96,7 @@ export class TimePickerComponent
       value = event;
     }
 
-    let minutes = `00${value.replaceAll(/\D/g, '')}`;
+    let minutes = `00${value.replace(/\D/g, '')}`;
 
     if (+minutes > 59) {
       minutes = '59';
@@ -105,11 +111,15 @@ export class TimePickerComponent
       (event.target as HTMLInputElement).value = this.minutes;
     }
 
-    this.changed && this.changed(`${this.hours}:${this.minutes}`);
+    if (this.changed) {
+      this.changed(`${this.hours}:${this.minutes}`);
+    }
   }
 
   onBlur(): void {
-    this.touched && this.touched();
+    if (this.touched) {
+      this.touched();
+    }
   }
 
   writeValue(value: string): void {

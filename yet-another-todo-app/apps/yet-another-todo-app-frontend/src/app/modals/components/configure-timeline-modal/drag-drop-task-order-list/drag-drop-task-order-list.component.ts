@@ -11,12 +11,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslatePipe } from '@ngx-translate/core';
 import { forEach } from 'lodash';
 
-import {
-  TaskState,
-  TaskStateCreator,
-} from '../../../../../../../yet-another-todo-app-shared';
 import { LabelComponent } from '../../../../shared/components/label/label.component';
 import { TaskStateCreatorService } from '../../../../shared/services/task-state-creator/task-state-creator.service';
+import { TaskState } from '../../../../shared/models/task-state.model';
+import { TaskStateCreator } from '../../../../shared/models/task-state-creator.model';
 
 @Component({
   selector: 'yata-drag-drop-task-order-list',

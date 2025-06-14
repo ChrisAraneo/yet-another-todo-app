@@ -1,4 +1,4 @@
-import { TaskState } from '@chris.araneo/yet-another-todo-app-shared';
+import { TaskState } from "../shared/models/task-state.model";
 
 export interface TasksDataSource {
   id: string;

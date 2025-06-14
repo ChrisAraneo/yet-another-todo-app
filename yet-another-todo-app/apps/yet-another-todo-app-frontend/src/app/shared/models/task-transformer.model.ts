@@ -1,9 +1,6 @@
 import { get, set } from 'lodash';
-
-import {
-  Task,
-  TaskCreator,
-} from '../../../../../../__to-migrate/yet-another-todo-app-shared/dist';
+import { Task } from './task.model';
+import { TaskCreator } from './task-creator.model';
 
 export const TaskTransformer = {
   transform(task: Task, changes: object): Task {

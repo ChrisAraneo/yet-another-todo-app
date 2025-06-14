@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { enGB, Locale, pl } from 'date-fns/locale';
+import { enGB, pl } from 'date-fns/locale';
 
 import { NavigatorRefService as NavigatorReferenceService } from '../navigator-ref/navigator-ref.service';
 

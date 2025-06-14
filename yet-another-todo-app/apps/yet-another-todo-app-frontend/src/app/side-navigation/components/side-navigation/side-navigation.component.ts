@@ -9,14 +9,14 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { map, mergeMap, Subscription } from 'rxjs';
 
-import { Task } from '../../../../../../yet-another-todo-app-shared';
 import { NavigationService } from '../../../shared/services/navigation/navigation.service';
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
 import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { AppMode } from '../../../shared/store/types/view-configuration.type';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { NavigationItem } from './side-navigation.types';
-import { BORDER, UNIT } from '@chris.araneo/yet-another-todo-app-shared';
+import { Task } from '../../../shared/models/task.model';
+import { BORDER, UNIT } from '../../../shared/models/theme.__generated';
 
 @Component({
   selector: 'yata-side-navigation',

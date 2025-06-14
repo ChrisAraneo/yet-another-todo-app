@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-
-import { Task } from '../../../../../../yet-another-todo-app-shared';
+import { Task } from '../../models/task.model';
 
 // TODO Rename actions according to best practices
 export const CREATE_TASK_API = 'CREATE_TASK_API';

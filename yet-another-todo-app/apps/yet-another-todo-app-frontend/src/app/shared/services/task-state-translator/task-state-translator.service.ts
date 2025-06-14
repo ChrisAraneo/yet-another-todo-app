@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-
-import {
-  CompletedTaskState,
-  InProgressTaskState,
-  NotStartedTaskState,
-  RejectedTaskState,
-  SuspendedTaskState,
-  TaskState,
-} from '../../../../../../yet-another-todo-app-shared';
+import { CompletedTaskState, InProgressTaskState, NotStartedTaskState, RejectedTaskState, SuspendedTaskState, TaskState } from '../../models/task-state.model';
 
 @Injectable({
   providedIn: 'root',

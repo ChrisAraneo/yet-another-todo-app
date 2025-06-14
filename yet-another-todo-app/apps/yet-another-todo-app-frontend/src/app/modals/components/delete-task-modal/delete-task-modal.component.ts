@@ -9,7 +9,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Task } from '@chris.araneo/yet-another-todo-app-shared';
 import { TranslatePipe } from '@ngx-translate/core';
 import { first, map, Observable, Subscription } from 'rxjs';
 
@@ -20,6 +19,7 @@ import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-actio
 import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
 import { TaskForm, TaskOption } from './delete-task-modal.types';
+import { Task } from '../../../shared/models/task.model';
 
 @Component({
   selector: 'yata-delete-task-modal',

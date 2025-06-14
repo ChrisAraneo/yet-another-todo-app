@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { Task } from '@chris.araneo/yet-another-todo-app-shared';
+import { Task } from '../../../shared/models/task.model';
 
 export interface TaskForm {
   task: FormControl<Task | null>;

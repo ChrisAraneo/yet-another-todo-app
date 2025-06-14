@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
+import { TaskState } from '../../models/task-state.model';
+import { TaskStateCreator } from '../../models/task-state-creator.model';
 
-import {
-  TaskState,
-  TaskStateCreator,
-} from '../../../../../../yet-another-todo-app-shared';
 
 @Injectable({
   providedIn: 'root',

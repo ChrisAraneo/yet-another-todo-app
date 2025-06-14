@@ -11,7 +11,6 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { DatePickerComponent } from '../../../forms/components/date-picker/date-picker.component';
 import { TitleComponent } from '../../../shared/components/title/title.component';
 import { DateUtilsService as DateUtilitiesService } from '../../../shared/services/date-utils/date-utils.service';
@@ -22,6 +21,7 @@ import {
   ConfigureTimelineModalData,
 } from './configure-timeline-modal.types';
 import { DragDropTaskOrderListComponent } from './drag-drop-task-order-list/drag-drop-task-order-list.component';
+import { TaskState } from '../../../shared/models/task-state.model';
 
 @Component({
   selector: 'yata-configure-timeline-modal',

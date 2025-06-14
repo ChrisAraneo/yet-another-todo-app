@@ -11,7 +11,6 @@ import {
   timer,
 } from 'rxjs';
 
-import { TaskState } from '../../../../../../yet-another-todo-app-shared';
 import {
   setAppMode,
   setTableSort,
@@ -27,6 +26,7 @@ import {
   ViewConfiguration,
 } from '../../store/types/view-configuration.type';
 import { TIMELINE_PATH, TABLE_PATH } from '../../../app.consts';
+import { TaskState } from '../../models/task-state.model';
 
 @Injectable({
   providedIn: 'root',
