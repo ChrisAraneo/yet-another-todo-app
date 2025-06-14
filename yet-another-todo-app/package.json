@@ -1,9 +1,11 @@
 {
   "name": "@chris.araneo/yet-another-todo-app-frontend",
   "version": "0.0.0",
-  "license": "MIT",
-  "scripts": {},
   "private": true,
+  "license": "MIT",
+  "scripts": {
+    "format:package-json": "sort-package-json"
+  },
   "dependencies": {
     "@angular/common": "~19.2.0",
     "@angular/compiler": "~19.2.0",
@@ -23,6 +25,7 @@
     "@angular/compiler-cli": "~19.2.0",
     "@angular/language-service": "~19.2.0",
     "@chris.araneo/eslint-config": "0.0.43",
+    "@chris.araneo/ng-perfectionism": "^0.0.10",
     "@chris.araneo/sort-patterns-file": "^0.0.9",
     "@eslint/js": "^9.8.0",
     "@nx/angular": "21.1.3",
