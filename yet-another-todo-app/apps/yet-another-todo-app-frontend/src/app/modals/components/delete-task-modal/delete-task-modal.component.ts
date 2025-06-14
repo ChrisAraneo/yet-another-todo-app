@@ -59,7 +59,7 @@ export class DeleteTaskModalComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   submit: () => Promise<void> = async () => {
