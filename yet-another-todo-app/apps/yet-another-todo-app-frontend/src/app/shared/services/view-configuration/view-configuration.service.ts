@@ -26,7 +26,7 @@ import {
   ViewConfiguration,
 } from '../../store/types/view-configuration.type';
 import { TIMELINE_PATH, TABLE_PATH } from '../../../app.consts';
-import { TaskState } from '../../models/task-state.model';
+import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
 
 @Injectable({
   providedIn: 'root',

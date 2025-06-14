@@ -23,7 +23,12 @@
           }
         ],
         "styles": ["apps/yet-another-todo-app-frontend/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "libs/yet-another-todo-app-theme/src"
+          ]
+        }
       },
       "configurations": {
         "production": {
@@ -100,8 +105,8 @@
     "generate-theme": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["tsx scripts/generate-theme.ts"],
-        "cwd": "apps/yet-another-todo-app-frontend"
+        "commands": ["npm run generate-theme"],
+        "cwd": ""
       }
     }
   }

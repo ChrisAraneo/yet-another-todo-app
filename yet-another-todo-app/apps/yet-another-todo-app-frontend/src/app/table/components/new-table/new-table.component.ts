@@ -24,8 +24,8 @@ import {
 } from '../table/table.config';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { RouterOutlet } from '@angular/router';
-import { UNIT } from '../../../shared/models/theme.__generated';
-import { EndedTask, StartedTask } from '../../../shared/models/task.model';
+import { StartedTask, EndedTask } from '@chris.araneo/yet-another-todo-app-models';
+import { UNIT } from '@chris.araneo/yet-another-todo-app-theme';
 
 @Component({
   selector: 'yata-new-table',

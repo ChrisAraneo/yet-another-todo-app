@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '../../styles/variables.__generated.scss';
+@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
 
 h1 {
   font-family: 'Gentium Plus', sans-serif;

@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
 
 $spinner-wrapper-width: 24px;
 $submit-button-wrapper-height: $_48unit;

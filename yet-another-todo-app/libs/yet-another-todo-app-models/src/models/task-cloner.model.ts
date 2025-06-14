@@ -1,4 +1,5 @@
-import { Task, TaskCreator } from '../../../../../yet-another-todo-app-shared';
+import { TaskCreator } from './task-creator.model';
+import { Task } from './task.model';
 
 export const TaskCloner = {
   clone(task: Task): Task {

@@ -1,13 +1,13 @@
-import get from 'lodash/get';
+import { get } from 'lodash';
 
-import { contrast, hslToHex } from './color-utils';
-import { readFile, writeFile } from './file-system-utils';
-import { Config } from './interfaces';
+import { contrast, hslToHex } from './utils/color-utils';
+import { readFile, writeFile } from './utils/file-system-utils';
+import { Config } from './utils/interfaces';
 
 const materialPalette = require('material-palette');
 
-const stylesPath = 'yet-another-todo-app-frontend/src/app/shared/styles';
-const modelsPath = 'yet-another-todo-app-frontend/src/app/shared/models';
+const stylesPath = './yet-another-todo-app-theme/src/';
+const modelsPath = './yet-another-todo-app-theme/src/';
 
 // TODO: Refactor
 
@@ -41,7 +41,7 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 
 function main(): void {
   const config: Config = JSON.parse(
-    readFile('/scripts/theme-config.json'),
+    readFile('/src/theme.json'),
   ) as Config;
 
   const unit = 64;

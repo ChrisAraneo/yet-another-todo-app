@@ -1,5 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import { DANGER_COLOR, DISABLED_COLOR, STANDARD_TEXT_COLOR, SUCCESS_COLOR, WARNING_COLOR } from './theme.__generated';
+import {
+  DANGER_COLOR,
+  DISABLED_COLOR,
+  STANDARD_TEXT_COLOR,
+  SUCCESS_COLOR,
+  WARNING_COLOR,
+} from '@chris.araneo/yet-another-todo-app-theme';
 
 export abstract class TaskState {
   private readonly id: string;

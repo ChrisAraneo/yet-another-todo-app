@@ -3,13 +3,9 @@ import { Injectable } from '@angular/core';
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.interfaces';
 import { DateUtilsService } from '../../shared/services/date-utils/date-utils.service';
 import {
-  EndedTask,
-  PendingTask,
-  StartedTask,
-  Task,
-} from '../../shared/models/task.model';
-import { TaskState } from '../../shared/models/task-state.model';
-import { COLUMN_WIDTH } from '../../shared/models/theme.__generated';
+  COLUMN_WIDTH,
+} from '@chris.araneo/yet-another-todo-app-theme';
+import { EndedTask, PendingTask, StartedTask, Task, TaskState } from '@chris.araneo/yet-another-todo-app-models';
 
 interface Column {
   tasks: Task[];

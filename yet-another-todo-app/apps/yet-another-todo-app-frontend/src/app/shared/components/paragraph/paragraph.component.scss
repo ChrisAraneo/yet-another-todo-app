@@ -1,4 +1,4 @@
-@import '../../styles/variables.__generated.scss';
+@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
 
 p {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;

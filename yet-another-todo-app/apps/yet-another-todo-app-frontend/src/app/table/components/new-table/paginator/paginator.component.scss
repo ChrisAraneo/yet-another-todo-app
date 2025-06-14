@@ -1,5 +1,5 @@
 @use 'sass:map';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
 
 :host {
   display: flex;

@@ -1,6 +1,13 @@
-import { TaskStateCreator } from "./task-state-creator.model";
-import { CompletedTaskState, InProgressTaskState, NotStartedTaskState, RejectedTaskState, SuspendedTaskState, TaskState } from "./task-state.model";
-import { EndedTask, PendingTask, StartedTask, Task } from "./task.model";
+import { TaskStateCreator } from './task-state-creator.model';
+import {
+  CompletedTaskState,
+  InProgressTaskState,
+  NotStartedTaskState,
+  RejectedTaskState,
+  SuspendedTaskState,
+  TaskState,
+} from './task-state.model';
+import { EndedTask, PendingTask, StartedTask, Task } from './task.model';
 
 export class TaskCreator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

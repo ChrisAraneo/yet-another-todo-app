@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/libs/yet-another-todo-app-theme",
+  "lib": {
+    "entryFile": "src/index.ts"
+  },
+  "assets": [
+    "src/colors.__generated.scss",
+    "src/palettes.__generated.scss",
+    "src/units.__generated.scss",
+    "src/variables.__generated.scss"
+  ]
+}

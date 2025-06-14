@@ -15,8 +15,8 @@ import { ViewConfigurationService } from '../../../shared/services/view-configur
 import { AppMode } from '../../../shared/store/types/view-configuration.type';
 import { NavigationItemComponent } from './navigation-item/navigation-item.component';
 import { NavigationItem } from './side-navigation.types';
-import { Task } from '../../../shared/models/task.model';
-import { BORDER, UNIT } from '../../../shared/models/theme.__generated';
+import { Task } from '@chris.araneo/yet-another-todo-app-models';
+import { UNIT, BORDER } from '@chris.araneo/yet-another-todo-app-theme';
 
 @Component({
   selector: 'yata-side-navigation',

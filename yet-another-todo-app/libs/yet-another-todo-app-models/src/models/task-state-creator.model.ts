@@ -1,5 +1,12 @@
 import { get } from 'lodash';
-import { CompletedTaskState, InProgressTaskState, NotStartedTaskState, RejectedTaskState, SuspendedTaskState, TaskState } from './task-state.model';
+import {
+  CompletedTaskState,
+  InProgressTaskState,
+  NotStartedTaskState,
+  RejectedTaskState,
+  SuspendedTaskState,
+  TaskState,
+} from './task-state.model';
 
 export const TaskStateCreator = {
   create(data: { value?: string }): TaskState {

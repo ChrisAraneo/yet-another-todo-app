@@ -5,14 +5,12 @@ import {
   PendingTask,
   StartedTask,
   EndedTask,
-} from '../../shared/models/task.model';
-import {
   CompletedTaskState,
   InProgressTaskState,
   NotStartedTaskState,
   RejectedTaskState,
   SuspendedTaskState,
-} from '../../shared/models/task-state.model';
+} from '@chris.araneo/yet-another-todo-app-models';
 
 describe('TimelineTaskManagerService', () => {
   const notStartedTask1 = new PendingTask(

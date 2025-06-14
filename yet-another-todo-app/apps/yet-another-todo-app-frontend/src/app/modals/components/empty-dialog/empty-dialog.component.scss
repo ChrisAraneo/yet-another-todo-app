@@ -1,5 +1,5 @@
 @use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
 
 .empty-dialog .mat-mdc-dialog-container {
   > div {

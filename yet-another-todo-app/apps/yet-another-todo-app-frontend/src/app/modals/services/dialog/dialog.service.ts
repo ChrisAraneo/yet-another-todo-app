@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, first, from, mergeMap, Observable } from 'rxjs';
 
-import { ZipFileContent } from '../../../shared/models/zip-file-content.type';
 import { NavigationService } from '../../../shared/services/navigation/navigation.service';
 import { ViewConfigurationService } from '../../../shared/services/view-configuration/view-configuration.service';
 import { AddTaskModalComponent } from '../../components/add-task-modal/add-task-modal.component';
@@ -18,7 +17,8 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
-import { DIALOG_HEIGHT, DIALOG_WIDTH } from '../../../shared/models/theme.__generated';
+import { DIALOG_WIDTH, DIALOG_HEIGHT } from '@chris.araneo/yet-another-todo-app-theme';
+import { ZipFileContent } from '@chris.araneo/yet-another-todo-app-models';
 
 // TODO Move to shared?
 @Injectable({

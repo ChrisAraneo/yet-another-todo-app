@@ -13,9 +13,9 @@ import {
   tap,
 } from 'rxjs';
 
-import { HttpLogItem } from '../../models/http-log-item.type';
-import { HttpLogType } from '../../models/http-log-type.enum';
-import { ImportAction } from '../../models/import-action.enum';
+import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-item.interface';
+import { HttpLogType } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-type.enum';
+import { ImportAction } from '../../../../../../../libs/yet-another-todo-app-models/src/models/import-action.enum';
 import {
   createTask,
   hideTask,
@@ -31,8 +31,12 @@ import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { TaskTransformerService } from '../task-transformer/task-transformer.service';
 import { UserService } from '../user/user.service';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
-import { CompletedTaskState } from '../../models/task-state.model';
+import {
+  EndedTask,
+  StartedTask,
+  Task,
+} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
+import { CompletedTaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
 
 @Injectable({
   providedIn: 'root',
@@ -221,7 +225,9 @@ export class TasksService implements OnDestroy {
           );
         }
       }),
-      map(() => { return; }),
+      map(() => {
+        return;
+      }),
     );
   }
 

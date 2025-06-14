@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 import CryptoAES from 'crypto-js/aes';
 import JSZip from 'jszip';
 
-import { ZipFileContent } from '../../models/zip-file-content.type';
+import { ZipFileContent } from '../../../../../../../libs/yet-another-todo-app-models/src/models/zip-file-content.type';
 import { TaskCreatorService } from '../task-creator/task-creator.service';
 
 @Injectable({

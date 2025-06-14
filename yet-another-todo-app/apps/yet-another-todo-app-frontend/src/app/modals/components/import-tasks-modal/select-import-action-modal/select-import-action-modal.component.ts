@@ -7,7 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { firstValueFrom, tap } from 'rxjs';
 
 import { ImageComponent } from '../../../../shared/components/image/image.component';
-import { ZipFileContent } from '../../../../shared/models/zip-file-content.type';
+import { ZipFileContent } from '../../../../../../../../libs/yet-another-todo-app-models/src/models/zip-file-content.type';
 import { TasksService } from '../../../../shared/services/tasks/tasks.service';
 import { NOOP } from '../../../../shared/utils/noop.const';
 import { fadeInOut } from '../../../animations/fade-in-out.animation';

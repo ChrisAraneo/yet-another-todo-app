@@ -21,9 +21,8 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { TimelineHeaderComponent } from './timeline-header/timeline-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-import { UNIT } from '../../../shared/models/theme.__generated';
-import { TaskState } from '../../../shared/models/task-state.model';
-import { Task } from '../../../shared/models/task.model';
+import { TaskState, Task } from '@chris.araneo/yet-another-todo-app-models';
+import { UNIT } from '@chris.araneo/yet-another-todo-app-theme';
 
 @Component({
   selector: 'yata-timeline',

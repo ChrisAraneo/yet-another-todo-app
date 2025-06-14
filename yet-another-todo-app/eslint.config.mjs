@@ -5,6 +5,7 @@ const jsons = [
   '.vscode/*.json',
   'apps/**/public/**/*.json',
   'apps/**/src/**/*.json',
+  'libs/**/*.json',
   '.prettierrc.json',
   '**/angular.json',
   '**/tsconfig.app.json',
@@ -15,11 +16,14 @@ const jsons = [
 
 const angularElementPrefix = 'yata';
 
-const sources = ['^apps\\/.*(?<!\\.spec)\\.{ts,mjs,js}$'];
+const sources = [
+  '^apps\\/.*(?<!\\.spec)\\.{ts,mjs,js}$',
+  '^libs\\/.*(?<!\\.spec)\\.{ts,mjs,js}$',
+];
 
-const tests = ['^apps\\/.*\\.spec\\.ts$'];
+const tests = ['^apps\\/.*\\.spec\\.ts$', '^libs\\/.*\\.spec\\.ts$'];
 
-const templates = ['apps/**/*.html'];
+const templates = ['apps/**/*.html', 'libs/**/*.html'];
 
 const ignored = [
   '.angular/',

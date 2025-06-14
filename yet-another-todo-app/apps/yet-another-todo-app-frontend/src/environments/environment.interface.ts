@@ -10,5 +10,5 @@ export interface Environment {
     taskEndpoint: string;
     tasksEndpoint: string;
     userEndpoint: string;
-  }
+  };
 }

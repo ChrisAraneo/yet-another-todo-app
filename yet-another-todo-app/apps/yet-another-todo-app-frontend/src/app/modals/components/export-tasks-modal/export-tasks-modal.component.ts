@@ -22,7 +22,7 @@ import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-actio
 import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
 import { ExportTasksForm } from './export-tasks-modal.types';
-import { Task } from '../../../shared/models/task.model';
+import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
 
 @Component({
   selector: 'yata-export-tasks-modal',

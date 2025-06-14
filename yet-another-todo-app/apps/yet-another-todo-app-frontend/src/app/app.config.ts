@@ -13,18 +13,18 @@ import { provideHttpClient } from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({
-        eventCoalescing: true,
+      eventCoalescing: true,
     }),
     provideRouter(routes),
     provideHttpClient(),
     provideTranslateService({
-        defaultLanguage: 'en',
+      defaultLanguage: 'en',
     }),
     provideAnimationsAsync(),
     providePrimeNG({
-        theme: {
-            preset: Aura,
-        },
+      theme: {
+        preset: Aura,
+      },
     }),
     provideStore(),
     { provide: 'API', useValue: environment.api },

@@ -40,9 +40,7 @@ export abstract class Task {
   getShortId(): string {
     const parts = this.id.split('-');
 
-    return `${parts[0][0]}${parts[0][1]}${parts[1][0]}${parts[2][0]}${parts[3][0]}${parts[4].at(
-      -1,
-    )}`.toLocaleUpperCase();
+    return `${parts[0][0]}${parts[0][1]}${parts[1][0]}${parts[2][0]}${parts[3][0]}${parts[4][parts[4].length - 1]}`.toLocaleUpperCase();
   }
 
   getTitle(): string {

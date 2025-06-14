@@ -8,7 +8,11 @@ import { LabelComponent } from '../label/label.component';
 import { ParagraphComponent } from '../paragraph/paragraph.component';
 import { TaskStateIconComponent } from '../task-state-icon/task-state-icon.component';
 import { TitleComponent } from '../title/title.component';
-import { EndedTask, StartedTask, Task } from '../../models/task.model';
+import {
+  EndedTask,
+  StartedTask,
+  Task,
+} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
 
 @Component({
   selector: 'yata-task-card',
