@@ -72,7 +72,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "prettier --config ../../.prettierrc.json --write **/*.json **/*.{ts,html,scss}"
+          "ng-perfectionism && prettier --config ../../.prettierrc.json --write **/*.json **/*.{ts,html,scss}"
         ],
         "cwd": "apps/yet-another-todo-app-frontend"
       }

@@ -1,7 +1,3 @@
- 
- 
- 
-
 import { RgbColor } from './interfaces';
 
 export function hslToHex(input: { h: number; s: number; l: number }): string {

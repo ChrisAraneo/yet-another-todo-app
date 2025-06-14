@@ -7,7 +7,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../..';
+} from '../../../../../../__to-migrate/yet-another-todo-app-shared/dist';
 
 export const TaskStateCreator = {
   create(data: { value?: string }): TaskState {

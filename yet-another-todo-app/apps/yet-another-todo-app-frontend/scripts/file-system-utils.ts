@@ -9,7 +9,6 @@ export const writeFile = (path: string, output: string): void => {
 
   fs.writeFile(outputPath, output, (error: unknown) => {
     if (error) {
-       
       console.error(error);
     }
   });

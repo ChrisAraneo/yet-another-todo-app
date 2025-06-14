@@ -10,7 +10,7 @@ import {
   Task,
   TaskState,
   TaskStateCreator,
-} from '../..';
+} from '../../../../../../__to-migrate/yet-another-todo-app-shared/dist';
 
 export class TaskCreator {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import get from 'lodash/get';
 
 import { contrast, hslToHex } from './color-utils';
 import { readFile, writeFile } from './file-system-utils';
@@ -37,9 +37,7 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 }
 
 function main(): void {
-  const config: Config = JSON.parse(
-    readFile('/assets/theme-config.json'),
-  ) as Config;
+  const config: Config = JSON.parse(readFile('theme-config.json')) as Config;
 
   const unit = 64;
   const { borderRadius } = config;

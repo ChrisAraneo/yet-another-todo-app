@@ -13,11 +13,13 @@ const jsons = [
   '**/tsconfig.editor.json',
 ];
 
+const angularElementPrefix = 'yata';
+
 const sources = ['^apps\\/.*(?<!\\.spec)\\.{ts,mjs,js}$'];
 
 const tests = ['^apps\\/.*\\.spec\\.ts$'];
 
-const htmls = ['apps/**/*.html'];
+const templates = ['apps/**/*.html'];
 
 const ignored = [
   '.angular/',
@@ -31,7 +33,7 @@ const ignored = [
 ];
 
 export default [
-    ...nx.configs['flat/base'],
+  ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
     {
@@ -52,18 +54,7 @@ export default [
       ],
     },
   },
-  ...createConfig(jsons, sources, tests, htmls, ignored),
-  {
-    files: sources,
-    rules: {
-      "@angular-eslint/component-selector": [
-        "error",
-        {
-          "type": "element",
-          "prefix": "yata",
-          "style": "kebab-case"
-        }
-      ]
-    }
-  }
+  ...createConfig({
+    jsons, sources, tests, templates, angularElementPrefix, ignored
+  }),
 ];
