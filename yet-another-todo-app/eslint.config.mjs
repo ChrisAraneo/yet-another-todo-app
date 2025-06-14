@@ -36,7 +36,7 @@ export default [
   ...nx.configs['flat/base'],
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
-    {
+  {
     files: ['**/*.ts', '**/*.js'],
     rules: {
       '@nx/enforce-module-boundaries': [
@@ -55,6 +55,11 @@ export default [
     },
   },
   ...createConfig({
-    jsons, sources, tests, templates, angularElementPrefix, ignored
+    jsons,
+    sources,
+    tests,
+    templates,
+    angularElementPrefix,
+    ignored,
   }),
 ];

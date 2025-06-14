@@ -15,6 +15,7 @@
 .vscode/*
 *.launch
 *.sublime-workspace
+**/*__generated*
 /.idea
 /.sass-cache
 /connect.lock
@@ -29,4 +30,3 @@ testem.log
 Thumbs.db
 tmp
 yarn-error.log
-**/*__generated*

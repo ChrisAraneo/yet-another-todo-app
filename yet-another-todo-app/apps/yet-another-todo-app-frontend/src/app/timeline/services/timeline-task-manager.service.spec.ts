@@ -1,16 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 
+import { TimelineTaskManagerService } from './timeline-task-manager.service';
+import {
+  PendingTask,
+  StartedTask,
+  EndedTask,
+} from '../../shared/models/task.model';
 import {
   CompletedTaskState,
-  EndedTask,
   InProgressTaskState,
   NotStartedTaskState,
-  PendingTask,
   RejectedTaskState,
-  StartedTask,
   SuspendedTaskState,
-} from '../../../../../yet-another-todo-app-shared';
-import { TimelineTaskManagerService } from './timeline-task-manager.service';
+} from '../../shared/models/task-state.model';
 
 describe('TimelineTaskManagerService', () => {
   const notStartedTask1 = new PendingTask(

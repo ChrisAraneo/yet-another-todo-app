@@ -40,7 +40,9 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 }
 
 function main(): void {
-  const config: Config = JSON.parse(readFile('/scripts/theme-config.json')) as Config;
+  const config: Config = JSON.parse(
+    readFile('/scripts/theme-config.json'),
+  ) as Config;
 
   const unit = 64;
   const { borderRadius } = config;
@@ -89,8 +91,6 @@ ${mapColorPaletteToScssMap(secondary, 'secondary')}
 ${mapColorPaletteToScssMap(red, 'red')}
 ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
-
-
 
   writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
   writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);

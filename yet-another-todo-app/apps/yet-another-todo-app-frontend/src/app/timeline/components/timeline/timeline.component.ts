@@ -7,7 +7,6 @@ import {
   OnInit,
 } from '@angular/core';
 
-import { Task, TaskState } from '../../../../../../yet-another-todo-app-shared';
 import { ElementPosition, Rect, TimelineHeader } from './timeline.types';
 import { BehaviorSubject, map, Observable, of, Subscription } from 'rxjs';
 import { TasksService } from '../../../shared/services/tasks/tasks.service';
@@ -22,8 +21,9 @@ import { TitleComponent } from '../../../shared/components/title/title.component
 import { TimelineHeaderComponent } from './timeline-header/timeline-header.component';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
-// TODO: temporary import fix
-import { UNIT } from '../../../../../../yet-another-todo-app-shared/dist/src/themes/theme.__generated';
+import { UNIT } from '../../../shared/models/theme.__generated';
+import { TaskState } from '../../../shared/models/task-state.model';
+import { Task } from '../../../shared/models/task.model';
 
 @Component({
   selector: 'yata-timeline',
@@ -92,7 +92,9 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.observer && this.observer.unobserve(this.elementRef.nativeElement);
+    if (this.observer) {
+      this.observer.unobserve(this.elementRef.nativeElement);
+    }
   }
 
   update(startDate?: Date, endDate?: Date): void {
@@ -280,8 +282,12 @@ export class TimelineComponent implements OnInit, AfterViewInit, OnDestroy {
     x: number,
     y: number,
   ): void {
-    button.left !== `${x}px` && (button.left = `${x}px`);
-    button.top !== `${y}px` && (button.top = `${y}px`);
+    if (button.left !== `${x}px`) {
+      button.left = `${x}px`;
+    }
+    if (button.top !== `${y}px`) {
+      button.top = `${y}px`;
+    }
   }
 
   // TODO Move to pipe
