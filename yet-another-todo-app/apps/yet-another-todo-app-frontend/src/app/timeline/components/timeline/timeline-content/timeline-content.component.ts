@@ -4,8 +4,8 @@ import { TimelineColumn } from './timeline-content.interfaces';
 import { TimelineTaskManagerService } from '../../../services/timeline-task-manager.service';
 import { NgFor, NgStyle } from '@angular/common';
 import { TaskCardComponent } from '../../../../shared/components/task-card/task-card.component';
-import { Task } from '../../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
-import { TaskState } from '../../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+import { Task } from '../../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
+import { TaskState } from '../../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 @Component({
   selector: 'yata-timeline-content',

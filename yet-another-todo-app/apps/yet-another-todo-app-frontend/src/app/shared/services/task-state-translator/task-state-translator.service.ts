@@ -7,7 +7,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+} from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 @Injectable({
   providedIn: 'root',

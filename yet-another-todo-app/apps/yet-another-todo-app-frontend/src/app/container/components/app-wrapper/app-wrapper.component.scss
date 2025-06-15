@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;

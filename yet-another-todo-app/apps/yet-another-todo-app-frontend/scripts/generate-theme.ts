@@ -6,8 +6,8 @@ import { Config } from './utils/interfaces';
 
 const materialPalette = require('material-palette');
 
-const stylesPath = './yet-another-todo-app-theme/src/';
-const modelsPath = './yet-another-todo-app-theme/src/';
+const themeJsonPath = '/src/app/shared/styles/theme.json';
+const stylesPath = '/yet-another-todo-app-frontend/src/app/shared/styles/';
 
 // TODO: Refactor
 
@@ -41,7 +41,7 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 
 function main(): void {
   const config: Config = JSON.parse(
-    readFile('/src/theme.json'),
+    readFile(themeJsonPath),
   ) as Config;
 
   const unit = 64;
@@ -93,7 +93,6 @@ ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
   writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
-  writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
 
   let units = `${disclaimer}
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
@@ -108,7 +107,6 @@ $_192unit: $_64unit * 3;
 $_256unit: $_64unit * 4;
 `;
 
-  writeFile(`${stylesPath}/units.__generated.scss`, units);
   writeFile(`${stylesPath}/units.__generated.scss`, units);
 
   const tsConsts = `${disclaimer}
@@ -136,15 +134,14 @@ export const DIALOG_HEIGHT = \`\${UNIT * ${modals.heightInUnits}}px\`;
 export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 `;
 
-  writeFile(`${modelsPath}/theme.__generated.ts`, tsConsts);
-  writeFile(`${modelsPath}/theme.__generated.ts`, tsConsts);
+  writeFile(`${stylesPath}/theme.__generated.ts`, tsConsts);
 
   const colors = `${disclaimer}
 @use "sass:map";
 @use 'sass:math';
 
-@import './units.__generated.scss';
-@import './palettes.__generated.scss';
+@use './units.__generated.scss' as *;
+@use './palettes.__generated.scss' as *;
 
 // GENERAL COLORS
 $background-color: map.get($yata-palette-gray, 50);
@@ -171,15 +168,14 @@ $form-input-focus-border-color: $primary-color;
 `;
 
   writeFile(`${stylesPath}/colors.__generated.scss`, colors);
-  writeFile(`${stylesPath}/colors.__generated.scss`, colors);
 
   const variables = `${disclaimer}
 @use 'sass:map';
 @use 'sass:math';
 
-@import './units.__generated.scss';
-@import './palettes.__generated.scss';
-@import './colors.__generated.scss';
+@use './units.__generated.scss' as *;
+@use './palettes.__generated.scss' as *;
+@use './colors.__generated.scss' as *;
 
 // GENERAL VARIABLES
 $border: 1px solid $border-color;

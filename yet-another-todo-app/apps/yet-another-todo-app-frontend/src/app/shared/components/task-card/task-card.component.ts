@@ -12,7 +12,7 @@ import {
   EndedTask,
   StartedTask,
   Task,
-} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
+} from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
 
 @Component({
   selector: 'yata-task-card',

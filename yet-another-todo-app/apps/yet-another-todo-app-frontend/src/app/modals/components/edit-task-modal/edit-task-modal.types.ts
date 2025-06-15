@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
-import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
-import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
+import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 export interface EditTaskModalData {
   initialTaskId: string;

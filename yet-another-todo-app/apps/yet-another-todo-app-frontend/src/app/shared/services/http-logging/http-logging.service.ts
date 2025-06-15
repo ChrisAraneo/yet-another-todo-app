@@ -3,9 +3,9 @@ import { Inject, Injectable } from '@angular/core';
 import { ActionCreator, Store } from '@ngrx/store';
 
 import { Environment } from '../../../../environments/environment.interface';
-import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-item.interface';
-import { HttpLogType } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-type.enum';
-import { OPERATION_ID_HEADER_NAME } from '../../../../../../../libs/yet-another-todo-app-models/src/models/operation-id-header-name.const';
+import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-item.interface';
+import { HttpLogType } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-type.enum';
+import { OPERATION_ID_HEADER_NAME } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/operation-id-header-name.const';
 import {
   pushToDeleteTaskHttpLog,
   pushToDeleteUserHttpLog,

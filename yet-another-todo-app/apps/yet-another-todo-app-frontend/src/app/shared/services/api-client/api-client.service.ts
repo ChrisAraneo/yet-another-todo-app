@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { first, map } from 'rxjs';
 
-import { OPERATION_ID_HEADER_NAME } from '../../../../../../../libs/yet-another-todo-app-models/src/models/operation-id-header-name.const';
+import { OPERATION_ID_HEADER_NAME } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/operation-id-header-name.const';
 import { LoginResponse, RefreshResponse } from '../auth/auth.types';
 import { TaskCreatorService } from '../task-creator/task-creator.service';
 import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
-import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
+import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
 
 @Injectable({
   providedIn: 'root',

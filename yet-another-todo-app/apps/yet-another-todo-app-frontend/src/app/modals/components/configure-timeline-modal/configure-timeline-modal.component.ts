@@ -21,7 +21,7 @@ import {
   ConfigureTimelineModalData,
 } from './configure-timeline-modal.types';
 import { DragDropTaskOrderListComponent } from './drag-drop-task-order-list/drag-drop-task-order-list.component';
-import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 @Component({
   selector: 'yata-configure-timeline-modal',

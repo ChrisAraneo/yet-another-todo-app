@@ -13,9 +13,9 @@ import {
   tap,
 } from 'rxjs';
 
-import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-item.interface';
-import { HttpLogType } from '../../../../../../../libs/yet-another-todo-app-models/src/models/http-log-type.enum';
-import { ImportAction } from '../../../../../../../libs/yet-another-todo-app-models/src/models/import-action.enum';
+import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-item.interface';
+import { HttpLogType } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-type.enum';
+import { ImportAction } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/import-action.enum';
 import {
   createTask,
   hideTask,
@@ -35,8 +35,8 @@ import {
   EndedTask,
   StartedTask,
   Task,
-} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
-import { CompletedTaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+} from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
+import { CompletedTaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 @Injectable({
   providedIn: 'root',

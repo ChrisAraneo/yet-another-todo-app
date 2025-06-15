@@ -1,23 +1,14 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
-  DANGER_COLOR,
-  DISABLED_COLOR,
-  STANDARD_TEXT_COLOR,
-  SUCCESS_COLOR,
-  WARNING_COLOR,
-} from '@chris.araneo/yet-another-todo-app-theme';
 
 export abstract class TaskState {
   private readonly id: string;
   private readonly value: string;
   private readonly iconName: string;
-  private readonly color: string;
 
-  constructor(value: string, iconName: string, color: string, id?: string) {
+  constructor(value: string, iconName: string, id?: string) {
     this.id = id || uuidv4();
     this.value = value;
     this.iconName = iconName;
-    this.color = color;
   }
 
   toString(): string {
@@ -31,10 +22,6 @@ export abstract class TaskState {
   getRelatedIconName(): string {
     return this.iconName;
   }
-
-  getRelatedColor(): string {
-    return this.color;
-  }
 }
 
 export class NotStartedTaskState extends TaskState {
@@ -42,7 +29,6 @@ export class NotStartedTaskState extends TaskState {
     super(
       'NOT_STARTED',
       'auto_awesome',
-      DISABLED_COLOR,
       id || '386db121-e9b7-4801-856a-10af38cc54d7',
     );
   }
@@ -53,7 +39,6 @@ export class InProgressTaskState extends TaskState {
     super(
       'IN_PROGRESS',
       'autorenew',
-      WARNING_COLOR,
       id || '17fc6138-53c6-41d9-b3dd-83ef2ed032ab',
     );
   }
@@ -64,7 +49,6 @@ export class SuspendedTaskState extends TaskState {
     super(
       'SUSPENDED',
       'hourglass_empty',
-      STANDARD_TEXT_COLOR,
       id || '704b0396-f363-4981-b3f9-672620a4f959',
     );
   }
@@ -75,7 +59,6 @@ export class CompletedTaskState extends TaskState {
     super(
       'COMPLETED',
       'task_alt',
-      SUCCESS_COLOR,
       id || '09be771f-6df5-465e-a77a-0c002ca51278',
     );
   }
@@ -86,7 +69,6 @@ export class RejectedTaskState extends TaskState {
     super(
       'REJECTED',
       'not_interested',
-      DANGER_COLOR,
       id || '0ee65977-e7ff-4f94-aeb3-1b395b808637',
     );
   }

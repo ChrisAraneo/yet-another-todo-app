@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use 'sass:math';
-@use '@chris.araneo/yet-another-todo-app-theme/variables.__generated.scss' as *;
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .readonly {
   display: block;

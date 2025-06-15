@@ -1,5 +1,5 @@
 @use 'sass:math';
-@use 'variables.__generated.scss' as *;
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;

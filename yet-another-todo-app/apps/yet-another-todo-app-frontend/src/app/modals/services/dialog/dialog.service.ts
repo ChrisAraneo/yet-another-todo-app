@@ -17,8 +17,8 @@ import { ExportTasksModalComponent } from '../../components/export-tasks-modal/e
 import { ImportTasksModalComponent } from '../../components/import-tasks-modal/import-tasks-modal.component';
 import { SelectImportActionModalComponent } from '../../components/import-tasks-modal/select-import-action-modal/select-import-action-modal.component';
 import { SignInModalComponent } from '../../components/sign-in-modal/sign-in-modal.component';
-import { DIALOG_WIDTH, DIALOG_HEIGHT } from '@chris.araneo/yet-another-todo-app-theme';
 import { ZipFileContent } from '@chris.araneo/yet-another-todo-app-models';
+import { DIALOG_HEIGHT, DIALOG_WIDTH } from '../../../shared/styles/theme.__generated';
 
 // TODO Move to shared?
 @Injectable({

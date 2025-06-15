@@ -22,7 +22,7 @@ import { TimelineHeaderComponent } from './timeline-header/timeline-header.compo
 import { MatIconModule } from '@angular/material/icon';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TaskState, Task } from '@chris.araneo/yet-another-todo-app-models';
-import { UNIT } from '@chris.araneo/yet-another-todo-app-theme';
+import { UNIT } from '../../../shared/styles/theme.__generated';
 
 @Component({
   selector: 'yata-timeline',

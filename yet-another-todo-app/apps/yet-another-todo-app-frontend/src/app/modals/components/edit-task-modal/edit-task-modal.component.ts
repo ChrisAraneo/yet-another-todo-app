@@ -45,7 +45,7 @@ import {
   EndedTask,
   StartedTask,
   Task,
-} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task.model';
+} from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
 import {
   CompletedTaskState,
   InProgressTaskState,
@@ -53,7 +53,7 @@ import {
   RejectedTaskState,
   SuspendedTaskState,
   TaskState,
-} from '../../../../../../../libs/yet-another-todo-app-models/src/models/task-state.model';
+} from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
 
 @Component({
   selector: 'yata-edit-task-modal',

@@ -17,9 +17,6 @@
     "paths": {
       "@chris.araneo/yet-another-todo-app-models": [
         "libs/yet-another-todo-app-models/src/index.ts"
-      ],
-      "@chris.araneo/yet-another-todo-app-theme": [
-        "libs/yet-another-todo-app-theme/src/index.ts"
       ]
     }
   },

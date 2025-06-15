@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
+      "dependsOn": ["generate-theme"],
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/yet-another-todo-app-frontend",
@@ -105,8 +106,10 @@
     "generate-theme": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["npm run generate-theme"],
-        "cwd": ""
+        "commands": [
+          "tsx ./scripts/generate-theme.ts"
+        ],
+        "cwd": "apps/yet-another-todo-app-frontend"
       }
     }
   }
