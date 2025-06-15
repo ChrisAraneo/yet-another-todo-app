@@ -20,7 +20,18 @@
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/yet-another-todo-app-frontend/public"
+            "input": "apps/yet-another-todo-app-frontend/public/images",
+            "output": "public/images"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/yet-another-todo-app-frontend/public/i18n",
+            "output": "public/i18n"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/yet-another-todo-app-frontend/public/",
+            "output": "public/"
           }
         ],
         "styles": ["apps/yet-another-todo-app-frontend/src/styles.scss"],
