@@ -1,4 +1,4 @@
-@use 'variables.__generated.scss' as *;
+@import '../../../shared/styles/variables.__generated.scss';
 
 .actions {
   display: flex;

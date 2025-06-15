@@ -1,4 +1,4 @@
-@use '../../../shared/styles/variables.__generated.scss' as *;
+@import '../../../shared/styles/variables.__generated.scss';
 
 $spinner-wrapper-width: 24px;
 $submit-button-wrapper-height: $_48unit;

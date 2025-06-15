@@ -85,16 +85,14 @@ function main(): void {
 
   const disclaimer = `/*\n * THIS FILE WAS GENERATED USING SCRIPT.\n * DON'T MODIFY IT.\n * IF YOU NEED TO CHANGE VALUES THEN EXECUTE THE SCRIPT AGAIN.\n */`;
 
-  const palettes = `${disclaimer}
+  const palettes = `
 ${mapColorPaletteToScssMap(primary, 'primary')}
 ${mapColorPaletteToScssMap(secondary, 'secondary')}
 ${mapColorPaletteToScssMap(red, 'red')}
 ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
-  writeFile(`${stylesPath}/palettes.__generated.scss`, palettes);
-
-  let units = `${disclaimer}
+  let units = `
 $_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
 
   for (let i = 2; i <= 48; i += 2) {
@@ -106,8 +104,6 @@ $_160unit: $_128unit + $_32unit;
 $_192unit: $_64unit * 3;
 $_256unit: $_64unit * 4;
 `;
-
-  writeFile(`${stylesPath}/units.__generated.scss`, units);
 
   const tsConsts = `${disclaimer}
 export const UNIT = ${unit};
@@ -136,12 +132,12 @@ export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 
   writeFile(`${stylesPath}/theme.__generated.ts`, tsConsts);
 
-  const colors = `${disclaimer}
+  const colors = `
 @use "sass:map";
 @use 'sass:math';
 
-@use './units.__generated.scss' as *;
-@use './palettes.__generated.scss' as *;
+${units}
+${palettes}
 
 // GENERAL COLORS
 $background-color: map.get($yata-palette-gray, 50);
@@ -167,15 +163,8 @@ $form-input-focus-border-color: $primary-color;
 
 `;
 
-  writeFile(`${stylesPath}/colors.__generated.scss`, colors);
-
   const variables = `${disclaimer}
-@use 'sass:map';
-@use 'sass:math';
-
-@use './units.__generated.scss' as *;
-@use './palettes.__generated.scss' as *;
-@use './colors.__generated.scss' as *;
+${colors}
 
 // GENERAL VARIABLES
 $border: 1px solid $border-color;
@@ -198,7 +187,6 @@ $form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !im
 
 `;
 
-  writeFile(`${stylesPath}/variables.__generated.scss`, variables);
   writeFile(`${stylesPath}/variables.__generated.scss`, variables);
 }
 

@@ -1,5 +1,5 @@
 @use 'sass:map';
-@use '../../../../shared/styles/variables.__generated.scss' as *;
+@import '../../../../shared/styles/variables.__generated.scss';
 
 :host {
   display: flex;

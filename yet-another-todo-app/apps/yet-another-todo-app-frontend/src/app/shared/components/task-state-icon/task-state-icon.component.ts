@@ -21,6 +21,14 @@ export class TaskStateIconComponent implements OnChanges {
   style?: Record<string, string | number>;
   value = '';
 
+  private colorMap: Record<string, string> = {
+    'NOT_STARTED': '#9E9E9E', // Grey
+    'IN_PROGRESS': '#2196F3', // Blue
+    'SUSPENDED': '#FF9800', // Orange
+    'COMPLETED': '#4CAF50', // Green
+    'REJECTED': '#9E9E9E', // Grey
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     const currentState = changes['state']?.currentValue;
     const previousState = changes['state']?.previousValue;
@@ -49,7 +57,7 @@ export class TaskStateIconComponent implements OnChanges {
 
   private updateStyle(state: TaskState, size: number, opacity: number): void {
     const sizeInPx = `${size}px`;
-    const color = state.getRelatedColor();
+    const color = this.colorMap[state.toString()];
 
     this.style = {
       width: sizeInPx,

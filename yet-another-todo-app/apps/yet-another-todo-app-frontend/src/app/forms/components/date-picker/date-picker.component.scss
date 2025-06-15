@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use 'sass:math';
-@use '../../../shared/styles/variables.__generated.scss' as *;
+@import '../../../shared/styles/variables.__generated.scss';
 
 $table-cell-size: $_26unit;
 $box-shadow-radius: $_4unit;
