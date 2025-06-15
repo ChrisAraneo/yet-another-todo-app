@@ -101,9 +101,7 @@
     "generate-theme": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": [
-          "tsx ./scripts/generate-theme.ts"
-        ],
+        "commands": ["tsx ./scripts/generate-theme.ts"],
         "cwd": "apps/yet-another-todo-app-frontend"
       }
     }

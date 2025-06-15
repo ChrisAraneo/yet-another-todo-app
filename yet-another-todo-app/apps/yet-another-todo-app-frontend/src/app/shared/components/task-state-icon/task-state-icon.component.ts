@@ -22,12 +22,12 @@ export class TaskStateIconComponent implements OnChanges {
   value = '';
 
   private colorMap: Record<string, string> = {
-    'NOT_STARTED': '#9E9E9E', // Grey
-    'IN_PROGRESS': '#2196F3', // Blue
-    'SUSPENDED': '#FF9800', // Orange
-    'COMPLETED': '#4CAF50', // Green
-    'REJECTED': '#9E9E9E', // Grey
-  }
+    NOT_STARTED: '#9E9E9E', // Grey
+    IN_PROGRESS: '#2196F3', // Blue
+    SUSPENDED: '#FF9800', // Orange
+    COMPLETED: '#4CAF50', // Green
+    REJECTED: '#9E9E9E', // Grey
+  };
 
   ngOnChanges(changes: SimpleChanges): void {
     const currentState = changes['state']?.currentValue;

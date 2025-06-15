@@ -2,7 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { TimelineColumn } from '../components/timeline/timeline-content/timeline-content.interfaces';
 import { DateUtilsService } from '../../shared/services/date-utils/date-utils.service';
-import { EndedTask, PendingTask, StartedTask, Task, TaskState } from '@chris.araneo/yet-another-todo-app-models';
+import {
+  EndedTask,
+  PendingTask,
+  StartedTask,
+  Task,
+  TaskState,
+} from '@chris.araneo/yet-another-todo-app-models';
 import { COLUMN_WIDTH } from '../../shared/styles/theme.__generated';
 
 interface Column {

@@ -40,9 +40,7 @@ function mapColorPaletteToConsts(palette: object, name: string): string {
 }
 
 function main(): void {
-  const config: Config = JSON.parse(
-    readFile(themeJsonPath),
-  ) as Config;
+  const config: Config = JSON.parse(readFile(themeJsonPath)) as Config;
 
   const unit = 64;
   const { borderRadius } = config;
