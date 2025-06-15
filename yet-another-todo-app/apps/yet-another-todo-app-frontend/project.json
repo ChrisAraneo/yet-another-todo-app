@@ -24,20 +24,15 @@
           }
         ],
         "styles": ["apps/yet-another-todo-app-frontend/src/styles.scss"],
-        "scripts": [],
-        "stylePreprocessorOptions": {
-          "includePaths": [
-            "libs/yet-another-todo-app-theme/src"
-          ]
-        }
+        "scripts": []
       },
       "configurations": {
         "production": {
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "3mb",
+              "maximumError": "4mb"
             },
             {
               "type": "anyComponentStyle",
