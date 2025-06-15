@@ -17,11 +17,12 @@ import { NavigationItemComponent } from './navigation-item/navigation-item.compo
 import { NavigationItem } from './side-navigation.types';
 import { Task } from '@chris.araneo/yet-another-todo-app-models';
 import { UNIT, BORDER } from '../../../shared/styles/theme.__generated';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'yata-side-navigation',
   standalone: true,
-  imports: [NavigationItemComponent, TranslatePipe],
+  imports: [NavigationItemComponent, NgFor, TranslatePipe],
   templateUrl: './side-navigation.component.html',
   styleUrl: './side-navigation.component.scss',
   animations: [

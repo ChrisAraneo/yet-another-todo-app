@@ -8,6 +8,7 @@ import { LoggedUserInformationComponent } from './logged-user-information/logged
 import { OfflineIndicatorComponent } from './offline-indicator/offline-indicator.component';
 import { SignOutButtonComponent } from './sign-out-button/sign-out-button.component';
 import { COLOR_PRIMARY_50 } from '../../../shared/styles/theme.__generated';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'yata-toolbar',
@@ -15,6 +16,7 @@ import { COLOR_PRIMARY_50 } from '../../../shared/styles/theme.__generated';
   imports: [
     LoggedUserInformationComponent,
     MatIcon,
+    NgIf,
     OfflineIndicatorComponent,
     SignOutButtonComponent,
     TitleComponent,
