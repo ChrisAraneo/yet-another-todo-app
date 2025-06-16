@@ -2,7 +2,7 @@ export * from './lib/http-log-item.interface';
 export * from './lib/http-log-type.enum';
 export * from './lib/import-action.enum';
 export * from './lib/operation-id-header-name.const';
-export * from './lib/task-cloner.model';
+export * from './lib/task-cloner.class';
 export * from './lib/task-creator.model';
 export * from './lib/task-state-creator.model';
 export * from './lib/task-state.model';
