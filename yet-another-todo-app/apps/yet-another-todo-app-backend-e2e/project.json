@@ -1,0 +1,20 @@
+{
+  "name": "yet-another-todo-app-backend-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": ["yet-another-todo-app-backend"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/yet-another-todo-app-backend-e2e/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "dependsOn": [
+        "yet-another-todo-app-backend:build",
+        "yet-another-todo-app-backend:serve"
+      ]
+    }
+  }
+}
