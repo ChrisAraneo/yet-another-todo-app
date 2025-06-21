@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-item.interface';
+import { HttpLogItem } from '@chris.araneo/yet-another-todo-app-models';
 
 export const POST_SIGNUP_HTTP_LOG = 'POST_SIGNUP_HTTP_LOG';
 export const POST_LOGIN_HTTP_LOG = 'POST_LOGIN_HTTP_LOG';

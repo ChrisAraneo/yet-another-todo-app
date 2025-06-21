@@ -1,0 +1,27 @@
+{
+  "name": "yet-another-todo-app-mock",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/yet-another-todo-app-mock/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "prettier --config ../../.prettierrc.json --write **/*.json **/*.ts"
+        ],
+        "cwd": "apps/yet-another-todo-app-mock"
+      }
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "options": {
+        "command": "tsx src/main.ts",
+        "cwd": "apps/yet-another-todo-app-mock"
+      }
+    }
+  }
+}

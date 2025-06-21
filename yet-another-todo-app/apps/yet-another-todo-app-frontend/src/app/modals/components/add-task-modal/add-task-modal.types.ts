@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
+import { TaskState } from '@chris.araneo/yet-another-todo-app-models';
 
 export interface TaskForm {
   title: FormControl<string>;

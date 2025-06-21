@@ -13,8 +13,8 @@ import { forEach } from 'lodash';
 
 import { LabelComponent } from '../../../../shared/components/label/label.component';
 import { TaskStateCreatorService } from '../../../../shared/services/task-state-creator/task-state-creator.service';
-import { TaskState } from '../../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
-import { TaskStateCreator } from '../../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state-creator.model';
+import { TaskState } from '@chris.araneo/yet-another-todo-app-models';
+import { TaskStateCreator } from '@chris.araneo/yet-another-todo-app-models';
 
 @Component({
   selector: 'yata-drag-drop-task-order-list',

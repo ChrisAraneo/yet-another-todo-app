@@ -3,9 +3,9 @@ import CryptoAES from 'crypto-js/aes';
 import FileSaver from 'file-saver';
 import JSZip from 'jszip';
 
-import { ZipFileContent } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/zip-file-content.type';
+import { ZipFileContent } from '@chris.araneo/yet-another-todo-app-models';
 import { DateUtilsService as DateUtilitiesService } from '../date-utils/date-utils.service';
-import { Task } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task.model';
+import { Task } from '@chris.araneo/yet-another-todo-app-models';
 
 @Injectable({
   providedIn: 'root',

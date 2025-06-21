@@ -2,7 +2,7 @@ import { MatSortable } from '@angular/material/sort';
 import { createAction, props } from '@ngrx/store';
 
 import { AppMode } from '../types/view-configuration.type';
-import { TaskState } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/task-state.model';
+import { TaskState } from '@chris.araneo/yet-another-todo-app-models';
 
 const SET_APP_MODE = 'SET_APP_MODE';
 const SET_TIMELINE_START_DATE = 'SET_TIMELINE_START_DATE';

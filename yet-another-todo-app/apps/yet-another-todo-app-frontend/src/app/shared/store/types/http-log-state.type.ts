@@ -1,4 +1,4 @@
-import { HttpLogItem } from '../../../../../../../libs/yet-another-todo-app-models/src/lib/http-log-item.interface';
+import { HttpLogItem } from '@chris.araneo/yet-another-todo-app-models';
 
 export interface HttpLogState {
   get: {

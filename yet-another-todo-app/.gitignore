@@ -30,3 +30,4 @@ testem.log
 Thumbs.db
 tmp
 yarn-error.log
+apps/yet-another-todo-app-mock/src/assets/store.json
