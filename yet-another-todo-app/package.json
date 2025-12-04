@@ -53,7 +53,7 @@
     "@angular/cli": "~19.2.0",
     "@angular/compiler-cli": "~19.2.0",
     "@angular/language-service": "~19.2.0",
-    "@chris.araneo/eslint-config": "0.0.44",
+    "@chris.araneo/eslint-config": "0.0.71",
     "@chris.araneo/ng-perfectionism": "^0.0.10",
     "@chris.araneo/sort-patterns-file": "^0.0.9",
     "@eslint/js": "^9.8.0",
