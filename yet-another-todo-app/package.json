@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "serve:dev": "nx run yet-another-todo-app-frontend:generate-theme && nx run yet-another-todo-app-frontend:serve",
     "format": "sort-package-json && sort-patterns-file .gitignore .prettierignore -i node_modules && nx run yet-another-todo-app-models:format && nx run yet-another-todo-app-frontend:format && prettier --config .prettierrc.json --write *.json .vscode/*.json *.{ts,mjs,js}",
     "lint": "eslint --fix"
   },
@@ -33,6 +34,7 @@
     "axios": "^1.6.0",
     "bcrypt": "^6.0.0",
     "crypto-js": "^4.2.0",
+    "date-fns": "^4.1.0",
     "file-saver": "^2.0.5",
     "json-diff": "^1.0.6",
     "jszip": "^3.10.1",
