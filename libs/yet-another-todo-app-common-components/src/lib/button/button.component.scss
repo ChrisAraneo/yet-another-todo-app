@@ -1,0 +1,93 @@
+:host {
+  display: inline-block;
+
+//   --primary-color: #1976d2;
+//   --primary-hover-color: #1565c0;
+//   --primary-active-color: #0d47a1;
+
+//   --danger-color: #f44336;
+//   --danger-hover-color: #d32f2f;
+//   --danger-active-color: #c62828;
+
+//   --ghost-color: #1976d2;
+//   --ghost-hover-bg: rgba(25, 118, 210, 0.08);
+//   --ghost-active-bg: rgba(25, 118, 210, 0.16);
+
+//   --ripple-color: rgba(255, 255, 255, 0.3);
+//   --disabled-opacity: 0.6;
+}
+
+.button {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 24px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 128px;
+  height: 48px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.button-primary {
+    background-color: var(--primary-color);
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-hover-color);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--primary-active-color);
+    }
+  }
+
+  &.button-danger {
+    background-color: var(--danger-color);
+    color: white;
+
+    &:hover:not(:disabled) {
+      background-color: var(--danger-hover-color);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--danger-active-color);
+    }
+  }
+
+  &.button-ghost {
+    background-color: transparent;
+    color: var(--ghost-color);
+    border: 2px solid var(--ghost-color);
+
+    &:hover:not(:disabled) {
+      background-color: var(--ghost-hover-bg);
+    }
+
+    &:active:not(:disabled) {
+      background-color: var(--ghost-active-bg);
+    }
+  }
+
+  &:disabled {
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--ripple-color);
+  pointer-events: none;
+  z-index: 1;
+}
