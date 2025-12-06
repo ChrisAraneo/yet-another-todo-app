@@ -6,7 +6,7 @@
   "scripts": {
     "format": "sort-package-json && sort-patterns-file .gitignore .prettierignore -i node_modules && nx run yet-another-todo-app-models:format && nx run yet-another-todo-app-frontend:format && prettier --config .prettierrc.json --write *.json .vscode/*.json *.{ts,mjs,js}",
     "lint": "eslint --fix",
-    "prestart": "nx run yet-another-todo-app-frontend:generate-theme",
+    "prestart": "npx nx build yet-another-todo-app-common-components && nx run yet-another-todo-app-frontend:generate-theme",
     "start:dev-mock": "nx run-many --target=serve --projects=yet-another-todo-app-mock,yet-another-todo-app-frontend --parallel=2"
   },
   "dependencies": {
