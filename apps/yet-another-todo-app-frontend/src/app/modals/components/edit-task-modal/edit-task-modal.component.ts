@@ -41,8 +41,19 @@ import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-actio
 import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
 import { EditTaskModalData, TaskForm } from './edit-task-modal.types';
-import { EndedTask, StartedTask, Task } from '@chris.araneo/yet-another-todo-app-models';
-import { CompletedTaskState, InProgressTaskState, NotStartedTaskState, RejectedTaskState, SuspendedTaskState, TaskState } from '@chris.araneo/yet-another-todo-app-models';
+import {
+  EndedTask,
+  StartedTask,
+  Task,
+} from '@chris.araneo/yet-another-todo-app-models';
+import {
+  CompletedTaskState,
+  InProgressTaskState,
+  NotStartedTaskState,
+  RejectedTaskState,
+  SuspendedTaskState,
+  TaskState,
+} from '@chris.araneo/yet-another-todo-app-models';
 
 @Component({
   selector: 'yata-edit-task-modal',

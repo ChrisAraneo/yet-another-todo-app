@@ -1,4 +1,4 @@
-import { HttpLogType } from "./http-log-type.enum";
+import { HttpLogType } from './http-log-type.enum';
 
 export interface HttpLogItem {
   id: string;

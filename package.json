@@ -4,10 +4,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "prestart": "nx run yet-another-todo-app-frontend:generate-theme",
-    "start:dev-mock": "nx run-many --target=serve --projects=yet-another-todo-app-mock,yet-another-todo-app-frontend --parallel=2",
     "format": "sort-package-json && sort-patterns-file .gitignore .prettierignore -i node_modules && nx run yet-another-todo-app-models:format && nx run yet-another-todo-app-frontend:format && prettier --config .prettierrc.json --write *.json .vscode/*.json *.{ts,mjs,js}",
-    "lint": "eslint --fix"
+    "lint": "eslint --fix",
+    "prestart": "nx run yet-another-todo-app-frontend:generate-theme",
+    "start:dev-mock": "nx run-many --target=serve --projects=yet-another-todo-app-mock,yet-another-todo-app-frontend --parallel=2"
   },
   "dependencies": {
     "@angular/animations": "^19.2.14",

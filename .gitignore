@@ -22,6 +22,7 @@
 /coverage
 /libpeerconnection.log
 /typings
+apps/yet-another-todo-app-mock/src/assets/store.json
 dist
 node_modules
 npm-debug.log
@@ -30,4 +31,3 @@ testem.log
 Thumbs.db
 tmp
 yarn-error.log
-apps/yet-another-todo-app-mock/src/assets/store.json

@@ -31,7 +31,11 @@ import { ApiClientService } from '../api-client/api-client.service';
 import { OperationIdGeneratorService } from '../operation-id-generator/operation-id-generator.service';
 import { TaskTransformerService } from '../task-transformer/task-transformer.service';
 import { UserService } from '../user/user.service';
-import { EndedTask, StartedTask, Task } from '@chris.araneo/yet-another-todo-app-models';
+import {
+  EndedTask,
+  StartedTask,
+  Task,
+} from '@chris.araneo/yet-another-todo-app-models';
 import { CompletedTaskState } from '@chris.araneo/yet-another-todo-app-models';
 
 @Injectable({

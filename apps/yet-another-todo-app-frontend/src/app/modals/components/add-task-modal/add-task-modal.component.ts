@@ -33,7 +33,14 @@ import { ModalTitleComponent } from '../modal-title/modal-title.component';
 import { PageComponent } from '../page/page.component';
 import { TaskForm } from './add-task-modal.types';
 import { Task } from '@chris.araneo/yet-another-todo-app-models';
-import { TaskState, NotStartedTaskState, CompletedTaskState, RejectedTaskState, InProgressTaskState, SuspendedTaskState } from '@chris.araneo/yet-another-todo-app-models';
+import {
+  TaskState,
+  NotStartedTaskState,
+  CompletedTaskState,
+  RejectedTaskState,
+  InProgressTaskState,
+  SuspendedTaskState,
+} from '@chris.araneo/yet-another-todo-app-models';
 
 @Component({
   selector: 'yata-add-task-modal',
