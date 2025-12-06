@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@chris.araneo/yet-another-todo-app-common-components": [
+        "libs/yet-another-todo-app-common-components/src/index.ts"
+      ],
       "@chris.araneo/yet-another-todo-app-models": [
         "libs/yet-another-todo-app-models/src/index.ts"
       ]
