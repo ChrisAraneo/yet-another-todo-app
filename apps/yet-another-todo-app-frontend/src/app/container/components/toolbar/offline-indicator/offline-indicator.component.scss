@@ -1,0 +1,22 @@
+@use 'sass:map';
+@import '../../../../shared/styles/variables.__generated.scss';
+
+:host {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  opacity: 0.7;
+  width: auto;
+  height: auto;
+
+  span {
+    display: block;
+    color: $label-text-color;
+  }
+}

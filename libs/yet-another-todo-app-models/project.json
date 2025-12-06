@@ -1,0 +1,45 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "yet-another-todo-app-models",
+  "prefix": "lib",
+  "projectType": "library",
+  "sourceRoot": "libs/yet-another-todo-app-models/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {
+          "tsConfig": "libs/yet-another-todo-app-models/tsconfig.lib.json"
+        },
+        "production": {
+          "tsConfig": "libs/yet-another-todo-app-models/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@nx/angular:ng-packagr-lite",
+      "options": {
+        "project": "libs/yet-another-todo-app-models/ng-package.json"
+      },
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"]
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "prettier --config ../../.prettierrc.json --write **/*.json **/*.{ts,html,scss}"
+        ],
+        "cwd": "libs/yet-another-todo-app-models"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/yet-another-todo-app-models/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"]
+    }
+  }
+}

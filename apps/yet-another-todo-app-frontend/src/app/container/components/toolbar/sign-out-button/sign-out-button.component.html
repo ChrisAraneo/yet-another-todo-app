@@ -1,0 +1,12 @@
+<div
+  class="sign-out-button-wrapper"
+  matTooltipPosition="below"
+  [matTooltip]="'SignOutButton.tooltip' | translate"
+  [matTooltipShowDelay]="750">
+  <button
+    mat-icon-button
+    [attr.aria-label]="'SignOutButton.tooltip' | translate"
+    (click)="reloadPage()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,13 @@
+<div>
+  <yata-form-label [for]="label" />
+  <textarea
+    *yataErrorTooltip="label"
+    pInputTextarea
+    autoResize="true"
+    [name]="label"
+    [value]="value"
+    [rows]="rows"
+    [cols]="cols"
+    [maxLength]="maxLength"
+    (input)="onChange($event)"></textarea>
+</div>

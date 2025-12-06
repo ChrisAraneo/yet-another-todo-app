@@ -1,0 +1,100 @@
+<div class="searchbar-wrapper">
+  <yata-searchbar (change)="onSearch($event)" />
+</div>
+<div *ngIf="!!data" class="table-wrapper">
+  <table
+    mat-table
+    matSort
+    [dataSource]="data"
+    (matSortChange)="changeSort($event)">
+    <ng-container matColumnDef="id">
+      <th
+        *matHeaderCellDef
+        mat-header-cell
+        mat-sort-header
+        [sortActionDescription]="'Table.sortById' | translate">
+        <span>{{ 'Table.id' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.shortId }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="title">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.title' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.title }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.description' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        <yata-paragraph>{{ element.description }}</yata-paragraph>
+      </td></ng-container
+    >
+    <ng-container matColumnDef="state">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.state' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        <yata-task-state-icon
+          [state]="element.state"
+          [size]="24"
+          [opacity]="0.8" />
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="creationDate">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.creationDate' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.creationDate }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="startDate">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.startDate' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.startDate }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="endDate">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <span>{{ 'Table.endDate' | translate }}</span>
+      </th>
+      <td *matCellDef="let element" mat-cell>
+        {{ element.endDate }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef mat-header-cell></th>
+      <td *matCellDef="let element" mat-cell>
+        <button
+          mat-icon-button
+          aria-label="Edit icon"
+          [attr.type]="'button'"
+          (click)="openEditTaskModal(element.id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          aria-label="Delete icon"
+          [attr.type]="'button'"
+          (click)="deleteTask(element.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns" mat-row></tr>
+  </table>
+  <mat-paginator
+    showFirstLastButtons
+    [pageSizeOptions]="pageSizeOptions"
+    [attr.aria-label]="'Table.paginatorLabel' | translate" />
+</div>
+<router-outlet />

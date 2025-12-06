@@ -1,0 +1,19 @@
+<yata-title class="modal-title">{{
+  'ConfigureTableModal.modalTitle' | translate
+}}</yata-title>
+<form *ngIf="!!form" [formGroup]="form">
+  <yata-select
+    formControlName="id"
+    [label]="'ConfigureTableModal.id' | translate"
+    [options]="ids" />
+  <yata-select
+    formControlName="direction"
+    [label]="'ConfigureTableModal.direction' | translate"
+    [options]="directions" />
+  <yata-modal-action-buttons
+    [form]="form"
+    [submitButton]="{
+      label: 'ConfigureTableModal.save',
+      click: submit,
+    }" />
+</form>

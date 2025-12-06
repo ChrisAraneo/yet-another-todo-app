@@ -1,0 +1,12 @@
+<yata-app-wrapper [isAppVisible]="!!(isAppVisible | async)">
+  <yata-toolbar
+    [title]="'App.title' | translate"
+    [username]="username | async"
+    [isOfflineMode]="!!(isOfflineMode | async)"
+    (menuClick)="onMenuClick()" />
+  <main>
+    <yata-side-navigation [isOpened]="isMenuOpened" />
+    <router-outlet (activate)="onRouterOutletActivated($event)" />
+  </main>
+  <yata-footer />
+</yata-app-wrapper>

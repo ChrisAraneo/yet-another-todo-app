@@ -1,0 +1,7 @@
+.angular
+/.nx/cache
+/.nx/workspace-data
+/coverage
+/dist
+package-lock.json
+apps/yet-another-todo-app-mock/src/assets/store.json

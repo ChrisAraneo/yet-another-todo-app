@@ -1,0 +1,120 @@
+{
+  "name": "yet-another-todo-app-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/yet-another-todo-app-frontend/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "dependsOn": ["generate-theme"],
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/yet-another-todo-app-frontend",
+        "index": "apps/yet-another-todo-app-frontend/src/index.html",
+        "browser": "apps/yet-another-todo-app-frontend/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/yet-another-todo-app-frontend/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/yet-another-todo-app-frontend/public/images",
+            "output": "public/images"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/yet-another-todo-app-frontend/public/i18n",
+            "output": "public/i18n"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/yet-another-todo-app-frontend/public/",
+            "output": "public/"
+          }
+        ],
+        "styles": ["apps/yet-another-todo-app-frontend/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "4mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "yet-another-todo-app-frontend:build:production"
+        },
+        "development": {
+          "buildTarget": "yet-another-todo-app-frontend:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "yet-another-todo-app-frontend:build"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "ng-perfectionism && prettier --config ../../.prettierrc.json --write **/*.json **/*.{ts,html,scss}"
+        ],
+        "cwd": "apps/yet-another-todo-app-frontend"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/yet-another-todo-app-frontend/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "yet-another-todo-app-frontend:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/yet-another-todo-app-frontend/browser",
+        "spa": true
+      }
+    },
+    "generate-theme": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["tsx ./scripts/generate-theme.ts"],
+        "cwd": "apps/yet-another-todo-app-frontend"
+      }
+    }
+  }
+}
