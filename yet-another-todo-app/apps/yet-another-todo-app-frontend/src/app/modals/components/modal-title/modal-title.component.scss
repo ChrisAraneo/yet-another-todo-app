@@ -1,8 +1,0 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
-
-:host {
-  box-sizing: border-box;
-  padding: $_24unit $_32unit;
-  border-bottom: $border;
-}
