@@ -1,0 +1,14 @@
+<form>
+  <mat-icon
+    class="seachbar-icon"
+    aria-hidden="false"
+    [class.is-focused]="isFocused">
+    search
+  </mat-icon>
+  <input
+    type="text"
+    [placeholder]="'SearchBar.searchTasks' | translate"
+    (input)="onChange($event)"
+    (focus)="onFocus()"
+    (blur)="onBlur()" />
+</form>

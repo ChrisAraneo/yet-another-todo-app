@@ -1,0 +1,10 @@
+{
+  "name": "yet-another-todo-app-frontend-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/yet-another-todo-app-frontend-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["yet-another-todo-app-frontend"],
+  "// targets": "to see all targets run: nx show project yet-another-todo-app-frontend-e2e --web",
+  "targets": {}
+}

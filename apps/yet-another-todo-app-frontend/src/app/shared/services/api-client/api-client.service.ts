@@ -1,0 +1,184 @@
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { first, map } from 'rxjs';
+
+import { OPERATION_ID_HEADER_NAME } from '@chris.araneo/yet-another-todo-app-models';
+import { LoginResponse, RefreshResponse } from '../auth/auth.types';
+import { TaskCreatorService } from '../task-creator/task-creator.service';
+import { ApiResponse, ApiResponseStatus, TaskData } from './api-client.types';
+import { Task } from '@chris.araneo/yet-another-todo-app-models';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ApiClientService {
+  constructor(
+    @Inject('API')
+    public api: any,
+    private readonly http: HttpClient,
+    private readonly taskCreator: TaskCreatorService,
+  ) {}
+
+  async signIn(
+    username: string,
+    password: string,
+    operationId: string,
+  ): Promise<LoginResponse | null> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post<ApiResponse<LoginResponse>>(
+          this.api.loginEndpoint,
+          {
+            username,
+            password,
+          },
+          {
+            headers: {
+              [OPERATION_ID_HEADER_NAME]: operationId,
+            },
+          },
+        )
+        .pipe(
+          first(),
+          map((response: ApiResponse<LoginResponse>) => {
+            if (response && response.status === ApiResponseStatus.Success) {
+              resolve(response.data || null);
+            } else {
+              reject(response);
+            }
+          }),
+        )
+        .subscribe();
+    });
+  }
+
+  async refreshAccessToken(
+    refreshToken: string,
+    operationId: string,
+  ): Promise<RefreshResponse | null> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post<ApiResponse<RefreshResponse>>(
+          this.api.refreshEndpoint,
+          {
+            refreshToken,
+          },
+          {
+            headers: {
+              [OPERATION_ID_HEADER_NAME]: operationId,
+            },
+          },
+        )
+        .pipe(
+          first(),
+          map((response: ApiResponse<RefreshResponse | null>) => {
+            if (response && response.status === ApiResponseStatus.Success) {
+              resolve(response.data || null);
+            } else {
+              reject(response);
+            }
+          }),
+        )
+        .subscribe();
+    });
+  }
+
+  async fetchTasksFromApi(operationId: string): Promise<Task[] | undefined> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .get<ApiResponse<TaskData[]>>(this.api.tasksEndpoint, {
+          headers: {
+            [OPERATION_ID_HEADER_NAME]: operationId,
+          },
+        })
+        .pipe(
+          first(),
+          map((response: ApiResponse<TaskData[]>) => {
+            if (
+              !response ||
+              response.status !== ApiResponseStatus.Success ||
+              !response.data
+            ) {
+              this.printError(response);
+              reject(response);
+            } else {
+              resolve(this.mapTasks(response.data));
+            }
+          }),
+        )
+        .subscribe();
+    });
+  }
+
+  async postTaskToApi(
+    task: Task,
+    operationId: string,
+  ): Promise<Task | undefined> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post<ApiResponse<TaskData>>(this.api.taskEndpoint, task, {
+          headers: {
+            [OPERATION_ID_HEADER_NAME]: operationId,
+          },
+        })
+        .pipe(
+          first(),
+          map((response: ApiResponse<TaskData>) => {
+            if (
+              !response ||
+              response.status !== ApiResponseStatus.Success ||
+              !response.data
+            ) {
+              this.printError(response);
+              reject(response);
+            } else {
+              resolve(this.mapTask(response.data));
+            }
+          }),
+        )
+        .subscribe();
+    });
+  }
+
+  async postTasksToApi(
+    tasks: Task[],
+    operationId: string,
+  ): Promise<Task[] | undefined> {
+    return new Promise((resolve, reject) => {
+      this.http
+        .post<ApiResponse<TaskData[]>>(this.api.tasksEndpoint, tasks, {
+          headers: {
+            [OPERATION_ID_HEADER_NAME]: operationId,
+          },
+        })
+        .pipe(
+          first(),
+          map((response: ApiResponse<TaskData[]>) => {
+            if (
+              !response ||
+              response.status !== ApiResponseStatus.Success ||
+              !response.data
+            ) {
+              this.printError(response);
+              reject(response);
+            } else {
+              resolve(this.mapTasks(response.data));
+            }
+          }),
+        )
+        .subscribe();
+    });
+  }
+
+  private mapTasks(data: TaskData[]): Task[] {
+    return data.map((item) => this.mapTask(item));
+  }
+
+  private mapTask(data: TaskData): Task {
+    return this.taskCreator.create(data);
+  }
+
+  private printError(error: unknown): void {
+    console.error('Error', error);
+  }
+}

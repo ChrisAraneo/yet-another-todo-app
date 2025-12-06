@@ -1,0 +1,11 @@
+<div
+  matTooltipPosition="below"
+  [matTooltip]="'OfflineIndicator.offlineModeHint' | translate"
+  [matTooltipShowDelay]="250">
+  <mat-icon
+    aria-hidden="false"
+    [attr.aria-label]="'OfflineIndicator.offlineModeHint' | translate">
+    wifi_off
+  </mat-icon>
+  <yata-label>{{ 'OfflineIndicator.offlineMode' | translate }}</yata-label>
+</div>

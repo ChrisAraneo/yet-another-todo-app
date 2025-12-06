@@ -1,0 +1,13 @@
+<div>
+  <yata-form-label [for]="label" />
+  <span>
+    <input
+      *yataErrorTooltip="label"
+      pInputText
+      type="text"
+      [disabled]="isDisabled"
+      [(ngModel)]="value"
+      (ngModelChange)="onChange($event)"
+      (blur)="onBlur()" />
+  </span>
+</div>

@@ -1,0 +1,8 @@
+<button
+  mat-button
+  class="navigation-item-button"
+  [disabled]="active"
+  (click)="click($event)">
+  <mat-icon *ngIf="!!icon" class="navigation-item-icon">{{ icon }}</mat-icon>
+  <span *ngIf="!!label">{{ label }}</span>
+</button>

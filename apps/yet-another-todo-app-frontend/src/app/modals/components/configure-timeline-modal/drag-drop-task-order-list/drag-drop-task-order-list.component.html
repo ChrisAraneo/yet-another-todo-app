@@ -1,0 +1,14 @@
+<yata-label class="label">{{
+  'DragDropTaskOrderList.label' | translate
+}}</yata-label>
+<span class="hint">{{ 'DragDropTaskOrderList.hint' | translate }}</span>
+<div
+  cdkDropList
+  class="drag-drop-task-order-list"
+  (cdkDropListDropped)="drop($event)">
+  <mat-card *ngFor="let item of values; let index = index" class="row" cdkDrag>
+    <mat-checkbox [(ngModel)]="checked[index]" (ngModelChange)="emitValues()">{{
+      item | translate
+    }}</mat-checkbox>
+  </mat-card>
+</div>

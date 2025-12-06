@@ -1,0 +1,22 @@
+<p-toolbar>
+  <div class="menu-button-wrapper">
+    <button
+      mat-icon-button
+      [attr.aria-label]="'Toolbar.menuIcon' | translate"
+      (click)="onMenuClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <yata-title [color]="titleColor">{{ title }}</yata-title>
+  <div
+    *ngIf="!isOfflineMode; else offlineMode"
+    class="logged-user-information-wrapper">
+    <yata-logged-user-information [username]="username" />
+    <yata-sign-out-button *ngIf="!isOfflineMode" />
+  </div>
+  <ng-template #offlineMode>
+    <div class="offline-mode-wrapper">
+      <yata-offline-indicator />
+    </div>
+  </ng-template>
+</p-toolbar>
