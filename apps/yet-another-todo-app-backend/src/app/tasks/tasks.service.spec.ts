@@ -76,7 +76,7 @@ describe('TasksService', () => {
             createTask: jest.fn(
               async (username: string, task: Task): Promise<TaskSchema> => {
                 if (
-                  !!DummyData.schemaTasks.find((item) => item.id !== task.id)
+                  DummyData.schemaTasks.find((item) => item.id !== task.id)
                 ) {
                   return {
                     ...task,
