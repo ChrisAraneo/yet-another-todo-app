@@ -1,7 +1,7 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "yet-another-todo-app-common-components",
-  "prefix": "lib",
+  "prefix": "yata",
   "projectType": "library",
   "sourceRoot": "libs/yet-another-todo-app-common-components/src",
   "tags": [],
