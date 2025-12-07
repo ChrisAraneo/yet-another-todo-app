@@ -2,7 +2,7 @@
   [type]="type"
   [disabled]="disabled"
   [class]="'button button-' + variant"
-  (click)="createRipple($event)">
+  (click)="onClick($event)">
   <ng-content></ng-content>
   <span
     *ngFor="let ripple of ripples"

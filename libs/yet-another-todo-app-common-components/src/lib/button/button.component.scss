@@ -1,20 +1,5 @@
 :host {
   display: inline-block;
-
-//   --primary-color: #1976d2;
-//   --primary-hover-color: #1565c0;
-//   --primary-active-color: #0d47a1;
-
-//   --danger-color: #f44336;
-//   --danger-hover-color: #d32f2f;
-//   --danger-active-color: #c62828;
-
-//   --ghost-color: #1976d2;
-//   --ghost-hover-bg: rgba(25, 118, 210, 0.08);
-//   --ghost-active-bg: rgba(25, 118, 210, 0.16);
-
-//   --ripple-color: rgba(255, 255, 255, 0.3);
-//   --disabled-opacity: 0.6;
 }
 
 .button {
@@ -29,56 +14,54 @@
   transition: all 0.3s ease;
   outline: none;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
   width: 128px;
   height: 48px;
+  color: white;
 
   &:focus {
     outline: none;
   }
 
   &.button-primary {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--yata-primary-color-50);
 
     &:hover:not(:disabled) {
-      background-color: var(--primary-hover-color);
+      background-color: var(--yata-primary-color-40);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--primary-active-color);
+      background-color: var(--yata-primary-color-30);
     }
   }
 
   &.button-danger {
-    background-color: var(--danger-color);
-    color: white;
+    background-color: var(--yata-danger-color-50);
 
     &:hover:not(:disabled) {
-      background-color: var(--danger-hover-color);
+      background-color: var(--yata-danger-color-40);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--danger-active-color);
+      background-color: var(--yata-danger-color-30);
     }
   }
 
   &.button-ghost {
     background-color: transparent;
-    color: var(--ghost-color);
-    border: 2px solid var(--ghost-color);
+    color: black;
+    border: 2px solid var(--yata-ghost-color-50);
 
     &:hover:not(:disabled) {
-      background-color: var(--ghost-hover-bg);
+      background-color: var(--yata-ghost-color-40);
     }
 
     &:active:not(:disabled) {
-      background-color: var(--ghost-active-bg);
+      background-color: var(--yata-ghost-color-30);
     }
   }
 
   &:disabled {
-    opacity: var(--disabled-opacity);
+    opacity: var(--yata-disabled-opacity);
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -87,7 +70,7 @@
 .ripple {
   position: absolute;
   border-radius: 50%;
-  background-color: var(--ripple-color);
+  background-color: var(--yata-primary-color-100);
   pointer-events: none;
   z-index: 1;
 }
