@@ -1,6 +1,8 @@
 import nx from '@nx/eslint-plugin';
 import baseConfig from '../../eslint.config.mjs';
 
+const angularElementPrefix = 'yata';
+
 export default [
   ...baseConfig,
   {
@@ -26,7 +28,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: 'lib',
+          prefix: angularElementPrefix,
           style: 'camelCase',
         },
       ],
@@ -34,7 +36,7 @@ export default [
         'error',
         {
           type: 'element',
-          prefix: 'lib',
+          prefix: angularElementPrefix,
           style: 'kebab-case',
         },
       ],
