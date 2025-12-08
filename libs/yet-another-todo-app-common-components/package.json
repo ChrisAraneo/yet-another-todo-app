@@ -2,7 +2,8 @@
   "name": "@chris.araneo/yet-another-todo-app-common-components",
   "peerDependencies": {
     "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/core": "^19.2.0",
+    "@angular/material": "^19.2.18"
   },
   "sideEffects": false,
   "version": "0.0.1"
