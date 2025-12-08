@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   trigger,
@@ -13,11 +13,14 @@ import {
   RIPPLE_ANIMATION_OFFSET_DURATION_MS,
 } from './button.consts';
 import { noop } from 'lodash';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'yata-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SpinnerComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   animations: [
@@ -46,20 +49,33 @@ export class ButtonComponent {
   @Input() variant: 'primary' | 'danger' | 'ghost' = 'primary';
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() click: () => void = noop;
+  @Input() click: (event: unknown) => Promise<void> = () => new Promise(noop);
 
   ripples: Ripple[] = [];
+  isLoading = signal<boolean>(false);
+  showSpinner = toSignal(toObservable(this.isLoading).pipe(debounceTime(150)));
 
   onClick(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.disabled) {
+    if (this.isLoading() || this.disabled) {
       return;
     }
 
     this.createRipple(event);
-    this.click();
+
+    this.isLoading.set(true);
+
+    this.click(event)
+      .then(() => {
+        this.isLoading.set(false);
+      })
+      .catch((error: unknown) => {
+        this.isLoading.set(false);
+
+        throw error;
+      });
   }
 
   private createRipple(event: MouseEvent): void {

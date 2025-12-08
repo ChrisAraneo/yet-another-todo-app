@@ -3,14 +3,20 @@
   [disabled]="disabled"
   [class]="'button button-' + variant"
   (click)="onClick($event)">
-  <ng-content></ng-content>
-  <span
-    *ngFor="let ripple of ripples"
-    class="ripple"
-    [@rippleAnimation]
-    [style.left.px]="ripple.x"
-    [style.top.px]="ripple.y"
-    [style.width.px]="ripple.size"
-    [style.height.px]="ripple.size">
-  </span>
+  <div class="button-content">
+    @if (showSpinner()) {
+      <yata-spinner size="small" color="primary"></yata-spinner>
+    } @else {
+      <ng-content></ng-content>
+      <span
+        *ngFor="let ripple of ripples"
+        class="ripple"
+        [@rippleAnimation]
+        [style.left.px]="ripple.x"
+        [style.top.px]="ripple.y"
+        [style.width.px]="ripple.size"
+        [style.height.px]="ripple.size">
+      </span>
+    }
+  </div>
 </button>

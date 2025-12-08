@@ -5,7 +5,6 @@
 .button {
   position: relative;
   overflow: hidden;
-  padding: 10px 24px;
   border: none;
   border-radius: 4px;
   font-size: 14px;
@@ -14,9 +13,20 @@
   transition: all 0.3s ease;
   outline: none;
   text-transform: uppercase;
-  width: 128px;
+  width: 192px;
   height: 48px;
   color: white;
+  padding: 0;
+  margin: 0;
+
+  .button-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 8px 16px;
+  }
 
   &:focus {
     outline: none;
@@ -47,9 +57,9 @@
   }
 
   &.button-ghost {
-    background-color: transparent;
     color: black;
-    border: 2px solid var(--yata-ghost-color-50);
+    background-color: transparent;
+    border: none;
 
     &:hover:not(:disabled) {
       background-color: var(--yata-ghost-color-40);
