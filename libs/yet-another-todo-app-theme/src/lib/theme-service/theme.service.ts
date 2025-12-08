@@ -23,7 +23,7 @@ export class ThemeService {
   }
 
   setGhostColor(hex: string): void {
-    const colorShades = this.generateRgbaColorShades(hex, 0.5);
+    const colorShades = this.generateRgbaColorShades(hex, 0.2);
     this.setColorCssProperties('ghost', colorShades);
   }
 
@@ -59,7 +59,7 @@ export class ThemeService {
 
   private generateRgbaColorShades(hex: string, alpha = 1): ColorShades {
     const tonalPalette = themeFromSourceColor(argbFromHex(hex)).palettes
-      .primary;
+      .neutral;
     const result: Partial<ColorShades> = {} as ColorShades;
 
     COLOR_SHADES_KEYS.forEach((tone) => {
