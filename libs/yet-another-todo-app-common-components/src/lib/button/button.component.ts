@@ -11,6 +11,7 @@ import { Ripple } from './button.interfaces';
 import {
   RIPPLE_ANIMATION_DURATION_MS,
   RIPPLE_ANIMATION_OFFSET_DURATION_MS,
+  SPINNER_DEBOUNCE_TIME_MS,
 } from './button.consts';
 import { noop } from 'lodash';
 import { SpinnerComponent } from '../spinner/spinner.component';
@@ -53,7 +54,7 @@ export class ButtonComponent {
 
   ripples: Ripple[] = [];
   isLoading = signal<boolean>(false);
-  showSpinner = toSignal(toObservable(this.isLoading).pipe(debounceTime(150)));
+  showSpinner = toSignal(toObservable(this.isLoading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)));
 
   onClick(event: MouseEvent): void {
     event.preventDefault();
