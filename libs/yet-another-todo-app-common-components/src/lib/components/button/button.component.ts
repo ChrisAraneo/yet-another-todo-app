@@ -1,22 +1,16 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  trigger,
-  style,
-  transition,
-  animate,
-  keyframes,
-} from '@angular/animations';
 import { Ripple } from './button.interfaces';
-import {
-  RIPPLE_ANIMATION_DURATION_MS,
-  RIPPLE_ANIMATION_OFFSET_DURATION_MS,
-  SPINNER_DEBOUNCE_TIME_MS,
-} from './button.consts';
+import { SPINNER_DEBOUNCE_TIME_MS } from './button.consts';
 import { noop } from 'lodash';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime } from 'rxjs';
+import {
+  RIPPLE_ANIMATION,
+  RIPPLE_ANIMATION_DURATION_MS,
+  RIPPLE_ANIMATION_OFFSET_DURATION_MS,
+} from '../../animations/ripple.animation';
 
 @Component({
   selector: 'yata-button',
@@ -24,43 +18,25 @@ import { debounceTime } from 'rxjs';
   imports: [CommonModule, SpinnerComponent],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
-  animations: [
-    trigger('rippleAnimation', [
-      transition(':enter', [
-        animate(
-          `${RIPPLE_ANIMATION_DURATION_MS}ms ease-out`,
-          keyframes([
-            style({ transform: 'scale(0)', opacity: 0.2, offset: 0 }),
-            style({
-              transform: 'scale(4)',
-              opacity: 0,
-              offset:
-                (RIPPLE_ANIMATION_DURATION_MS -
-                  RIPPLE_ANIMATION_OFFSET_DURATION_MS) /
-                RIPPLE_ANIMATION_DURATION_MS,
-            }),
-            style({ transform: 'scale(4)', opacity: 0, offset: 1 }),
-          ]),
-        ),
-      ]),
-    ]),
-  ],
+  animations: [RIPPLE_ANIMATION],
 })
 export class ButtonComponent {
-  @Input() variant: 'primary' | 'danger' | 'ghost' = 'primary';
-  @Input() disabled = false;
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() click: (event: unknown) => Promise<void> = () => new Promise(noop);
+  variant = input<'primary' | 'danger' | 'ghost'>('primary');
+  disabled = input<boolean>(false);
+  type = input<'button' | 'submit' | 'reset'>('button');
+  click = input<(event: unknown) => Promise<void>>(() => new Promise(noop));
 
-  ripples: Ripple[] = [];
-  isLoading = signal<boolean>(false);
-  showSpinner = toSignal(toObservable(this.isLoading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)));
+  protected ripples = signal<Ripple[]>([]);
+  protected isLoading = signal<boolean>(false);
+  protected showSpinner = toSignal(
+    toObservable(this.isLoading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)),
+  );
 
   onClick(event: MouseEvent): void {
     event.preventDefault();
     event.stopPropagation();
 
-    if (this.isLoading() || this.disabled) {
+    if (this.isLoading() || this.disabled()) {
       return;
     }
 
@@ -68,7 +44,7 @@ export class ButtonComponent {
 
     this.isLoading.set(true);
 
-    this.click(event)
+    this.click()(event)
       .then(() => {
         this.isLoading.set(false);
       })
@@ -88,10 +64,10 @@ export class ButtonComponent {
 
     const ripple: Ripple = { x, y, size };
 
-    this.ripples.push(ripple);
+    this.ripples.update((ripples) => [...ripples, ripple]);
 
     setTimeout(() => {
-      this.ripples = this.ripples.filter((r) => r !== ripple);
+      this.ripples.update((ripples) => ripples.filter((r) => r !== ripple));
     }, RIPPLE_ANIMATION_DURATION_MS - RIPPLE_ANIMATION_OFFSET_DURATION_MS);
   }
 }
