@@ -1,7 +1,7 @@
 <button
   [type]="type()"
   [disabled]="disabled()"
-  [class]="'button button-' + variant()"
+  [class]="'button'"
   (click)="onClick($event)">
   <div class="button-content">
     @if (showSpinner()) {

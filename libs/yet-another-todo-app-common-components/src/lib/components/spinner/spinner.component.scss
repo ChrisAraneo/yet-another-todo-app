@@ -33,17 +33,17 @@
     border-width: 4px;
   }
 
-  &.spinner-primary {
+  &.variant-primary {
     border-color: var(--spinner-secondary-color) var(--spinner-secondary-color)
       var(--spinner-secondary-color) var(--spinner-primary-color);
   }
 
-  &.spinner-danger {
+  &.variant-danger {
     --spinner-primary-color: var(--yata-danger-color-40);
     --spinner-secondary-color: var(--yata-danger-color-80);
   }
 
-  &.spinner-ghost {
+  &.variant-ghost {
     --spinner-primary-color: var(--yata-ghost-color-40);
     --spinner-secondary-color: var(--yata-ghost-color-80);
   }

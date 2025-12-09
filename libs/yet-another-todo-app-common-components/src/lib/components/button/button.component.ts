@@ -21,7 +21,6 @@ import {
   animations: [RIPPLE_ANIMATION],
 })
 export class ButtonComponent {
-  variant = input<'primary' | 'danger' | 'ghost'>('primary');
   disabled = input<boolean>(false);
   type = input<'button' | 'submit' | 'reset'>('button');
   click = input<(event: unknown) => Promise<void>>(() => new Promise(noop));

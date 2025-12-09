@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { trigger, transition, style, animate } from '@angular/animations';
+import { FADE_IN_ANIMATION } from '../../animations/fade-in.animation';
 
 @Component({
   selector: 'yata-spinner',
@@ -8,16 +8,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
   imports: [CommonModule],
   templateUrl: './spinner.component.html',
   styleUrl: './spinner.component.scss',
-  animations: [
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+  animations: [FADE_IN_ANIMATION],
 })
 export class SpinnerComponent {
-  @Input() size: 'small' | 'medium' | 'large' = 'medium';
-  @Input() color = 'primary';
+  size = input<'small' | 'medium' | 'large'>('medium');
 }

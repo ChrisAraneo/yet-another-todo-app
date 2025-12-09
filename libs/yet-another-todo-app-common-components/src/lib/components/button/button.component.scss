@@ -32,7 +32,7 @@
     outline: none;
   }
 
-  &.button-primary {
+  &.variant-primary {
     background-color: var(--yata-primary-color-50);
 
     &:hover:not(:disabled) {
@@ -44,7 +44,7 @@
     }
   }
 
-  &.button-danger {
+  &.variant-danger {
     background-color: var(--yata-danger-color-50);
 
     &:hover:not(:disabled) {
@@ -56,7 +56,7 @@
     }
   }
 
-  &.button-ghost {
+  &.variant-ghost {
     color: black;
     background-color: transparent;
     border: none;
@@ -75,12 +75,12 @@
     cursor: not-allowed;
     pointer-events: none;
   }
-}
 
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background-color: var(--yata-primary-color-100);
-  pointer-events: none;
-  z-index: 1;
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--yata-primary-color-100);
+    pointer-events: none;
+    z-index: 1;
+  }
 }
