@@ -28,7 +28,7 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: angularElementPrefix,
+          prefix: '*',
           style: 'camelCase',
         },
       ],
