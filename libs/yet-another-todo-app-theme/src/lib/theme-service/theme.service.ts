@@ -27,6 +27,18 @@ export class ThemeService {
     this.setColorCssProperties('ghost', colorShades);
   }
 
+  setLightLinkColor(hex: string): void {
+    document.documentElement.style.setProperty('--yata-light-link-color', hex);
+  }
+
+  setDarkLinkColor(hex: string): void {
+    document.documentElement.style.setProperty('--yata-dark-link-color', hex);
+  }
+
+  setTextColor(hex: string): void {
+    document.documentElement.style.setProperty('--yata-text-color', hex);
+  }
+
   private setColorCssProperties(
     colorName: 'primary' | 'danger' | 'ghost',
     colorShades: ColorShades,
