@@ -21,6 +21,7 @@ import { ToolbarComponent } from './container/components/toolbar/toolbar.compone
 import { SideNavigationComponent } from './side-navigation/components/side-navigation/side-navigation.component';
 import { AppWrapperComponent } from './container/components/app-wrapper/app-wrapper.component';
 import { UNIT, COLUMN_WIDTH } from './shared/styles/theme.__generated';
+import { ThemeService } from '@chris.araneo/yet-another-todo-app-theme';
 
 @Component({
   selector: 'app-root',
@@ -52,8 +53,15 @@ export class AppComponent implements OnDestroy {
     private dateUtilsService: DateUtilsService,
     private userService: UserService,
     private viewConfigurationService: ViewConfigurationService,
-    // private primeNgConfig: PrimeNGConfig, // TODO
+    private themeService: ThemeService,
   ) {
+    this.themeService.setPrimaryColor('#007bff');
+    this.themeService.setDangerColor('#ff002f');
+    this.themeService.setGhostColor('#333333');
+    this.themeService.setDarkLinkColor('#000000');
+    this.themeService.setLightLinkColor('#ffffff');
+    this.themeService.setTextColor('#454545');
+
     this.initializeTranslateService();
     this.initializeIsAppVisibleObservable();
     this.initializeUsernameObservable();
