@@ -11,11 +11,14 @@ import {
   RIPPLE_ANIMATION_DURATION_MS,
   RIPPLE_ANIMATION_OFFSET_DURATION_MS,
 } from '../../animations/ripple.animation';
+import { MatIconModule } from '@angular/material/icon';
+import { VariantDirective } from "../../directives/variant/variant.directive";
+import { VariantClassPipe } from "../../pipes/variant-class/variant-class.pipe";
 
 @Component({
   selector: 'yata-button',
   standalone: true,
-  imports: [CommonModule, SpinnerComponent],
+  imports: [CommonModule, SpinnerComponent, MatIconModule, VariantDirective, VariantClassPipe],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   animations: [RIPPLE_ANIMATION],
@@ -23,6 +26,7 @@ import {
 export class ButtonComponent {
   disabled = input<boolean>(false);
   type = input<'button' | 'submit' | 'reset'>('button');
+  icon = input<string>('');
   click = input<(event: unknown) => Promise<void>>(() => new Promise(noop));
 
   protected ripples = signal<Ripple[]>([]);

@@ -1,11 +1,17 @@
 <button
+  #button
   [type]="type()"
   [disabled]="disabled()"
   [class]="'button'"
   (click)="onClick($event)">
   <div class="button-content">
+    @if (icon() && !showSpinner()) {
+      <div class="icon">
+        <mat-icon aria-hidden="false" [fontIcon]="icon()"></mat-icon>
+      </div>
+    }
     @if (showSpinner()) {
-      <yata-spinner size="small" color="primary"></yata-spinner>
+      <yata-spinner size="small" color="primary" [variant]="button.classList.value | yataVariantClass"></yata-spinner>
     } @else {
       <ng-content></ng-content>
     }

@@ -1,25 +1,40 @@
 import { Directive, effect, input, Renderer2, ElementRef } from '@angular/core';
+import { Variant, VARIANTS } from '../../types/variant.type';
 
 @Directive({
-  selector: 'yata-button[yataVariant], yata-spinner[yataVariant]',
+  selector: 'yata-button[variant], yata-spinner[variant]',
   standalone: true,
 })
 export class VariantDirective {
-  yataVariant = input.required<'primary' | 'danger' | 'ghost'>();
+  variant = input<Variant>();
 
   constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
+    private elementRef: ElementRef<HTMLElement>,
+    private renderer: Renderer2,
   ) {
     effect(() => {
-      const variant = this.yataVariant();
-      const firstChild = this.elementRef.nativeElement.children[0];
-      
-      ['primary', 'danger', 'ghost'].forEach(v => {
-        this.renderer.removeClass(firstChild, `variant-${v}`);
+      const variant = this.variant();
+
+      if (!variant) {
+        return;
+      }
+
+      const host = this.elementRef.nativeElement;
+      const children = Array.from(host.children) as HTMLElement[];
+
+      if (!children?.[0]) {
+        return;
+      }
+
+      children.forEach((child) => {
+        VARIANTS.forEach((item) => {
+          if (item !== variant) {
+            this.renderer.removeClass(child, `variant-${item}`);
+          }
+
+          this.renderer.addClass(child, `variant-${variant}`);
+        });
       });
-      
-      this.renderer.addClass(firstChild, `variant-${variant}`);
     });
   }
 }
