@@ -3,7 +3,7 @@
 
   --spinner-primary-color: var(--yata-primary-color-40);
   --spinner-secondary-color: var(--yata-primary-color-90);
-  --spinner-size-small: 18px;
+  --spinner-size-small: 24px;
   --spinner-size-medium: 32px;
   --spinner-size-large: 48px;
 }
@@ -18,19 +18,19 @@
   &.spinner-small {
     width: var(--spinner-size-small);
     height: var(--spinner-size-small);
-    border-width: 2px;
+    border-width: 3px;
   }
 
   &.spinner-medium {
     width: var(--spinner-size-medium);
     height: var(--spinner-size-medium);
-    border-width: 3px;
+    border-width: 4px;
   }
 
   &.spinner-large {
     width: var(--spinner-size-large);
     height: var(--spinner-size-large);
-    border-width: 4px;
+    border-width: 5px;
   }
 
   &.variant-primary {
