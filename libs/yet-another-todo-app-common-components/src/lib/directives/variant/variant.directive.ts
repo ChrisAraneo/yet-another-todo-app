@@ -30,9 +30,9 @@ export class VariantDirective {
         VARIANTS.forEach((item) => {
           if (item !== variant) {
             this.renderer.removeClass(child, `variant-${item}`);
+          } else {
+            this.renderer.addClass(child, `variant-${variant}`);
           }
-
-          this.renderer.addClass(child, `variant-${variant}`);
         });
       });
     });
