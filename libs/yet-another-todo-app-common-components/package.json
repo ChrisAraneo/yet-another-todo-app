@@ -1,10 +1,13 @@
 {
   "name": "@chris.araneo/yet-another-todo-app-common-components",
+  "version": "0.0.1",
+  "sideEffects": false,
   "peerDependencies": {
+    "@angular/animations": "^19.2.14",
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
-    "@angular/material": "^19.2.18"
-  },
-  "sideEffects": false,
-  "version": "0.0.1"
+    "@angular/material": "^19.2.18",
+    "lodash": "^4.17.21",
+    "rxjs": "~7.8.0"
+  }
 }
