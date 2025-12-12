@@ -28,7 +28,6 @@ export default [
         'error',
         {
           type: 'attribute',
-          prefix: '*',
           style: 'camelCase',
         },
       ],
