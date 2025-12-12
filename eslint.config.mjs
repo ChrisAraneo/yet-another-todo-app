@@ -33,6 +33,8 @@ const ignored = [
   'reports/',
   'package.json',
   'package-lock.json',
+  'apps/**/package.json',
+  'libs/**/package.json',
   '.nx/',
 ];
 
