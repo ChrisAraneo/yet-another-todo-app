@@ -11,7 +11,10 @@
       </div>
     }
     @if (showSpinner()) {
-      <yata-spinner size="small" color="primary" [variant]="button.classList.value | yataVariantClass"></yata-spinner>
+      <yata-spinner
+        size="small"
+        color="primary"
+        [variant]="button.classList.value | yataVariantClass"></yata-spinner>
     } @else {
       <ng-content></ng-content>
     }
