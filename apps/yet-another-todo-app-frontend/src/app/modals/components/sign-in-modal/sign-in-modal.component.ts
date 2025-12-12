@@ -26,11 +26,16 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 import { ModalActionButtonsComponent } from '../modal-action-buttons/modal-action-buttons.component';
 import { PageComponent } from '../page/page.component';
 import { SignInForm } from './sign-in-modal.types';
+import {
+  ButtonComponent,
+  VariantDirective,
+} from '@chris.araneo/yet-another-todo-app-common-components';
 
 @Component({
   selector: 'yata-sign-in-modal',
   standalone: true,
   imports: [
+    ButtonComponent,
     FormsModule,
     LogoComponent,
     ModalActionButtonsComponent,
@@ -40,6 +45,7 @@ import { SignInForm } from './sign-in-modal.types';
     TextInputComponent,
     TitleComponent,
     TranslatePipe,
+    VariantDirective,
   ],
   templateUrl: './sign-in-modal.component.html',
   styleUrl: './sign-in-modal.component.scss',
@@ -93,7 +99,7 @@ export class SignInModalComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription && this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   submit = async (): Promise<void> =>
