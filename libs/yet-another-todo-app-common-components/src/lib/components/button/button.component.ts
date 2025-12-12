@@ -12,13 +12,19 @@ import {
   RIPPLE_ANIMATION_OFFSET_DURATION_MS,
 } from '../../animations/ripple.animation';
 import { MatIconModule } from '@angular/material/icon';
-import { VariantDirective } from "../../directives/variant/variant.directive";
-import { VariantClassPipe } from "../../pipes/variant-class/variant-class.pipe";
+import { VariantDirective } from '../../directives/variant/variant.directive';
+import { VariantClassPipe } from '../../pipes/variant-class/variant-class.pipe';
 
 @Component({
   selector: 'yata-button',
   standalone: true,
-  imports: [CommonModule, SpinnerComponent, MatIconModule, VariantDirective, VariantClassPipe],
+  imports: [
+    CommonModule,
+    SpinnerComponent,
+    MatIconModule,
+    VariantDirective,
+    VariantClassPipe,
+  ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
   animations: [RIPPLE_ANIMATION],
