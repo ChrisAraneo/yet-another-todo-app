@@ -22,6 +22,15 @@
       },
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"]
     },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "sort-package-json && prettier --config ../../.prettierrc.json --write **/*.json **/*.{ts,html,scss}"
+        ],
+        "cwd": "libs/yet-another-todo-app-common-components"
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     },
