@@ -104,6 +104,7 @@ export class SignInModalComponent implements OnDestroy {
 
   submit = async (): Promise<void> =>
     new Promise((resolve, reject) => {
+      console.log('Submitting sign in form');
       if (!this.form || this.form.invalid) {
         reject();
 
@@ -120,7 +121,7 @@ export class SignInModalComponent implements OnDestroy {
         });
     });
 
-  cancel = (): void => {
+  cancel = async (): Promise<void> => {
     this.authService.signOut();
     this.dialogReference.close();
   };

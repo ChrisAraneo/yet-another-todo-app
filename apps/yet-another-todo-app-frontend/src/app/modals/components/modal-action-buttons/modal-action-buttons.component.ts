@@ -1,27 +1,25 @@
-import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { BackButtonComponent } from '../../../forms/components/back-button/back-button.component';
-import { NextButtonComponent } from '../../../forms/components/next-button/next-button.component';
-import { SubmitButtonComponent } from '../../../forms/components/submit-button/submit-button.component';
 import { NOOP } from '../../../shared/utils/noop.const';
 import {
   BackButton,
   NextButton,
   SubmitButton,
 } from './modal-action-buttons.types';
+import {
+  ButtonComponent,
+  VariantDirective,
+} from '@chris.araneo/yet-another-todo-app-common-components';
 
 @Component({
   selector: 'yata-modal-action-buttons',
   standalone: true,
   imports: [
-    BackButtonComponent,
-    NextButtonComponent,
-    NgIf,
-    SubmitButtonComponent,
+    ButtonComponent,
     TranslatePipe,
+    VariantDirective,
   ],
   templateUrl: './modal-action-buttons.component.html',
   styleUrl: './modal-action-buttons.component.scss',
