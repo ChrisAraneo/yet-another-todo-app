@@ -1,10 +1,10 @@
 @use 'sass:map';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;
   margin: 0;
-  padding: $_32unit;
+  padding: $unit32;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -20,13 +20,13 @@
 
 .border {
   position: absolute;
-  top: $_32unit - $_1unit;
-  left: $_32unit;
+  top: $unit32 - $unit1;
+  left: $unit32;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: calc(100% - $_64unit);
-  height: calc(100vh - $_64unit + $_2unit);
+  width: calc(100% - $unit64);
+  height: calc(100vh - $unit64 + $unit2);
   border-image: linear-gradient(
       map.get($yata-palette-primary, 800) 0%,
       map.get($yata-palette-primary, 800) 25%,
@@ -43,9 +43,9 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  padding: $_1unit;
+  padding: $unit1;
   width: 100%;
-  height: calc(100vh - $_64unit + $_2unit);
+  height: calc(100vh - $unit64 + $unit2);
   background-color: transparent;
   z-index: 3;
 }

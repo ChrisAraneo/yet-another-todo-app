@@ -1,12 +1,11 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 span {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   padding: 0;
   margin: 0;
-  font-size: $_12unit;
-  line-height: $_12unit;
+  font-size: $unit12;
+  line-height: $unit12;
   font-weight: 400;
   background-color: transparent;
   text-transform: uppercase;

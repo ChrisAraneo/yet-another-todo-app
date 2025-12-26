@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .configure-timeline-modal .mat-mdc-dialog-container {
   > div {
@@ -20,13 +19,13 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: $_24unit;
+    padding: $unit24;
   }
 
   .modal-title {
     h1 {
       border-bottom: $border;
-      padding: $_24unit $_32unit;
+      padding: $unit24 $unit32;
       font-weight: 500;
       text-align: center;
     }
@@ -37,6 +36,6 @@
   yata-select,
   yata-date-picker,
   yata-drag-drop-task-order-list {
-    margin-bottom: $_16unit;
+    margin-bottom: $unit16;
   }
 }

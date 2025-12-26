@@ -1,10 +1,9 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
-$paginator-height: $_64unit;
-$grid-header-height: $_64unit;
+$paginator-height: $unit64;
+$grid-header-height: $unit64;
 $grid-table-height: calc(
-  100vh - $_128unit - $_32unit - $paginator-height - $grid-header-height
+  100vh - $128unit - $unit32 - $paginator-height - $grid-header-height
 );
 
 :host {
@@ -39,9 +38,9 @@ $grid-table-height: calc(
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    height: $_64unit;
-    padding-left: $_16unit;
-    padding-right: $_16unit;
+    height: $unit64;
+    padding-left: $unit16;
+    padding-right: $unit16;
     border: $border;
     border-top: none;
     border-left: none;
@@ -61,9 +60,9 @@ $grid-table-height: calc(
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    height: $_64unit;
-    padding-left: $_16unit;
-    padding-right: $_16unit;
+    height: $unit64;
+    padding-left: $unit16;
+    padding-right: $unit16;
     border: $border;
     border-top: none;
     border-left: none;
@@ -80,9 +79,9 @@ $grid-table-height: calc(
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  height: $_64unit;
-  padding-left: $_16unit;
-  padding-right: $_16unit;
+  height: $unit64;
+  padding-left: $unit16;
+  padding-right: $unit16;
   box-sizing: border-box;
   border: $border;
   border-left-color: transparent;

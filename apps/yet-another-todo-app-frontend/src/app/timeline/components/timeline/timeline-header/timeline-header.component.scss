@@ -1,9 +1,9 @@
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;
   width: $column-width;
-  height: $_64unit;
+  height: $unit64;
   display: flex;
   flex-direction: column;
   justify-content: center;

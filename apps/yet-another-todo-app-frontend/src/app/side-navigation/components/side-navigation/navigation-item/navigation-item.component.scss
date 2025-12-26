@@ -1,19 +1,19 @@
 @use 'sass:map';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss';
 
 :host {
   box-sizing: border-box;
   width: 100%;
-  height: $_64unit;
+  height: $unit64;
 
   .mdc-button {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    padding: 0 $_24unit;
+    padding: 0 $unit24;
     margin: 0;
     width: 100%;
-    height: $_64unit;
+    height: $unit64;
     border-radius: 0;
     text-align: left;
     background-color: $background-color;
@@ -41,9 +41,9 @@
     flex-direction: column;
     justify-content: center;
     justify-items: center;
-    margin-right: $_16unit;
-    font-size: $_24unit;
-    height: $_24unit;
+    margin-right: $unit16;
+    font-size: $unit24;
+    height: $unit24;
     width: auto;
   }
 
@@ -51,7 +51,7 @@
   .navigation-activated-item > span {
     display: block;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: $_14unit !important;
+    font-size: $unit14 !important;
     font-weight: 400;
     letter-spacing: 1px !important;
   }

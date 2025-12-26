@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .card {
   box-sizing: border-box;
@@ -13,14 +13,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: $_8unit;
-  padding: $_2unit $_2unit;
+  margin-bottom: $unit8;
+  padding: $unit2 $unit2;
 }
 
 .header {
   display: block;
-  margin-bottom: $_12unit;
-  padding: $_16unit;
+  margin-bottom: $unit12;
+  padding: $unit16;
 
   yata-title {
     width: 100%;
@@ -45,30 +45,30 @@
 
   ::ng-deep yata-label {
     span {
-      font-size: $_12unit !important; // TODO Customization with input
-      line-height: $_20unit !important; // TODO Customization with input
+      font-size: $unit12 !important; // TODO Customization with input
+      line-height: $unit20 !important; // TODO Customization with input
     }
   }
 }
 
 .margin-right {
-  margin-right: $_4unit;
+  margin-right: $unit4;
 }
 
 .description {
   justify-content: center;
-  padding: $_14unit;
-  margin-bottom: $_32unit;
+  padding: $unit14;
+  margin-bottom: $unit32;
 }
 
 .dates {
-  padding: $_14unit;
+  padding: $unit14;
 
   .mat-icon {
-    font-size: $_20unit;
-    width: $_20unit;
-    height: $_20unit;
-    margin-right: $_8unit;
+    font-size: $unit20;
+    width: $unit20;
+    height: $unit20;
+    margin-right: $unit8;
   }
 
   div {
@@ -83,15 +83,15 @@
 .mat-mdc-icon-button {
   padding: 0;
   min-width: 0;
-  width: $_32unit;
-  height: $_32unit;
+  width: $unit32;
+  height: $unit32;
   flex-shrink: 0;
-  line-height: $_24unit;
+  line-height: $unit24;
   border-radius: 50%;
 }
 
 yata-task-state-icon {
-  width: $_24unit;
-  height: $_24unit;
-  margin: $_12unit;
+  width: $unit24;
+  height: $unit24;
+  margin: $unit12;
 }

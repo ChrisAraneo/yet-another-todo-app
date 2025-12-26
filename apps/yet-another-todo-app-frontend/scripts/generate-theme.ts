@@ -91,16 +91,16 @@ ${mapColorPaletteToScssMap(gray, 'gray')}
 `;
 
   let units = `
-$_64unit: ${unit}px;\n\n$_1unit: ${unit / 64}px;`;
+$unit64: ${unit}px;\n\n$unit1: ${unit / 64}px;`;
 
   for (let i = 2; i <= 48; i += 2) {
-    units += `\n$_${i}unit: ${i}px;`;
+    units += `\n$unit${i}: ${i}px;`;
   }
 
-  units += `\n\n$_128unit: $_64unit * 2;
-$_160unit: $_128unit + $_32unit;
-$_192unit: $_64unit * 3;
-$_256unit: $_64unit * 4;
+  units += `\n\n$unit128: $unit64 * 2;
+$unit160: $unit128 + $unit32;
+$unit192: $unit64 * 3;
+$unit256: $unit64 * 4;
 `;
 
   const tsConsts = `${disclaimer}
@@ -131,35 +131,29 @@ export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
   writeFile(`${stylesPath}/theme.__generated.ts`, tsConsts);
 
   const colors = `
-@use "sass:map";
-@use "sass:math";
-
-@forward "sass:map";
-@forward "sass:math";
-
 ${units}
 ${palettes}
 
 // GENERAL COLORS
-$background-color: map.get($yata-palette-gray, 50);
-$border-color: map.get($yata-palette-gray, 200);
-$primary-color: map.get($yata-palette-primary, 600);
-$secondary-color: map.get($yata-palette-secondary, 600);
+$background-color: ${hslToHex(get(gray, 50))};
+$border-color: ${hslToHex(get(gray, 200))};
+$primary-color: ${hslToHex(get(primary, 600))};
+$secondary-color: ${hslToHex(get(secondary, 600))};
 $success-color: ${successColor};
-$danger-color: map.get($yata-palette-red, 600);
+$danger-color: ${hslToHex(get(red, 600))};
 $warning-color: ${warningColor};
-$disabled-color: map.get($yata-palette-gray, 400);
+$disabled-color: ${hslToHex(get(gray, 400))};
 
 // TEXT COLORS
-$title-text-color: map.get($yata-palette-gray, 900);
-$subtitle-text-color: map.get($yata-palette-gray, 700);
-$label-text-color: map.get($yata-palette-gray, 600);
-$standard-text-color: map.get($yata-palette-gray, 800);
+$title-text-color: ${hslToHex(get(gray, 900))};
+$subtitle-text-color: ${hslToHex(get(gray, 700))};
+$label-text-color: ${hslToHex(get(gray, 600))};
+$standard-text-color: ${hslToHex(get(gray, 800))};
 
 // FORM COLORS
-$form-label-color: map.get($yata-palette-gray, 600);
+$form-label-color: ${hslToHex(get(gray, 600))};
 $form-input-text-color: $standard-text-color;
-$form-input-border-color: map.get($yata-palette-gray, 400);
+$form-input-border-color: ${hslToHex(get(gray, 400))};
 $form-input-focus-border-color: $primary-color;
 
 `;
@@ -172,19 +166,19 @@ $border: 1px solid $border-color;
 $border-radius: ${borderRadius};
 
 // TIMELINE
-$column-width: $_64unit * ${columnWidthInUnits};
+$column-width: $unit64 * ${columnWidthInUnits};
 
 // MODALS & DIALOG WINDOWS
-$dialog-width: $_64unit * ${modals.widthInUnits};
-$dialog-height: $_64unit * ${modals.heightInUnits};
+$dialog-width: $unit64 * ${modals.widthInUnits};
+$dialog-height: $unit64 * ${modals.heightInUnits};
 $dialog-border-radius: ${modals.borderRadius};
 
 // FORMS
-$form-input-border-radius: $_6unit;
+$form-input-border-radius: $unit6;
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-focus-border: 1px solid $form-input-focus-border-color;
 $form-input-background: darken($background-color, 0.7%) !important;
-$form-input-focus-background: rgba(map.get($yata-palette-primary, 50), 0.33) !important;
+$form-input-focus-background: rgba(${hslToHex(get(primary, 50))}, 0.33) !important;
 
 `;
 

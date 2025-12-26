@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 .select-import-action-modal .mat-mdc-dialog-container {
   > div {
@@ -40,17 +39,17 @@
     height: 100%;
 
     .controls {
-      width: $_48unit * 10;
+      width: $unit48 * 10;
       height: auto;
 
       yata-page {
         position: absolute;
-        width: $_48unit * 10;
+        width: $unit48 * 10;
 
         .mat-mdc-radio-group {
           .mat-mdc-radio-button {
             .mdc-form-field {
-              margin-bottom: $_16unit !important;
+              margin-bottom: $unit16 !important;
             }
           }
         }

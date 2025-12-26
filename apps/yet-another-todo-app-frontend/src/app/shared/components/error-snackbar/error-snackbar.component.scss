@@ -1,6 +1,6 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 p {
-  margin-top: $_16unit;
+  margin-top: $unit16;
   font-family: monospace;
 }

@@ -1,12 +1,12 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .actions {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin: 0;
-  padding: $_16unit;
-  gap: $_8unit;
+  padding: $unit16;
+  gap: $unit8;
 }
 
 .first-step {

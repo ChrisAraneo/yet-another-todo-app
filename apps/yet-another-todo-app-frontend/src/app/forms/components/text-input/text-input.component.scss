@@ -1,21 +1,20 @@
 @use 'sass:map';
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
-$box-shadow-radius: $_4unit;
+$box-shadow-radius: $unit4;
 
 .p-inputtext {
   box-sizing: border-box;
   width: 100%;
-  padding: $_10unit;
-  font-size: $_16unit;
+  padding: $unit10;
+  font-size: $unit16;
   border: $form-input-border;
   border-color: $form-input-border-color !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
   color: $form-input-text-color;
   margin: 0;
-  margin-top: $_6unit;
+  margin-top: $unit6;
   outline: none;
 
   &:focus {

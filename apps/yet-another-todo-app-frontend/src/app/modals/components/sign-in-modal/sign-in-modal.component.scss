@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .sign-in-modal .mat-mdc-dialog-container {
   > div {
@@ -40,11 +39,11 @@
   }
 
   .app-title {
-    margin-top: $_40unit;
-    margin-bottom: $_32unit;
+    margin-top: $unit40;
+    margin-bottom: $unit32;
 
     h1 {
-      padding: $_24unit $_32unit;
+      padding: $unit24 $unit32;
       font-weight: 500;
       text-align: center;
     }
@@ -57,16 +56,16 @@
     height: 100%;
 
     .controls {
-      width: $_48unit * 10;
+      width: $unit48 * 10;
       height: auto;
 
       yata-page {
         position: absolute;
-        width: $_48unit * 10;
+        width: $unit48 * 10;
 
         yata-text-input,
         yata-password-input {
-          margin-bottom: $_16unit !important;
+          margin-bottom: $unit16 !important;
         }
       }
     }
@@ -77,6 +76,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-right: $_16unit;
+    margin-right: $unit16;
   }
 }

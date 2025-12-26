@@ -1,12 +1,11 @@
 @use 'sass:map';
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
-$table-cell-size: $_26unit;
-$box-shadow-radius: $_4unit;
+$table-cell-size: $unit26;
+$box-shadow-radius: $unit4;
 
 .calendar-wrapper {
-  margin-top: $_8unit !important;
+  margin-top: $unit8 !important;
 }
 
 ::ng-deep p-calendar {
@@ -25,7 +24,7 @@ $box-shadow-radius: $_4unit;
   }
 
   .p-datepicker-calendar-container {
-    padding: $_16unit $_8unit;
+    padding: $unit16 $unit8;
   }
 
   .p-datepicker-group {
@@ -39,13 +38,13 @@ $box-shadow-radius: $_4unit;
 
   .p-datepicker-header {
     background-color: transparent;
-    padding: $_8unit $_8unit;
+    padding: $unit8 $unit8;
     border-bottom-color: $border-color;
   }
 
   .p-datepicker-month,
   .p-datepicker-year {
-    padding: $_4unit;
+    padding: $unit4;
   }
 
   .p-datepicker-month:hover,
@@ -55,8 +54,8 @@ $box-shadow-radius: $_4unit;
 
   .p-datepicker table th {
     width: $table-cell-size;
-    height: $table-cell-size + $_4unit;
-    margin-top: $_10unit;
+    height: $table-cell-size + $unit4;
+    margin-top: $unit10;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -75,12 +74,12 @@ $box-shadow-radius: $_4unit;
 
     th {
       span {
-        font-size: $_14unit;
+        font-size: $unit14;
       }
     }
 
     td {
-      margin-bottom: $_4unit;
+      margin-bottom: $unit4;
       width: $table-cell-size;
       height: $table-cell-size;
       display: flex;
@@ -91,7 +90,7 @@ $box-shadow-radius: $_4unit;
       span {
         width: $table-cell-size;
         height: $table-cell-size;
-        font-size: $_14unit;
+        font-size: $unit14;
       }
     }
   }
@@ -100,29 +99,29 @@ $box-shadow-radius: $_4unit;
     background-color: $form-input-background;
     display: flex;
     flex-wrap: wrap;
-    padding: $_14unit;
+    padding: $unit14;
   }
 
   .p-monthpicker-month {
-    flex: 1 0 calc(33.3333% - $_8unit);
-    max-width: calc(33.3333% - $_8unit);
-    font-size: $_14unit;
+    flex: 1 0 calc(33.3333% - $unit8);
+    max-width: calc(33.3333% - $unit8);
+    font-size: $unit14;
     height: $table-cell-size;
-    margin: $_4unit;
+    margin: $unit4;
   }
 
   .p-yearpicker {
     background-color: $form-input-background;
     display: flex;
     flex-wrap: wrap;
-    padding: $_14unit;
+    padding: $unit14;
   }
 
   .p-yearpicker-year {
-    flex: 1 0 calc(33.3333% - $_8unit);
-    max-width: calc(33.3333% - $_8unit);
-    font-size: $_14unit;
+    flex: 1 0 calc(33.3333% - $unit8);
+    max-width: calc(33.3333% - $unit8);
+    font-size: $unit14;
     height: $table-cell-size;
-    margin: $_4unit;
+    margin: $unit4;
   }
 }

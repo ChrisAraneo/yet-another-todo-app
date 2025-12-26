@@ -1,27 +1,26 @@
 @use 'sass:map';
-@use 'sass:math';
-@import '../../../../../shared/styles/variables.__generated.scss';
+@use '../../../../../shared/styles/variables.__generated.scss' as *;
 
-$box-shadow-radius: $_4unit;
+$box-shadow-radius: $unit4;
 
 .p-inputtext {
   box-sizing: border-box;
   width: 100%;
-  padding: $_10unit;
-  font-size: $_16unit;
+  padding: $unit10;
+  font-size: $unit16;
   border: $form-input-border;
   border-color: $form-input-border-color !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
   color: $form-input-text-color;
   margin: 0;
-  margin-top: $_6unit;
+  margin-top: $unit6;
   outline: none;
   background: url('../../../../../../../public/images/expand_more_FILL0_wght400_GRAD0_opsz24.svg')
     no-repeat // TODO Animate
     right #ddd;
   -webkit-appearance: none;
-  background-position-x: calc(100% - $_64unit / 8);
+  background-position-x: calc(100% - $unit64 / 8);
 
   &:focus {
     border-color: $form-input-focus-border-color !important;
@@ -67,13 +66,13 @@ $box-shadow-radius: $_4unit;
   box-sizing: border-box;
   position: fixed;
   z-index: 99999 !important;
-  height: 2 * $_64unit;
+  height: 2 * $unit64;
   overflow-x: auto;
   overflow-y: scroll;
   margin: 0;
-  margin-top: -2 * $_64unit - $_32unit - $_12unit;
+  margin-top: -2 * $unit64 - $unit32 - $unit12;
   padding: 0;
-  font-size: $_16unit;
+  font-size: $unit16;
   border: $form-input-border;
   border-color: $form-input-border-color !important;
   background-color: $form-input-background;
@@ -94,7 +93,7 @@ $box-shadow-radius: $_4unit;
   }
 
   .dropdown-item {
-    padding: $_10unit;
+    padding: $unit10;
     background-color: transparent;
     border: none;
     color: $form-input-text-color;

@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;
@@ -21,14 +21,14 @@
   top: 0;
   display: flex;
   z-index: 999;
-  padding-left: $_64unit;
+  padding-left: $unit64;
   background-color: $background-color;
 }
 
 .timeline-header-button {
   position: absolute;
-  width: $_64unit;
-  min-width: $_64unit;
+  width: $unit64;
+  min-width: $unit64;
   z-index: 1000;
 }
 
@@ -36,7 +36,7 @@
   background-color: $background-color;
 
   &:last-of-type {
-    padding-right: $_64unit;
+    padding-right: $unit64;
   }
 }
 
@@ -52,16 +52,16 @@ yata-dates-filter {
   box-sizing: border-box;
   border-right: $border;
   border-left: $border;
-  margin-left: $_64unit;
+  margin-left: $unit64;
 }
 
 yata-timeline-header {
   min-width: $column-width;
-  height: $_64unit;
+  height: $unit64;
   border-bottom: $border;
 }
 
 yata-timeline-content {
-  margin-left: $_64unit;
-  min-height: calc(100% - $_64unit);
+  margin-left: $unit64;
+  min-height: calc(100% - $unit64);
 }

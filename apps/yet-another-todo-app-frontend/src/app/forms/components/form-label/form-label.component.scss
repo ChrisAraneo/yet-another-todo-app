@@ -1,15 +1,14 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 label {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-size: $_14unit;
+  font-size: $unit14;
   font-weight: 400;
   color: $form-label-color;
   text-transform: uppercase;
   display: block;
-  padding: 0 $_2unit;
-  margin: $_6unit 0 0 0;
+  padding: 0 $unit2;
+  margin: $unit6 0 0 0;
   background-color: transparent;
   opacity: 1;
 }

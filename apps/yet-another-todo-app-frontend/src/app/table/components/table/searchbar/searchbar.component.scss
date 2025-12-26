@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 form {
   display: flex;
@@ -10,8 +9,8 @@ input,
 input:focus {
   box-sizing: border-box;
   width: 100%;
-  padding: $_6unit $_6unit;
-  font-size: $_14unit;
+  padding: $unit6 $unit6;
+  font-size: $unit14;
   border-radius: 0 $form-input-border-radius $form-input-border-radius 0;
   outline: none;
   margin: 0;
@@ -31,12 +30,12 @@ input:focus {
 }
 
 .seachbar-icon {
-  padding: $_6unit $_6unit;
+  padding: $unit6 $unit6;
   border: $form-input-border;
   border-right-width: 0px !important;
   border-radius: $form-input-border-radius 0 0 $form-input-border-radius;
   background-color: $form-input-background;
-  height: $_32unit;
+  height: $unit32;
 }
 
 .is-focused {

@@ -1,4 +1,4 @@
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   position: sticky;

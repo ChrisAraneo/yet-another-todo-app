@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .empty-dialog .mat-mdc-dialog-container {
   > div {
@@ -33,7 +32,7 @@
     }
 
     .content {
-      max-height: $dialog-height - $_48unit - $_32unit;
+      max-height: $dialog-height - $unit48 - $unit32;
       height: 100%;
       display: flex;
       flex-direction: column;

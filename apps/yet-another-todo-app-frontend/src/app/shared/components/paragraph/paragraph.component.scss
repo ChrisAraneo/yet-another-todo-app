@@ -1,9 +1,9 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 p {
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 400;
-  font-size: $_14unit;
+  font-size: $unit14;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

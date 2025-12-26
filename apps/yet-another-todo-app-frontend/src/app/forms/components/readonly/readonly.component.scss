@@ -1,18 +1,17 @@
 @use 'sass:map';
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .readonly {
   display: block;
   box-sizing: border-box;
   width: 100%;
-  padding: $_10unit;
-  font-size: $_16unit;
+  padding: $unit10;
+  font-size: $unit16;
   border: $form-input-border;
   border-color: map.get($yata-palette-gray, 100) !important;
   background-color: $form-input-background;
   border-radius: $form-input-border-radius;
   color: $form-input-text-color;
-  margin: $_6unit 0;
+  margin: $unit6 0;
   outline: none;
 }

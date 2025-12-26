@@ -1,10 +1,9 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 span {
   font-family: 'Gentium Plus', sans-serif;
-  font-size: $_18unit;
-  line-height: $_20unit;
+  font-size: $unit18;
+  line-height: $unit20;
   font-weight: 500;
   color: $subtitle-text-color;
 }

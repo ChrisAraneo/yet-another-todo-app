@@ -1,10 +1,9 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;
   border-top: $border;
-  padding: $_6unit $_8unit;
+  padding: $unit6 $unit8;
   margin: 0;
   background-color: $background-color;
 
@@ -12,7 +11,7 @@
   a {
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     font-weight: 400;
-    font-size: $_12unit;
+    font-size: $unit12;
     color: $label-text-color;
   }
 }

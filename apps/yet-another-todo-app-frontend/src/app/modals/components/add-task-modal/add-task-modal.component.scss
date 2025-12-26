@@ -1,5 +1,4 @@
-@use 'sass:math';
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .add-task-modal .mat-mdc-dialog-container {
   > div {
@@ -40,12 +39,12 @@
     height: 100%;
 
     .controls {
-      width: $_48unit * 10;
+      width: $unit48 * 10;
       height: auto;
 
       yata-page {
         position: absolute;
-        width: $_48unit * 10;
+        width: $unit48 * 10;
 
         yata-text-input,
         yata-textarea,
@@ -53,7 +52,7 @@
         yata-date-picker,
         yata-time-picker,
         yata-readonly {
-          margin-bottom: $_16unit !important;
+          margin-bottom: $unit16 !important;
         }
       }
     }
@@ -66,11 +65,11 @@
     align-items: center;
 
     yata-subtitle {
-      margin-bottom: $_18unit;
+      margin-bottom: $unit18;
     }
 
     .task-card-wrapper {
-      width: calc($column-width - $_16unit);
+      width: calc($column-width - $unit16);
     }
   }
 }

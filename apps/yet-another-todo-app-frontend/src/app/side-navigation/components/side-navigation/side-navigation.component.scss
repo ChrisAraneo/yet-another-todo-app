@@ -1,4 +1,4 @@
-@import '../../../shared/styles/variables.__generated.scss';
+@use '../../../shared/styles/variables.__generated.scss' as *;
 
 .side-navigation-animated-wrapper {
   overflow: hidden;
@@ -11,7 +11,7 @@
 
 .side-navigation-content {
   box-sizing: border-box;
-  width: $_64unit * 4;
+  width: $unit64 * 4;
   height: 100%;
   padding: 0;
 }

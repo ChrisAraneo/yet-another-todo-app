@@ -1,6 +1,5 @@
 @use 'sass:map';
-@use 'sass:math';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   display: flex;
@@ -24,9 +23,9 @@
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     padding: 0;
     margin: 0;
-    margin-top: $_4unit;
-    font-size: $_14unit;
-    line-height: $_14unit;
+    margin-top: $unit4;
+    font-size: $unit14;
+    line-height: $unit14;
     font-weight: 400;
     opacity: 1;
     color: $background-color;
@@ -35,6 +34,6 @@
   }
 
   yata-label {
-    line-height: $_14unit;
+    line-height: $unit14;
   }
 }

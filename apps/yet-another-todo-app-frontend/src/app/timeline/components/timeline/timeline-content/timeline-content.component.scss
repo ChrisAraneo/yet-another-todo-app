@@ -1,4 +1,4 @@
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 :host {
   box-sizing: border-box;
@@ -8,8 +8,8 @@
 
 yata-task-card {
   position: relative;
-  width: calc($column-width - $_16unit);
-  margin: $_8unit;
+  width: calc($column-width - $unit16);
+  margin: $unit8;
 }
 
 .column {
@@ -18,7 +18,7 @@ yata-task-card {
   min-width: $column-width;
   width: $column-width;
   min-height: 100%;
-  padding-left: $_8unit;
-  padding-right: $_8unit;
+  padding-left: $unit8;
+  padding-right: $unit8;
   background-color: transparent;
 }

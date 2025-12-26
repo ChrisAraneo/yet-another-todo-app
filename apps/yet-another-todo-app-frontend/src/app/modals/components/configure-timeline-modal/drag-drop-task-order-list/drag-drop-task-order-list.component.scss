@@ -1,29 +1,28 @@
-@use 'sass:math';
-@import '../../../../shared/styles/variables.__generated.scss';
+@use '../../../../shared/styles/variables.__generated.scss' as *;
 
 ::ng-deep yata-label.label {
   span {
-    font-size: $_14unit !important;
-    line-height: $_14unit !important;
+    font-size: $unit14 !important;
+    line-height: $unit14 !important;
   }
 }
 
 .hint {
   display: block;
-  padding: 0 $_2unit;
-  margin: $_10unit 0;
-  font-size: $_14unit;
+  padding: 0 $unit2;
+  margin: $unit10 0;
+  font-size: $unit14;
   color: black;
   opacity: 0.7;
 }
 
 .drag-drop-task-order-list {
-  margin-top: $_2unit;
-  padding: $_2unit;
+  margin-top: $unit2;
+  padding: $unit2;
 
   .row {
     box-sizing: border-box;
-    height: $_40unit;
+    height: $unit40;
     display: flex !important;
     flex-direction: column;
     justify-content: center !important;
@@ -34,7 +33,7 @@
   }
 
   .row:not(:last-of-type) {
-    margin-bottom: $_6unit;
+    margin-bottom: $unit6;
   }
 
   .row:hover {
