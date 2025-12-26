@@ -132,7 +132,10 @@ export const DIALOG_BORDER_RADIUS = \`${modals.borderRadius}\`;
 
   const colors = `
 @use "sass:map";
-@use 'sass:math';
+@use "sass:math";
+
+@forward "sass:map";
+@forward "sass:math";
 
 ${units}
 ${palettes}
