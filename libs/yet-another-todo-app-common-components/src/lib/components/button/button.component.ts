@@ -1,6 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Ripple } from './button.interfaces';
+import { ButtonType, Ripple } from './button.interfaces';
 import { SPINNER_DEBOUNCE_TIME_MS } from './button.consts';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -29,13 +29,13 @@ import { VariantClassPipe } from '../../pipes/variant-class/variant-class.pipe';
   animations: [RIPPLE_ANIMATION],
 })
 export class ButtonComponent {
-  type = input<'button' | 'submit' | 'reset'>('button');
-  icon = input<string>('');
-  loading = input<boolean>(false);
-  disabled = input<boolean>(false);
+  readonly type = input<ButtonType>('button');
+  readonly icon = input<string>('');
+  readonly loading = input<boolean>(false);
+  readonly disabled = input<boolean>(false);
 
-  protected ripples = signal<Ripple[]>([]);
-  protected showSpinner = toSignal(
+  protected readonly ripples = signal<Ripple[]>([]);
+  protected readonly showSpinner = toSignal(
     toObservable(this.loading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)),
   );
 

@@ -3,3 +3,5 @@ export interface Ripple {
   y: number;
   size: number;
 }
+
+export type ButtonType = HTMLButtonElement['type'];
