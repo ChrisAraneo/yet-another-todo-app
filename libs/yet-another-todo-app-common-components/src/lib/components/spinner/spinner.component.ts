@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FADE_IN_ANIMATION } from '../../animations/fade-in.animation';
+import { SpinnerSize } from './spinner.interfaces';
 
 @Component({
   selector: 'yata-spinner',
@@ -11,5 +12,5 @@ import { FADE_IN_ANIMATION } from '../../animations/fade-in.animation';
   animations: [FADE_IN_ANIMATION],
 })
 export class SpinnerComponent {
-  size = input<'small' | 'medium' | 'large'>('medium');
+  readonly size = input<SpinnerSize>('medium');
 }
