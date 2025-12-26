@@ -121,10 +121,10 @@ export class SignInModalComponent implements OnDestroy {
         });
     });
 
-  cancel = async (): Promise<void> => {
+  cancel() {
     this.authService.signOut();
     this.dialogReference.close();
-  };
+  }
 
   private initializeForm(): void {
     this.form = this.formBuilder.group<SignInForm>({

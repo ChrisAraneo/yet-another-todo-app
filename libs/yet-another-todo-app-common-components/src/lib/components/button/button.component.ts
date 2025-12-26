@@ -2,7 +2,6 @@ import { Component, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Ripple } from './button.interfaces';
 import { SPINNER_DEBOUNCE_TIME_MS } from './button.consts';
-import { noop } from 'lodash';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { debounceTime } from 'rxjs';
@@ -30,38 +29,22 @@ import { VariantClassPipe } from '../../pipes/variant-class/variant-class.pipe';
   animations: [RIPPLE_ANIMATION],
 })
 export class ButtonComponent {
-  disabled = input<boolean>(false);
   type = input<'button' | 'submit' | 'reset'>('button');
   icon = input<string>('');
-  click = input<(event: unknown) => Promise<void>>(() => new Promise(noop));
+  loading = input<boolean>(false);
+  disabled = input<boolean>(false);
 
   protected ripples = signal<Ripple[]>([]);
-  protected isLoading = signal<boolean>(false);
   protected showSpinner = toSignal(
-    toObservable(this.isLoading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)),
+    toObservable(this.loading).pipe(debounceTime(SPINNER_DEBOUNCE_TIME_MS)),
   );
 
   onClick(event: MouseEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (this.isLoading() || this.disabled()) {
+    if (this.loading() || this.disabled()) {
       return;
     }
 
     this.createRipple(event);
-
-    this.isLoading.set(true);
-
-    this.click()(event)
-      .then(() => {
-        this.isLoading.set(false);
-      })
-      .catch((error: unknown) => {
-        this.isLoading.set(false);
-
-        throw error;
-      });
   }
 
   private createRipple(event: MouseEvent): void {

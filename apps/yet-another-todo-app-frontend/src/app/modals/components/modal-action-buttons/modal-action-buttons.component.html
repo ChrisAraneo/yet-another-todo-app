@@ -1,19 +1,21 @@
 <div class="actions" [class.first-step]="step === 1">
   @if (backButton && step > 1) {
-    <yata-button [click]="backButton.click">
+    <yata-button (click)="backButton.click()" [loading]="backButtonLoading()">
       {{ backButton.label || ('ModalActionButtons.back' | translate) }}
     </yata-button>
   }
   <ng-content />
   @if (step < total) {
-    <yata-button [click]="nextButton.click" [variant]="'primary'">
+    <yata-button (click)="nextButton.click()" [variant]="'primary'" [loading]="nextButtonLoading()">
+      {{
       nextButton.label || ('ModalActionButtons.next' | translate)
     </yata-button>
   } @else if (submitButton.label) {
     <yata-button
-      [click]="submitButton.click"
+      (click)="submitButton.click()"
       [variant]="'primary'"
-      [icon]="submitButton.icon || ''">
+      [icon]="submitButton.icon || ''"
+      [loading]="submitButtonLoading()">
       {{ submitButton.label | translate }}
     </yata-button>
     <!-- <yata-button

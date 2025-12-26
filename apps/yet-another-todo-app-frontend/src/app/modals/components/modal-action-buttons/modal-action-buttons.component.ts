@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -43,4 +43,29 @@ export class ModalActionButtonsComponent {
     color: 'primary',
     click: NOOP,
   };
+
+  protected backButtonLoading = signal(false);
+  protected nextButtonLoading = signal(false);
+  protected submitButtonLoading = signal(false);
+
+  onBackButtonClick(): void {
+    if (this.backButton.click) {
+      this.backButtonLoading.set(true);
+      this.backButton.click().then(() => this.backButtonLoading.set(false));
+    }
+  }
+
+  onNextButtonClick(): void {
+    if (this.nextButton.click) {
+      this.nextButtonLoading.set(true);
+      this.nextButton.click().then(() => this.nextButtonLoading.set(false));
+    }
+  }
+
+  onSubmitButtonClick(): void {
+    if (this.submitButton.click) {
+      this.submitButtonLoading.set(true);
+      this.submitButton.click().then(() => this.submitButtonLoading.set(false));
+    }
+  }
 }

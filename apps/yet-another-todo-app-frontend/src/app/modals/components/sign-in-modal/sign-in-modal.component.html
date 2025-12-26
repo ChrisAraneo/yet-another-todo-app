@@ -22,7 +22,7 @@
         click: submit,
       }">
       <div class="offline-button-wrapper">
-        <yata-button [variant]="'ghost'" [disabled]="false" [click]="cancel">
+        <yata-button [variant]="'ghost'" [disabled]="false" (click)="cancel()">
           {{ 'SignInModal.dontSignIn' | translate }}
         </yata-button>
       </div>
