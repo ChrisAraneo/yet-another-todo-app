@@ -3,7 +3,7 @@
 $paginator-height: $unit64;
 $grid-header-height: $unit64;
 $grid-table-height: calc(
-  100vh - $128unit - $unit32 - $paginator-height - $grid-header-height
+  100vh - $unit128 - $unit32 - $paginator-height - $grid-header-height
 );
 
 :host {

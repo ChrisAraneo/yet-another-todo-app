@@ -177,7 +177,7 @@ $dialog-border-radius: ${modals.borderRadius};
 $form-input-border-radius: $unit6;
 $form-input-border: 1px solid $form-input-border-color;
 $form-input-focus-border: 1px solid $form-input-focus-border-color;
-$form-input-background: darken($background-color, 0.7%) !important;
+$form-input-background: ${hslToHex(get(gray, 100))} !important;
 $form-input-focus-background: rgba(${hslToHex(get(primary, 50))}, 0.33) !important;
 
 `;
